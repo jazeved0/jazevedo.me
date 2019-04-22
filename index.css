@@ -1,20 +1,3 @@
-html, body {
-    background-color: #313C4A;
-}
-
-main {
-    padding-top: 72px;
-    color: #f6f4f4;
-}
-
-h1 {
-    font-weight: 300;
-}
-
-nav.navbar {
-    background-color: #191919!important;
-}
-
 #wrapper {
     background-color: #81818446;
     padding: 16px;
@@ -131,20 +114,6 @@ input[type="color"]:focus,
     font-weight: initial;
     color: #BBBBBB !important;
     font-style: italic;
-}
-
-a {
-    color: #7eacdf;
-    font-weight: 600;
-}
-
-a:hover {
-    color: #648fc0;
-    font-weight: 600;
-}
-
-.light-text {
-    color: #f6f4f491;
 }
 
 #filter-icon {

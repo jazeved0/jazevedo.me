@@ -1,5 +1,5 @@
 const width = 1000,
-    height = 800,
+    height = 640,
     margin = 40,
     scaleSize = d3.scaleSqrt()  .domain([0, 51000])        .range([1.2, 13]),
     scaleAcc =  d3.scaleLinear().domain([1, 0.67, 0.33, 0]).range(["red", "orange", "yellow", "green"]),
@@ -73,7 +73,7 @@ function setTextBoxes(d) {
     document.getElementById("locale").innerHTML = d[3];
     document.getElementById("act").innerHTML = d[5];
     document.getElementById("sat").innerHTML = d[6];
-    if (!visible.includes(key)) document.getElementById("active-key").innerHTML = d[indexOfKey(key)];
+    if (!visible.includes(key)) document.getElementById("active-key").innerHTML = d[indexOfKey(key)].toFixed(4);
 }
 
 function clearTextBoxes() {

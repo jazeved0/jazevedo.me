@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
+        <title>College Explorer | Data</title>
 		<meta charset="UTF-8"/> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css" integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css" integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
-		<link href="index.css" type="text/css" rel="stylesheet" />
+        <link rel="stylesheet" href="common.css" type="text/css" >
+        <link rel="stylesheet" href="index.css" type="text/css" />
    	</head>
    	<body>
         <header>
@@ -20,6 +23,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-item nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link" href="about.html">About</a>
                     </div>
                 </div>
             </nav>
@@ -111,10 +115,10 @@
                             placeholder="Filter colleges" aria-label="College filter" spellcheck="false">
                         </div>
                         <div id="wrapper"></div>
+                        <button type="button" class="btn btn-primary mt-4" onclick="highlightIvy();"><i class="fas fa-leaf mr-2"></i> Highlight Ivy League Schools</button>
+                        <button type="button" class="btn btn-primary mt-4 ml-2" onclick="startGraph();"><i class="fas fa-sync-alt mr-2"></i> Refresh Simulation</button>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary mt-4" onclick="highlightIvy();"><i class="fas fa-leaf mr-2"></i> Highlight Ivy League Schools</button>
-                <button type="button" class="btn btn-primary mt-4 ml-2" onclick="startGraph();"><i class="fas fa-sync-alt mr-2"></i> Refresh Simulation</button>
             </div>
         </main>
         <script src="https://d3js.org/d3.v4.min.js"></script>
