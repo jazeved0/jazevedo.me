@@ -56,7 +56,7 @@ var key;
 var visible = ["Average Cost", "Admission Rate", "ACT Median", "SAT Average"];
 
 const generalDistanceFunction = (d1, d2, index) => {
-    return Math.abs(d1[index] - d2[index]);
+    return Math.abs(d1[index] - d2[index]) * 100;
 }
 
 const localeDistance = (d1, d2) => {
@@ -118,7 +118,7 @@ function startGraph() {
         const model = new tsnejs.tSNE({
             epsilon: 1,
             dim: 2,
-            perplexity: 40,
+            perplexity: 100,
         });
 
         var dists;
