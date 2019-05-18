@@ -1,0 +1,198 @@
+html, body {
+    background-color: #F7F8F8;
+}
+
+/* Background blue triangle */
+.background-top {
+    background-image: url('../header-background.svg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: -32px;
+    background-size: 2500px 750px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 750px;
+}
+
+/* Lead text styles */
+.lead-wrapper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 270px;
+}
+.lead {
+    width: 1280px;
+    color: #F7F8F8;
+    font-family: "futura-pt", sans-serif;
+    padding: 0 25px;
+}
+.lead h1 {
+    font-weight: 500;
+    font-size: 5.2rem;
+    margin-bottom: 0.3em;
+    line-height: 3.6rem;
+}
+.lead h2 {
+    font-weight: 300;
+    font-size: 2.4rem;
+    margin-bottom: 0;
+    line-height: 2.1rem;
+}
+.lead h3 {
+    font-weight: 300;
+    font-size: 1.35rem;
+}
+
+/* Navbar styles */
+.navbar-wrapper {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+nav {
+    margin-bottom: -96px;
+    z-index: 2;
+}
+.nav-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+.nav-content {
+    max-width: 1500px;
+    width: 100%;
+    padding: 20px 10px 20px 30px;
+
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.nav-padding {
+    margin-right: 120px;
+}
+.navbar-dark .navbar-brand {
+    color: #F7F8F8;
+    font-family: "keep_calm_medregular", "futura-pt", sans-serif;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: #F7F8F8;
+    font-family: "futura-pt", sans-serif;
+    margin-top: 3px;
+    font-size: 1.1rem;
+}
+li.nav-item {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.btn-outline-secondary {
+    font-family: "futura-pt", sans-serif;
+    color: #F7F8F8;
+    border-color: #F7F8F8;
+}
+.btn-outline-secondary:hover,
+.btn-outline-secondary:active {
+    color: #2F3B56;
+    background-color: #F7F8F8;
+    border-color: #F7F8F8;
+}
+
+/* 1080p config */
+@media(max-width: 1920px) {
+    .background-top {
+        background-size: 2100px 620px;
+        height: 620px;
+    }
+    .lead-wrapper {
+        padding-top: 180px;
+    }
+    .lead {
+        width: 1150px;
+    }
+    .nav-content {
+        max-width: 1200px;
+    }
+}
+@media(max-width: 1150px) {
+    /* Modify font sizes */
+    .lead h1 {
+        font-size: 4.5rem;
+    }
+    .lead h2 {
+        font-size: 2rem;
+    }
+    .lead h3 {
+        font-size: 1.1rem;
+    }
+    /* Fill more height on smaller screens */
+    .background-top {
+        background-position-x: -540px;
+        background-size: 2100px 550px;
+    }
+    .lead-wrapper {
+        padding-top: 180px;
+    }
+    /* Add left padding */
+    .lead {
+        padding: 0 10px 0 40px;
+    }
+    /* Adjust nav spacing */
+    .nav-padding {
+        margin-right: 60px;
+    }
+    li.nav-item {
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+}
+@media(max-width: 767.95px) {
+    /* Style navbar dropdown */
+    button.navbar-toggler:not(.collapsed) {
+        background-color: rgb(33, 40, 59);
+        border: none;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    button.navbar-toggler:not(.collapsed):after {
+        background-color: rgb(33, 40, 59);
+        content: " ";
+        position: absolute;
+        top: 59px;
+        height: 20px;
+        width: 54px;
+        right: 10px;
+    }
+    .navbar-collapse {
+        margin-top: 18px;
+        background-color: rgb(33, 40, 59);
+        padding: 8px 12px 20px 28px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-top-left-radius: 8px;
+    }
+}
+@media(max-width: 575.95px) {
+    /* Change background position for small screen */
+    .background-top {
+        background-position-x: -620px;
+    }
+    /* Lessen padding */
+    .lead {
+        padding: 0 25px;
+    }
+    .lead-wrapper {
+        padding-top: 150px;
+    }
+}

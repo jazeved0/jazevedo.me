@@ -24,12 +24,12 @@ div.legend-item > p {
 
 #size-legend {
     height: 120px;
-    background-image: url('assets/size_legend.svg');
+    background-image: url('../../assets/size_legend.svg');
 }
 
 #color-legend {
     height: 110px;
-    background-image: url('assets/color_legend.svg');
+    background-image: url('../../assets/color_legend.svg');
 }
 
 svg text {
