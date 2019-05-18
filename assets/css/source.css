@@ -1,0 +1,35 @@
+main {
+    overflow-y: auto!important;
+}
+
+.source-wrapper {
+    background-color: #282C34;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+/* for block of numbers */
+.hljs-ln-numbers {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    text-align: right;
+    color: #ccc;
+    vertical-align: top;
+    padding-right: 6px;
+}
+
+@media (min-width: 1200px) {
+    .source-wrapper > .container{
+        max-width: 1180px;
+    }
+}
+
+/* for block of code */
+.hljs-ln-code {
+    padding-left: 12px!important;
+}

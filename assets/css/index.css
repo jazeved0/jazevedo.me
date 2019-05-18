@@ -1,5 +1,6 @@
-html, body {
-    background-color: #F7F8F8;
+/* Clear navbar */
+nav {
+    background-color: transparent;
 }
 
 /* Background blue triangle */
@@ -48,14 +49,14 @@ html, body {
 }
 
 /* Navbar styles */
+nav {
+    margin-bottom: -96px;
+    z-index: 2;
+}
 .navbar-wrapper {
     position: absolute;
     top: 0;
     width: 100%;
-}
-nav {
-    margin-bottom: -96px;
-    z-index: 2;
 }
 .nav-container {
     position: relative;
@@ -79,34 +80,6 @@ nav {
     align-items: center;
     -ms-flex-pack: justify;
     justify-content: space-between;
-}
-.nav-padding {
-    margin-right: 120px;
-}
-.navbar-dark .navbar-brand {
-    color: #F7F8F8;
-    font-family: "keep_calm_medregular", "futura-pt", sans-serif;
-}
-.navbar-dark .navbar-nav .nav-link {
-    color: #F7F8F8;
-    font-family: "futura-pt", sans-serif;
-    margin-top: 3px;
-    font-size: 1.1rem;
-}
-li.nav-item {
-    margin-left: 8px;
-    margin-right: 8px;
-}
-.btn-outline-secondary {
-    font-family: "futura-pt", sans-serif;
-    color: #F7F8F8;
-    border-color: #F7F8F8;
-}
-.btn-outline-secondary:hover,
-.btn-outline-secondary:active {
-    color: #2F3B56;
-    background-color: #F7F8F8;
-    border-color: #F7F8F8;
 }
 
 /* 1080p config */
@@ -147,14 +120,6 @@ li.nav-item {
     /* Add left padding */
     .lead {
         padding: 0 10px 0 40px;
-    }
-    /* Adjust nav spacing */
-    .nav-padding {
-        margin-right: 60px;
-    }
-    li.nav-item {
-        margin-left: 4px;
-        margin-right: 4px;
     }
 }
 @media(max-width: 767.95px) {
