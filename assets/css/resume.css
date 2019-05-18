@@ -1,6 +1,7 @@
 html, body {
     height: 100vh;
     overflow-y: hidden;
+    background-color: #525659;
 }
 .pdf-wrapper {
     height: 100%;
