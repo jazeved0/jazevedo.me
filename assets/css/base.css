@@ -2,6 +2,20 @@ html, body {
     background-color: #F7F8F8;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: "futura-pt", sans-serif;
+}
+
+.light-text h1,
+.light-text h2,
+.light-text h3,
+.light-text h4,
+.light-text h5,
+.light-text h6,
+.light-text p {
+    color: #F7F8F8;
+}
+
 /* Navbar styles */
 nav {
     background-color: #2F3B56;
@@ -31,6 +45,8 @@ li.nav-item {
     margin-left: 8px;
     margin-right: 8px;
 }
+
+/* Button styles */
 .btn-outline-secondary {
     font-family: "futura-pt", sans-serif;
     color: #F7F8F8;
@@ -57,6 +73,136 @@ li.nav-item {
 .btn-secondary:not(:disabled):not(.disabled):active,.btn-secondary:not(:disabled):not(.disabled).active,.show>.btn-secondary.dropdown-toggle{color:#F7F8F8;background-color: #7d6b8f;border-color:#222222}
 .btn-secondary:not(:disabled):not(.disabled):active:focus,.btn-secondary:not(:disabled):not(.disabled).active:focus,.show>.btn-secondary.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(81,73,91,0.5)}
 
+/* Utility classes */
+.stripes-bg {
+    background-image: url(../img/stripes.svg);
+    background-size: 450px;
+}
+.fill-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Contact flyout styles */
+.contact-wrapper {
+    overflow-x: hidden;
+    overflow-y: auto;
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: visibility 0s linear 0.525s;
+    pointer-events: none;
+    z-index: 99999998;
+}
+.contact-wrapper > span.background-fill {
+    background-color: hsla(0, 0%, 10%, 0.8);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    z-index: 1;
+    transform: translate3d(0, 0, 0);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.contact-wrapper > .contact {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    max-height: 30em;
+    max-width: none;
+    transform: translate3d(0,-115%,0);
+    overflow: hidden !important;
+    touch-action: auto;
+    display: flex;
+}
+.contact-wrapper > .contact .content {
+    background-color: #2F3B56;
+    padding: 36px 56px;
+    flex-grow: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 900px;
+}
+.contact-wrapper > .contact .content .social-group {
+    margin-top: 32px;
+}
+.contact-wrapper > .contact .content .social-group > a {
+    height: 48px;
+    padding: 8px 6px 8px 12px;
+    font-size: 1.75em;
+    text-align: center;
+    margin: 0 .25em .5em 0;
+    background-color: rgba(255,255,255,.1);
+}
+.contact-wrapper > .contact .content .social-group > a:hover,
+.contact-wrapper > .contact .content .social-group > a:active {
+    background-color: rgba(255,255,255,.2);
+}
+.contact-wrapper > .close-button {
+    display: block;
+    position: absolute;
+    top: 0;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    line-height: 1;
+    text-align: center;
+    background-color: transparent;
+    opacity: 0;
+    transform: scale(0);
+    transition-duration: 0.3s, 0.5s, 0.5s;
+    transition-property: color, opacity, transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 3;
+    width: 1.8em;
+    height: 1.8em;
+    font-size: 3em;
+    color: rgba(255,255,255,0.5);
+    right: 0;
+}
+.contact-wrapper.active > .close-button {
+    opacity: 1;
+    transform: scale(1);
+}
+.contact-wrapper > .contact .side {
+    background-color: #21283B;
+    flex-grow: 1;
+    height: 100%;
+}
+.contact-wrapper > .contact .side span {
+    content: " ";
+}
+.contact-wrapper.active {
+    visibility: visible;
+    transition-delay: 0s;
+    pointer-events: auto;
+}
+.contact-wrapper.active > .contact {
+    transform: translate3d(0, 0, 0);
+}
+.contact-wrapper.active > span.background-fill {
+    opacity: 1;
+}
+.contact-wrapper > .contact p.blurb {
+    opacity: 0.7;
+}
+.contact-wrapper > .contact a {
+    color: #F7F8F8;
+}
+.contact-wrapper > .contact a:hover,
+.contact-wrapper > .contact a:active {
+    text-decoration: underline;
+    opacity: 0.8;
+}
 
 @media(max-width: 1150px) {
     /* Adjust nav spacing */
@@ -66,5 +212,25 @@ li.nav-item {
     li.nav-item {
         margin-left: 4px;
         margin-right: 4px;
+    }
+}
+@media(max-width: 1199.95px) {
+    .contact-wrapper > .contact .content {
+        padding-left: 36px;
+    }
+}
+@media(max-width: 575.95px) {
+    .contact-wrapper > .contact {
+        max-height: none;
+    }
+    .contact-wrapper > .close-button {
+        width: 2em;
+        height: 2em;
+        font-size: 2em;
+    }
+}
+@media(max-width: 400px) {
+    .contact-wrapper > .contact .side {
+        display: none;
     }
 }

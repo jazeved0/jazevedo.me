@@ -18,10 +18,8 @@
     <meta name="msapplication-config" content="/assets/img/browserconfig.xml">
     <!-- Site-universal content meta -->
     <meta property="og:image" content="/assets/img/thumbnail.png">
-    <meta name="description" content="My name is Joseph, and I'm a second-year computer science student at Georgia Tech specializing in full stack development and web applications.
-        I enjoy working on projects that focus on building smooth UI design as well as structured and efficient developer toolchains.">
-    <meta property="og:description" content="My name is Joseph, and I'm a second-year computer science student at Georgia Tech specializing in full stack development and web applications.
-        I enjoy working on projects that focus on building smooth UI design as well as structured and efficient developer toolchains.">
+    <meta name="description" content="My name is Joseph, and I'm a second-year computer science student at Georgia Tech specializing in full stack development and web applications. I enjoy working on projects that focus on building smooth UI design as well as structured and efficient developer toolchains.">
+    <meta property="og:description" content="My name is Joseph, and I'm a second-year computer science student at Georgia Tech specializing in full stack development and web applications. I enjoy working on projects that focus on building smooth UI design as well as structured and efficient developer toolchains.">
     <!-- Content meta -->
     <title>Joseph Azevedo | Resume Source</title>
     <meta name="og:title" property="og:title" content="Resume Source Code">
@@ -67,11 +65,38 @@
                 </li>
             </ul>
             <form class="form-inline my-2">
-                <button class="btn btn-outline-secondary my-2 my-sm-0 px-4" type="submit">Contact</button>
+                <button id="btn-contact" class="btn btn-outline-secondary my-2 my-sm-0 px-4" type="submit">Contact</button>
             </form>
         </div>
     </div>
 </nav>
+<div class="contact-wrapper">
+    <span class="background-fill"></span>
+    <button id="btn-close-contact" class="close-button"
+            data-x-toggle-close="1" aria-label="Close Off Canvas Content" style="outline: none;">
+        <span>×</span>
+    </button>
+    <div class="light-text contact">
+        <div class="content">
+            <h2>Contact</h2>
+            <p class="blurb">
+                My name is Joseph, and I'm a second-year computer science student at Georgia Tech specializing in full stack
+                development and web applications. I enjoy working on projects that focus on building smooth UI design as well
+                as structured and efficient developer toolchains. I can be contacted through email (preferred) as well as LinkedIn.
+            </p>
+            <a href="mailto:joseph.az@gatech.edu">
+                <i class="fas fa-envelope mr-2"></i>
+                joseph.az@gatech.edu</a>
+            <div class="social-group">
+                <a href="https://www.linkedin.com/in/joseph-az" target="_blank" rel="noopener">
+                    <i class="fab fa-linkedin mr-2"></i></a>
+                <a href="https://github.com/jazevedo620" target="_blank" rel="noopener">
+                    <i class="fab fa-github mr-2"></i></a>
+            </div>
+        </div>
+        <div class="side"><div class="stripes-bg fill-container"><span></span></div></div>
+    </div>
+</div>
 <div class="navbar navbar-dark controls-bar">
     <div class="container">
         <form class="form-inline my-0 my-sm-2">
@@ -280,6 +305,7 @@ companies for funding and partnerships}
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"></script>
 <script src="../assets/vendor/highlight.pack.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.6.0/dist/highlightjs-line-numbers.min.js"></script>
+<script src="/assets/js/base.js"></script>
 <script>
     hljs.initHighlightingOnLoad();
     hljs.initLineNumbersOnLoad();
