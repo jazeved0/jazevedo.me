@@ -1,0 +1,6 @@
+permalink: /:title
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "master"

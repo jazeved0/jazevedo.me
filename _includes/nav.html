@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-md navbar-dark">
+    {% if page.nav.customContainer %}
+        <div class="nav-container"><div class="inner">
+    {% else %}
+        <div class="container">
+    {% endif %}
+        <a class="navbar-brand nav-padding" href="/">{{ site.data.nav.brand }}</a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#collapse-links"
+                aria-controls="collapse-links" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapse-links">
+            <ul class="navbar-nav nav-padding">
+                {% for item in site.data.nav.links %}
+                    {% if page.url == item.href or page.parent == item.href %}
+                        {% assign current = true %}
+                    {% else %}
+                        {% assign current = false %}
+                    {% endif %}
+                    <li class="nav-item {% if current %}active{% endif %}">
+                        <a class="nav-link {% if item.disabled %}disabled{% endif %}" href="{{ item.href }}"
+                           {% if item.external %}
+                            rel="noopener" target="_blank"
+                           {% endif %}}>
+                            {% if item.icon %}
+                                <i class="{{ item.icon }} mr-2"></i>
+                            {% endif %}
+                            {{ item.text }}
+                            {% if current %}<span class="sr-only">(current)</span>{% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <form class="form-inline my-2">
+                <button id="btn-contact" class="btn btn-outline-secondary my-2 my-sm-0 px-4" type="submit">Contact</button>
+            </form>
+        </div>
+        {% if page.nav.customContainer %}</div>{% endif %}
+    </div>
+</nav>
+<div class="contact-wrapper" style="visibility: hidden">
+    <span class="background-fill"></span>
+    <button id="btn-close-contact" class="close-button" aria-label="Close contact panel">
+        <span>×</span>
+    </button>
+    <div class="light-text contact">
+        <div class="content">
+            <h2>Contact</h2>
+            <p class="blurb">{{ site.data.nav.contact.blurb | replace: '!DESCRIPTION!', site.data.global.seo.description}}</p>
+            <a href="mailto:{{ site.data.nav.contact.email }}">
+                <i class="fas fa-envelope mr-2"></i>
+                {{ site.data.nav.contact.email}}</a>
+            <div class="social-group">
+                {% for item in site.data.nav.contact.socials %}
+                    <a href="{{ item.href }}" target="_blank" rel="noopener">
+                        <i class="{{ item.icon }} mr-2"></i></a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="side"><div class="stripes-bg fill-container"><span></span></div></div>
+    </div>
+</div>

@@ -2,9 +2,12 @@ main {
     overflow-y: auto!important;
 }
 
+html, body {
+    background-color: #282C34;
+}
+
 .source-wrapper {
     background-color: #282C34;
-    padding-top: 12px;
     padding-bottom: 12px;
 }
 

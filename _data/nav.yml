@@ -1,0 +1,23 @@
+brand: jazevedo
+links:
+  - text: Resume
+    href: "/resume"
+  - text: Projects
+    href: "/projects"
+    disabled: true
+  - text: Github
+    href: "https://github.com/jazevedo620"
+    external: true
+    icon: "fab fa-github"
+  - text: LinkedIn
+    href: "https://www.linkedin.com/in/joseph-az"
+    icon: "fab fa-linkedin"
+contact:
+  button: Contact
+  blurb: "!DESCRIPTION! I can be contacted through email (preferred) as well as LinkedIn."
+  email: "joseph.az@gatech.edu"
+  socials:
+    - href: "https://www.linkedin.com/in/joseph-az"
+      icon: "fab fa-linkedin"
+    - href: "https://github.com/jazevedo620"
+      icon: "fab fa-github"

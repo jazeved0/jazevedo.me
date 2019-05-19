@@ -182,7 +182,7 @@ li.nav-item {
     content: " ";
 }
 .contact-wrapper.active {
-    visibility: visible;
+    visibility: visible!important;
     transition-delay: 0s;
     pointer-events: auto;
 }
@@ -202,6 +202,9 @@ li.nav-item {
 .contact-wrapper > .contact a:active {
     text-decoration: underline;
     opacity: 0.8;
+}
+.btn-close-contact {
+    outline: none;
 }
 
 @media(max-width: 1150px) {
