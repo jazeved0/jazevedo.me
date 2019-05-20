@@ -1,0 +1,70 @@
+---
+title: Projects
+styles:
+- "/assets/css/projects.css"
+nav:
+  sticky: true
+---
+<main class="light-text">
+    <div class="py-5 container">
+        <h1>Projects</h1>
+        <p class="mb-0">Click on a project to view details</p>
+        <div class="row mt-2 project-container px-3 px-md-0">
+            {% assign sorted = site.projects | sort: 'importance' | reverse %}
+            {% for project in sorted %}
+                <div class="col-12 col-md-6 col-xl-4 position-relative">
+                    {% assign hasCard = false %}
+                    {% assign card = null %}
+                    {% assign hasLogo = false %}
+                    {% assign logo = null %}
+                    {% capture cardLocation %}_projects/{{ project.slug }}/card{% endcapture %}
+                    {% capture logoLocation %}_projects/{{ project.slug }}/logo{% endcapture %}
+                    {% capture relative %}/projects/{{ project.slug }}/{% endcapture %}
+                    {% assign pngCard = cardLocation | append: '.png' %}
+                    {% assign jpgCard = cardLocation | append: '.jpg' %}
+                    {% assign svgCard = cardLocation | append: '.svg' %}
+                    {% assign pngLogo = logoLocation | append: '.png' %}
+                    {% assign jpgLogo = logoLocation | append: '.jpg' %}
+                    {% assign svgLogo = logoLocation | append: '.svg' %}
+                    {% for coll in site.collections %}
+                        {% if coll.label == "projects" %}
+                            {% for file in coll.files %}
+                                {% if file.path == pngCard or file.path == jpgCard or file.path == svgCard %}
+                                    {% assign hasCard = true %}
+                                    {% assign card = relative | append: file.name %}
+                                {% elsif file.path == pngLogo or file.path == jpgLogo or file.path == svgLogo %}
+                                    {% assign hasLogo = true %}
+                                    {% assign logo = relative | append: file.name %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    <div class="project-card"
+                        {% if hasCard %}
+                            style="background-image: url('{{ card }}')">
+                            <div class="overlay">
+                        {% else %}>{% endif %}
+                            <div class="logo-container">
+                                {% if hasLogo %}
+                                    <img src="{{ logo }}" alt="{{ project.title }} logo">
+                                {% else %}
+                                    <!-- TODO add alternative text -->
+                                {% endif %}
+                            </div>
+                        {% if hasCard %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="label">
+                        <a class="stretched-link" href="{{ project.url }}"><h2>{{ project.type }}</h2></a>
+                        <div>
+                            {% for technology in project.technologies %}
+                                <span class="badge badge-pill badge-secondary">{{ technology }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>

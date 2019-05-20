@@ -1,10 +1,12 @@
-<nav class="navbar navbar-expand-md navbar-dark">
+<nav class="navbar navbar-expand-md navbar-dark{% if page.nav.sticky %} navbar-sticky sticky-top{% endif %}">
     {% if page.nav.customContainer %}
         <div class="nav-container"><div class="inner">
     {% else %}
         <div class="container">
     {% endif %}
-        <a class="navbar-brand nav-padding" href="/">{{ site.data.nav.brand }}</a>
+        <a class="navbar-brand nav-padding" href="/">
+            {{ site.data.nav.brand }}
+        </a>
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#collapse-links"
                 aria-controls="collapse-links" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

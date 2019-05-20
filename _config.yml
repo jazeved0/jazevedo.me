@@ -1,5 +1,19 @@
+collections:
+  projects:
+    output: true
+
 permalink: /:title
 defaults:
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+      parent: "/projects"
+      nav:
+        sticky: true
+      styles:
+        - "/assets/css/projects.css"
   - scope:
       path: ""
     values:

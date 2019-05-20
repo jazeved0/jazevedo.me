@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 415.4 269.1" style="enable-background:new 0 0 415.4 269.1;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#F7F8F8;}
+	.st1{fill:none;stroke:#F7F8F8;stroke-width:5.6693;stroke-miterlimit:10;}
+	.st2{fill-rule:evenodd;clip-rule:evenodd;fill:#F7F8F8;}
+</style>
+<symbol  id="H" viewBox="-8.9 -11.2 17.8 22.3">
+	<path class="st0" d="M0-6.7c0-2.2,2.2-4.5,4.5-4.5s4.5,2.2,4.5,5.6C8.9,0,0,8.9,0,11.2C0,8.9-8.9,0-8.9-5.6c0-3.3,2.2-5.6,4.5-5.6
+		S0-8.9,0-6.7z"/>
+</symbol>
+<g id="Layer_2">
+</g>
+<g id="Layer_1">
+	<path class="st1" d="M230,2.8h172.9c5.3,0,9.6,4.2,9.6,9.4v244.6c0,5.2-4.3,9.4-9.6,9.4H230c-5.3,0-9.6-4.2-9.6-9.4V12.3
+		C220.4,7.1,224.7,2.8,230,2.8z"/>
+	
+		<use xlink:href="#H"  width="17.8" height="22.3" x="-8.9" y="-11.2" transform="matrix(1.9466 0 0 1.9466 283.8985 72.2033)" style="overflow:visible;"/>
+	
+		<use xlink:href="#H"  width="17.8" height="22.3" x="-8.9" y="-11.2" transform="matrix(1.9466 0 0 1.9466 349.0363 72.2033)" style="overflow:visible;"/>
+	
+		<use xlink:href="#H"  width="17.8" height="22.3" x="-8.9" y="-11.2" transform="matrix(1.9466 0 0 1.9466 283.8985 113.7673)" style="overflow:visible;"/>
+	
+		<use xlink:href="#H"  width="17.8" height="22.3" x="-8.9" y="-11.2" transform="matrix(1.9466 0 0 1.9466 349.0363 113.7673)" style="overflow:visible;"/>
+	
+		<use xlink:href="#H"  width="17.8" height="22.3" x="-8.9" y="-11.2" transform="matrix(1.9466 0 0 1.9466 316.4674 92.9856)" style="overflow:visible;"/>
+	
+		<use xlink:href="#H"  width="17.8" height="22.3" x="-8.9" y="-11.2" transform="matrix(-1.9466 0 0 -1.9466 349.0363 196.8946)" style="overflow:visible;"/>
+	
+		<use xlink:href="#H"  width="17.8" height="22.3" x="-8.9" y="-11.2" transform="matrix(-1.9466 0 0 -1.9466 283.8985 196.8946)" style="overflow:visible;"/>
+	
+		<use xlink:href="#H"  width="17.8" height="22.3" x="-8.9" y="-11.2" transform="matrix(-1.9466 0 0 -1.9466 349.0363 155.3306)" style="overflow:visible;"/>
+	
+		<use xlink:href="#H"  width="17.8" height="22.3" x="-8.9" y="-11.2" transform="matrix(-1.9466 0 0 -1.9466 283.8985 155.3306)" style="overflow:visible;"/>
+	
+		<use xlink:href="#H"  width="17.8" height="22.3" x="-8.9" y="-11.2" transform="matrix(-1.9466 0 0 -1.9466 316.4674 176.1123)" style="overflow:visible;"/>
+	<path class="st1" d="M12.5,2.8h172.9c5.3,0,9.6,4.2,9.6,9.4v244.6c0,5.2-4.3,9.4-9.6,9.4H12.5c-5.3,0-9.6-4.2-9.6-9.4V12.3
+		C2.8,7.1,7.2,2.8,12.5,2.8z"/>
+	<path id="path2076" class="st2" d="M62.7,114.3c-42.9,43.8-1.2,75.8,32.7,54.8C95.7,180,87.2,190,82,199.7h36.6
+		c-5.4-9.4-14.3-19.7-14.6-30.5c34.6,19.9,71.5-14.8,33-54.8c-20-22-32.6-39.1-37.3-44.9C95.4,75.1,84,91.8,62.7,114.3z"/>
+	<circle class="st0" cx="38.3" cy="44.6" r="17"/>
+	<circle class="st0" cx="160.6" cy="224.5" r="17"/>
+	<circle class="st0" cx="257.7" cy="33" r="17"/>
+	<circle class="st0" cx="374.8" cy="233.7" r="17"/>
+</g>
+</svg>

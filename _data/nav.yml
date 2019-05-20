@@ -4,7 +4,6 @@ links:
     href: "/resume"
   - text: Projects
     href: "/projects"
-    disabled: true
   - text: Github
     href: "https://github.com/jazevedo620"
     external: true
