@@ -13,12 +13,34 @@
     background-repeat: no-repeat;
     position: relative;
 }
-.project-container > div > div.project-card > div.overlay {
+.project-container > div > div.project-card > a {
+    width: 100%;
+    height: 100%;
+}
+.project-container > div > div.project-card div.overlay {
     background-color: rgba(82, 77, 89, 0.7);
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    height: 100%;
+    transition: background-color .5s ease;
+}
+.project-container > div > div.project-card:hover div.overlay {
+    background-color: rgba(62, 56, 66, 0.7);
+}
+.project-container > div > div.project-card div.description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #6F677A;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: .5s ease;
+}
+.project-container > div > div.project-card:hover div.description {
     height: 100%;
 }
 .project-container > div > div.project-card div.logo-container {
@@ -41,6 +63,7 @@
 .project-container > div > div.label {
     text-align: center;
     padding: 16px 16px 12px;
+    position: relative;
 }
 .project-container > div > div.label a * {
     color: #21283B;

@@ -89,7 +89,7 @@ function clearTextBoxes() {
 }
 
 let data;
-d3.csv('colleges.csv', function (colleges) {
+d3.csv('assets/colleges.csv', function (colleges) {
     data = colleges.map(parseDatum);
     startGraph();
 });

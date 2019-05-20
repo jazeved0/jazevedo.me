@@ -50,10 +50,17 @@ li.nav-item {
     border-color: #F7F8F8;
 }
 .btn-outline-secondary:hover,
-.btn-outline-secondary:active {
+.btn-outline-secondary.focus,
+.btn-outline-secondary:focus {
     color: #2F3B56;
     background-color: #F7F8F8;
     border-color: #F7F8F8;
+}
+.btn-outline-secondary:active {
+    color: #2F3B56!important;
+    background-color: rgba(247, 248, 248, 0.8)!important;
+    border-color: rgba(247, 248, 248, 0.8)!important;
+    box-shadow: 0 0 0 0.2rem rgba(108,117,125,.5)!important;
 }
 
 .btn-primary{color:#F7F8F8;background-color:#9E6276;border-color: #7b475a}

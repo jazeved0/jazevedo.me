@@ -24,21 +24,29 @@
         {% endfor %}
     {% endif %}
 {% endfor %}
-<div class="project-card"
-    {% if hasCard %}
-        style="background-image: url('{{ card }}')">
-        <div class="overlay">
-    {% else %}>{% endif %}
-        <div class="logo-container">
-            {% if hasLogo %}
-                <img src="{{ logo }}" alt="{{ include.project.title }} logo">
-            {% else %}
-                <!-- TODO add alternative text -->
+<div class="project-card" {% if hasCard %}style="background-image: url('{{ card }}')"{% endif %}>
+     <a href="{{ include.project.url }}">
+        {% if hasCard %}
+            <div class="overlay">
+        {% endif %}
+            <div class="logo-container">
+                {% if hasLogo %}
+                    <img src="{{ logo }}" alt="{{ include.project.title }} logo">
+                {% else %}
+                    <!-- TODO add alternative text -->
+                {% endif %}
+            </div>
+            {% if include.project.description %}
+                <div class="description">
+                    <div class="p-3 text-left">
+                        <p>{{ include.project.description }}</p>
+                    </div>
+                </div>
             {% endif %}
-        </div>
-    {% if hasCard %}
-        </div>
-    {% endif %}
+        {% if hasCard %}
+            </div>
+        {% endif %}
+     </a>
 </div>
 <div class="label">
     <a class="stretched-link" href="{{ include.project.url }}"><h2>{{ include.project.type }}</h2></a>
