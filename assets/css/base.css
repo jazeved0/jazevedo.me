@@ -26,10 +26,6 @@ nav {
 .nav-padding {
     margin-right: 120px;
 }
-.navbar-dark .navbar-brand {
-    color: #F7F8F8;
-    font-family: "keep_calm_medregular", "futura-pt", sans-serif;
-}
 .navbar-dark .navbar-nav .nav-link {
     color: #F7F8F8;
     font-family: "futura-pt", sans-serif;

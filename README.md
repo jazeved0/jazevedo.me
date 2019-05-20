@@ -1,6 +1,6 @@
 # Personal Portfolio Site
 
-This is where I post my current resume and the latest projects I've worked on. The site is located at [https://jazevedo.me](https://jazevedo.me). 
+This is where I post my current resume and the latest projects I've worked on. The site is located at [https://jazevedo.me](https://jazevedo.me), and is built using [Jekyll](https://jekyllrb.com/) for static content management.
 
 ## Quick Links
 
@@ -21,4 +21,4 @@ to build the site into the `_site/` directory, or start an integrated webserver 
 bundle exec jekyll serve
 ```
 
-The server can then be accessed at [http://127.0.0.1:4000/](http://127.0.0.1:4000/)
+The server can then be accessed at [http://localhost:4000/](http://localhost:4000/)

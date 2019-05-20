@@ -1,4 +1,3 @@
-brand: jazevedo
 links:
   - text: Resume
     href: "/resume"
@@ -10,6 +9,7 @@ links:
     icon: "fab fa-github"
   - text: LinkedIn
     href: "https://www.linkedin.com/in/joseph-az"
+    external: true
     icon: "fab fa-linkedin"
 contact:
   button: Contact

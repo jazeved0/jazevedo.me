@@ -8,7 +8,11 @@ styles:
 nav:
   customContainer: true
 ---
-<div class="background-top"></div>
+<div class="background-wrapper">
+    <div class="background-top"></div>
+    <div class="background-bottom"></div>
+    <div class="background-bottom-fill"></div>
+</div>
 <main>
   <div class="lead-wrapper">
       <div class="lead">
@@ -19,8 +23,8 @@ nav:
       </div>
   </div>
   <div class="featured container light-text">
-    <h1>Featured Projects <a class="btn btn-primary ml-2 mb-1 text-h3" href="/projects">View All</a></h1>
-    <div class="row mt-2 project-container px-3 px-md-0">
+    <h1>Featured Projects <a class="btn btn-primary ml-2 mb-1" href="/projects">View All</a></h1>
+    <div class="row project-container px-3 px-md-0">
         {% assign sorted = site.projects | sort: 'importance' | reverse %}
         {% for project in sorted limit: 3 %}
             <div class="col-12 col-md-6 col-xl-4 position-relative">
