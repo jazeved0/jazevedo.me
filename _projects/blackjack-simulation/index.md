@@ -2,6 +2,7 @@
 slug: blackjack-simulation
 type: Probabilistic Game Simulation
 title: Blackjack Simulation
+permalink: /projects/blackjack-simulation/
 importance: 1
 technologies:
   - "Java"

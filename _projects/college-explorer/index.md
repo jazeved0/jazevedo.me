@@ -2,6 +2,7 @@
 slug: college-explorer
 type: Data Visualization Tool
 title: College Explorer
+permalink: /projects/college-explorer/
 live: "/projects/college-explorer/"
 importance: 4
 technologies:

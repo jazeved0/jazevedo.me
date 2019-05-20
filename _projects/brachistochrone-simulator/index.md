@@ -2,6 +2,7 @@
 slug: brachistochrone-simulator
 type: Java Physics Simulation
 title: Brachistochrone Simulator
+permalink: /projects/brachistochrone-simulator/
 importance: 2
 technologies:
   - "Java"

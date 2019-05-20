@@ -14,6 +14,7 @@ nav {
     top: 0;
     width: 100%;
     height: 750px;
+    z-index: 0;
 }
 
 /* Lead text styles */
@@ -82,6 +83,21 @@ nav {
     justify-content: space-between;
 }
 
+.featured {
+    margin-top: 8rem;
+    position: relative;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    text-align: center;
+    z-index: 100;
+}
+.featured h1 {
+    font-size: 3rem;
+}
+.featured .text-h3 {
+    font-size: 1.2rem!important;
+}
+
 /* 1080p config */
 @media(max-width: 1920px) {
     .background-top {
@@ -96,6 +112,12 @@ nav {
     }
     .nav-container > div.inner {
         max-width: 1200px;
+    }
+    .featured {
+        margin-top: 5.5rem;
+    }
+    .featured h1 {
+        font-size: 2.5rem;
     }
 }
 @media(max-width: 1150px) {

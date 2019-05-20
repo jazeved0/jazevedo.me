@@ -1,0 +1,80 @@
+.project-container > div {
+    background-color: #F7F8F8;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 6px 0;
+    max-width: 100%;
+    padding: 0;
+}
+.project-container > div > div.project-card {
+    height: 240px;
+    background-color: #6F677A;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
+.project-container > div > div.project-card > div.overlay {
+    background-color: rgba(82, 77, 89, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.project-container > div > div.project-card div.logo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.project-container > div > div.project-card div.logo-container > img {
+    max-width: 200px;
+    max-height: 100px;
+    width: 100%;
+    height: auto;
+    /* Add drop shadow */
+    -webkit-filter: drop-shadow( 0 0 8px rgba(0, 0, 0, .45));
+    filter: drop-shadow( 0 0 8px rgba(0, 0, 0, .45));
+}
+.project-container > div > div.label {
+    text-align: center;
+    padding: 16px 16px 12px;
+}
+.project-container > div > div.label a * {
+    color: #21283B;
+    margin-bottom: 0.45em;
+}
+.project-container > div > div.label a:hover,
+.project-container > div > div.label a:active {
+    text-decoration-color: #2f3851;
+}
+.project-container > div > div.label a:hover  *,
+.project-container > div > div.label a:active * {
+    color: #2f3851;
+    opacity: 0.9;
+}
+.project-container > div > div.label h2 {
+    font-size: 1.6em;
+}
+.project-container > div > div.label .badge {
+    padding: .35em .6em .3em .6em;
+    font-family: "futura-pt",sans-serif;
+    font-size: 100%;
+    font-weight: 500;
+    background-color: rgb(111, 103, 122);
+    margin-bottom: 4px;
+}
+
+@media(min-width: 768px) {
+    .project-container > div {
+        margin: 6px 6px;
+        max-width: calc(50% - 12px);
+    }
+}
+@media(min-width: 1200px) {
+    .project-container > div {
+        max-width: calc(33.33% - 12px);
+    }
+}

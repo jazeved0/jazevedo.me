@@ -3,6 +3,7 @@ slug: risk-game
 type: Webapp Development
 title: "CS 2340 Scala Project: Risk"
 live: "https://riskgame.ga"
+permalink: /projects/risk-game/
 importance: 10
 technologies:
 - "Play/Akka"
