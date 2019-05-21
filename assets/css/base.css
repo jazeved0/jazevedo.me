@@ -3,7 +3,7 @@ html, body {
     background-color: rgb(33, 40, 59);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, a.btn, span {
     font-family: "futura-pt", sans-serif;
 }
 
@@ -15,6 +15,18 @@ h1, h2, h3, h4, h5, h6 {
 .light-text h6,
 .light-text p {
     color: #F7F8F8;
+}
+
+.light-text a:not(.btn) {
+    color: #ba6283;
+    text-decoration-color: #ba6283;
+    font-weight: 400;
+}
+.light-text a:not(.btn):hover,
+.light-text a:not(.btn):focus,
+.light-text a:not(.btn):active,
+.light-text a:not(.btn).active {
+    opacity: 0.9;
 }
 
 /* Navbar styles */
@@ -209,6 +221,17 @@ li.nav-item {
 }
 .btn-close-contact {
     outline: none;
+}
+
+/* Badge style */
+.badge {
+    color: #f7f8f8;
+    padding: .4em .65em .3em .65em;
+    /*font-family: "futura-pt",sans-serif;*/
+    font-size: 100%;
+    font-weight: 400;
+    background-color: rgb(111, 103, 122);
+    margin-bottom: 4px;
 }
 
 @media(max-width: 1150px) {

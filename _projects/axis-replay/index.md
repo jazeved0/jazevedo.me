@@ -1,15 +1,35 @@
 ---
 slug: axis-replay
-type: Website Redesign
-title: "Axis Replay Website"
-permalink: /projects/axis-replay/
-live: "https://axr.gg"
+permalink: /projects/axis-replay
 importance: 8
-technologies:
-- "Wordpress"
-- "PHP"
-- "Apache"
-- "HTML/CSS"
----
 
-[Live](https://axr.gg/)
+type: Website Redesign
+shortTitle: Axis Replay
+title: Axis Replay Website
+description: Custom Wordpress theme & website, including new branding guidelines as well as custom PHP code to handle conditional file injection
+# TODO write lead
+lead: ""
+start: February 2019
+technologies:
+  main:
+    - Wordpress
+    - PHP
+    - Apache
+    - jQuery
+  secondary:
+    - HTML/CSS
+    - Google Maps API
+    - FTP
+    - HTTPS
+buttons:
+  - text: Live
+    href: "https://axr.gg"
+    external: true
+    class: btn-primary
+    icon: fas fa-external-link-alt
+  - text: Before (archived)
+    href: "https://web.archive.org/web/20190412204444_/https://www.axisreplay.com/"
+    external: true
+    class: btn-secondary
+    icon: fas fa-archive
+---

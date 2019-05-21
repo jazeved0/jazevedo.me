@@ -16,6 +16,7 @@
 .project-container > div > div.project-card > a {
     width: 100%;
     height: 100%;
+    opacity: 1!important;
 }
 .project-container > div > div.project-card div.overlay {
     background-color: rgba(82, 77, 89, 0.7);
@@ -34,11 +35,15 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #6F677A;
+    background-color: rgba(111, 103, 122, 0.8);
     overflow: hidden;
     width: 100%;
     height: 0;
     transition: .5s ease;
+}
+.project-container > div > div.project-card div.description > div.inner {
+    padding: 24px;
+    font-size: 1.1rem;
 }
 .project-container > div > div.project-card:hover div.description {
     height: 100%;
@@ -80,14 +85,6 @@
 }
 .project-container > div > div.label h2 {
     font-size: 1.6em;
-}
-.project-container > div > div.label .badge {
-    padding: .35em .6em .3em .6em;
-    font-family: "futura-pt",sans-serif;
-    font-size: 100%;
-    font-weight: 500;
-    background-color: rgb(111, 103, 122);
-    margin-bottom: 4px;
 }
 
 @media(min-width: 768px) {

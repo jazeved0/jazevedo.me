@@ -1,4 +1,68 @@
-html, body {
-    min-height: 100vh;
+html {
+    height: 100vh;
     background-color: rgb(33, 40, 59);
+}
+
+.head {
+    padding-top: 4em;
+    padding-bottom: 4em;
+    max-width: 640px;
+}
+
+.subhead {
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.15rem;
+    font-weight: 400;
+    margin-bottom: 0.15rem;
+}
+
+.title {
+    font-weight: 400;
+    font-size: 3rem;
+    margin-bottom: 0.5em;
+}
+
+.dates {
+    margin-bottom: 1.4em;
+}
+.dates > div > p {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: -8px;
+    font-family: "futura-pt", sans-serif;
+}
+.dates > div > p:first-child {
+    opacity: 0.6;
+}
+.dates > div:first-child {
+    margin-right: 4em;
+}
+
+.lead {
+    font-weight: 300;
+    font-size: 1.15rem;
+    line-height: 1.65rem;
+    margin-bottom: 1.8em;
+}
+
+.technologies .badge.badge-main {
+    background-color: #5d5766;
+    font-weight: 500;
+}
+.technologies .badge.badge-secondary {
+    background-color: rgba(159, 98, 119, 0.15);
+    border: solid 2px #9f6277;
+}
+
+.buttons {
+    margin-left: -4px;
+    margin-right: -4px;
+    margin-top: 1.5em;
+}
+
+.buttons .btn {
+    margin-left: 4px;
+    margin-right: 4px;
 }

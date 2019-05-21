@@ -38,7 +38,8 @@
             </div>
             {% if include.project.description %}
                 <div class="description">
-                    <div class="p-3 text-left">
+                    <div class="inner text-left">
+                        <h3>{{ include.project.title }}</h3>
                         <p>{{ include.project.description }}</p>
                     </div>
                 </div>
@@ -51,7 +52,7 @@
 <div class="label">
     <a class="stretched-link" href="{{ include.project.url }}"><h2>{{ include.project.type }}</h2></a>
     <div>
-        {% for technology in include.project.technologies %}
+        {% for technology in include.project.technologies.main %}
             <span class="badge badge-pill badge-secondary">{{ technology }}</span>
         {% endfor %}
     </div>

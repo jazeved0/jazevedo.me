@@ -13,7 +13,7 @@ defaults:
       nav:
         sticky: true
       styles:
-        - "/assets/css/projects.css"
+        - "/assets/css/project.css"
   - scope:
       path: ""
     values:

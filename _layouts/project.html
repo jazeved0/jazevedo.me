@@ -1,9 +1,47 @@
 ---
 layout: master
 ---
-<main class="light-text py-3">
-    <div class="container py-3">
-        <!-- TODO improve -->
-        {{ content }}
+<main class="light-text container">
+    <div class="head">
+        <h2 class="subhead">{{ page.type }}</h2>
+        <h1 class="title">{{ page.title }}</h1>
+        <div class="d-flex flex-row flex-content-start dates">
+            <div>
+                <p>Start</p>
+                <p>{{ page.start }}</p>
+            </div>
+            {% if page.end %}
+                <div>
+                    <p>End</p>
+                    <p>{{ page.end }}</p>
+                </div>
+            {% endif %}
+        </div>
+        <p class="lead">{{ page.lead }}</p>
+        <div class="technologies">
+            {% for technology in page.technologies.main %}
+                <span class="badge badge-pill badge-main">{{ technology }}</span>
+            {% endfor %}
+            {% for technology in page.technologies.secondary %}
+                <span class="badge badge-pill badge-secondary">{{ technology }}</span>
+            {% endfor %}
+        </div>
+        <div class="buttons">
+            {% for button in page.buttons %}
+                <a class="btn {{ button.class }}{% if button.disabled %} disabled{% endif %}" href="{{ button.href }}"
+                    {% if button.external %}
+                        rel="noopener"
+                    {% endif %}
+                    {% if button.external or button.newTab %}
+                        target="_blank"
+                    {% endif %}>
+                    {% if button.icon %}
+                        <i class="{{ button.icon }} mr-2"></i>
+                    {% endif %}
+                    {{ button.text }}
+                </a>
+            {% endfor %}
+        </div>
     </div>
+    {{ content }}
 </main>
