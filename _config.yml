@@ -15,7 +15,7 @@ defaults:
       styles:
         - "/assets/css/project.css"
       headItems:
-        - "<link rel=\"stylesheet\" href=\"/assets/css/base.css\">"
+        - "<link rel=\"preload\" as=\"image\" href=\"/assets/img/project-background.svg\">"
   - scope:
       path: ""
     values:
