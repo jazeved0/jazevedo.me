@@ -7,6 +7,8 @@ This is where I post my current resume and the latest projects I've worked on. T
 - [Resume](https://jazevedo.me/resume) ([LaTeX source code](https://jazevedo.me/resume/source))
 - [Projects index](https://jazevedo.me/projects)
 
+![home page](https://i.imgur.com/YRbJ3pu.png)
+
 ## Setup
 
 The site is built using [Jekyll](https://jekyllrb.com/), so simply follow the [instructions from the Jekyll docs](https://jekyllrb.com/docs/installation/) depending on your operating system. Once installed, run
@@ -22,3 +24,4 @@ bundle exec jekyll serve
 ```
 
 The server can then be accessed at [http://localhost:4000/](http://localhost:4000/)
+
