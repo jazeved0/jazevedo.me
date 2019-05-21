@@ -1,6 +1,7 @@
 ---
 layout: master
 ---
+<div class="background-top"></div>
 <main class="light-text container">
     <div class="head">
         <h2 class="subhead">{{ page.type }}</h2>
@@ -43,5 +44,7 @@ layout: master
             {% endfor %}
         </div>
     </div>
-    {{ content }}
+    <div class="pt-4 pb-5">
+        {{ content }}
+    </div>
 </main>
