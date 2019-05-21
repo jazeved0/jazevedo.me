@@ -1,9 +1,54 @@
 ---
 layout: master
 ---
+{% comment %} Determines whether the project has an icon to place in the background of the head {% endcomment %}
+{% assign icon = false %}
+{% assign searchLogo = false %}
+{% if page.icon == 'useLogo' %}
+    {% unless page.logo %}
+        {% assign searchLogo = true %}
+    {% endunless %}
+{% endif %}
+
+{% unless page.icon and page.icon != 'useLogo' %}
+    {% if page.logo and page.icon == 'uselogo' %}
+        {% comment %} Logo specified in project front matter, use it {% endcomment %}
+        {% assign icon = page.logo %}
+    {% else %}
+        {% comment %} Need to search for either logo or icon {% endcomment %}
+        {% capture relative %}/projects/{{ page.slug }}/{% endcapture %}
+        {% if page.icon == 'useLogo' %}
+            {% comment %} Prep search for logo {% endcomment %}
+            {% capture imgLocation %}_projects/{{ page.slug }}/logo{% endcapture %}
+        {% else %}
+            {% comment %} Prep search for icon {% endcomment %}
+            {% capture imgLocation %}_projects/{{ page.slug }}/icon{% endcapture %}
+        {% endif %}
+        {% assign png = imgLocation | append: '.png' %}
+        {% assign jpg = imgLocation | append: '.jpg' %}
+        {% assign svg = imgLocation | append: '.svg' %}
+        {% for coll in site.collections %}
+            {% if coll.label == "projects" %}
+                {% for file in coll.files %}
+                    {% if file.path == png or file.path == jpg or file.path == svg %}
+                        {% assign icon = relative | append: file.name %}
+                        {% break %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% else %}
+    {% comment %} Icon specified in project front matter {% endcomment %}
+    {% assign icon = page.icon %}
+{% endunless %}
+
 <div class="background-top"></div>
 <main class="light-text container">
     <div class="head">
+        {% if icon %}
+            <div class="icon" style="background-image: url({{ icon }});"></div>
+        {% endif %}
         <h2 class="subhead">{{ page.type }}</h2>
         <h1 class="title">{{ page.title }}</h1>
         <div class="d-flex flex-row flex-content-start dates">

@@ -18,6 +18,7 @@ topics:
     - Google Docs
     - Probability/Statistics
     - Game Theory
+icon: useLogo
 buttons:
   - text: Poster
     href: "/projects/blackjack-simulation/poster.pdf"

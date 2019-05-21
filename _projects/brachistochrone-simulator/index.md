@@ -18,6 +18,7 @@ topics:
     - LaTex
   secondary:
     - Git
+icon: useLogo
 buttons:
   - text: Final Report
     href: "/projects/brachistochrone-simulator/report.pdf"

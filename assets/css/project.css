@@ -7,6 +7,19 @@ html {
     padding-top: 3em;
     padding-bottom: 4em;
     max-width: 640px;
+    position: relative;
+}
+
+.head .icon {
+    position: absolute;
+    top: 20px;
+    left: -85px;
+    height: 300px;
+    width: 300px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.05;
 }
 
 .subhead {
@@ -101,6 +114,7 @@ figure.figure {
 figure.figure figcaption.figure-caption {
     display: table-caption;
     caption-side: bottom;
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.3);
 }
 
 main {
