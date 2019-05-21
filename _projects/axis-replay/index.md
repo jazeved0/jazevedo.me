@@ -8,9 +8,9 @@ shortTitle: Axis Replay
 title: Axis Replay Website
 description: Custom Wordpress theme & website, including new branding guidelines as well as custom PHP code to handle conditional file injection
 # TODO write lead
-lead: ""
+lead: "<ul><li>Redesigned company’s main website, developing accompanying mockups and branding guidelines</li><li>Developed custom PHP to handle modular and conditional injection of various styles and scripts</li><li>Used an Apache/MySQL/PHP stack with Wordpress on AWS to configure staging before deploying</li></ul>"
 start: February 2019
-technologies:
+topics:
   main:
     - Wordpress
     - PHP
@@ -21,6 +21,7 @@ technologies:
     - Google Maps API
     - FTP
     - HTTPS
+    - Adobe Illustrator
 buttons:
   - text: Live
     href: "https://axr.gg"

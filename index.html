@@ -8,6 +8,7 @@ styles:
 nav:
   customContainer: true
 headItems:
+  # Preload header background svg (~300b) in the head to prevent popping in (not needed for footer)
   - "<link rel=\"preload\" as=\"image\" href=\"/assets/img/header-background.svg\">"
 ---
 <div class="background-wrapper">

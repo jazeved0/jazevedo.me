@@ -18,13 +18,13 @@ layout: master
                 </div>
             {% endif %}
         </div>
-        <p class="lead">{{ page.lead }}</p>
-        <div class="technologies">
-            {% for technology in page.technologies.main %}
-                <span class="badge badge-pill badge-main">{{ technology }}</span>
+        <div class="lead-text">{{ page.lead }}</div>
+        <div class="topics">
+            {% for topic in page.topics.main %}
+                <span class="badge badge-pill badge-main">{{ topic }}</span>
             {% endfor %}
-            {% for technology in page.technologies.secondary %}
-                <span class="badge badge-pill badge-secondary">{{ technology }}</span>
+            {% for topic in page.topics.secondary %}
+                <span class="badge badge-pill badge-secondary">{{ topic }}</span>
             {% endfor %}
         </div>
         <div class="buttons">

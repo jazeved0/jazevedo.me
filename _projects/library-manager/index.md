@@ -7,10 +7,10 @@ type: Desktop Database Client
 title: Library Manager
 description: Client database program designed to manage the issuance of books for a school library; developed in C#/XAML using WPF
 # TODO write lead
-lead: ""
+lead: "<ul><li>Built application’s data model in C# and leveraging XAML’s responsive binding to build the UI</li><li>Created documentation via LaTEX & used Git for version control</li><li>Utilized a variety of open source APIs to facilitate development (i.e. scheduling & UI toolkits)</li></ul>"
 start: August 2017
 end: February 2018
-technologies:
+topics:
   main:
     - "C#"
     - .NET
@@ -41,3 +41,5 @@ buttons:
     class: btn-secondary
     icon: fab fa-github
 ---
+
+{% include captioned.html src="/projects/library-manager/banner.png" alt="initial screen" caption="Initial screen upon starting the application" %}

@@ -8,10 +8,10 @@ shortTitle: Gamefest
 title: Gamefest 2018 Website
 description: Event website for GT Esports' annual LAN, featuring third party payment embedding and custom jQuery multi-view Twitch client
 # TODO write lead
-lead: ""
+lead: "<ul><li>Built front-end with jQuery and Bootstrap; static backend on Apache webserver</li><li>Utilized Git for version control and issue tracking</li><li>Interfaced with third-party tournament service Smash.gg for payment and registration</li></ul>"
 start: June 2018
 end: November 2018
-technologies:
+topics:
   main:
     - AJAX
     - Bootstrap
@@ -24,6 +24,7 @@ technologies:
     - RESTful API
     - JSON
     - Git
+    - Adobe Illustrator
 buttons:
   - text: Live
     href: "https://gamefest.gg/"

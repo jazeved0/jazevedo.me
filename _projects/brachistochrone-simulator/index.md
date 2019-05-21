@@ -6,12 +6,11 @@ importance: 2
 type: Java Physics Simulation
 shortTitle: Brachistochrone
 title: Brachistochrone Simulator
-description: Java-based iterative physics simulator for the historic Brachistochrone Problem originally posed by Johann Bernoulli in 1696
-# TODO write lead
-lead: ""
+description: Java iterative physics simulator for exploring the historic Brachistochrone Problem originally posed by Johann Bernoulli in 1696
+lead: "Iterative calculus-based simulation with accompanying <a href=\"https://www.lwjgl.org/\" target=\"_blank\" rel=\"noopener\">OpenGL-powered</a> graphics display program designed to verify relative performance of different solutions to the historic <a href=\"http://mathworld.wolfram.com/BrachistochroneProblem.html\" rel=\"noopener\" target=\"_blank\">Brachistochrone problem</a>. Corresponding report paper/poster presentation was made in LaTex which gives results and a mathematical explanation of a rigorous solution."
 start: January 2018
 end: April 2018
-technologies:
+topics:
   main:
     - Java
     - OpenGL
@@ -31,3 +30,5 @@ buttons:
     class: btn-secondary
     icon: fab fa-github
 ---
+
+{% include captioned.html src="/projects/brachistochrone-simulator/gif.gif" alt="simulation" caption="Demonstration of the hill-climbing portion of the simulation, each iteration moving towards the optimal circular arc path as a potential solution to the Brachistochrone Problem." %}

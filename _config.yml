@@ -15,6 +15,7 @@ defaults:
       styles:
         - "/assets/css/project.css"
       headItems:
+        # Preload project background svg (~1.5kb) in the head to prevent popping in
         - "<link rel=\"preload\" as=\"image\" href=\"/assets/img/project-background.svg\">"
   - scope:
       path: ""

@@ -7,6 +7,8 @@ h1, h2, h3, h4, h5, h6, a.btn, span {
     font-family: "futura-pt", sans-serif;
 }
 
+
+main.light-text,
 .light-text h1,
 .light-text h2,
 .light-text h3,
@@ -27,6 +29,20 @@ h1, h2, h3, h4, h5, h6, a.btn, span {
 .light-text a:not(.btn):active,
 .light-text a:not(.btn).active {
     opacity: 0.9;
+}
+
+ul:not(.navbar-nav) {
+    position: relative;
+    list-style: none;
+    padding-left: 1.6em;
+    margin-left: 0.8em;
+}
+ul:not(.navbar-nav) li:before {
+    content: '\25C6';
+    font-size: 16px;
+    position: absolute;
+    transform: translateY(1px);
+    left: 0;
 }
 
 /* Navbar styles */

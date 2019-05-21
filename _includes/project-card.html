@@ -52,8 +52,8 @@
 <div class="label">
     <a class="stretched-link" href="{{ include.project.url }}"><h2>{{ include.project.type }}</h2></a>
     <div>
-        {% for technology in include.project.technologies.main %}
-            <span class="badge badge-pill badge-secondary">{{ technology }}</span>
+        {% for topic in include.project.topics.main %}
+            <span class="badge badge-pill badge-secondary">{{ topic }}</span>
         {% endfor %}
     </div>
 </div>

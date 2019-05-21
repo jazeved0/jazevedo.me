@@ -10,7 +10,7 @@ description: Scala Play + Vue.js web application providing online Risk, produced
 lead: "At a high level, the frontend is built with Vue.js and HTML Canvases, while the backend is built with Scala Play and Akka. The project itself was produced for CS 2340 at Georgia Tech with Professor Christopher Simpkins <a href=\"https://cs2340.gitlab.io/\" target=\"_blank\" rel=\"noopener\">(class website)</a>."
 start: January 2019
 end: May 2019
-technologies:
+topics:
   main:
     - Play/Akka
     - Scala
@@ -46,5 +46,4 @@ buttons:
     icon: fas fa-book
 ---
 
-![game board](/projects/risk-game/banner.png)
-
+{% include captioned.html src="/projects/risk-game/banner.png" alt="game board" caption="The gameboard screen map, showing each territory and the number of troops on them" %}

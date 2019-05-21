@@ -7,11 +7,10 @@ type: Data Visualization Tool
 shortTitle: College Explorer
 title: CS 4460 College Explorer
 description: D3-powered clustering visualization showing US colleges & related data attributes, leveraging the t-SNE clustering algorithm
-# TODO write lead
-lead: ""
+lead: "The data visualization consumes raw CSV data using D3 and employs the <a href=\"https://lvdmaaten.github.io/tsne/\" target=\_blank\" rel=\"noopener\">t-SNE clustering algorithm</a> to allow users to explore the data (US colleges) according to a variety of different clustering attributes. The interactive visualization also provides brushing, selection, and filtering functionality to enhance user experience & insight."
 start: April 2019
 end: May 2019
-technologies:
+topics:
   main:
     - D3
     - Javascript
@@ -27,7 +26,7 @@ buttons:
     class: btn-primary
     newTab: true
     icon: fas fa-external-link-alt
-  - text: Github
+  - text: Github (in migration)
     href: "https://github.com/jazevedo620/CollegeExplorer"
     external: true
     disabled: true
