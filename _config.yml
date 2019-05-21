@@ -14,6 +14,8 @@ defaults:
         sticky: true
       styles:
         - "/assets/css/project.css"
+      headItems:
+        - "<link rel=\"stylesheet\" href=\"/assets/css/base.css\">"
   - scope:
       path: ""
     values:
