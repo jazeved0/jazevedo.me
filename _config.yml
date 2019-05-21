@@ -1,6 +1,8 @@
 collections:
   projects:
     output: true
+plugins:
+  - jekyll-sitemap
 
 permalink: /:title
 defaults:
