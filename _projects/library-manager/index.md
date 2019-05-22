@@ -6,8 +6,7 @@ importance: 6
 type: Desktop Database Client
 title: Library Manager
 description: Client database program designed to manage the issuance of books for a school library; developed in C#/XAML using WPF
-# TODO write lead
-lead: "<ul><li>Built application’s data model in C# and leveraging XAML’s responsive binding to build the UI</li><li>Created documentation via LaTEX & used Git for version control</li><li>Utilized a variety of open source APIs to facilitate development (i.e. scheduling & UI toolkits)</li></ul>"
+lead: "The application’s data model was built in C# while the UI leveraged XAML’s responsive binding create a fast and responsive user experience. Extensive product documentation was written in LaTeX and the application as a whole uilized a variety of open source APIs to facilitate development (i.e. <a href=\"https://github.com/itext/itextsharp\" rel=\"noopener\" target=\"_blank\">PDF rendering</a> & <a href=\"https://mahapps.com/\" rel=\"noopener\" target=\"_blank\">UI toolkits</a>)."
 start: August 2017
 end: February 2018
 topics:
@@ -30,6 +29,11 @@ buttons:
     newTab: true
     class: btn-secondary
     icon: fas fa-file-pdf
+  - text: Product Guide (Source)
+    href: https://www.overleaf.com/read/gwnpckpynhgv
+    image: /assets/img/overleaf-icon.svg
+    external: true
+    class: btn-secondary
   - text: Presentation
     href: "/projects/library-manager/presentation.pdf"
     newTab: true

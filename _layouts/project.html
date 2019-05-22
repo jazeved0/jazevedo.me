@@ -84,12 +84,15 @@ layout: master
                     {% if button.icon %}
                         <i class="{{ button.icon }} mr-2"></i>
                     {% endif %}
+                    {% if button.image %}
+                        <img src="{{ button.image }}" class="button-image mr-2" height="20"></img>
+                    {% endif %}
                     {{ button.text }}
                 </a>
             {% endfor %}
         </div>
     </div>
-    <div class="pt-4 pb-5">
+    <div class="pt-4 pb-5 project-content">
         {{ content }}
     </div>
 </main>

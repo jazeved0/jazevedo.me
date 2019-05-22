@@ -7,8 +7,7 @@ type: Website Redesign
 shortTitle: Axis Replay
 title: Axis Replay Website
 description: Custom Wordpress theme & website, including new branding guidelines as well as custom PHP code to handle conditional file injection
-# TODO write lead
-lead: "<ul><li>Redesigned company’s main website, developing accompanying mockups and branding guidelines</li><li>Developed custom PHP to handle modular and conditional injection of various styles and scripts</li><li>Used an Apache/MySQL/PHP stack with Wordpress on AWS to configure staging before deploying</li></ul>"
+lead: "Wordpress-powered website as well as accompanying UI mockups made in Adobe Illustrator. Additionally, custom PHP tooling was made to handle modular and conditional injection of various styles and scripts across the site. An Apache/<wbr>MySQL/<wbr>PHP stack on AWS was used to configure staging before deploying to production."
 start: February 2019
 topics:
   main:

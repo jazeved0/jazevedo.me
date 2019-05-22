@@ -7,8 +7,7 @@ type: Event Website Development
 shortTitle: Gamefest
 title: Gamefest 2018 Website
 description: Event website for GT Esports' annual LAN, featuring third party payment embedding and custom jQuery multi-view Twitch client
-# TODO write lead
-lead: "<ul><li>Built front-end with jQuery and Bootstrap; static backend on Apache webserver</li><li>Utilized Git for version control and issue tracking</li><li>Interfaced with third-party tournament service Smash.gg for payment and registration</li></ul>"
+lead: "The frontend was built with jQuery and Twitter Bootstrap to display event info, with a small, mostly static backend running on an Apache webserver. The website used a third-party tournament service <a href=\"https://smash.gg/\" rel=\"noopener\" target=\"_blank\">Smash.gg</a> to handle payment and registration</li></ul>, and featured an AJAX-powered multi-view Twitch client to display multiple broadcasts."
 start: June 2018
 end: November 2018
 topics:
@@ -31,6 +30,11 @@ buttons:
     external: true
     class: btn-primary
     icon: fas fa-external-link-alt
+  - text: Twitch client
+    href: "https://gamefest.gg/watch"
+    external: true
+    class: btn-secondary
+    icon: fab fa-twitch
   - text: Archived
     href: "https://web.archive.org/web/20181029052602im_/https://gamefest.gg/"
     external: true

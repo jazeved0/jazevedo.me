@@ -6,7 +6,7 @@ html {
 .head {
     padding-top: 3em;
     padding-bottom: 4em;
-    max-width: 640px;
+    max-width: 650px;
     position: relative;
 }
 
@@ -19,7 +19,7 @@ html {
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
-    opacity: 0.05;
+    opacity: 0.04;
     pointer-events: none;
 }
 
@@ -86,7 +86,11 @@ html {
     margin-bottom: 12px;
 }
 
-img:not(.brand-img) {
+.btn .button-image {
+    margin-top: -4px;
+}
+
+img:not(.brand-img):not(.button-image) {
     border-radius: 8px!important;
     box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.3);
 }
@@ -111,6 +115,7 @@ figure.figure figcaption.figure-caption {
 
 figure.figure {
     display: table;
+    margin-bottom: 1.2rem;
 }
 figure.figure figcaption.figure-caption {
     display: table-caption;
@@ -125,6 +130,10 @@ main {
 
 body {
     position: relative;
+}
+
+.project-content h2 {
+    margin-top: 2.5rem;
 }
 
 .background-top {
