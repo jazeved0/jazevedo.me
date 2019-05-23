@@ -1,0 +1,15 @@
+.risk-demo {
+  table-layout:fixed;
+  width:100%;
+}
+
+.risk-demo, .risk-demo * {
+  position: relative; 
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.risk-demo > div.figure-img {
+  margin-bottom: 0;
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.3);
+}

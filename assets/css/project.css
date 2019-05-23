@@ -132,6 +132,12 @@ body {
     position: relative;
 }
 
+.project-content {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+}
+
 .project-content h2 {
     margin-top: 2.5rem;
 }

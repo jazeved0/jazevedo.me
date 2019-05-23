@@ -44,9 +44,21 @@ buttons:
     external: true
     class: btn-secondary
     icon: fas fa-book
+
+# Demo requirements
+headItems:
+  - "<link rel=\"preload\" as=\"image\" href=\"/assets/img/project-background.svg\">"
+  - "<link rel=\"preload\" as=\"image\" href=\"/projects/risk-game/demo/castle.png\">"
+  - "<link href=\"/projects/risk-game/demo/app.d6daa31d.css\" rel=\"preload\" as=\"style\">"
+  - "<link href=\"/projects/risk-game/demo/app.d64af9e4.js\" rel=\"preload\" as=\"script\">"
+  - "<link href=\"/projects/risk-game/demo/chunk-vendors.6c484327.js\" rel=\"preload\" as=\"script\">"
+styles:
+  - "/assets/css/project.css"
+  - "/projects/risk-game/demo/app.d6daa31d.css"
+  - "/projects/risk-game/demo/style.css"
 ---
 
-{% include captioned.html src="/projects/risk-game/banner.png" alt="game board" caption="The gameboard screen map, showing each territory and the number of troops on them" %}
+{% include risk-demo.html height="500" scale="3" caption="The interactive gameboard screen map, showing each territory and the number of troops on them. Click or tap and drag to pan, zoom with pinching or scroll wheel." %}
 
 ## Contributors
 
