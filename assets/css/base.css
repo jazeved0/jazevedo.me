@@ -14,7 +14,8 @@ main.light-text,
 .light-text h4,
 .light-text h5,
 .light-text h6,
-.light-text p {
+.light-text p,
+.light-text pre {
     color: #F7F8F8;
 }
 
@@ -45,7 +46,7 @@ ul:not(.navbar-nav) li:before {
 }
 
 /* Navbar styles */
-nav {
+nav.navbar {
     background-color: #2F3B56;
     padding-top: 12px!important;
     padding-bottom: 12px!important;
@@ -249,7 +250,42 @@ li.nav-item {
     margin-bottom: 4px;
 }
 
-@media(max-width: 1150px) {
+.breadcrumb-container {
+    position: relative;
+    z-index: 1;
+}
+
+.breadcrumb-container nav {
+    max-width: 595px;
+}
+
+.breadcrumb-container nav ol.breadcrumb {
+    background-color: rgba(47, 59, 86, 0.5);
+    padding: .75rem 1.25rem;
+    border-radius: 100px;
+    margin-bottom: -0.75rem;
+    margin-top: 1.25rem;
+}
+
+div.row.solid-cols {
+    margin: 3rem -2rem 0;
+}
+
+div.row.solid-cols > div {
+    background-color: #252E44;
+    padding: 2rem;
+}
+
+div.row.solid-cols > div > *:first-child {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+div.row.solid-cols > div > *:last-child {
+    margin-bottom: 0;
+}
+
+@media(max-width: 991.95px) {
     /* Adjust nav spacing */
     .nav-padding {
         margin-right: 60px;
@@ -264,6 +300,18 @@ li.nav-item {
         padding-left: 36px;
     }
 }
+@media(max-width: 767.95px) {
+    .navbar-nav .nav-item.active > .nav-link {
+        padding-bottom: 0.1rem;
+        margin-bottom: 0.6rem;
+    }
+}
+@media(min-width: 576px) {
+    .breadcrumb-container > * {
+        margin-left: -1.25rem;
+        margin-right: -0.5rem;
+    }
+}
 @media(max-width: 575.95px) {
     .contact-wrapper > .contact {
         max-height: none;
@@ -272,6 +320,10 @@ li.nav-item {
         width: 2em;
         height: 2em;
         font-size: 2em;
+    }
+    .breadcrumb-container {
+        padding-right: 4px;
+        padding-left: 4px;
     }
 }
 @media(max-width: 400px) {

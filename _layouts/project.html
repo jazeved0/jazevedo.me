@@ -1,5 +1,5 @@
 ---
-layout: master
+layout: subpage
 ---
 {% comment %} Determines whether the project has an icon to place in the background of the head {% endcomment %}
 {% assign icon = false %}
@@ -47,7 +47,7 @@ layout: master
 <main class="light-text container">
     <div class="head">
         {% if icon %}
-            <div class="icon" style="background-image: url({{ icon }});"></div>
+            <div class="icon" style="background-image: url({{ icon }})"></div>
         {% endif %}
         <h2 class="subhead">{{ page.type }}</h2>
         <h1 class="title">{{ page.title }}</h1>

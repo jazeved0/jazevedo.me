@@ -26,8 +26,9 @@ topics:
     - Nginx
     - Azure
     - OpenShift
-    - SVG
     - Batchfile
+    - SVG
+    - JSON
 buttons:
   - text: Live (Hosted)
     href: "https://riskgame.ga"
@@ -58,11 +59,60 @@ styles:
   - "/projects/risk-game/demo/style.css"
 ---
 
-{% include risk-demo.html height="500" scale="3" caption="The interactive gameboard screen map, showing each territory and the number of troops on them. Click or tap and drag to pan, zoom with pinching or scroll wheel." %}
+{% capture demoCaption %}
+The interactive gameboard screen map, showing each territory and the number of troops on them. Click or
+tap and drag to pan, zoom with pinching or scroll wheel.
+{% endcapture %}
+{% include risk-demo.html height="500" scale="3" caption=demoCaption %}
+
+## Role
+
+For this project, my primary role on the team was lead backend engineer, and I also ended up
+configuring the containerized deployment of our application on a variety of platforms (both
+within orchestration environments and standalone). While I did contribute to the frontend of
+our application, especially where it concerns overall architecture and program structure, the
+majority of my contributions were either to the backend or for deployment.
+
+{% include col/start.html rowClass="solid-cols" class="col-12 col-md-6" %}
+{% include header.html level="h4" icon="fas fa-database" text="Backend" %}
+
+Over the course of the project, I was responsible for developing the structure of the application's
+backend, which, according to the project's guidelines, was a
+[Play Framework](https://www.playframework.com/){:rel="noopener" target="_blank"} application written
+in Scala. In addition, we made heavy use of a variety of libraries such as:
+
+- [Akka Streams](https://doc.akka.io/docs/akka/current/stream/index.html){:rel="noopener" target="_blank"}
+  /[Actors](https://doc.akka.io/docs/akka/current/index-actors.html){:rel="noopener" target="_blank"}
+to manage Websocket connections
+- [Google Guice](https://github.com/google/guice){:rel="noopener" target="_blank"} to
+provide runtime dependency injection
+- [Caffeine](https://github.com/ben-manes/caffeine){:rel="noopener" target="_blank"} for high
+performance caching on the JVM
+
+{% include col/mid.html class="col-12 col-md-6" %}
+{% include header.html level="h4" icon="fab fa-docker" text="Deployment" %}
+
+When it came to running our project in a production environment, I settled on using a Docker
+container based on an [Alpine image](https://hub.docker.com/_/openjdk){:rel="noopener" target="_blank"}
+that came preloaded with the JRE 8. Initially, I configured deployment for
+[Redhat's OpenShift Online](https://www.openshift.com/products/online/){:rel="noopener" target="_blank"}
+before switching to [Microsoft's AKS](https://docs.microsoft.com/en-us/azure/aks/){:rel="noopener" target="_blank"},
+both of which use Kubernetes for orchestration.
+
+While these worked well, they proved to be inadequate for long-term deployment, with even
+short term costs proving to be substantial. With this in mind, the final solution ended
+up being a vanilla Docker environment running on a bare metal Ubuntu server. Additionally,
+in order to support HTTPS in this environment, I ended up using an [Nginx container acting as
+a reverse proxy](https://github.com/jwilder/nginx-proxy){:rel="noopener" target="_blank"}
+to handle SSL termination.
+
+{% include col/end.html %}
 
 ## Contributors
 
-The project itself was produced for CS 2340 at Georgia Tech with Professor Christopher Simpkins {% include link.html text="(class website)" href="https://cs2340.gitlab.io/" %}, where our team consisted of the following members:
+The project itself was produced for CS 2340 at Georgia Tech with Professor Christopher
+Simpkins [(class website)](https://cs2340.gitlab.io/){:rel="noopener" target="_blank"},
+where our team consisted of the following members:
 
 - Joseph Azevedo {% include link.html text="(jazevedo620)" href="https://github.com/jazevedo620" %}
 - Andrew Chafos {% include link.html text="(andrewjc2000)" href="https://github.com/andrewjc2000" %}

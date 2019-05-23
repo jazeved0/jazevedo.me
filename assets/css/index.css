@@ -3,7 +3,7 @@ body {
 }
 
 /* Clear navbar */
-nav {
+nav.navbar {
     background-color: transparent;
     position: absolute!important;
     width: 100%;

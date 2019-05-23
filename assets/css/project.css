@@ -13,13 +13,13 @@ html {
 .head .icon {
     position: absolute;
     top: 40px;
-    left: -85px;
-    height: 300px;
-    width: 300px;
+    left: -100px;
+    height: 420px;
+    width: 420px;
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
-    opacity: 0.04;
+    opacity: 0.035;
     pointer-events: none;
 }
 
@@ -115,7 +115,7 @@ figure.figure figcaption.figure-caption {
 
 figure.figure {
     display: table;
-    margin-bottom: 1.2rem;
+    margin-bottom: 4rem;
 }
 figure.figure figcaption.figure-caption {
     display: table-caption;
@@ -146,14 +146,14 @@ body {
     background-image: url('/assets/img/project-background.svg');
     background-position-x: center;
     background-position-y: -32px;
-    background-size: 2500px 800px;
+    background-size: 2700px 900px;
     background-repeat: no-repeat;
     position: absolute;
     top: 0;
     z-index: 0;
     flex-grow: 0;
     width: 100%;
-    height: 800px;
+    height: 900px;
 }
 @media(max-width: 1150px) {
     /* Fill more height on smaller screens */
