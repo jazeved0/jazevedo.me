@@ -66,6 +66,7 @@ layout: master
           {% assign modified_url = modified_url | append: slash_segment %}
         {% endfor %}
         {%- assign bc_page = site.pages | where: "url", modified_url -%}
+        {% assign bc_path = modified_url %}
       {% endif %}
       {% if bc_page and i < j %}
         <li class="breadcrumb-item">
