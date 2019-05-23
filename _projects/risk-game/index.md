@@ -89,6 +89,20 @@ provide runtime dependency injection
 - [Caffeine](https://github.com/ben-manes/caffeine){:rel="noopener" target="_blank"} for high
 performance caching on the JVM
 
+---
+
+##### Build Pipeline
+
+A variety of Python, Batchfile, and Bash scripts were made to handle the process of building from
+compilation to deployment. Altogether, they automated performing the following high-level tasks:
+
+1. Building the map data from SVG to JSON
+2. Building the frontend using Webpack/Vue CLI
+3. Building the backend using sbt and packaging it to a zip
+4. Unzipping the built archive and configuring the start script
+5. Adding additional files, such as data/documentation files
+6. Building, tagging, and pushing the Docker image
+
 {% include col/mid.html class="col-12 col-md-6" %}
 {% include header.html level="h4" icon="fab fa-docker" text="Deployment" %}
 

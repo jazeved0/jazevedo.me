@@ -19,6 +19,14 @@ main.light-text,
     color: #F7F8F8;
 }
 
+ol > li {
+    padding-left: 0.5rem;
+}
+
+.light-text hr {
+    border-top: 1px solid rgba(247, 248, 248, 0.3);
+}
+
 .light-text a:not(.btn) {
     color: #ba6283;
     text-decoration-color: #ba6283;
