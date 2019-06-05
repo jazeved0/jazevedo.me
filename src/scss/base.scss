@@ -1,0 +1,82 @@
+@import './colors';
+
+// Custom color scheme
+$theme-colors: (
+    primary: $copper-rose,
+    secondary: $dolphin,
+    tertiary: $pickled-bluewood,
+    success: $highland,
+    info: $neptune,
+    warning: $equator,
+    danger: $burnt-sienna,
+    light: $powder-white,
+    dark: $abyss-blue,
+) !default;
+
+// Color aliases:
+$-primary: map-get($theme-colors, primary);
+$-secondary: map-get($theme-colors, secondary);
+$-tertiary: map-get($theme-colors, tertiary);
+$-success: map-get($theme-colors, success);
+$-info: map-get($theme-colors, info);
+$-warning: map-get($theme-colors, warning);
+$-danger: map-get($theme-colors, danger);
+$-light: map-get($theme-colors, light);
+$-dark: map-get($theme-colors, dark);
+
+// Options
+$enable-rounded: true !default;
+$enable-shadows: true !default;
+$enable-gradients: false !default;
+$enable-transitions: true !default;
+$enable-hover-media-query: false !default;
+$enable-grid-classes: true !default;
+$enable-print-styles: true !default;
+
+// Grid containers
+$container-max-widths: (
+    sm: 540px,
+    md: 640px,
+    lg: 960px,
+    xl: 1140px,
+) !default;
+
+// Body
+$body-bg: $-dark !default;
+$body-color: $-light !default;
+$inverse-bg: $-light !default;
+$inverse-color: $-dark !default;
+
+// Links
+$link-decoration: none !default;
+$link-hover-decoration: none !default;
+
+// Fonts
+@import './fonts';
+
+// Base Bootstrap
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+
+html,
+body {
+    min-height: 100vh;
+}
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// ? ---------------
+// ? Utility classes
+// ? ---------------
+
+.stripes-bg {
+    background-image: url(/img/stripes.svg);
+    background-size: 450px;
+}
+.fill-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}

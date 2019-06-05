@@ -1,0 +1,13 @@
+@import '../../scss/base';
+
+.social-button {
+    height: 48px;
+    padding: 15px 13px 10px 13px;
+    font-size: 1.75em;
+    text-align: center;
+    margin: 0 .35em .4em 0;
+    background-color: rgba($-light, 0.1);
+    &:hover, &:active {
+        background-color: rgba($-light, 0.2);
+    }
+}

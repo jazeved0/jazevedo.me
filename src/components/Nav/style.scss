@@ -1,0 +1,90 @@
+@import '../../scss/base';
+@import '../../scss/media';
+
+// Settings
+$contact-lr-padding: 1.5rem;
+$navbar-td-padding: 0.75rem;
+$internal-spacing: 7.5rem;
+$nav-link-spacing: 0.5rem;
+$nav-link-small-spacing: 0.25rem;
+$nav-link-font-size: 1.05rem;
+$nav-link-active-border-width: 0.125rem;
+
+nav.navbar {
+    padding-top: $navbar-td-padding;
+    padding-bottom: $navbar-td-padding;
+
+    .nav-padding {
+        margin-right: $internal-spacing;
+
+        @include respond-below(md) {
+            & {
+                margin-right: 60px;
+            }
+        }
+    }
+
+    @include respond-between(md, lg) {
+        &.custom-layout .navbar-collapse {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+    }
+
+    .brand-img {
+        position: relative;
+        top: -2px
+    }
+
+    li.nav-item {
+        margin-left: $nav-link-spacing;
+        margin-right: $nav-link-spacing;
+
+        @include respond-below(md) {
+            & {
+                margin-left: $nav-link-small-spacing;
+                margin-right: $nav-link-small-spacing;
+            }
+        }
+
+        .nav-link {
+            color: $-light;
+            border-top: solid $nav-link-active-border-width transparent;
+            border-bottom: solid $nav-link-active-border-width transparent;
+            white-space: nowrap;
+            font-size: $nav-link-font-size;
+
+            @include respond-below(sm) {
+                & {
+                    padding-bottom: 0.1rem;
+                    margin-bottom: 0.6rem;
+                }
+            }
+
+            &.active, &.show, .show, .active {
+                border-bottom: solid $nav-link-active-border-width $-light;
+            }
+        }
+    }
+}
+
+#btn-contact {
+    &:not(:hover) {
+        opacity: 0.9;
+    }
+    padding: {
+        right: $contact-lr-padding;
+        left: $contact-lr-padding;
+    }
+    margin: {
+        top: 0.5rem;
+        bottom: 0.5rem;
+    }
+    @include respond-below(sm) {
+        margin: {
+            top: 1rem;
+            bottom: 1rem;
+        }
+    }
+}

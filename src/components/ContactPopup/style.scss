@@ -1,0 +1,149 @@
+@import '../../scss/media';
+@import '../../scss/util';
+@import '../../scss/base';
+
+// Settings
+$contact-height: 30rem;
+$contact-background-fill: rgba(lighten(black, 0.1), 0.4);
+$contact-content-width: 56rem;
+$contact-content-padding: 36px 56px;
+$close-button-size: 0.9;
+
+.contact-wrapper {
+    overflow: hidden auto;
+    visibility: hidden;
+    position: fixed;
+    @extend %abs-flush;
+    @include transition(visibility 0s linear 0.525s);
+    pointer-events: none;
+    z-index: 99999998;
+
+    &.active {
+        visibility: visible!important;
+        transition-delay: 0s;
+        pointer-events: auto;
+
+        .close-button {
+            opacity: 1;
+            transform: scale($close-button-size);
+        }
+        .contact {
+            transform: translate3d(0, 0, 0);
+        }
+        span.background-fill {
+            opacity: 1;
+        }
+    }
+
+    span.background-fill {
+        background-color: $contact-background-fill;
+        display: block;
+        position: absolute;
+        @extend %abs-flush;
+        opacity: 0;
+        z-index: 1;
+        transform: translate3d(0, 0, 0);
+        @include transition(opacity 0.5s $cubic-bezier);
+    }
+
+    .contact {
+        @extend %full-width;
+        display: flex;
+        overflow: hidden !important;
+
+        z-index: 2;
+        touch-action: auto;
+
+        transform: translate3d(0, -115%, 0);
+        @include transition(transform 0.5s $cubic-bezier);
+
+        max-width: none;
+        max-height: $contact-height;
+        @include respond-below(xs) {
+            max-height: none;
+        }
+
+        .side {
+            background-color: $-dark;
+            flex-grow: 1;
+            height: 100%;
+
+            span {
+                content: " ";
+            }
+
+            // Hide on small screens
+            @media(max-width: 400px) {
+                & {
+                    display: none;
+                }
+            }
+        }
+        a {
+            color: $-light;
+
+            &:hover, &:active {
+                text-decoration: underline;
+                opacity: 0.8;
+            }
+        }
+
+        .content {
+            background-color: $-tertiary;
+            padding: $contact-content-padding;
+            flex-grow: 0;
+            box-shadow: 0 4px 8px 0 rgba(black, 0.2);
+            max-width: $contact-content-width;
+
+            p:not(:last-child) {
+                opacity: 0.7;
+            }
+
+            @include respond-below(lg) {
+                & {
+                    padding-left: 36px;
+                }
+            }
+
+            .social-group {
+                margin-top: 32px;
+            }
+        }
+    }
+
+    .close-button {
+        display: block;
+        position: absolute;
+        outline: none;
+        z-index: 3;
+
+        top: 0;
+        right: 0;
+        transform: scale(0);
+
+        margin: 0;
+        border: 0;
+        padding: 0;
+
+        $base-size: 1.8em;
+        width: $base-size;
+        height: $base-size;
+        font-size: 3em;
+        @include respond-below(xs) {
+            $base-size: 2em;
+            width: $base-size;
+            height: $base-size;
+            font-size: 2em;
+        }
+
+        line-height: 1;
+        text-align: center;
+
+        color: rgba($-light, 0.5);
+        background-color: transparent;
+        opacity: 0;
+
+        @include transition(0.3s color, 0.5s opacity, 0.5s transform);
+        transition-timing-function: $cubic-bezier;
+    }
+}

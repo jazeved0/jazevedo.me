@@ -1,0 +1,10 @@
+- text: Resume
+  href: '/resume'
+- text: Projects
+  href: '/projects'
+- text: LinkedIn
+  icon: linkedin
+  href: 'https://www.linkedin.com/in/joseph-az'
+- text: Github
+  icon: github
+  href: 'https://github.com/jazevedo620'
