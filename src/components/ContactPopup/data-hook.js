@@ -6,7 +6,7 @@ export const dataHook = () => {
       {
         allFile(
           filter: {
-            extension: { regex: "/md|mdx/" }
+            extension: { regex: "/md/" }
             sourceInstanceName: { eq: "data" }
             name: { eq: "contact" }
           }

@@ -1,10 +1,10 @@
 @import '../../scss/media';
 @import '../../scss/util';
-@import '../../scss/base';
+@import '../../scss/colors';
 
 // Settings
 $contact-height: 30rem;
-$contact-background-fill: rgba(lighten(black, 0.1), 0.4);
+$contact-background-fill: rgba(lighten(black, 0.1), 0.7);
 $contact-content-width: 56rem;
 $contact-content-padding: 36px 56px;
 $close-button-size: 0.9;
@@ -121,16 +121,16 @@ $close-button-size: 0.9;
         right: 0;
         transform: scale(0);
 
-        margin: 0;
+        margin: 1rem;
         border: 0;
         padding: 0;
 
-        $base-size: 1.8em;
+        $base-size: 4rem;
         width: $base-size;
         height: $base-size;
         font-size: 3em;
         @include respond-below(xs) {
-            $base-size: 2em;
+            $base-size: 2rem;
             width: $base-size;
             height: $base-size;
             font-size: 2em;
@@ -141,9 +141,20 @@ $close-button-size: 0.9;
 
         color: rgba($-light, 0.5);
         background-color: transparent;
+        border: 2px dotted transparent;
+        border-radius: 0.5rem;
         opacity: 0;
 
         @include transition(0.3s color, 0.5s opacity, 0.5s transform);
         transition-timing-function: $cubic-bezier;
+
+        span {
+            position: relative;
+            top: -3px;
+        }
+
+        &:focus {
+            border-color: rgba($-light, 0.3);
+        }
     }
 }

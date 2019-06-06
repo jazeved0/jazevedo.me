@@ -1,0 +1,153 @@
+@import '../scss/media';
+@import '../scss/colors';
+@import '../scss/util';
+
+body {
+    position: relative;
+}
+
+.background-wrapper {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    min-height: 100vh;
+    overflow-y: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    %base-background {
+        background-repeat: no-repeat;
+        background-position-x: center;
+        z-index: 0;
+        flex-grow: 0;
+        width: 100%;
+        height: 750px;
+    }
+
+    /* Background blue triangle */
+    .background-top {
+        @extend %base-background;
+        background-image: url('/img/header-background.svg');
+        background-position-y: -32px;
+        background-size: 2100px 620px;
+        height: 620px;
+
+        position: absolute;
+        top: 0;
+
+        @include respond-above(1080) {
+            background-size: 2500px 750px;
+            height: 750px;
+        }
+
+        @include respond-below(lg) {
+            /* Fill more height on smaller screens */
+            background-position-x: -540px!important;
+            background-size: 2100px 550px!important;
+        }
+
+        @include respond-below(xs) {
+            background-position-x: -620px!important;
+        }
+    }
+
+    /* Background blue triangle on bottom */
+    .background-bottom {
+        @extend %base-background;
+        background-image: url('/img/footer-background.svg');
+        background-position-y: top;
+        background-size: cover;
+        position: relative;
+        margin-top: 350px;
+
+        @include respond-above(1080) {
+            margin-top: 380px;
+        }
+
+        @include respond-below(lg) {
+            /* Fill more height on smaller screens */
+            margin-top: 380px;
+        }
+    }
+
+    /* Background blue rectangle on bottom, extends to bottom of screen */
+    .background-bottom-fill {
+        background-color: #252E44;
+        width: 100%;
+        flex-grow: 1;
+    }
+}
+
+/* Lead text styles */
+.lead-wrapper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 270px;
+
+    @include respond-above(1080) {
+        padding-top: 360px;
+    }
+
+    @include respond-below(xs) {
+        padding-top: 230px;
+    }
+
+    .lead {
+        width: 1150px;
+        color: #F7F8F8;
+        padding: 0 25px;
+
+        @include respond-above(1080) {
+            width: 1280px;
+        }
+
+        @include respond-below(lg) {
+            padding: 0 10px 0 50px;
+        }
+
+        @include respond-below(xs) {
+            padding: 0 25px;
+        }
+
+        @include custom-font(h1, 500, 4.6rem, 3.8rem, 1.2rem, 0.9em);
+        @include custom-font(h2, 300, 2.2rem, 1.8rem, 0.2rem, 1em);
+        @include custom-font(h3, 300, 1.2rem, 1rem);
+
+        strong {
+            font-weight: 600;
+        }
+    }
+}
+
+.featured {
+    margin-top: 6.5rem;
+    position: relative;
+    padding-top: 3rem;
+    padding-bottom: 1.5rem;
+    text-align: center;
+    z-index: 100;
+
+    @include respond-above(1080) {
+        margin-top: 9rem;
+    }
+
+    @include custom-font(h1, 400, 2.8rem, 2.5rem);
+
+    h1 {
+        @include respond-above(1080) {
+            margin-bottom: 0.5rem;
+        }
+
+        .btn {
+            position: relative;
+            top: -8px;
+            padding-top: 0.6rem;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+    }
+}

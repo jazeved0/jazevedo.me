@@ -1,48 +1,39 @@
 import { graphql } from 'gatsby'
 import React from 'react'
-import get from 'lodash/get'
+import { get, isNil, map } from 'lodash'
+import classNames from 'classnames'
+import { renderIcons } from '../util'
 
 import Meta from 'components/Meta'
 import Layout from 'components/Layout'
+import LinkButtonAuto from 'components/LinkButtonAuto'
+import ProjectCardList from 'components/ProjectCardList'
+
+import './index.scss'
 
 const IndexPage = ({ data, location }) => {
+  // Get lead html from query data
+  let leadHtml = get(data, 'file.edges')
+  if (!isNil(leadHtml))
+    leadHtml = get(leadHtml[0], 'node.childMarkdownRemark.html')
+  const projects = map(get(data, 'remark.projects'), 'project.frontmatter')
+
   return (
-    <Layout location={location}>
+    <Layout location={location} custom={true} fixed={false}>
       <Meta site={get(data, 'site.meta')} />
-      <div className="background-wrapper">
-        <div className="background-top" />
-        <div className="background-bottom" />
-        <div className="background-bottom-fill" />
-      </div>
+      <Background />
       <main>
-        <div className="lead-wrapper">
-          <div className="lead">
-            <h1>Joseph Azevedo</h1>
-            <h2>CS Student, Georgia Tech</h2>
-            <h3>
-              Concentration in
-              <span className="font-weight-bold">
-                Information Internetworks
-              </span>
-              &amp; <span className="font-weight-bold">Media</span>
-            </h3>
-          </div>
-        </div>
+        <Lead content={leadHtml} />
         <div className="featured container light-text">
           <h1>
             Featured Projects
-            <a className="btn btn-primary ml-2 mb-1" href="/projects">
-              View All
-            </a>
+            <LinkButtonAuto
+              className="btn btn-primary ml-3 mb-1"
+              href="/projects"
+              text="View All"
+            />
           </h1>
-          <div className="row project-container px-3 px-md-0">
-            {/* {% assign sorted = site.projects | sort: 'importance' | reverse %}
-            {% for project in sorted limit: 3 %}
-                <div className="col-12 col-md-6 col-xl-4 position-relative">
-                    {% include project-card.html project=project %}
-                </div>
-            {% endfor %} */}
-          </div>
+          <ProjectCardList projects={projects} />
         </div>
       </main>
     </Layout>
@@ -64,14 +55,57 @@ export const pageQuery = graphql`
     remark: allMarkdownRemark(
       sort: { fields: [frontmatter___importance], order: DESC }
       limit: 3
+      filter: { frontmatter: { importance: { ne: null } } }
     ) {
       projects: edges {
-        projects: node {
+        project: node {
           frontmatter {
             slug
+            type
+            title
+            description
+            topics {
+              main
+            }
+          }
+        }
+      }
+    }
+    file: allFile(
+      filter: {
+        extension: { regex: "/md/" }
+        sourceInstanceName: { eq: "data" }
+        name: { eq: "index" }
+      }
+    ) {
+      edges {
+        node {
+          childMarkdownRemark {
+            html
           }
         }
       }
     }
   }
 `
+
+function Lead({ content, className, ...rest }) {
+  return (
+    <div className={classNames('lead-wrapper', className)} {...rest}>
+      <div
+        className="lead"
+        dangerouslySetInnerHTML={{ __html: renderIcons(content) }}
+      />
+    </div>
+  )
+}
+
+function Background({ className, ...rest }) {
+  return (
+    <div className={classNames('background-wrapper', className)} {...rest}>
+      <div className="background-top" />
+      <div className="background-bottom" />
+      <div className="background-bottom-fill" />
+    </div>
+  )
+}

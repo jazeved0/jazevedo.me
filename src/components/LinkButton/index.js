@@ -18,7 +18,16 @@ class LinkButton extends React.Component {
       <Icon key="icon" className={classNames('mr-2', iconClass)} name={icon} />
     )
     const renderFunc = {
-      Link: ({ href, text, icon, iconClass, disabled, className }) => {
+      Link: ({
+        href,
+        text,
+        icon,
+        iconClass,
+        disabled,
+        className,
+        children,
+        ...rest
+      }) => {
         const props = {
           disabled: disabled,
           to: href,
@@ -26,7 +35,12 @@ class LinkButton extends React.Component {
           partiallyActive: true,
           className: className,
         }
-        return <Link {...props}>{LinkContent(icon, iconClass, text)}</Link>
+        return (
+          <Link {...props} {...rest}>
+            {LinkContent(icon, iconClass, text)}
+            {children}
+          </Link>
+        )
       },
 
       a: ({
@@ -38,6 +52,8 @@ class LinkButton extends React.Component {
         className,
         newTab,
         external,
+        children,
+        ...rest
       }) => {
         const props = {
           disabled: disabled,
@@ -47,7 +63,12 @@ class LinkButton extends React.Component {
         const targetNewTab = newTab === true || (external && newTab !== false)
         if (targetNewTab) props.target = '_blank'
         if (external) props.rel = 'noopener'
-        return <a {...props}>{LinkContent(icon, iconClass, text)}</a>
+        return (
+          <a {...props} {...rest}>
+            {LinkContent(icon, iconClass, text)}
+            {children}
+          </a>
+        )
       },
     }
 

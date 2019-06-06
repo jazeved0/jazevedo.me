@@ -3,7 +3,7 @@ slug: gamefest-website
 permalink: /projects/gamefest-website
 importance: 7
 
-type: Event Website Development
+type: Event Website
 shortTitle: Gamefest
 title: Gamefest 2018 Website
 description: Event website for GT Esports' annual LAN, featuring third party payment embedding and custom jQuery multi-view Twitch client

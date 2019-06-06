@@ -33,3 +33,27 @@ $yellow: #ffab00 !default;
 $green: #8bc34a !default;
 $teal: #009688 !default;
 $cyan: #00bcd4 !default;
+
+// Custom color scheme
+$theme-colors: (
+    primary: $copper-rose,
+    secondary: $dolphin,
+    tertiary: $pickled-bluewood,
+    success: $highland,
+    info: $neptune,
+    warning: $equator,
+    danger: $burnt-sienna,
+    light: $powder-white,
+    dark: $abyss-blue,
+) !default;
+
+// Color aliases:
+$-primary: map-get($theme-colors, primary);
+$-secondary: map-get($theme-colors, secondary);
+$-tertiary: map-get($theme-colors, tertiary);
+$-success: map-get($theme-colors, success);
+$-info: map-get($theme-colors, info);
+$-warning: map-get($theme-colors, warning);
+$-danger: map-get($theme-colors, danger);
+$-light: map-get($theme-colors, light);
+$-dark: map-get($theme-colors, dark);

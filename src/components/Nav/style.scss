@@ -1,5 +1,6 @@
-@import '../../scss/base';
+@import '../../scss/colors';
 @import '../../scss/media';
+@import '../../scss/util';
 
 // Settings
 $contact-lr-padding: 1.5rem;
@@ -8,83 +9,190 @@ $internal-spacing: 7.5rem;
 $nav-link-spacing: 0.5rem;
 $nav-link-small-spacing: 0.25rem;
 $nav-link-font-size: 1.05rem;
-$nav-link-active-border-width: 0.125rem;
+$nav-link-active-border-width: 0.15rem;
 
-nav.navbar {
-    padding-top: $navbar-td-padding;
-    padding-bottom: $navbar-td-padding;
+.navbar-outer {
+    nav.navbar {
+        padding-top: $navbar-td-padding;
+        padding-bottom: $navbar-td-padding;
 
-    .nav-padding {
-        margin-right: $internal-spacing;
+        .nav-padding {
+            margin-right: $internal-spacing;
 
-        @include respond-below(md) {
-            & {
-                margin-right: 60px;
-            }
-        }
-    }
-
-    @include respond-between(md, lg) {
-        &.custom-layout .navbar-collapse {
-            display: flex;
-            justify-content: space-between;
-            flex-direction: row;
-        }
-    }
-
-    .brand-img {
-        position: relative;
-        top: -2px
-    }
-
-    li.nav-item {
-        margin-left: $nav-link-spacing;
-        margin-right: $nav-link-spacing;
-
-        @include respond-below(md) {
-            & {
-                margin-left: $nav-link-small-spacing;
-                margin-right: $nav-link-small-spacing;
-            }
-        }
-
-        .nav-link {
-            color: $-light;
-            border-top: solid $nav-link-active-border-width transparent;
-            border-bottom: solid $nav-link-active-border-width transparent;
-            white-space: nowrap;
-            font-size: $nav-link-font-size;
-
-            @include respond-below(sm) {
+            @include respond-below(md) {
                 & {
-                    padding-bottom: 0.1rem;
-                    margin-bottom: 0.6rem;
+                    margin-right: 60px;
+                }
+            }
+        }
+
+        %link-hover-behavior {
+            &:hover, &:active {
+                opacity: 0.75;
+            }
+        }
+
+        .brand-img {
+            position: relative;
+            top: -2px;
+            @extend %link-hover-behavior;
+        }
+
+        li.nav-item {
+            margin-left: $nav-link-spacing;
+            margin-right: $nav-link-spacing;
+
+            @include respond-below(md) {
+                & {
+                    margin-left: $nav-link-small-spacing;
+                    margin-right: $nav-link-small-spacing;
                 }
             }
 
-            &.active, &.show, .show, .active {
-                border-bottom: solid $nav-link-active-border-width $-light;
+            .nav-link {
+                color: $-light;
+                border-top: solid $nav-link-active-border-width transparent;
+                border-bottom: solid $nav-link-active-border-width transparent;
+                white-space: nowrap;
+                font-size: $nav-link-font-size;
+                @extend %link-hover-behavior;
+
+                @include respond-below(sm) {
+                    & {
+                        padding-bottom: 0.1rem;
+                        margin-bottom: 0.6rem;
+                    }
+                }
+
+                &.active, &.show, .show, .active {
+                    border-bottom-color: $-light;
+                }
+            }
+        }
+    }
+    &:not(.custom-layout) {
+        min-height: 78px;
+
+        @include respond-between(md, lg) {
+            .navbar-collapse {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+            }
+        }
+    }
+
+    &.custom-layout {
+        nav.navbar {
+            background-color: transparent !important;
+            margin-bottom: -96px;
+            z-index: 2;
+
+            .nav-container {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                width: 100%;
+
+                .inner {
+                    max-width: 1200px;
+                    width: 100%;
+                    padding: 20px 10px 20px 30px;
+
+                    position: absolute;
+                    display: -ms-flexbox;
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    @include respond-above(1080) {
+                        max-width: 1500px;
+                    }
+
+                    @include respond-below(xs) {
+                        padding-left: 10px;
+                    }
+                }
+            }
+        }
+
+        @include respond-below(sm) {
+            /* Style navbar dropdown */
+            button.navbar-toggler{
+                border-color: blend($-tertiary, $-light, 0.5);
+
+                background-size: 100% 200%;
+                background-image: linear-gradient(to bottom, transparent 50%, $-dark 50%);
+                @include transition(background-position 0.1s);
+                transition-delay: 0.375s;
+
+                &:after {
+                    background-color: rgb(33, 40, 59);
+                    content: " ";
+                    position: absolute;
+                    top: 59px;
+                    height: 0;
+                    width: 56px;
+                    right: 10px;
+                    z-index: -1;
+
+                    @include transition(height 0.075s);
+                    transition-delay: 0.3s;
+                }
+
+                &.collapsed {
+                    border-color: transparent;
+                    border-bottom-right-radius: 0;
+                    border-bottom-left-radius: 0;
+
+                    background-position: 0 -100%;
+                    @include transition(background-position 0s);
+
+                    &:after {
+                        height: 20px;
+                        @include transition(height 0s);
+                    }
+                }
+            }
+            .navbar-collapse {
+                margin-top: 18px;
+                background-color: rgb(33, 40, 59);
+                padding: 0 12px 0 28px;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                border-top-left-radius: 8px;
+
+                & > *:first-child {
+                    margin-top: 8px !important;
+                }
+
+                & > *:last-child {
+                    margin-bottom: 20px !important;
+                }
+            }
+        }
+    }
+
+    #btn-contact {
+        &:not(:hover) {
+            opacity: 0.9;
+        }
+        padding: {
+            right: $contact-lr-padding;
+            left: $contact-lr-padding;
+        }
+        margin: {
+            top: 0.5rem;
+            bottom: 0.5rem;
+        }
+        @include respond-below(sm) {
+            margin: {
+                top: 1rem;
             }
         }
     }
 }
 
-#btn-contact {
-    &:not(:hover) {
-        opacity: 0.9;
-    }
-    padding: {
-        right: $contact-lr-padding;
-        left: $contact-lr-padding;
-    }
-    margin: {
-        top: 0.5rem;
-        bottom: 0.5rem;
-    }
-    @include respond-below(sm) {
-        margin: {
-            top: 1rem;
-            bottom: 1rem;
-        }
-    }
-}

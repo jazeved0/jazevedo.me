@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { dataHook } from './data-hook'
+import { isNil } from 'lodash'
 
 import ContactPopup from '../ContactPopup'
 import LinkBar from '../LinkBar'
@@ -30,14 +31,15 @@ class Nav extends React.Component {
   }
 
   render() {
-    const { custom, sticky } = this.props
-    const navClass = classNames({
+    const { custom, className, fixed } = this.props
+    const wrapperClass = classNames('navbar-outer', className, {
       'custom-layout': custom,
     })
+    const fixedProp = isNil(fixed) ? 'top' : null
 
     return (
-      <div>
-        <NavLayout navClassName={navClass} custom={custom} sticky={sticky}>
+      <div className={wrapperClass}>
+        <NavLayout custom={custom} fixed={fixedProp}>
           <HomeButton height={22} />
           <Navbar.Toggle aria-controls="collapse-links" />
           <Navbar.Collapse id="collapse-links">
