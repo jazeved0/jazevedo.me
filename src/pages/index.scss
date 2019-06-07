@@ -16,29 +16,11 @@ body {
     display: flex;
     flex-direction: column;
 
-    %base-background {
-        background-repeat: no-repeat;
-        background-position-x: center;
-        z-index: 0;
-        flex-grow: 0;
-        width: 100%;
-        height: 750px;
-    }
-
     /* Background blue triangle */
     .background-top {
-        @extend %base-background;
-        background-image: url('/img/header-background.svg');
-        background-position-y: -32px;
-        background-size: 2100px 620px;
-        height: 620px;
-
-        position: absolute;
-        top: 0;
-
         @include respond-above(1080) {
-            background-size: 2500px 750px;
-            height: 750px;
+            background-size: 2500px 750px !important;
+            height: 750px !important;
         }
 
         @include respond-below(lg) {
@@ -54,28 +36,14 @@ body {
 
     /* Background blue triangle on bottom */
     .background-bottom {
-        @extend %base-background;
-        background-image: url('/img/footer-background.svg');
-        background-position-y: top;
-        background-size: cover;
-        position: relative;
-        margin-top: 350px;
-
         @include respond-above(1080) {
-            margin-top: 380px;
+            margin-top: 380px !important;
         }
 
         @include respond-below(lg) {
             /* Fill more height on smaller screens */
-            margin-top: 380px;
+            margin-top: 380px !important;
         }
-    }
-
-    /* Background blue rectangle on bottom, extends to bottom of screen */
-    .background-bottom-fill {
-        background-color: #252E44;
-        width: 100%;
-        flex-grow: 1;
     }
 }
 

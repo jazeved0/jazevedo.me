@@ -26,7 +26,6 @@
     "gatsby-plugin-offline": "2.1.1",
     "gatsby-plugin-preact": "2.0.11",
     "gatsby-plugin-react-helmet": "3.0.12",
-    "gatsby-plugin-react-next": "2.0.1-13",
     "gatsby-plugin-sass": "^2.0.0-rc.2",
     "gatsby-plugin-sharp": "2.1.1",
     "gatsby-plugin-sitemap": "2.1.0",
@@ -43,7 +42,6 @@
     "graphql": "^14.3.1"
   },
   "devDependencies": {
-    "animate.css": "3.7.0",
     "babel-eslint": "10.0.1",
     "bootstrap": "4.3.1",
     "eslint": "5.16.0",
@@ -52,10 +50,8 @@
     "eslint-plugin-react": "7.13.0",
     "font-awesome": "4.7.0",
     "gh-pages": "2.0.1",
-    "husky": "2.3.0",
     "lint-staged": "8.1.7",
     "lodash": "4.17.11",
-    "modern-normalize": "0.5.0",
     "node-sass": "4.12.0",
     "prettier": "1.17.1",
     "prismjs": "1.16.0",

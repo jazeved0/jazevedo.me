@@ -4,10 +4,11 @@ import { get, isNil } from 'lodash'
 
 import Topic from '../Topic'
 import LinkButtonAuto from '../LinkButtonAuto'
+import Img from 'gatsby-image'
 
 import './style.scss'
 
-function ProjectCard({ className, project, ...rest }) {
+function ProjectCard({ className, project, logo, card, ...rest }) {
   const url = get(project, 'url')
   const title = get(project, 'title')
   const type = get(project, 'type')
@@ -16,19 +17,27 @@ function ProjectCard({ className, project, ...rest }) {
   const description = get(project, 'description')
   const hasDescription = !isNil(description)
 
-  const hasCard = true
-  const card = 'https://picsum.photos/700/500'
-  const hasLogo = false
-  const logo = 'https://picsum.photos/350/200'
+  const hasCard = !isNil(card)
+  const hasLogo = !isNil(logo)
 
   let style = undefined
-  if (hasCard) style = { backgroundImage: `url(${card})` }
+  if (hasCard && !card.sharpImg) style = { backgroundImage: `url(${card.src})` }
 
   return (
     <div className={classNames('project-card', className)} {...rest}>
       <div className="card-top" style={style}>
         <LinkButtonAuto href={url} tabIndex="-1">
-          <div className="overlay">
+          {hasCard && card.sharpImg ? (
+            <Img
+              className="fill-card-top"
+              fluid={card.image}
+              role="presentation"
+              alt=""
+            />
+          ) : (
+            ''
+          )}
+          <div className="fill-card-top overlay">
             <Logo hasLogo={hasLogo} logo={logo} title={title} />
             {hasDescription ? (
               <Description title={title} description={description} />
@@ -63,8 +72,15 @@ function Logo({ children, hasLogo, logo, title, className, ...rest }) {
       {inner}
     </div>
   )
+  const alt = title.toString() + 'logo'
   return hasLogo
-    ? base(<img src={logo} alt={title.toString() + 'logo'} />)
+    ? base(
+        logo.sharpImg ? (
+          <Img fluid={logo.image} alt={alt} />
+        ) : (
+          <img src={logo.src} alt={alt} />
+        )
+      )
     : base(<h2>{title}</h2>)
 }
 

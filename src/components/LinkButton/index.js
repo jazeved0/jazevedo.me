@@ -25,7 +25,11 @@ class LinkButton extends React.Component {
         iconClass,
         disabled,
         className,
+        newTab,
+        external,
         children,
+        useLink,
+        noLink,
         ...rest
       }) => {
         const props = {
@@ -53,6 +57,8 @@ class LinkButton extends React.Component {
         newTab,
         external,
         children,
+        useLink,
+        noLink,
         ...rest
       }) => {
         const props = {

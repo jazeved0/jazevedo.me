@@ -62,3 +62,14 @@ $cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);
         transition: none;
     }
 }
+
+@mixin card-config($breakpoint, $count, $between) {
+    @include respond-above($breakpoint) {
+        & {
+            margin: ($between / 2);
+            $percent: (100% / $count);
+            flex: 0 0 #{$percent};
+            max-width: calc(#{$percent} - #{$between});
+        }
+    }
+}
