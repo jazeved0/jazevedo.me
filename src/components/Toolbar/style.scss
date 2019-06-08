@@ -5,17 +5,4 @@
     nav {
         box-shadow: $drop-shadow;
     }
-
-    &.fixed {
-        min-height: 70px;
-
-        nav {
-            top: 78px;
-            z-index: 100;
-
-            @include respond-below(sm) {
-                top: 64px;
-            }
-        }
-    }
 }

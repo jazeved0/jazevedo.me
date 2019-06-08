@@ -10,6 +10,7 @@ import {
   faDownload,
   faHome,
   faChevronLeft,
+  faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
   faGithub,
@@ -18,7 +19,8 @@ library.add(
   faFileCode,
   faDownload,
   faHome,
-  faChevronLeft
+  faChevronLeft,
+  faInfoCircle
 )
 const map = { fab: ['github', 'linkedin'] }
 

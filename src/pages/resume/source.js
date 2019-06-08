@@ -19,13 +19,15 @@ const ResumeSourcePage = ({ data, location }) => {
   }
 
   return (
-    <Layout location={location}>
+    <Layout
+      location={location}
+      nav={<Toolbar buttons={buttons} background="dark" />}
+    >
       <Meta site={get(data, 'site.meta')} />
       <main className="bg-one-dark">
-        <Toolbar buttons={buttons} background="dark" fixed="top" />
         {!isNil(contentHtml) && contentHtml.trim() != '' ? (
           <div
-            className="container py-4 py-lg-5 source-content"
+            className="container pt-4 pb-5 source-content"
             dangerouslySetInnerHTML={{ __html: contentHtml }}
           />
         ) : (

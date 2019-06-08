@@ -56,10 +56,26 @@ hr {
     cursor: pointer;
 }
 
-.navbar-outer.custom-layout + .noscript-alert .alert {
-    z-index: 100000;
-    position: relative;
-    top: 170px;
+.nav-container {
+    &.sticky-scroll {
+        z-index: 3000000;
+        position: sticky;
+        right: 0;
+        left: 0;
+        top: 0;
+    }
+
+    .noscript-alert {
+        z-index: 300000;
+        box-shadow: $drop-shadow;
+        .container {
+            align-items: center;
+            justify-content: start;
+        }
+        & + .navbar-outer nav {
+            top: 48px;
+        }
+    }
 }
 
 .alert-dark {

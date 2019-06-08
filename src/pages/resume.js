@@ -21,10 +21,14 @@ const ResumePage = ({ data, location }) => {
   }
 
   return (
-    <Layout location={location} fixed={false} className="resume-layout">
+    <Layout
+      location={location}
+      fixed={false}
+      className="resume-layout"
+      nav={<Toolbar buttons={buttons} background="dark" />}
+    >
       <Meta site={get(data, 'site.meta')} />
       <main>
-        <Toolbar buttons={buttons} background="dark" />
         {!isNil(contentHtml) && contentHtml.trim() != '' ? (
           <div
             className="container py-5"

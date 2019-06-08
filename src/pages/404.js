@@ -19,7 +19,7 @@ const NotFoundPage = ({ data, location }) => {
   }
 
   return (
-    <Layout location={location} fixed={false}>
+    <Layout location={location}>
       <Meta site={get(data, 'site.meta')} />
       <main>
         <div className="container py-5">

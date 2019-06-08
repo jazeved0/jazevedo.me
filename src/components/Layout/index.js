@@ -1,23 +1,33 @@
 import React from 'react'
 
 import Nav from 'components/Nav'
-import { Alert } from 'react-bootstrap'
+import Icon from 'components/Icon'
+import { Navbar } from 'react-bootstrap'
 
 import 'scss/base.scss'
 
 class Layout extends React.Component {
   render() {
-    const { children, className, ...rest } = this.props
+    const { nav, children, className, ...rest } = this.props
     return (
       <div className={className}>
-        <Nav {...rest} />
-        <noscript>
-          <div className="container mt-3 noscript-alert">
-            <Alert variant="dark">
-              This website works better with javascript enabled
-            </Alert>
-          </div>
-        </noscript>
+        <div className="nav-container">
+          <noscript>
+            <Navbar bg="primary" className="noscript-alert">
+              <div className="container py-1">
+                <span
+                  className="mr-3"
+                  style={{ fontSize: '1.5rem', marginTop: '-8px' }}
+                >
+                  <Icon name="info-circle" />{' '}
+                </span>
+                This website works better with javascript enabled
+              </div>
+            </Navbar>
+          </noscript>
+          <Nav {...rest} />
+          {nav}
+        </div>
         {children}
       </div>
     )

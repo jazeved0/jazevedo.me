@@ -71,12 +71,6 @@ $nav-link-active-border-width: 0.15rem;
             z-index: 1000;
         }
 
-        min-height: 78px;
-
-        @include respond-below(sm) {
-            min-height: 64px;
-        }
-
         @include respond-between(md, lg) {
             .navbar-collapse {
                 display: flex;

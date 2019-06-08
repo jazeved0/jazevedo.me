@@ -31,15 +31,14 @@ class Nav extends React.Component {
   }
 
   render() {
-    const { custom, className, fixed } = this.props
+    const { custom, className } = this.props
     const wrapperClass = classNames('navbar-outer', className, {
       'custom-layout': custom,
     })
-    const fixedProp = isNil(fixed) ? 'top' : null
 
     return (
       <div className={wrapperClass}>
-        <NavLayout custom={custom} fixed={fixedProp}>
+        <NavLayout custom={custom}>
           <HomeButton height={22} />
           <Navbar.Toggle aria-controls="collapse-links" />
           <Navbar.Collapse id="collapse-links">
@@ -59,7 +58,7 @@ export default Nav
 // ? Helper Components
 // ? -----------------
 
-function NavLayout({ children, custom, navClassName, sticky, ...rest }) {
+function NavLayout({ children, custom, navClassName, ...rest }) {
   return (
     <Navbar
       className={navClassName}
@@ -67,7 +66,6 @@ function NavLayout({ children, custom, navClassName, sticky, ...rest }) {
       bg="tertiary"
       variant="dark"
       collapseOnSelect
-      sticky={sticky ? 'top' : null}
       {...rest}
     >
       <div className={custom ? 'nav-container' : 'container'}>
