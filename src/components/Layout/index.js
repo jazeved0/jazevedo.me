@@ -11,7 +11,7 @@ class Layout extends React.Component {
     const { nav, children, className, ...rest } = this.props
     return (
       <div className={className}>
-        <div className="nav-container">
+        <div className="nav-container sticky-scroll">
           <noscript>
             <Navbar bg="primary" className="noscript-alert">
               <div className="container py-1">
