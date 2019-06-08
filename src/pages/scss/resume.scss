@@ -1,0 +1,25 @@
+html, body, .layout-outer {
+    height: 100vh;
+}
+
+html, body, main {
+    display: relative;
+    overflow-y: hidden;
+}
+
+.pdf-wrapper {
+    background-color: #525659;
+}
+
+.layout-outer, main {
+    display: flex;
+    flex-direction: column;
+
+    & > *:not(:last-child) {
+        flex-grow: 0;
+    }
+
+    & > *:last-child {
+        flex-grow: 1;
+    }
+}

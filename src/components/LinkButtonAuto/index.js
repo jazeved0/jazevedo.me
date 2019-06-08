@@ -1,11 +1,18 @@
 import React from 'react'
+import { isNil } from 'lodash'
 
 import LinkButton from '../LinkButton'
-import { isExternal } from '../../util'
+import { isExternal, isFile } from '../../util'
 
-function LinkButtonAuto({ href, children, ...rest }) {
+function LinkButtonAuto({ href, children, external, ...rest }) {
+  const externalProp = isNil(external) ? isExternal(href) : external
   return (
-    <LinkButton useLink={!isExternal(href)} href={href} {...rest}>
+    <LinkButton
+      useLink={!externalProp}
+      href={href}
+      download={isFile(href) ? true : undefined}
+      {...rest}
+    >
       {children}
     </LinkButton>
   )

@@ -1,6 +1,7 @@
 @import '../../scss/colors';
 @import '../../scss/media';
 @import '../../scss/util';
+@import '../../scss/theme';
 
 // Settings
 $contact-lr-padding: 1.5rem;
@@ -71,7 +72,16 @@ $nav-link-active-border-width: 0.15rem;
         }
     }
     &:not(.custom-layout) {
+        nav.navbar {
+            box-shadow: $drop-shadow-light;
+            z-index: 1000;
+        }
+
         min-height: 78px;
+
+        @include respond-below(md) {
+            min-height: 64px;
+        }
 
         @include respond-between(md, lg) {
             .navbar-collapse {

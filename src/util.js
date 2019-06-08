@@ -3,8 +3,11 @@ import ReactDOMServer from 'react-dom/server'
 import Icon from 'components/Icon'
 import { isNil } from 'lodash'
 
-const externalRegex = /((http|https):\/\/(?!(?:www\.)?jazevedo.me)[\w./=?#-]+)/
+const externalRegex = /(?:^(?:http|https):\/\/(?!(?:www\.)?jazevedo.me)[\w./=?#-]+$)|(?:^[\w./=:?#-]+[.]\w+$)/
 export const isExternal = href => externalRegex.test(href)
+
+const fileRegex = /^[\w./=:?#-]+[.]\w+$/
+export const isFile = href => fileRegex.test(href)
 
 const iconRegex = /:([A-Za-z-0-9]+)(?:_([a-zA-Z0-9-_ ]+))?:/g
 export const renderIcons = rawHtmlInput =>

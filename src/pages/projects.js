@@ -6,7 +6,7 @@ import Meta from 'components/Meta'
 import Layout from 'components/Layout'
 import ProjectCardList from 'components/ProjectCardList'
 
-import './projects.scss'
+import './scss/projects.scss'
 
 const ProjectsPage = ({ data, location }) => {
   let titleHtml = get(data, 'file.edges')

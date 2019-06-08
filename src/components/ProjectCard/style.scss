@@ -1,10 +1,10 @@
 @import '../../scss/media';
 @import '../../scss/colors';
 @import '../../scss/util';
+@import '../../scss/theme';
 
 div.project-card {
     background-color: $-light;
-    box-shadow: 0 4px 8px 0 rgba(black, 0.2);
     margin: 6px 0;
     max-width: 100%;
     padding: 0;
@@ -12,6 +12,8 @@ div.project-card {
     width: 100%;
     flex: 0 0 100%;
     max-width: 100%;
+
+    box-shadow: $drop-shadow;
 
     @include card-config(sm,   2, 12px);
     @include card-config(lg,   3, 12px);

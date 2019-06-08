@@ -1,0 +1,19 @@
+@import '../../scss/theme';
+
+.toolbar-outer {
+    box-shadow: $drop-shadow;
+
+    .toolbar {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 0;
+        list-style: none;
+
+
+        .toolbar-item {
+            &:not(:last-child) {
+                margin-right: 1rem;
+            }
+        }
+    }
+}

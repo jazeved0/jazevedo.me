@@ -1,6 +1,6 @@
-@import '../scss/media';
-@import '../scss/colors';
-@import '../scss/util';
+@import '../../scss/media';
+@import '../../scss/colors';
+@import '../../scss/util';
 
 body {
     position: relative;
@@ -112,7 +112,7 @@ body {
 
         .btn {
             position: relative;
-            top: -8px;
+            top: -12px;
             padding-top: 0.6rem;
             font-size: 1.1rem;
             font-weight: 300;

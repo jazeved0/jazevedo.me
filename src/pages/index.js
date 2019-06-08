@@ -9,7 +9,7 @@ import Layout from 'components/Layout'
 import LinkButtonAuto from 'components/LinkButtonAuto'
 import ProjectCardList from 'components/ProjectCardList'
 
-import './index.scss'
+import './scss/index.scss'
 import headerSVG from '../../static/img/header-background.svg'
 import footerSVG from '../../static/img/footer-background.svg'
 
@@ -30,7 +30,7 @@ const IndexPage = ({ data, location }) => {
           <h1>
             Featured Projects
             <LinkButtonAuto
-              className="btn btn-primary ml-3 mb-1"
+              className="btn btn-primary ml-3 mt-3 mb-2"
               href="/projects"
               text="View All"
             />

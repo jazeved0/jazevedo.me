@@ -1,16 +1,15 @@
 import React from 'react'
 
 import Nav from 'components/Nav'
-import { siteMetadata } from '../../../gatsby-config'
 
 import 'scss/base.scss'
 
 class Layout extends React.Component {
   render() {
-    const { children } = this.props
+    const { children, className, ...rest } = this.props
     return (
-      <div>
-        <Nav {...this.props} />
+      <div className={className}>
+        <Nav {...rest} />
         {children}
       </div>
     )
