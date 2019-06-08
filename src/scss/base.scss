@@ -56,6 +56,18 @@ hr {
     cursor: pointer;
 }
 
+.navbar-outer.custom-layout + .noscript-alert .alert {
+    z-index: 100000;
+    position: relative;
+    top: 170px;
+}
+
+.alert-dark {
+    color: $-light;
+    background-color: rgba($-light, 0.1);
+    border-color: rgba($-light, 0.2);
+}
+
 // ? ---------------
 // ? Utility classes
 // ? ---------------
