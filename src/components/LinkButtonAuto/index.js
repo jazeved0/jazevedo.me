@@ -19,6 +19,7 @@ function LinkButtonAuto({
   return (
     <LinkButton
       useLink={!externalProp}
+      external={externalProp}
       href={href}
       onClick={onClick}
       action={action}
