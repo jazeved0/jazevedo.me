@@ -4,11 +4,11 @@ import { get, isNil } from 'lodash'
 
 import Meta from 'components/Meta'
 import Layout from 'components/Layout'
-import ButtonBar from 'components/ButtonBar'
+import Toolbar from 'components/Toolbar'
 
-import './scss/404.scss'
+import '../scss/source.scss'
 
-const NotFoundPage = ({ data, location }) => {
+const ResumeSourcePage = ({ data, location }) => {
   let files = get(data, 'file.edges')
   let contentHtml
   let buttons
@@ -19,34 +19,32 @@ const NotFoundPage = ({ data, location }) => {
   }
 
   return (
-    <Layout location={location} fixed={false}>
+    <Layout location={location}>
       <Meta site={get(data, 'site.meta')} />
-      <main>
-        <div className="container py-5">
-          {!isNil(contentHtml) && contentHtml.trim() != '' ? (
-            <div
-              className="error-content"
-              dangerouslySetInnerHTML={{ __html: contentHtml }}
-            />
-          ) : (
-            ''
-          )}
-          <ButtonBar className="mt-5" buttons={buttons} />
-        </div>
+      <main className="bg-one-dark">
+        <Toolbar buttons={buttons} background="dark" fixed="top" />
+        {!isNil(contentHtml) && contentHtml.trim() != '' ? (
+          <div
+            className="container py-4 py-lg-5 source-content"
+            dangerouslySetInnerHTML={{ __html: contentHtml }}
+          />
+        ) : (
+          ''
+        )}
       </main>
     </Layout>
   )
 }
 
-export default NotFoundPage
+export default ResumeSourcePage
 
 export const pageQuery = graphql`
-  query NotFoundQuery {
+  query ResumeSourceQuery {
     file: allFile(
       filter: {
         extension: { regex: "/md/" }
         sourceInstanceName: { eq: "data" }
-        name: { eq: "404" }
+        name: { eq: "source" }
       }
     ) {
       edges {
@@ -54,7 +52,6 @@ export const pageQuery = graphql`
           childMarkdownRemark {
             html
             frontmatter {
-              pdf
               buttons {
                 href
                 icon

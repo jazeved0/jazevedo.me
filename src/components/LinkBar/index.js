@@ -24,6 +24,7 @@ class LinkBar extends React.Component {
             newTab: null,
             disabled: false,
             iconClass: iconClass,
+            onClick: null,
           })
 
           link.className = classNames(linkClass, get(l, 'class', ''))

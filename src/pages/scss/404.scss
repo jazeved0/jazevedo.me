@@ -1,7 +1,9 @@
+@import '../../scss/colors';
+
 .error-content {
     h1 {
         margin-top: 1rem;
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.5rem;
     }
 
     h2 {
@@ -9,5 +11,16 @@
         font-size: 1rem;
         font-weight: 400;
         opacity: 0.8;
+    }
+
+    hr {
+        max-width: 100px;
+        margin: {
+            left: 0;
+            right: 0;
+            bottom: 2rem;
+            top: 2rem;
+        }
+        border-top: 2px solid rgba($-light, 0.75);
     }
 }

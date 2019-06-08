@@ -1,18 +1,20 @@
 @import '../../scss/theme';
+@import '../../scss/media';
 
 .toolbar-outer {
-    box-shadow: $drop-shadow;
+    nav {
+        box-shadow: $drop-shadow;
+    }
 
-    .toolbar {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 0;
-        list-style: none;
+    &.fixed {
+        min-height: 70px;
 
+        nav {
+            top: 78px;
+            z-index: 100;
 
-        .toolbar-item {
-            &:not(:last-child) {
-                margin-right: 1rem;
+            @include respond-below(sm) {
+                top: 64px;
             }
         }
     }

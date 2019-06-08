@@ -21,7 +21,7 @@ const ResumePage = ({ data, location }) => {
   }
 
   return (
-    <Layout location={location} fixed={false} className="layout-outer">
+    <Layout location={location} fixed={false} className="resume-layout">
       <Meta site={get(data, 'site.meta')} />
       <main>
         <Toolbar buttons={buttons} background="dark" />
@@ -70,6 +70,7 @@ export const pageQuery = graphql`
                 image
                 text
                 class
+                action
               }
             }
           }

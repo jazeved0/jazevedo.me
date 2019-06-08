@@ -1,27 +1,25 @@
 import React from 'react'
 import classNames from 'classnames'
+import { isNil } from 'lodash'
 
-import LinkBar from '../LinkBar'
+import ButtonBar from '../ButtonBar'
 import { Navbar } from 'react-bootstrap'
 
 import './style.scss'
 
-function Toolbar({ buttons, background, className, ...rest }) {
+function Toolbar({ buttons, background, className, fixed, ...rest }) {
   return (
-    <Navbar
-      bg={background}
-      className={classNames('toolbar-outer', className)}
-      {...rest}
+    <div
+      className={classNames('toolbar-outer', className, {
+        fixed: !isNil(fixed),
+      })}
     >
-      <div className="container my-2">
-        <LinkBar
-          links={buttons}
-          ulClass="toolbar container"
-          liClass="toolbar-item"
-          linkClass="btn"
-        />
-      </div>
-    </Navbar>
+      <Navbar bg={background} expand="md" fixed={fixed} {...rest}>
+        <div className="container my-2">
+          <ButtonBar buttons={buttons} />
+        </div>
+      </Navbar>
+    </div>
   )
 }
 

@@ -8,24 +8,24 @@
 	.st4{fill:url(#a);}
 </style>
 <path class="st0" d="M786.1,674.9c9.9,8.5,24,10.3,35.7,4.4L2180.5,0H0L786.1,674.9z"/>
-	<linearGradient id="d" x1="106.53" x2="488.2" y1="183.47" y2="-36.886" gradientUnits="userSpaceOnUse">
-		<stop stop-color="#fff" stop-opacity=".03" offset="0"/>
-		<stop stop-color="#fff" stop-opacity=".01" offset="1"/>
-	</linearGradient>
-	<polygon class="st1" points="339.8 292 261 224.5 1.2 1 509.5 0"/>
-	<linearGradient id="c" x1="877.73" x2="579.5" y1="22.168" y2="538.71" gradientUnits="userSpaceOnUse">
-		<stop stop-color="#fff" stop-opacity=".01" offset="0"/>
-		<stop stop-color="#fff" stop-opacity=".03" offset="1"/>
-	</linearGradient>
-	<polygon class="st2" points="914 297.5 728.8 191.3 839.3 0 695.4 0 464.8 399.3 561 481.8 561.1 481.6 725.7 623.1"/>
-	<linearGradient id="b" x1="814.77" x2="1507.5" y1="42.45" y2="442.39" gradientUnits="userSpaceOnUse">
-		<stop stop-color="#fff" stop-opacity=".01" offset="0"/>
-		<stop stop-color="#fff" stop-opacity=".03" offset="1"/>
-	</linearGradient>
-	<polygon class="st3" points="729 191.5 839 0.5 1085.3 0 1593.4 293.5 1224.8 477.8"/>
-	<linearGradient id="a" x1="1544.5" x2="1735.1" y1="265.48" y2="-64.677" gradientUnits="userSpaceOnUse">
-		<stop stop-color="#fff" stop-opacity=".01" offset="0"/>
-		<stop stop-color="#fff" stop-opacity=".03" offset="1"/>
-	</linearGradient>
-	<polygon class="st4" points="1593 293.5 1711.7 234.4 1847.1 0 1548.4 0 1432.6 200.6"/>
+<linearGradient id="d" x1="949.78" x2="604.35" y1="-93.879" y2="504.42" gradientUnits="userSpaceOnUse">
+	<stop stop-color="#fff" stop-opacity=".05" offset=".020126"/>
+	<stop stop-color="#fff" stop-opacity=".01" offset="1"/>
+</linearGradient>
+<polygon class="st1" points="735.4 631.4 453.8 389.6 611.9 124.8 686.5 0 1112.4 0"/>
+<linearGradient id="c" x1="1024.9" x2="1483.7" y1="124.87" y2="446.08" gradientUnits="userSpaceOnUse">
+	<stop stop-color="#fff" stop-opacity=".01" offset="0"/>
+	<stop stop-color="#fff" stop-opacity=".05" offset="1"/>
+</linearGradient>
+<polygon class="st2" points="1223.3 478.6 939.7 289.2 1112.4 0 1146 0 1427.8 188.2 1588.9 295.8"/>
+<linearGradient id="b" x1="1734" x2="1540" y1="-68.4" y2="267.53" gradientUnits="userSpaceOnUse">
+	<stop stop-color="#fff" stop-opacity=".05" offset="0"/>
+	<stop stop-color="#fff" stop-opacity=".01" offset="1"/>
+</linearGradient>
+<polygon class="st3" points="1540.2 0 1427.8 188.2 1588.9 295.8 1711.7 234.4 1852.4 0"/>
+<linearGradient id="a" x1="93.095" x2="432.95" y1="523.83" y2="720.05" gradientTransform="matrix(1 0 0 -1 0 684)" gradientUnits="userSpaceOnUse">
+	<stop stop-color="#fff" stop-opacity=".03" offset="0"/>
+	<stop stop-color="#fff" stop-opacity=".01" offset="1"/>
+</linearGradient>
+<polygon class="st4" points="296.5 254.9 261 224.5 1.2 1 453.8 0.1"/>
 </svg>

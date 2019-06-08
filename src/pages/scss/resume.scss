@@ -1,17 +1,13 @@
-html, body, .layout-outer {
+html, body, .resume-layout {
     height: 100vh;
-}
-
-html, body, main {
-    display: relative;
-    overflow-y: hidden;
 }
 
 .pdf-wrapper {
     background-color: #525659;
+    overflow-y: hidden;
 }
 
-.layout-outer, main {
+.resume-layout, .resume-layout main {
     display: flex;
     flex-direction: column;
 

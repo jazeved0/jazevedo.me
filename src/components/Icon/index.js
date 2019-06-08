@@ -8,8 +8,18 @@ import {
   faEnvelope,
   faFileCode,
   faDownload,
+  faHome,
+  faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons'
-library.add(faGithub, faLinkedin, faEnvelope, faFileCode, faDownload)
+library.add(
+  faGithub,
+  faLinkedin,
+  faEnvelope,
+  faFileCode,
+  faDownload,
+  faHome,
+  faChevronLeft
+)
 const map = { fab: ['github', 'linkedin'] }
 
 const baseStyle = { display: 'inline-block', height: '1em', width: '1em' }

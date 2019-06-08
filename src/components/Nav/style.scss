@@ -21,9 +21,7 @@ $nav-link-active-border-width: 0.15rem;
             margin-right: $internal-spacing;
 
             @include respond-below(md) {
-                & {
-                    margin-right: 60px;
-                }
+                margin-right: 60px;
             }
         }
 
@@ -44,10 +42,8 @@ $nav-link-active-border-width: 0.15rem;
             margin-right: $nav-link-spacing;
 
             @include respond-below(md) {
-                & {
-                    margin-left: $nav-link-small-spacing;
-                    margin-right: $nav-link-small-spacing;
-                }
+                margin-left: $nav-link-small-spacing;
+                margin-right: $nav-link-small-spacing;
             }
 
             .nav-link {
@@ -59,13 +55,11 @@ $nav-link-active-border-width: 0.15rem;
                 @extend %link-hover-behavior;
 
                 @include respond-below(sm) {
-                    & {
-                        padding-bottom: 0.1rem;
-                        margin-bottom: 0.6rem;
-                    }
+                    padding-bottom: 0.1rem;
+                    margin-bottom: 0.6rem;
                 }
 
-                &.active, &.show, .show, .active {
+                &.active-link, .active-link {
                     border-bottom-color: $-light;
                 }
             }
@@ -79,7 +73,7 @@ $nav-link-active-border-width: 0.15rem;
 
         min-height: 78px;
 
-        @include respond-below(md) {
+        @include respond-below(sm) {
             min-height: 64px;
         }
 

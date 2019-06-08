@@ -1,0 +1,13 @@
+.button-bar {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0;
+    list-style: none;
+    padding-left: 0;
+
+    .button-bar-item {
+        &:not(:last-child) {
+            margin-right: 1rem;
+        }
+    }
+}
