@@ -17,3 +17,5 @@ export const renderIcons = rawHtmlInput =>
         const element = <Icon name={g1} className={g2} />
         return ReactDOMServer.renderToString(element)
       })
+
+export const imgUrlFormat = img => `url(${img})`

@@ -7,7 +7,7 @@ import './style.scss'
 
 class SocialButton extends React.Component {
   render() {
-    const { href, icon, className, ...rest } = this.props
+    const { href, icon, className, newTab, ...rest } = this.props
 
     return (
       <a

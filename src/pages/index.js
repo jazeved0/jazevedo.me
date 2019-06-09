@@ -2,7 +2,7 @@ import { graphql } from 'gatsby'
 import React from 'react'
 import { get, isNil, map } from 'lodash'
 import classNames from 'classnames'
-import { renderIcons } from '../util'
+import { renderIcons, imgUrlFormat } from '../util'
 
 import Layout from 'components/Layout'
 import LinkButtonAuto from 'components/LinkButtonAuto'
@@ -100,7 +100,6 @@ function Lead({ content, className, ...rest }) {
   )
 }
 
-const imgUrlFormat = img => `url(${img})`
 function Background({ className, ...rest }) {
   return (
     <div className={classNames('background-wrapper', className)} {...rest}>

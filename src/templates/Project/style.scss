@@ -1,7 +1,7 @@
 @import '../../scss/media';
 
 .head {
-    padding-top: 2em;
+    padding-top: 3em;
     padding-bottom: 4em;
     max-width: 650px;
     position: relative;
@@ -111,21 +111,9 @@
 }
 
 .background-top {
-    background-image: url('/img/project-background.svg');
-    background-position-x: center;
-    background-position-y: -32px;
-    background-size: 2700px 840px;
-    background-repeat: no-repeat;
-    position: absolute;
-    top: 0;
-    z-index: 0;
-    flex-grow: 0;
-    width: 100%;
-    height: 840px;
-
     @include respond-below(lg) {
         /* Fill more height on smaller screens */
-        background-position-x: -700px!important;
+        background-position-x: -800px!important;
         background-size: 2700px 800px!important;
     }
 }

@@ -1,12 +1,15 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { omit, isNil } from 'lodash'
+import classNames from 'classnames'
+import { imgUrlFormat } from '../../util'
 
 import Layout from 'components/Layout'
 import ButtonBar from 'components/ButtonBar'
 import Topic from 'components/Topic'
 
 import './style.scss'
+import backgroundSVG from '../../../static/img/project-background.svg'
 
 export const query = graphql`
   query($id: String!) {
@@ -32,6 +35,7 @@ export const query = graphql`
 const ProjectTemplate = ({ data }) => {
   return (
     <Layout title={data.markdownRemark.frontmatter.shortTitle}>
+      <Background />
       <div className="background-top" />
       <article className="container">
         <ProjectHead
@@ -51,6 +55,28 @@ export default ProjectTemplate
 // ? -----------------
 // ? Helper Components
 // ? -----------------
+
+function Background({ className, ...rest }) {
+  return (
+    <div
+      className={classNames('background-top', className)}
+      style={{
+        backgroundImage: imgUrlFormat(backgroundSVG),
+        backgroundPositionX: 'center',
+        backgroundPositionY: '32px',
+        backgroundSize: '2600px 700px',
+        backgroundRepeat: 'no-repeat',
+        position: 'absolute',
+        top: 0,
+        zIndex: 0,
+        flexGrow: 0,
+        width: '100%',
+        height: '900px',
+      }}
+      {...rest}
+    />
+  )
+}
 
 function ProjectHead({ type, title, start, end, lead, topics, buttons }) {
   return (

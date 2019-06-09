@@ -16,7 +16,7 @@ export const dataHook = () => {
               childMarkdownRemark {
                 html
                 frontmatter {
-                ...Buttons
+                  ...Buttons
                 }
               }
             }
