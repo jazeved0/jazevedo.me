@@ -1,7 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
 import { dataHook } from './data-hook'
-import { isNil } from 'lodash'
 
 import ContactPopup from '../ContactPopup'
 import LinkBar from '../LinkBar'
@@ -9,6 +8,7 @@ import { Link } from 'gatsby'
 import { Navbar } from 'react-bootstrap'
 
 import './style.scss'
+import brandSVG from '../../../static/img/brand.svg'
 
 class Nav extends React.Component {
   constructor(props) {
@@ -99,7 +99,7 @@ function HomeButton({ height, className, ...rest }) {
     >
       <img
         className="brand-img"
-        src="/img/brand.svg"
+        src={brandSVG}
         height={height}
         alt="jazevedo"
       />

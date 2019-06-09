@@ -64,7 +64,7 @@ function Background({ className, ...rest }) {
         backgroundImage: imgUrlFormat(backgroundSVG),
         backgroundPositionX: 'center',
         backgroundPositionY: '32px',
-        backgroundSize: '2600px 700px',
+        backgroundSize: '2600px 750px',
         backgroundRepeat: 'no-repeat',
         position: 'absolute',
         top: 0,
