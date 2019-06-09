@@ -36,13 +36,13 @@ const ResumePage = ({ data, location }) => {
         ) : (
           ''
         )}
-        <div class="pdf-wrapper">
+        <div className="pdf-wrapper">
           <embed
             src={pdf}
             type="application/pdf"
             height="100%"
             width="100%"
-            frameborder="0"
+            frameBorder="0"
           />
         </div>
       </main>
@@ -68,14 +68,7 @@ export const pageQuery = graphql`
             frontmatter {
               pdf
               title
-              buttons {
-                href
-                icon
-                image
-                text
-                class
-                action
-              }
+              ...Buttons
             }
           }
         }

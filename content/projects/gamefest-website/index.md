@@ -27,17 +27,14 @@ topics:
 buttons:
   - text: Live
     href: "https://gamefest.gg/"
-    external: true
     class: btn-primary
-    icon: fas fa-external-link-alt
+    icon: external-link-alt
   - text: Twitch client
     href: "https://gamefest.gg/watch"
-    external: true
     class: btn-secondary
-    icon: fab fa-twitch
+    icon: twitch
   - text: Archived
     href: "https://web.archive.org/web/20181029052602im_/https://gamefest.gg/"
-    external: true
     class: btn-secondary
-    icon: fas fa-archive
+    icon: archive
 ---

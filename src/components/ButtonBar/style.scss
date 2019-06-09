@@ -1,13 +1,18 @@
+$spacing: 0.7rem;
+
 .button-bar {
     display: flex;
     flex-direction: row;
     margin-bottom: 0;
     list-style: none;
     padding-left: 0;
+    flex-wrap: wrap;
+    margin-top: -$spacing;
 
     .button-bar-item {
+        margin-top: $spacing;
         &:not(:last-child) {
-            margin-right: 1rem;
+            margin-right: $spacing;
         }
     }
 }

@@ -55,14 +55,7 @@ export const pageQuery = graphql`
             html
             frontmatter {
               title
-              buttons {
-                href
-                icon
-                image
-                text
-                class
-                action
-              }
+              ...Buttons
             }
           }
         }

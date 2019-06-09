@@ -12,18 +12,26 @@ const Meta = ({ siteMeta, title }) => {
 
   return (
     <Helmet
+      htmlAttributes={{ lang: 'en' }}
       meta={[
-        // Robots meta
         {
           name: 'robots',
           content: 'index, follow',
         },
-        // Content type meta
         {
           'http-equiv': 'Content-Type',
           content: 'text/html; charset=UTF-8',
         },
-        // Additional image meta
+        {
+          href: '/img/apple-touch-icon.png',
+          rel: 'apple-touch-icon',
+          sizes: '180x180',
+        },
+        {
+          href: '/img/favicon.ico',
+          rel: 'icon',
+          type: 'image/x-icon',
+        },
         {
           rel: 'icon',
           type: 'image/png',
@@ -49,7 +57,6 @@ const Meta = ({ siteMeta, title }) => {
           name: 'msapplication-config',
           content: '/img/browserconfig.xml',
         },
-        // Site-universal meta
         {
           property: 'og:image',
           content: '/img/thumbnail.png',
@@ -70,7 +77,6 @@ const Meta = ({ siteMeta, title }) => {
           name: 'twitter:card',
           content: 'summary',
         },
-        // Page specific meta
         {
           property: 'og:title',
           content: title,

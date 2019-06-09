@@ -1,71 +1,67 @@
-const each = require('lodash/each')
-const Promise = require('bluebird')
 const path = require('path')
-const ProjectTemplate = path.resolve('./src/templates/index.js')
+const ProjectTemplate = path.resolve('./src/templates/Project/main.js')
+const ProjectAuxTemplate = path.resolve('./src/templates/Project/auxillary.js')
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
-
-  return new Promise((resolve, reject) => {
-    resolve(
-      graphql(
-        `
-          {
-            allFile(filter: { extension: { regex: "/md|js/" } }, limit: 1000) {
-              edges {
-                node {
-                  id
-                  name: sourceInstanceName
-                  path: absolutePath
-                  remark: childMarkdownRemark {
-                    id
-                  }
+  return graphql(
+    `
+      query loadPagesQuery($limit: Int!) {
+        allMarkdownRemark(limit: $limit) {
+          edges {
+            node {
+              id
+              parent {
+                ... on File {
+                  sourceInstanceName
+                  relativeDirectory
+                  relativePath
                 }
               }
             }
           }
-        `
-      ).then(({ errors, data }) => {
-        if (errors) {
-          console.log(errors)
-          reject(errors)
         }
+      }
+    `,
+    { limit: 1000 }
+  ).then(result => {
+    if (result.errors) {
+      throw result.errors
+    }
 
-        // Create projects & pages.
-        const items = data.allFile.edges
-        // const projects = items.filter(({ node }) => /projects/.test(node.name))
-        // each(projects, ({ node }) => {
-        //   if (!node.remark) return
-        //   const { path } = node.remark.frontmatter
-        //   createPage({
-        //     path,
-        //     component: ProjectTemplate,
-        //   })
-        // })
+    const extensionRegex = /\.md/
+    const indexRegex = /index/
 
-        const pages = items.filter(({ node }) => /page/.test(node.name))
-        each(pages, ({ node }) => {
-          if (!node.remark) return
-          const { name } = path.parse(node.path)
-          const PageTemplate = path.resolve(node.path)
+    // Create projects pages.
+    result.data.allMarkdownRemark.edges
+      .filter(edge => edge.node.parent.sourceInstanceName === 'projects')
+      .forEach(edge => {
+        if (edge.node.parent.relativeDirectory.indexOf('/') === -1) {
+          // Main page
           createPage({
-            path: name,
-            component: PageTemplate,
+            path: `projects/${edge.node.parent.relativeDirectory}`,
+            component: ProjectTemplate,
+            context: { id: edge.node.id },
           })
-        })
+        } else {
+          // Auxillary page
+          const relativePath = edge.node.parent.relativePath
+            .replace(extensionRegex, '')
+            .replace(indexRegex, '')
+          createPage({
+            path: `projects/${relativePath}`,
+            component: ProjectAuxTemplate,
+            context: { id: edge.node.id },
+          })
+        }
       })
-    )
   })
 }
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
-      alias: {
-        components: path.resolve(__dirname, 'src/components'),
-        templates: path.resolve(__dirname, 'src/templates'),
-        scss: path.resolve(__dirname, 'src/scss'),
-      },
+      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     },
   })
 }

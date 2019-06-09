@@ -24,10 +24,9 @@ buttons:
     href: "/projects/blackjack-simulation/poster.pdf"
     class: btn-primary
     newTab: true
-    icon: fas fa-map
+    icon: map
   - text: Github
     href: "https://github.com/jazevedo620/Blackjack-Simulation"
-    external: true
     class: btn-secondary
-    icon: fab fa-github
+    icon: github
 ---

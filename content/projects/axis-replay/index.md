@@ -24,12 +24,10 @@ topics:
 buttons:
   - text: Live
     href: "https://axr.gg"
-    external: true
     class: btn-primary
-    icon: fas fa-external-link-alt
+    icon: external-link-alt
   - text: Before (archived)
     href: "https://web.archive.org/web/20190412204444_/https://www.axisreplay.com/"
-    external: true
     class: btn-secondary
-    icon: fas fa-archive
+    icon: archive
 ---

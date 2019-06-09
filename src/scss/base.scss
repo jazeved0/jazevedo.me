@@ -56,6 +56,15 @@ hr {
     cursor: pointer;
 }
 
+.noscript-alert {
+    z-index: 300000;
+    box-shadow: $drop-shadow;
+    .container {
+        align-items: center;
+        justify-content: start;
+    }
+}
+
 .nav-container {
     &.sticky-scroll {
         z-index: 3000000;
@@ -64,24 +73,25 @@ hr {
         left: 0;
         top: 0;
     }
-
-    .noscript-alert {
-        z-index: 300000;
-        box-shadow: $drop-shadow;
-        .container {
-            align-items: center;
-            justify-content: start;
-        }
-        & + .navbar-outer nav {
-            top: 48px;
-        }
-    }
 }
 
 .alert-dark {
     color: $-light;
     background-color: rgba($-light, 0.1);
     border-color: rgba($-light, 0.2);
+}
+
+$link-color: lighten($-primary, 10%);
+main a:not(.btn), article a:not(.btn) {
+    color: $link-color;
+    text-decoration: none;
+    transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
+    border-bottom: 1px solid rgba($link-color, 0.4);
+
+    &:hover, &:focus {
+        color: $link-color;
+        border-bottom-color: $link-color;
+    }
 }
 
 // ? ---------------

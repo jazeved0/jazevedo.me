@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql } from 'gatsby'
 import classNames from 'classnames'
 import { isNil } from 'lodash'
 import actions from './actions'
@@ -36,11 +37,10 @@ class LinkButton extends React.Component {
         ...rest
       }) => {
         const props = {
-          disabled: disabled,
           to: href,
           activeClassName: 'active-link',
           partiallyActive: true,
-          className: className,
+          className: classNames(className, { disabled: disabled }),
         }
         return (
           <Link {...props} {...rest}>
@@ -67,9 +67,8 @@ class LinkButton extends React.Component {
         ...rest
       }) => {
         const props = {
-          disabled: disabled,
           href: href,
-          className: className,
+          className: classNames(className, { disabled: disabled }),
           onClick: onClick,
         }
         const targetNewTab = newTab === true || (external && newTab !== false)
@@ -93,3 +92,17 @@ class LinkButton extends React.Component {
 }
 
 export default LinkButton
+
+export const query = graphql`
+  fragment Buttons on MarkdownRemarkFrontmatter {
+    buttons {
+      action
+      class
+      disabled
+      href
+      icon
+      newTab
+      text
+    }
+  }
+`

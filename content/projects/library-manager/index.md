@@ -21,29 +21,26 @@ topics:
 buttons:
   - text: Releases
     href: "https://github.com/jazevedo620/LibraryManager/releases"
-    external: true
     class: btn-primary
-    icon: fas fa-boxes
+    icon: boxes
   - text: Product Guide
     href: "/projects/library-manager/product-guide.pdf"
     newTab: true
     class: btn-secondary
-    icon: fas fa-file-pdf
+    icon: file-pdf
   - text: Product Guide (Source)
     href: https://www.overleaf.com/read/gwnpckpynhgv
-    image: /assets/img/overleaf-icon.svg
-    external: true
+    icon: overleaf
     class: btn-secondary
   - text: Presentation
     href: "/projects/library-manager/presentation.pdf"
     newTab: true
     class: btn-secondary
-    icon: fas fa-file-powerpoint
+    icon: file-powerpoint
   - text: Github
     href: "https://github.com/jazevedo620/LibraryManager"
-    external: true
     class: btn-secondary
-    icon: fab fa-github
+    icon: github
 ---
 
 {% include captioned.html src="/projects/library-manager/banner.png" alt="initial screen" caption="Initial screen upon starting the application" %}

@@ -25,11 +25,10 @@ buttons:
     href: "/projects/college-explorer/live"
     class: btn-primary
     newTab: true
-    icon: fas fa-external-link-alt
+    icon: external-link-alt
   - text: Github (in migration)
     href: "https://github.com/jazevedo620/CollegeExplorer"
-    external: true
     disabled: true
     class: btn-secondary
-    icon: fab fa-github
+    icon: github
 ---

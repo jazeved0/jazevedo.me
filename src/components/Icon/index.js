@@ -3,7 +3,11 @@ import { concat, flatMap, includes } from 'lodash'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import {
+  faGithub,
+  faLinkedin,
+  faTwitch,
+} from '@fortawesome/free-brands-svg-icons'
 import {
   faEnvelope,
   faFileCode,
@@ -11,7 +15,15 @@ import {
   faHome,
   faChevronLeft,
   faInfoCircle,
+  faExternalLinkAlt,
+  faArchive,
+  faMap,
+  faFilePdf,
+  faFilePowerpoint,
+  faBoxes,
+  faBook,
 } from '@fortawesome/free-solid-svg-icons'
+import { csOverleaf } from './custom'
 library.add(
   faGithub,
   faLinkedin,
@@ -20,9 +32,18 @@ library.add(
   faDownload,
   faHome,
   faChevronLeft,
-  faInfoCircle
+  faInfoCircle,
+  faExternalLinkAlt,
+  faArchive,
+  faMap,
+  faFilePdf,
+  faTwitch,
+  faFilePowerpoint,
+  faBoxes,
+  faBook,
+  csOverleaf
 )
-const map = { fab: ['github', 'linkedin'] }
+const map = { fab: ['github', 'linkedin', 'twitch', 'overleaf'] }
 
 const baseStyle = { display: 'inline-block', height: '1em', width: '1em' }
 const resolveClass = name => {

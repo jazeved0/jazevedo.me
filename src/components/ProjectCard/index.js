@@ -9,7 +9,7 @@ import Img from 'gatsby-image'
 import './style.scss'
 
 function ProjectCard({ className, project, logo, card, ...rest }) {
-  const url = get(project, 'url')
+  const url = `/projects/${get(project, 'slug')}`
   const title = get(project, 'title')
   const type = get(project, 'type')
   const topics = get(project, 'topics.main')

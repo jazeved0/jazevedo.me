@@ -6,7 +6,7 @@ buttons:
   href: '/resume'
   class: 'btn-primary'
 - text: View on Overleaf
-  icon: file-code
+  icon: overleaf
   href: 'https://www.overleaf.com/read/yjnpqvnbkrdg'
   class: 'btn-secondary'
 ---

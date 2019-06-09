@@ -24,17 +24,15 @@ buttons:
     href: "/projects/brachistochrone-simulator/report.pdf"
     class: btn-primary
     newTab: true
-    icon: fas fa-file-pdf
+    icon: file-pdf
   - text: Final Report (Source)
     href: https://www.overleaf.com/read/tvjhcnbgtxxh
-    image: /assets/img/overleaf-icon.svg
-    external: true
+    icon: overleaf
     class: btn-secondary
   - text: Github
     href: "https://github.com/jazevedo620/BrachistochroneSimulator"
-    external: true
     class: btn-secondary
-    icon: fab fa-github
+    icon: github
 ---
 
 {% include captioned.html src="/projects/brachistochrone-simulator/gif.gif" alt="simulation" caption="Demonstration of the hill-climbing portion of the simulation, each iteration moving towards the optimal circular arc path as a potential solution to the Brachistochrone Problem." %}

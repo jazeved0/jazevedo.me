@@ -67,7 +67,7 @@ $nav-link-active-border-width: 0.15rem;
     }
     &:not(.custom-layout) {
         nav.navbar {
-            box-shadow: $drop-shadow-light;
+            box-shadow: $drop-shadow;
             z-index: 1000;
         }
 

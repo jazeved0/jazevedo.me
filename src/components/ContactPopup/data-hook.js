@@ -16,15 +16,7 @@ export const dataHook = () => {
               childMarkdownRemark {
                 html
                 frontmatter {
-                  buttons {
-                    text
-                    image
-                    icon
-                    href
-                    disabled
-                    class
-                    external
-                  }
+                ...Buttons
                 }
               }
             }

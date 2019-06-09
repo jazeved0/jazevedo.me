@@ -32,19 +32,16 @@ topics:
 buttons:
   - text: Live (Hosted)
     href: "https://riskgame.ga"
-    external: true
     class: btn-primary
-    icon: fas fa-external-link-alt
+    icon: external-link-alt
   - text: Github
     href: "https://github.com/jazevedo620/cs2340-risk"
-    external: true
     class: btn-secondary
-    icon: fab fa-github
+    icon: github
   - text: Documentation
     href: "https://riskgame.ga/docs"
-    external: true
     class: btn-secondary
-    icon: fas fa-book
+    icon: book
 
 # Demo requirements
 headItems:
