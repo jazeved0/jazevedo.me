@@ -12,6 +12,7 @@ div.project-card {
     width: 100%;
     flex: 0 0 100%;
     max-width: 100%;
+    @include transition(box-shadow 0.5s);
 
     box-shadow: $drop-shadow;
 
@@ -22,10 +23,14 @@ div.project-card {
         cursor: pointer;
     }
 
-    &:hover {
+    &:hover, &:focus-within {
         .description {
             height: 100% !important;
         }
+    }
+
+    &:focus-within {
+        box-shadow: 0 0 0 0.2rem rgba(247, 248, 248, 0.5);
     }
 
     .card-top {
@@ -113,6 +118,7 @@ div.project-card {
         padding: 16px;
         position: relative;
         text-decoration: none;
+        background-color: $-light;
 
         a {
             color: $-dark;

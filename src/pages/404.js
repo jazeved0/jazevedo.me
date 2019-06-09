@@ -2,7 +2,6 @@ import { graphql } from 'gatsby'
 import React from 'react'
 import { get, isNil } from 'lodash'
 
-import Meta from 'components/Meta'
 import Layout from 'components/Layout'
 import ButtonBar from 'components/ButtonBar'
 
@@ -12,15 +11,16 @@ const NotFoundPage = ({ data, location }) => {
   let files = get(data, 'file.edges')
   let contentHtml
   let buttons
+  let title
   if (!isNil(files)) {
     const file = files[0]
     contentHtml = get(file, 'node.childMarkdownRemark.html')
     buttons = get(file, 'node.childMarkdownRemark.frontmatter.buttons')
+    title = get(file, 'node.childMarkdownRemark.frontmatter.title')
   }
 
   return (
-    <Layout location={location}>
-      <Meta site={get(data, 'site.meta')} />
+    <Layout title={title}>
       <main>
         <div className="container py-5">
           {!isNil(contentHtml) && contentHtml.trim() != '' ? (

@@ -1,4 +1,5 @@
 ---
+title: Resume Source
 buttons:
 - text: Back
   icon: chevron-left

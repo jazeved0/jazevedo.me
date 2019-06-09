@@ -4,7 +4,6 @@ import { get, isNil, map } from 'lodash'
 import classNames from 'classnames'
 import { renderIcons } from '../util'
 
-import Meta from 'components/Meta'
 import Layout from 'components/Layout'
 import LinkButtonAuto from 'components/LinkButtonAuto'
 import ProjectCardList from 'components/ProjectCardList'
@@ -15,14 +14,18 @@ import footerSVG from '../../static/img/footer-background.svg'
 
 const IndexPage = ({ data, location }) => {
   // Get lead html from query data
-  let leadHtml = get(data, 'file.edges')
-  if (!isNil(leadHtml))
-    leadHtml = get(leadHtml[0], 'node.childMarkdownRemark.html')
+  let files = get(data, 'file.edges')
+  let leadHtml
+  let title
+  if (!isNil(files)) {
+    const file = files[0]
+    leadHtml = get(file, 'node.childMarkdownRemark.html')
+    title = get(file, 'node.childMarkdownRemark.frontmatter.title')
+  }
   const projects = map(get(data, 'remark.projects'), 'project.frontmatter')
 
   return (
-    <Layout location={location} custom={true} fixed={false}>
-      <Meta site={get(data, 'site.meta')} />
+    <Layout title={title} custom={true} stickyNav={false}>
       <Background />
       <main>
         <Lead content={leadHtml} />
@@ -46,14 +49,6 @@ export default IndexPage
 
 export const pageQuery = graphql`
   query IndexQuery {
-    site {
-      meta: siteMetadata {
-        title
-        description
-        url: siteUrl
-        author
-      }
-    }
     remark: allMarkdownRemark(
       sort: { fields: [frontmatter___importance], order: DESC }
       limit: 3
@@ -84,6 +79,9 @@ export const pageQuery = graphql`
         node {
           childMarkdownRemark {
             html
+            frontmatter {
+              title
+            }
           }
         }
       }

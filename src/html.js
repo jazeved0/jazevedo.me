@@ -1,6 +1,5 @@
 import React from 'react'
 
-// TODO add other meta tags as necessary
 export default class HTML extends React.Component {
   render() {
     return (

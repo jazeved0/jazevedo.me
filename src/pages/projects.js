@@ -2,21 +2,24 @@ import { graphql } from 'gatsby'
 import React from 'react'
 import { get, map, isNil } from 'lodash'
 
-import Meta from 'components/Meta'
 import Layout from 'components/Layout'
 import ProjectCardList from 'components/ProjectCardList'
 
 import './scss/projects.scss'
 
 const ProjectsPage = ({ data, location }) => {
-  let titleHtml = get(data, 'file.edges')
-  if (!isNil(titleHtml))
-    titleHtml = get(titleHtml[0], 'node.childMarkdownRemark.html')
+  let files = get(data, 'file.edges')
+  let titleHtml
+  let title
+  if (!isNil(files)) {
+    const file = files[0]
+    titleHtml = get(file, 'node.childMarkdownRemark.html')
+    title = get(file, 'node.childMarkdownRemark.frontmatter.title')
+  }
   const projects = map(get(data, 'remark.projects'), 'project.frontmatter')
 
   return (
-    <Layout location={location}>
-      <Meta site={get(data, 'site.meta')} />
+    <Layout title={title}>
       <main>
         <div className="container py-5">
           <div

@@ -1,3 +1,7 @@
+---
+title: Portfolio
+---
+
 # Joseph Azevedo
 
 ## CS Student, Georgia Tech

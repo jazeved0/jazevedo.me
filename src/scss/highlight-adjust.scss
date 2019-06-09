@@ -27,3 +27,7 @@
 pre[class*="language-"] {
     margin-bottom: 1em;
 }
+
+.token.cdata, .token.comment, .token.doctype, .token.prolog {
+    color: #7b808a;
+}

@@ -3,8 +3,8 @@ module.exports = {
     title: 'Joseph Azevedo',
     description:
       "My name is Joseph, and I'm a second-year computer science student at Georgia Tech specializing in full stack development and web applications. I enjoy working on projects that focus on building smooth UI design as well as structured and efficient developer toolchains.",
-    siteUrl: 'https://jazevedo.me',
-    author: 'Joseph Azevedo',
+    msTileColor: '#ffc40d',
+    maskIconColor: '#9e6276',
   },
   pathPrefix: '/',
   plugins: [

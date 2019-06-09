@@ -1,4 +1,5 @@
 ---
+title: Resume
 pdf: '/resume/azevedo-joseph.pdf'
 buttons:
 - text: Download

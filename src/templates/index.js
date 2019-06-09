@@ -1,13 +1,6 @@
-import { graphql } from 'gatsby'
-import get from 'lodash/get'
 import React from 'react'
 
-import Meta from 'components/Meta'
 import Layout from 'components/Layout'
 
-const Template = ({ data, location }) => (
-  <div>
-    <Layout />
-  </div>
-)
+const Template = ({ data, location }) => <Layout />
 export default Template

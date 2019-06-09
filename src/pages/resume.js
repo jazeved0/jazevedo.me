@@ -2,7 +2,6 @@ import { graphql } from 'gatsby'
 import React from 'react'
 import { get, isNil } from 'lodash'
 
-import Meta from 'components/Meta'
 import Layout from 'components/Layout'
 import Toolbar from 'components/Toolbar'
 
@@ -13,21 +12,21 @@ const ResumePage = ({ data, location }) => {
   let contentHtml
   let buttons
   let pdf
+  let title
   if (!isNil(files)) {
     const file = files[0]
     contentHtml = get(file, 'node.childMarkdownRemark.html')
     buttons = get(file, 'node.childMarkdownRemark.frontmatter.buttons')
     pdf = get(file, 'node.childMarkdownRemark.frontmatter.pdf')
+    title = get(file, 'node.childMarkdownRemark.frontmatter.title')
   }
 
   return (
     <Layout
-      location={location}
-      fixed={false}
+      title={title}
       className="resume-layout"
       nav={<Toolbar buttons={buttons} background="dark" />}
     >
-      <Meta site={get(data, 'site.meta')} />
       <main>
         {!isNil(contentHtml) && contentHtml.trim() != '' ? (
           <div
