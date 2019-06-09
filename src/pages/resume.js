@@ -67,6 +67,7 @@ export const pageQuery = graphql`
             html
             frontmatter {
               pdf
+              title
               buttons {
                 href
                 icon

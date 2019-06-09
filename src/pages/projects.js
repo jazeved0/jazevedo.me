@@ -66,6 +66,9 @@ export const pageQuery = graphql`
         node {
           childMarkdownRemark {
             html
+            frontmatter {
+              title
+            }
           }
         }
       }

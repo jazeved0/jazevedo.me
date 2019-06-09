@@ -51,6 +51,7 @@ export const pageQuery = graphql`
           childMarkdownRemark {
             html
             frontmatter {
+              title
               buttons {
                 href
                 icon
