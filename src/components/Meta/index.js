@@ -12,7 +12,7 @@ const Meta = ({ siteMeta, title }) => {
 
   return (
     <Helmet
-      htmlAttributes={{ lang: 'en', style: 'background-color: #21283b' }}
+      htmlAttributes={{ lang: 'en', style: { backgroundColor: '#21283b' } }}
       meta={[
         {
           name: 'robots',
