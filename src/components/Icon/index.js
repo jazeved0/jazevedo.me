@@ -55,9 +55,9 @@ const resolveClass = name => {
 
 const Icon = ({ className, name }) => {
   return (
-    <div className={className} style={baseStyle}>
+    <span className={className} style={baseStyle}>
       <FontAwesomeIcon icon={resolveClass(name)} />
-    </div>
+    </span>
   )
 }
 

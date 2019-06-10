@@ -12,7 +12,7 @@ const Meta = ({ siteMeta, title }) => {
 
   return (
     <Helmet
-      htmlAttributes={{ lang: 'en' }}
+      htmlAttributes={{ lang: 'en', style: 'background-color: #21283b' }}
       meta={[
         {
           name: 'robots',
@@ -21,33 +21,6 @@ const Meta = ({ siteMeta, title }) => {
         {
           'http-equiv': 'Content-Type',
           content: 'text/html; charset=UTF-8',
-        },
-        {
-          href: '/img/apple-touch-icon.png',
-          rel: 'apple-touch-icon',
-          sizes: '180x180',
-        },
-        {
-          href: '/img/favicon.ico',
-          rel: 'icon',
-          type: 'image/x-icon',
-        },
-        {
-          rel: 'icon',
-          type: 'image/png',
-          size: '32x32',
-          href: '/img/favicon-32x32.png',
-        },
-        {
-          rel: 'icon',
-          type: 'image/png',
-          size: '16x16',
-          href: '/img/favicon-16x16.png',
-        },
-        {
-          rel: 'mask-icon',
-          color: maskIconColor,
-          href: '/img/safari-pinned-tab.svg',
         },
         {
           name: 'msapplication-TileColor',
@@ -80,6 +53,35 @@ const Meta = ({ siteMeta, title }) => {
         {
           property: 'og:title',
           content: title,
+        },
+      ]}
+      link={[
+        {
+          href: '/img/apple-touch-icon.png',
+          rel: 'apple-touch-icon',
+          sizes: '180x180',
+        },
+        {
+          href: '/img/favicon.ico',
+          rel: 'icon',
+          type: 'image/x-icon',
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          size: '32x32',
+          href: '/img/favicon-32x32.png',
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          size: '16x16',
+          href: '/img/favicon-16x16.png',
+        },
+        {
+          rel: 'mask-icon',
+          color: maskIconColor,
+          href: '/img/safari-pinned-tab.svg',
         },
       ]}
       title={title}
