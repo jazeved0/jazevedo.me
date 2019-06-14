@@ -1,5 +1,5 @@
 import { useStaticQuery, graphql } from 'gatsby'
-import { find, isNil } from 'lodash'
+import { find, isNil, merge } from 'lodash'
 
 export const dataHook = () => {
   const { cards, logos } = useStaticQuery(
@@ -9,6 +9,7 @@ export const dataHook = () => {
           filter: {
             name: { regex: "/^card$/" }
             extension: { regex: "/^(?:svg)|(?:png)|(?:jpg)$/" }
+            sourceInstanceName: { eq: "projects" }
           }
         ) {
           edges {
@@ -27,6 +28,7 @@ export const dataHook = () => {
               }
               relativeDirectory
               publicURL
+              sourceInstanceName
             }
           }
         }
@@ -34,6 +36,7 @@ export const dataHook = () => {
           filter: {
             name: { regex: "/^logo$/" }
             extension: { regex: "/^(?:svg)|(?:png)|(?:jpg)$/" }
+            sourceInstanceName: { eq: "projects" }
           }
         ) {
           edges {
@@ -87,4 +90,8 @@ export const getProjectData = (slug, data) => {
     card: find(data.cards, ['project', slug]),
     logo: find(data.logos, ['project', slug]),
   }
+}
+
+export const parseProject = ({ project }) => {
+  return merge({ slug: project.parent.relativeDirectory }, project.frontmatter)
 }

@@ -1,4 +1,5 @@
 import { useStaticQuery, graphql } from 'gatsby'
+import { transform } from 'components/LinkButtonAuto/util'
 
 export const dataHook = () => {
   const { allFile } = useStaticQuery(
@@ -16,7 +17,9 @@ export const dataHook = () => {
               childMarkdownRemark {
                 html
                 frontmatter {
-                  ...Buttons
+                  buttons {
+                    ...Buttons
+                  }
                 }
               }
             }
@@ -30,11 +33,7 @@ export const dataHook = () => {
     return {
       content: markdown.html,
       // Transform 'class' to 'className' to be react-compliant
-      buttons: markdown.frontmatter.buttons.map(
-        ({ class: className, ...rest }) => {
-          return { className: className, ...rest }
-        }
-      ),
+      buttons: transform(markdown.frontmatter.buttons),
     }
   })
   // Lift first element or return null

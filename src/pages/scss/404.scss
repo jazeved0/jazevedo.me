@@ -1,4 +1,4 @@
-@import '../../scss/colors';
+@import '../../scss/extend';
 
 .error-content {
     h1 {
@@ -14,13 +14,6 @@
     }
 
     hr {
-        max-width: 100px;
-        margin: {
-            left: 0;
-            right: 0;
-            bottom: 2rem;
-            top: 2rem;
-        }
-        border-top: 2px solid rgba($-light, 0.75);
+        @extend %short-hr
     }
 }

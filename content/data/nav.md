@@ -1,3 +1,5 @@
+---
+buttons:
 - text: Resume
   href: '/resume'
 - text: Projects
@@ -8,3 +10,6 @@
 - text: LinkedIn
   icon: linkedin
   href: 'https://www.linkedin.com/in/joseph-az'
+---
+
+# Content ignored

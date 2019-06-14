@@ -6,29 +6,19 @@ import LinkButtonAuto from '../LinkButtonAuto'
 
 class LinkBar extends React.Component {
   render() {
-    const { links } = this.props
-    let { linkClass, iconClass, ulClass, liClass } = this.props
-
-    if (isNil(linkClass)) linkClass = ''
-    if (isNil(iconClass)) iconClass = ''
-    if (isNil(ulClass)) ulClass = ''
-    if (isNil(liClass)) liClass = ''
-
+    const { links, linkClass, iconClass, ulClass, liClass } = this.props
     return (
       <ul className={ulClass}>
         {map(links, l => {
           const link = defaults(l, {
             href: '#',
-            text: '',
-            icon: null,
-            newTab: null,
-            disabled: false,
             iconClass: iconClass,
-            onClick: null,
           })
-
-          link.className = classNames(linkClass, get(l, 'class', ''))
-
+          link.className = classNames(
+            linkClass,
+            get(l, 'class', ''),
+            get(l, 'className', '')
+          )
           const key = link.href + '-->' + link.text
           return (
             <li className={liClass} key={key}>

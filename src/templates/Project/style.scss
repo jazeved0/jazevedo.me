@@ -1,8 +1,9 @@
 @import '../../scss/media';
+@import '../../scss/colors';
 
 .head {
     padding-top: 3em;
-    padding-bottom: 4em;
+    padding-bottom: 3em;
     max-width: 650px;
     position: relative;
 
@@ -72,14 +73,75 @@
     position: relative;
     box-sizing: border-box;
     width: 100%;
+    color: darken($-light, 12.5%);
+    padding-bottom: 6rem;
+    padding-top: 4rem;
+
+    h1, h2, h3, h4, h5, h6 {
+        color: $-light;
+    }
 
     h2 {
         margin-top: 2.5rem;
     }
 
+    h3 {
+        margin-top: 1.5rem;
+    }
+
+    li {
+        &:last-child {
+            margin-bottom: 0.5rem;
+        }
+
+        &:first-child {
+            margin-top: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+
+    $img-border-radius: 8px;
+    %img {
+        border-radius: $img-border-radius !important;
+        box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.3) !important;
+    }
+
     img:not(.brand-img):not(.button-image) {
-        border-radius: 8px!important;
-        box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.3);
+        @extend %img;
+    }
+
+    p {
+        .gatsby-resp-image-wrapper + em {
+            display: table;
+            margin: -0.5rem auto 3rem;
+            max-width: 40rem;
+            text-align: center;
+            font-style: normal;
+            opacity: 0.8;
+        }
+    }
+
+    .gatsby-resp-image-wrapper {
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
+
+        .gatsby-resp-image-background-image {
+            @extend %img;
+        }
+    }
+
+    p + hr {
+        margin-top: 1.5rem;
+    }
+
+    hr.short {
+        margin-top: 0;
+    }
+    * + hr.short {
+        margin-top: 2rem;
     }
 
     figure.figure {
@@ -99,8 +161,8 @@
             border: solid 1px #2F3B56;
             border-top: none;
             color: #F7F8F8;
-            border-bottom-right-radius: 8px;
-            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: $img-border-radius !important;
+            border-bottom-left-radius: $img-border-radius !important;
             opacity: 0.8;
 
             display: table-caption;

@@ -1,8 +1,9 @@
 import React from 'react'
 import { isNil } from 'lodash'
+import { isAction } from './util'
+import { isExternal, isFile } from '../../util'
 
 import LinkButton from '../LinkButton'
-import { isExternal, isFile } from '../../util'
 
 function LinkButtonAuto({
   href,
@@ -10,20 +11,26 @@ function LinkButtonAuto({
   external,
   onClick,
   action,
+  newTab,
   ...rest
 }) {
-  const externalProp =
-    (isNil(external) ? isExternal(href) : external) ||
+  const externalProp = isNil(external) ? isExternal(href) : external
+  const file = isFile(href)
+  const useAnchor =
+    externalProp ||
+    file ||
     !isNil(onClick) ||
-    !isNil(action)
+    isAction(action) ||
+    (!isNil(newTab) && newTab)
   return (
     <LinkButton
-      useLink={!externalProp}
+      useLink={!useAnchor}
       external={externalProp}
       href={href}
       onClick={onClick}
       action={action}
-      download={isFile(href) ? true : undefined}
+      newTab={newTab}
+      download={file ? !newTab : undefined}
       {...rest}
     >
       {children}

@@ -1,6 +1,7 @@
 @import './colors';
 @import './theme';
 @import './util';
+@import './extend';
 
 // Options
 $enable-rounded: true !default;
@@ -92,6 +93,10 @@ main a:not(.btn), article a:not(.btn) {
         color: $link-color;
         border-bottom-color: $link-color;
     }
+}
+
+hr.short {
+    @extend %short-hr
 }
 
 // ? ---------------

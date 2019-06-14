@@ -1,7 +1,6 @@
 # Project 5 Description
-<!-- You should create a zip file and turn it in via Canvas. We will not accept any late turn-ins for this assignment because that is going into reading week. In the folder that you zip up, you should also include a file named description.pdf that is a short project overview document. The document should be about 3 pages and include the following items: team member names, dataset chosen, list of analytic tasks it supports, design overview (1-2 paragraphs, including analytical questions and/or communicative objectives about the data), screen shot(s) of the user interface, and a description of any aspect of the interface/visualization that you feel needs explanation.  It’s OK for your document to be longer if you include a lot of figures. -->
 
-## Team: Joseph Avocado and Nichole Deeb
+## Team: Joseph Azevedo and Nichole Deeb
 
 Dataset Chosen:   
 `colleges.csv`
@@ -25,22 +24,24 @@ We focused our design mainly around the correlation of colleges' undergraduate p
 
 Overall, our design is intended to show relationships between colleges on a large-scale graph with over a thousand data points. We allowed individual searches to separate out specific colleges, but our design was generally more geared to large clusters of colleges. For instance, we wanted to allow the ability to glance at a cluster of ACT scores, and easily see that typically smaller colleges with lower admission rate (more green in color) were in clusters with higher ACT averages, and so forth.
 
+---
+
 ## Screenshots of User Interface
 
-![initial view](../../assets/initial.png "Initial view")
-Initial view upon starting the cluster
+![initial view](./assets/initial.png "Initial view")
+*Initial view upon starting the cluster*
 
-![selection](../../assets/selection.png "Selection")
-Selection interface, where a data item turns blue and its attributes are displayed to the right
+![selection](./assets/selection.png "Selection")
+*Selection interface, where a data item turns blue and its attributes are displayed to the right*
 
-![brushing](../../assets/brushing.png "Brushing")
-Brushing interface shown when the mouse is clicked and dragged in the data view area
+![brushing](./assets/brushing.png "Brushing")
+*Brushing interface shown when the mouse is clicked and dragged in the data view area*
 
-![flitering](../../assets/filtering.png "Filtering")
-The filtering interface that shows when a filter string is inputted into the filter input box
+![flitering](./assets/filtering.png "Filtering")
+*The filtering interface that shows when a filter string is inputted into the filter input box*
 
-![ivy league](../../assets/ivy_league.png "Ivy League")
-Ivy league highlighting interface that shows when the **Highlight Ivy League Schools** button is pressed
+![ivy league](./assets/ivy_league.png "Ivy League")
+*Ivy league highlighting interface that shows when the `Highlight Ivy League Schools` button is pressed*
 
 ## Additional Notes/UI Explanations
 

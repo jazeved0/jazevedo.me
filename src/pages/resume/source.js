@@ -4,10 +4,11 @@ import { get, isNil } from 'lodash'
 
 import Layout from 'components/Layout'
 import Toolbar from 'components/Toolbar'
+import { transform } from 'components/LinkButtonAuto/util'
 
 import '../scss/source.scss'
 
-const ResumeSourcePage = ({ data, location }) => {
+const ResumeSourcePage = ({ data }) => {
   let files = get(data, 'file.edges')
   let contentHtml
   let buttons
@@ -15,7 +16,9 @@ const ResumeSourcePage = ({ data, location }) => {
   if (!isNil(files)) {
     const file = files[0]
     contentHtml = get(file, 'node.childMarkdownRemark.html')
-    buttons = get(file, 'node.childMarkdownRemark.frontmatter.buttons')
+    buttons = transform(
+      get(file, 'node.childMarkdownRemark.frontmatter.buttons')
+    )
     title = get(file, 'node.childMarkdownRemark.frontmatter.title')
   }
 
@@ -27,9 +30,7 @@ const ResumeSourcePage = ({ data, location }) => {
             className="container pt-4 pb-5 source-content"
             dangerouslySetInnerHTML={{ __html: contentHtml }}
           />
-        ) : (
-          ''
-        )}
+        ) : null}
       </main>
     </Layout>
   )
@@ -52,7 +53,9 @@ export const pageQuery = graphql`
             html
             frontmatter {
               title
-              ...Buttons
+              buttons {
+                ...Buttons
+              }
             }
           }
         }

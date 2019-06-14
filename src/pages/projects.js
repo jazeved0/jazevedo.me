@@ -1,13 +1,14 @@
 import { graphql } from 'gatsby'
 import React from 'react'
 import { get, map, isNil } from 'lodash'
+import { parseProject } from 'components/ProjectCardList/data-hook'
 
 import Layout from 'components/Layout'
 import ProjectCardList from 'components/ProjectCardList'
 
 import './scss/projects.scss'
 
-const ProjectsPage = ({ data, location }) => {
+const ProjectsPage = ({ data }) => {
   let files = get(data, 'file.edges')
   let titleHtml
   let title
@@ -16,7 +17,7 @@ const ProjectsPage = ({ data, location }) => {
     titleHtml = get(file, 'node.childMarkdownRemark.html')
     title = get(file, 'node.childMarkdownRemark.frontmatter.title')
   }
-  const projects = map(get(data, 'remark.projects'), 'project.frontmatter')
+  const projects = map(get(data, 'remark.projects'), parseProject)
 
   return (
     <Layout title={title}>
@@ -37,21 +38,13 @@ export default ProjectsPage
 
 export const pageQuery = graphql`
   query ProjectsQuery {
-    remark: allMarkdownRemark(
+    remark: allMdx(
       sort: { fields: [frontmatter___importance], order: DESC }
       filter: { frontmatter: { importance: { ne: null } } }
     ) {
       projects: edges {
         project: node {
-          frontmatter {
-            slug
-            type
-            title
-            description
-            topics {
-              main
-            }
-          }
+          ...ProjectCard
         }
       }
     }

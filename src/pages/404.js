@@ -4,10 +4,11 @@ import { get, isNil } from 'lodash'
 
 import Layout from 'components/Layout'
 import ButtonBar from 'components/ButtonBar'
+import { transform } from 'components/LinkButtonAuto/util'
 
 import './scss/404.scss'
 
-const NotFoundPage = ({ data, location }) => {
+const NotFoundPage = ({ data }) => {
   let files = get(data, 'file.edges')
   let contentHtml
   let buttons
@@ -15,7 +16,9 @@ const NotFoundPage = ({ data, location }) => {
   if (!isNil(files)) {
     const file = files[0]
     contentHtml = get(file, 'node.childMarkdownRemark.html')
-    buttons = get(file, 'node.childMarkdownRemark.frontmatter.buttons')
+    buttons = transform(
+      get(file, 'node.childMarkdownRemark.frontmatter.buttons')
+    )
     title = get(file, 'node.childMarkdownRemark.frontmatter.title')
   }
 
@@ -28,9 +31,7 @@ const NotFoundPage = ({ data, location }) => {
               className="error-content"
               dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
-          ) : (
-            ''
-          )}
+          ) : null}
           <ButtonBar className="mt-5" buttons={buttons} />
         </div>
       </main>
@@ -55,7 +56,9 @@ export const pageQuery = graphql`
             html
             frontmatter {
               title
-              ...Buttons
+              buttons {
+                ...Buttons
+              }
             }
           }
         }

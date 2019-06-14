@@ -7,54 +7,101 @@ import { imgUrlFormat } from '../../util'
 import Layout from 'components/Layout'
 import ButtonBar from 'components/ButtonBar'
 import Topic from 'components/Topic'
+import { MDXRenderer } from 'gatsby-mdx'
 
 import './style.scss'
 import backgroundSVG from '../../../static/img/project-background.svg'
 
-export const query = graphql`
+export const pageQuery = graphql`
+  fragment PageData on Frontmatter {
+    shortTitle
+    type
+    title
+    start
+    end
+    lead
+    topics {
+      main
+      secondary
+    }
+    buttons {
+      ...Buttons
+    }
+  }
+
   query($id: String!) {
+    mdx(id: { eq: $id }) {
+      frontmatter {
+        ...PageData
+      }
+      code {
+        body
+      }
+    }
     markdownRemark(id: { eq: $id }) {
       html
       frontmatter {
-        shortTitle
-        type
-        title
-        start
-        end
-        lead
-        topics {
-          main
-          secondary
-        }
-        ...Buttons
+        ...PageData
       }
     }
   }
 `
 
-const ProjectTemplate = ({ data }) => {
+const ProjectPageTemplate = ({ data, pageContext }) => {
+  const { isMdx, isAuxillary: isAux } = pageContext
+  const frontmatter = (isMdx ? data.mdx : data.markdownRemark).frontmatter
+  const content = isMdx ? data.mdx.code.body : data.markdownRemark.html
+
   return (
-    <Layout title={data.markdownRemark.frontmatter.shortTitle}>
-      <Background />
-      <div className="background-top" />
+    <Layout title={frontmatter.shortTitle}>
+      {!isAux ? <Background /> : null}
       <article className="container">
-        <ProjectHead
-          {...omit(data.markdownRemark.frontmatter, ['shortTitle'])}
-        />
-        <div
-          className="pt-4 pb-5 project-content"
-          dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
-        />
+        {!isAux ? <ProjectHead {...omit(frontmatter, ['shortTitle'])} /> : null}
+        <ProjectContent {...{ content, isMdx, isAux }} />
       </article>
     </Layout>
   )
 }
 
-export default ProjectTemplate
+export default ProjectPageTemplate
 
 // ? -----------------
 // ? Helper Components
 // ? -----------------
+
+function ProjectHead({ type, title, start, end, lead, topics, buttons }) {
+  return (
+    <div className="head">
+      <h2 className="subhead">{type}</h2>
+      <h1 className="title">{title}</h1>
+      <Dates start={start} end={end} />
+      <div className="lead-text" dangerouslySetInnerHTML={{ __html: lead }} />
+      <Topics {...topics} />
+      <ButtonBar buttons={buttons} />
+    </div>
+  )
+}
+
+function ProjectContent({ content, isMdx, isAux }) {
+  return content.trim() === '' ? (
+    <div className="project-content">
+      <hr className="short mt-0" />
+    </div>
+  ) : (
+    <div className={classNames('project-content', { 'pt-4': !isAux })}>
+      <ContentRenderer {...{ content, isMdx }} />
+      <hr className="short" />
+    </div>
+  )
+}
+
+function ContentRenderer({ content, isMdx }) {
+  return isMdx ? (
+    <MDXRenderer children={content} />
+  ) : (
+    <div dangerouslySetInnerHTML={{ __html: content }} />
+  )
+}
 
 function Background({ className, ...rest }) {
   return (
@@ -78,24 +125,11 @@ function Background({ className, ...rest }) {
   )
 }
 
-function ProjectHead({ type, title, start, end, lead, topics, buttons }) {
-  return (
-    <div className="head">
-      <h2 className="subhead">{type}</h2>
-      <h1 className="title">{title}</h1>
-      <Dates start={start} end={end} />
-      <div className="lead-text" dangerouslySetInnerHTML={{ __html: lead }} />
-      <Topics {...topics} />
-      <ButtonBar buttons={buttons} />
-    </div>
-  )
-}
-
 function Dates({ start, end }) {
   return (
     <div className="d-flex flex-row flex-content-start dates">
       <DateComponent label="Start" content={start} />
-      {!isNil(end) ? <DateComponent label="End" content={end} /> : ''}
+      {!isNil(end) ? <DateComponent label="End" content={end} /> : null}
     </div>
   )
 }

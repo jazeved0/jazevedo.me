@@ -1,8 +1,8 @@
 import React from 'react'
-import { graphql } from 'gatsby'
 import classNames from 'classnames'
 import { isNil } from 'lodash'
 import actions from './actions'
+import { isAction } from 'components/LinkButtonAuto/util'
 
 import { Link } from 'gatsby'
 import Icon from '../Icon'
@@ -12,7 +12,7 @@ class LinkButton extends React.Component {
     const { useLink } = this.props
 
     const LinkContent = (icon, iconClass, text) =>
-      !isNil(icon)
+      !isNil(icon) && icon.trim() !== ''
         ? [LinkIcon(icon, iconClass), LinkText(text)]
         : LinkText(text)
     const LinkText = text => <span key="label">{text}</span>
@@ -76,7 +76,7 @@ class LinkButton extends React.Component {
         if (external) props.rel = 'noopener'
 
         // Configure onclick action
-        if (isNil(onClick) && !isNil(action)) props.onClick = actions[action]
+        if (isNil(onClick) && isAction(action)) props.onClick = actions[action]
 
         return (
           <a {...props} {...rest}>
@@ -92,17 +92,3 @@ class LinkButton extends React.Component {
 }
 
 export default LinkButton
-
-export const query = graphql`
-  fragment Buttons on MarkdownRemarkFrontmatter {
-    buttons {
-      action
-      class
-      disabled
-      href
-      icon
-      newTab
-      text
-    }
-  }
-`

@@ -4,10 +4,11 @@ import { get, isNil } from 'lodash'
 
 import Layout from 'components/Layout'
 import Toolbar from 'components/Toolbar'
+import { transform } from 'components/LinkButtonAuto/util'
 
 import './scss/resume.scss'
 
-const ResumePage = ({ data, location }) => {
+const ResumePage = ({ data }) => {
   let files = get(data, 'file.edges')
   let contentHtml
   let buttons
@@ -16,7 +17,9 @@ const ResumePage = ({ data, location }) => {
   if (!isNil(files)) {
     const file = files[0]
     contentHtml = get(file, 'node.childMarkdownRemark.html')
-    buttons = get(file, 'node.childMarkdownRemark.frontmatter.buttons')
+    buttons = transform(
+      get(file, 'node.childMarkdownRemark.frontmatter.buttons')
+    )
     pdf = get(file, 'node.childMarkdownRemark.frontmatter.pdf')
     title = get(file, 'node.childMarkdownRemark.frontmatter.title')
   }
@@ -33,9 +36,7 @@ const ResumePage = ({ data, location }) => {
             className="container py-5"
             dangerouslySetInnerHTML={{ __html: contentHtml }}
           />
-        ) : (
-          ''
-        )}
+        ) : null}
         <div className="pdf-wrapper">
           <embed
             src={pdf}
@@ -68,7 +69,9 @@ export const pageQuery = graphql`
             frontmatter {
               pdf
               title
-              ...Buttons
+              buttons {
+                ...Buttons
+              }
             }
           }
         }

@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server'
 import Icon from 'components/Icon'
 import { isNil } from 'lodash'
 
-const externalRegex = /(?:^(?:http|https):\/\/(?!(?:www\.)?jazevedo.me)[\w./=?#-_]+$)|(?:^[\w./=:?#-]+[.]\w+$)/
+const externalRegex = /^(?:http|https):\/\/(?!(?:www\.)?jazevedo.me)[\w./=?#-_]+$/
 export const isExternal = href => externalRegex.test(href)
 
 const fileRegex = /^[\w./=:?#-]+[.]\w+$/

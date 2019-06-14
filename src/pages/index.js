@@ -3,6 +3,7 @@ import React from 'react'
 import { get, isNil, map } from 'lodash'
 import classNames from 'classnames'
 import { renderIcons, imgUrlFormat } from '../util'
+import { parseProject } from 'components/ProjectCardList/data-hook'
 
 import Layout from 'components/Layout'
 import LinkButtonAuto from 'components/LinkButtonAuto'
@@ -12,7 +13,7 @@ import './scss/index.scss'
 import headerSVG from '../../static/img/header-background.svg'
 import footerSVG from '../../static/img/footer-background.svg'
 
-const IndexPage = ({ data, location }) => {
+const IndexPage = ({ data }) => {
   // Get lead html from query data
   let files = get(data, 'file.edges')
   let leadHtml
@@ -22,7 +23,7 @@ const IndexPage = ({ data, location }) => {
     leadHtml = get(file, 'node.childMarkdownRemark.html')
     title = get(file, 'node.childMarkdownRemark.frontmatter.title')
   }
-  const projects = map(get(data, 'remark.projects'), 'project.frontmatter')
+  const projects = map(get(data, 'remark.projects'), parseProject)
 
   return (
     <Layout title={title} custom={true} stickyNav={false}>
@@ -49,22 +50,14 @@ export default IndexPage
 
 export const pageQuery = graphql`
   query IndexQuery {
-    remark: allMarkdownRemark(
+    remark: allMdx(
       sort: { fields: [frontmatter___importance], order: DESC }
       limit: 3
       filter: { frontmatter: { importance: { ne: null } } }
     ) {
       projects: edges {
         project: node {
-          frontmatter {
-            slug
-            type
-            title
-            description
-            topics {
-              main
-            }
-          }
+          ...ProjectCard
         }
       }
     }

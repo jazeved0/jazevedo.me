@@ -1,3 +1,4 @@
+import { graphql } from 'gatsby'
 import React from 'react'
 import classNames from 'classnames'
 import { get, isNil } from 'lodash'
@@ -34,16 +35,12 @@ function ProjectCard({ className, project, logo, card, ...rest }) {
               role="presentation"
               alt=""
             />
-          ) : (
-            ''
-          )}
+          ) : null}
           <div className="fill-card-top overlay">
             <Logo hasLogo={hasLogo} logo={logo} title={title} />
             {hasDescription ? (
               <Description title={title} description={description} />
-            ) : (
-              ''
-            )}
+            ) : null}
           </div>
         </LinkButtonAuto>
       </div>
@@ -61,6 +58,24 @@ function ProjectCard({ className, project, logo, card, ...rest }) {
 }
 
 export default ProjectCard
+
+export const query = graphql`
+  fragment ProjectCard on Mdx {
+    frontmatter {
+      type
+      title
+      description
+      topics {
+        main
+      }
+    }
+    parent {
+      ... on File {
+        relativeDirectory
+      }
+    }
+  }
+`
 
 // ? -----------------
 // ? Helper Components

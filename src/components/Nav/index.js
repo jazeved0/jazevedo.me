@@ -76,7 +76,7 @@ function NavLayout({ children, custom, navClassName, ...rest }) {
 }
 
 function NavLinks({ props }) {
-  const links = dataHook()
+  const links = dataHook().buttons
   return (
     <LinkBar
       links={links}

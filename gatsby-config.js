@@ -84,6 +84,39 @@ module.exports = {
         trackingId: 'UA-141036948-1',
       },
     },
+    {
+      resolve: `gatsby-mdx`,
+      options: {
+        // globalScope: `
+        //   import { LinkButtonAuto } from "components/LinkButtonAuto";
+        //   export default { LinkButtonAuto };
+        // `,
+        gatsbyRemarkPlugins: [
+          {
+            resolve: 'gatsby-remark-images',
+            options: {
+              maxWidth: 1000,
+              linkImagesToOriginal: false,
+              wrapperStyle: 'margin-bottom: 1.0725rem;',
+            },
+          },
+          {
+            resolve: 'gatsby-remark-responsive-iframe',
+            options: {
+              wrapperStyle: 'margin-bottom: 1.0725rem',
+            },
+          },
+          {
+            resolve: 'gatsby-remark-prismjs',
+            options: {},
+          },
+          {
+            resolve: 'gatsby-remark-smartypants',
+            options: {},
+          },
+        ],
+      },
+    },
     'gatsby-plugin-catch-links',
     'gatsby-plugin-offline',
     'gatsby-plugin-react-helmet',
@@ -91,5 +124,6 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-plugin-sitemap',
     'gatsby-transformer-sharp',
+    'gatsby-plugin-remove-trailing-slashes',
   ],
 }
