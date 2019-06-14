@@ -7,6 +7,7 @@ import {
   faGithub,
   faLinkedin,
   faTwitch,
+  faDocker,
 } from '@fortawesome/free-brands-svg-icons'
 import {
   faEnvelope,
@@ -22,6 +23,7 @@ import {
   faFilePowerpoint,
   faBoxes,
   faBook,
+  faDatabase,
 } from '@fortawesome/free-solid-svg-icons'
 import { csOverleaf } from './custom'
 library.add(
@@ -41,9 +43,11 @@ library.add(
   faFilePowerpoint,
   faBoxes,
   faBook,
-  csOverleaf
+  csOverleaf,
+  faDatabase,
+  faDocker
 )
-const map = { fab: ['github', 'linkedin', 'twitch', 'overleaf'] }
+const map = { fab: ['github', 'linkedin', 'twitch', 'overleaf', 'docker'] }
 
 const baseStyle = { display: 'inline-block', height: '1em', width: '1em' }
 const resolveClass = name => {

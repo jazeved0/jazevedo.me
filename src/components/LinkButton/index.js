@@ -34,6 +34,7 @@ class LinkButton extends React.Component {
         noLink,
         onClick,
         action,
+        download,
         ...rest
       }) => {
         const props = {
@@ -64,12 +65,14 @@ class LinkButton extends React.Component {
         noLink,
         onClick,
         action,
+        download,
         ...rest
       }) => {
         const props = {
-          href: href,
+          href,
           className: classNames(className, { disabled: disabled }),
-          onClick: onClick,
+          onClick,
+          download,
         }
         const targetNewTab = newTab === true || (external && newTab !== false)
         if (targetNewTab) props.target = '_blank'

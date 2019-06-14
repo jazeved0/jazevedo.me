@@ -15,10 +15,9 @@ function LinkButtonAuto({
   ...rest
 }) {
   const externalProp = isNil(external) ? isExternal(href) : external
-  const file = isFile(href)
   const useAnchor =
     externalProp ||
-    file ||
+    isFile(href) ||
     !isNil(onClick) ||
     isAction(action) ||
     (!isNil(newTab) && newTab)
@@ -30,7 +29,6 @@ function LinkButtonAuto({
       onClick={onClick}
       action={action}
       newTab={newTab}
-      download={file ? !newTab : undefined}
       {...rest}
     >
       {children}

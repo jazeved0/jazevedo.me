@@ -6,6 +6,7 @@ buttons:
   icon: download
   href: '/resume/azevedo-joseph.pdf'
   class: 'btn-primary'
+  download: true
 - text: View Source (LaTeX)
   icon: file-code
   href: '/resume/source'

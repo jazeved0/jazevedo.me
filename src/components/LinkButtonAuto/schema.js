@@ -7,5 +7,6 @@ module.exports = `
     href: String
     icon: String
     text: String
+    download: Boolean
   }
 `

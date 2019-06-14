@@ -31,16 +31,13 @@ module.exports = {
           {
             resolve: 'gatsby-remark-images',
             options: {
-              maxWidth: 750,
-              linkImagesToOriginal: false,
-              wrapperStyle: 'margin-bottom: 1.0725rem;',
+              maxWidth: 800,
+              showCaptions: ['title'],
             },
           },
           {
             resolve: 'gatsby-remark-responsive-iframe',
-            options: {
-              wrapperStyle: 'margin-bottom: 1.0725rem',
-            },
+            options: {},
           },
           {
             resolve: 'gatsby-remark-prismjs',
@@ -100,16 +97,13 @@ module.exports = {
           {
             resolve: 'gatsby-remark-images',
             options: {
-              maxWidth: 1000,
-              linkImagesToOriginal: false,
-              wrapperStyle: 'margin-bottom: 1.0725rem;',
+              maxWidth: 800,
+              showCaptions: false,
             },
           },
           {
             resolve: 'gatsby-remark-responsive-iframe',
-            options: {
-              wrapperStyle: 'margin-bottom: 1.0725rem',
-            },
+            options: {},
           },
           {
             resolve: 'gatsby-remark-prismjs',

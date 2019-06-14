@@ -3,11 +3,13 @@ import { graphql } from 'gatsby'
 import { omit, isNil } from 'lodash'
 import classNames from 'classnames'
 import { imgUrlFormat } from '../../util'
+import scope from '../../mdx-scope'
 
 import Layout from 'components/Layout'
 import ButtonBar from 'components/ButtonBar'
 import Topic from 'components/Topic'
 import { MDXRenderer } from 'gatsby-mdx'
+import { MDXProvider } from '@mdx-js/react'
 
 import './style.scss'
 import backgroundSVG from '../../../static/img/project-background.svg'
@@ -97,7 +99,9 @@ function ProjectContent({ content, isMdx, isAux }) {
 
 function ContentRenderer({ content, isMdx }) {
   return isMdx ? (
-    <MDXRenderer children={content} />
+    <MDXProvider components={{ ...scope }}>
+      <MDXRenderer children={content} />
+    </MDXProvider>
   ) : (
     <div dangerouslySetInnerHTML={{ __html: content }} />
   )

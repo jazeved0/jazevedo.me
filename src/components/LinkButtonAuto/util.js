@@ -10,6 +10,7 @@ export const query = graphql`
     icon
     newTab
     text
+    download
   }
 `
 
