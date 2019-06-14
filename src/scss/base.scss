@@ -57,6 +57,10 @@ hr {
     cursor: pointer;
 }
 
+code {
+    color: $-warning;
+}
+
 .noscript-alert {
     z-index: 300000;
     box-shadow: $drop-shadow;
