@@ -42,7 +42,12 @@ module.exports = {
               wrapperStyle: 'margin-bottom: 1.0725rem',
             },
           },
-          'gatsby-remark-prismjs',
+          {
+            resolve: 'gatsby-remark-prismjs',
+            options: {
+              noInlineHighlight: true,
+            },
+          },
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
         ],
@@ -108,7 +113,9 @@ module.exports = {
           },
           {
             resolve: 'gatsby-remark-prismjs',
-            options: {},
+            options: {
+              noInlineHighlight: true,
+            },
           },
           {
             resolve: 'gatsby-remark-smartypants',

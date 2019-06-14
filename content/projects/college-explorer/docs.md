@@ -2,7 +2,7 @@
 
 ## Team: Joseph Azevedo and Nichole Deeb
 
-Dataset Chosen:   
+Dataset Chosen:  
 `colleges.csv`
 
 ## Supported Analytic Tasks
