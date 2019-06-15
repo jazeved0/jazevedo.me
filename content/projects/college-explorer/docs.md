@@ -29,15 +29,15 @@ Overall, our design is intended to show relationships between colleges on a larg
 
 ## Screenshots of User Interface
 
-![initial view](./assets/initial.png "Initial view upon starting the cluster")
+![initial view](./assets/initial.png 'Initial view upon starting the cluster')
 
-![selection](./assets/selection.png "Selection interface, where a data item turns blue and its attributes are displayed to the right")
+![selection](./assets/selection.png 'Selection interface, where a data item turns blue and its attributes are displayed to the right')
 
-![brushing](./assets/brushing.png "Brushing interface shown when the mouse is clicked and dragged in the data view area")
-  
-![flitering](./assets/filtering.png "The filtering interface that shows when a filter string is inputted into the filter input box")
+![brushing](./assets/brushing.png 'Brushing interface shown when the mouse is clicked and dragged in the data view area')
 
-![ivy league](./assets/ivy_league.png "Ivy league highlighting interface that shows when the Highlight Ivy League Schools button is pressed")
+![flitering](./assets/filtering.png 'The filtering interface that shows when a filter string is inputted into the filter input box')
+
+![ivy league](./assets/ivy_league.png 'Ivy league highlighting interface that shows when the Highlight Ivy League Schools button is pressed')
 
 ## Additional Notes/UI Explanations
 

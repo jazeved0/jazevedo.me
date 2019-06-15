@@ -19,3 +19,17 @@ export const renderIcons = rawHtmlInput =>
       })
 
 export const imgUrlFormat = img => `url(${img})`
+
+export const preloadImage = url => {
+  var img = new Image()
+  img.src = url
+  return img
+}
+
+export const loadScript = (url, callback) => {
+  var script = document.createElement('script')
+  script.onload = callback(url)
+  script.src = url
+  document.head.appendChild(script)
+  return script
+}

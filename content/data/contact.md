@@ -1,9 +1,9 @@
 ---
 buttons:
-- icon: linkedin
-  href: 'https://www.linkedin.com/in/joseph-az'
-- icon: github
-  href: 'https://github.com/jazevedo620'
+  - icon: linkedin
+    href: 'https://www.linkedin.com/in/joseph-az'
+  - icon: github
+    href: 'https://github.com/jazevedo620'
 ---
 
 # Contact

@@ -40,28 +40,16 @@ buttons:
     href: "https://riskgame.ga/docs"
     class: btn-secondary
     icon: book
-
-# Demo requirements
-headItems:
-#   - "<link rel=\"preload\" as=\"image\" href=\"/assets/img/project-background.svg\">"
-#   - "<link rel=\"preload\" as=\"image\" href=\"/projects/risk-game/demo/castle.png\">"
-#   - "<link href=\"/projects/risk-game/demo/app.d6daa31d.css\" rel=\"preload\" as=\"style\">"
-#   - "<link href=\"/projects/risk-game/demo/app.d64af9e4.js\" rel=\"preload\" as=\"script\">"
-#   - "<link href=\"/projects/risk-game/demo/chunk-vendors.6c484327.js\" rel=\"preload\" as=\"script\">"
-# styles:
-#   - "/assets/css/project.css"
-#   - "/projects/risk-game/demo/app.d6daa31d.css"
-#   - "/projects/risk-game/demo/style.css"
 ---
 
+import Demo from './src/demo'
 
-
-<Figure sharp left
-  caption="The gameboard screen map, showing each territory and the number of troops on them.">
-
-  ![gameboard screen](./banner.png)
-
-</Figure>
+<Demo
+  label={"The interactive gameboard screen map, showing each territory and the\
+number of troops on them. Click or tap and drag to pan, zoom with pinching or\
+scroll wheel."}
+  height={500}
+  scale={3} />
 
 ## Role
 

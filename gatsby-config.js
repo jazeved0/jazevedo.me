@@ -89,10 +89,6 @@ module.exports = {
     {
       resolve: `gatsby-mdx`,
       options: {
-        // globalScope: `
-        //   import { LinkButtonAuto } from "components/LinkButtonAuto";
-        //   export default { LinkButtonAuto };
-        // `,
         gatsbyRemarkPlugins: [
           {
             resolve: 'gatsby-remark-images',

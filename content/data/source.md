@@ -1,19 +1,19 @@
 ---
 title: Resume Source
 buttons:
-- text: Back
-  icon: chevron-left
-  href: '/resume'
-  class: 'btn-primary'
-- text: View on Overleaf
-  icon: overleaf
-  href: 'https://www.overleaf.com/read/yjnpqvnbkrdg'
-  class: 'btn-secondary'
+  - text: Back
+    icon: chevron-left
+    href: '/resume'
+    class: 'btn-primary'
+  - text: View on Overleaf
+    icon: overleaf
+    href: 'https://www.overleaf.com/read/yjnpqvnbkrdg'
+    class: 'btn-secondary'
 ---
 
 # `resume.tex`
 
-~~~latex{numberLines: true}
+```latex{numberLines: true}
 \documentclass[a4paper,11pt]{article}
 
 % Base packages
@@ -194,4 +194,4 @@ companies for funding and partnerships}
 
 
 \end{document}
-~~~
+```

@@ -148,8 +148,10 @@ const disallowedExtensions = ['md', 'mdx', 'scss']
 const imageExtensions = ['jpg', 'png', 'svg']
 const disallowedImages = ['card', 'logo', 'icon']
 const disallowedFilters = [
-  (name, ext) =>
+  ({ name, ext }) =>
     imageExtensions.includes(ext) && disallowedImages.includes(name),
+  ({ path }) => path.search('src') !== -1,
+  ({ path }) => path.search('img') !== -1,
 ]
 // Current file count
 let processedFiles = 0
@@ -162,7 +164,9 @@ exports.onCreateNode = ({ node, reporter }) => {
     if (
       allowedSourceInstances.includes(node.sourceInstanceName) &&
       !disallowedExtensions.includes(node.extension) &&
-      !disallowedFilters.some(func => func(node.name, node.extension))
+      !disallowedFilters.some(func =>
+        func({ name: node.name, ext: node.extension, path: node.relativePath })
+      )
     ) {
       // Copy file
       const newPath = path.join(
