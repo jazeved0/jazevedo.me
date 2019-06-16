@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { dataHook } from './data-hook'
 
 import Figure from 'components/Figure'
+import VueInterop from './vue-interop'
 
 import './style.scss'
 import { preloadImage, loadScript } from '../../../../../src/util'
@@ -83,7 +84,9 @@ class Demo extends React.Component {
         {...rest}
       >
         <Wrapper height={height}>
-          <div id="app" />
+          <div id="app">
+            <VueInterop />
+          </div>
         </Wrapper>
       </Figure>
     )
