@@ -1,7 +1,15 @@
 <template>
-  <div class="stage-wrapper" ref="stageWrapper">
-    <v-stage :config="stageConfig" ref="stage" class="stage">
+  <div class="stage-wrapper" ref="stageWrapper" @contextmenu.prevent="void 0">
+    <v-stage :config="stageConfig" ref="stage" class="stage" @mousedown="handleMouseDown">
       <v-layer>
+        <v-rect
+          :config="{
+          x: -50000,
+          y: -50000,
+          width: 100000,
+          height: 100000,
+          fill: '#1d2951'}"
+        ></v-rect>
         <v-line
           v-for="waterConnection in waterConnectionConfigs"
           :key="waterConnection.num"
@@ -16,7 +24,7 @@
           :highlight="territory.highlight"
           :baseColor="territory.baseColor"
           :path="territory.path"
-          @territory-click-raw="handleTerritoryMouseDown(index)"
+          @territory-click-raw="left => handleTerritoryMouseUp(index, left)"
         ></v-territory>
       </v-layer>
       <v-layer ref="castleLayer">
@@ -29,6 +37,7 @@
         <v-army-shape v-for="army in armyData" v-bind="army" :key="army.num"></v-army-shape>
       </v-layer>
     </v-stage>
+    <div class="stage-fill"></div>
   </div>
 </template>
 
@@ -47,13 +56,8 @@ import Vue from 'vue'
 import Territory from './Territory'
 Vue.use(VueKonva)
 
-// Smart component: accesses state
 export default {
   props: {
-    // Array of territory indices to highlight
-    highlight: Array,
-    // Border color to add to the highlighted territories
-    highlightColor: String,
     // Initial scale (optional)
     initialScale: Number,
     // Stage height (optional)
@@ -87,6 +91,12 @@ export default {
       },
       // Current index of territory with mouse over
       mouseOver: -1,
+      armyData: dataFile.armyData,
+      // Last click location
+      mouseDownLoc: {
+        x: 0,
+        y: 0,
+      },
     }
   },
 
@@ -120,11 +130,6 @@ export default {
     // Rendering data for each castle
     castleData() {
       return dataFile.castleData
-    },
-
-    // Rendering data for each army
-    armyData() {
-      return dataFile.armyData
     },
 
     // Gets the size of the gameboard from the store
@@ -241,8 +246,30 @@ export default {
     },
 
     // Handles territory clicks
-    handleTerritoryMouseDown(index) {
-      this.$emit('territory-click', index)
+    handleTerritoryMouseUp(index, left) {
+      if (exists(this.stageObj)) {
+        const mousePos = this.stageObj.getPointerPosition()
+        const distSquared =
+          (mousePos.x - this.mouseDownLoc.x) ** 2 +
+          (mousePos.y - this.mouseDownLoc.y) ** 2
+        if (distSquared > 144) return
+        if (left) {
+          ++this.armyData[index].size
+        } else if (this.armyData[index].size > 0) {
+          --this.armyData[index].size
+        }
+      } else {
+        logError('Stage object not found. Skipping mouse up event')
+      }
+    },
+
+    // Handle stage mouse down
+    handleMouseDown() {
+      if (exists(this.stageObj)) {
+        this.mouseDownLoc = this.stageObj.getPointerPosition()
+      } else {
+        logError('Stage object not found. Skipping mouse down event')
+      }
     },
 
     // Handles resize events
@@ -354,9 +381,21 @@ export default {
       this.touchState.point = undefined
     },
 
+    // Handles mouse down on the document node (event callback)
+    handleDocumentMouseDown(e) {
+      if (e.button !== 0) this.stageObj.draggable(false)
+    },
+
+    // Handles mouse up on the document node (event callback)
+    handleDocumentMouseUp(e) {
+      this.stageObj.draggable(true)
+    },
+
     // Attach event listeners upon mounting
     attachEventListeners(stageRef) {
       window.addEventListener('resize', this.handleResize)
+      document.addEventListener('mousedown', this.handleDocumentMouseDown)
+      document.addEventListener('mouseup', this.handleDocumentMouseUp)
       // attach events to the stage
       if (exists(stageRef)) {
         stageRef.addEventListener('wheel', this.handleScroll)
@@ -370,6 +409,8 @@ export default {
     // Detach any event listeners upon being destroyed
     detachEventListeners(stageRef) {
       window.removeEventListener('resize', this.handleResize)
+      document.removeEventListener('mousedown', this.handleDocumentMouseDown)
+      document.removeEventListener('mouseup', this.handleDocumentMouseUp)
       if (exists(stageRef)) {
         stageRef.removeEventListener('wheel', this.handleScroll)
         stageRef.removeEventListener('touchmove', this.handleTouchMove)
@@ -396,7 +437,6 @@ export default {
         `Loaded stage dimensions from globals: { w: ${dims.w}, h: ${dims.h} }`,
         'Vue'
       )
-      console.log()
       const stage = this.stageObj
       const initialTransform = this.calculateInitialTransform()
       const scaleBounds = this.scaleBounds
@@ -434,7 +474,7 @@ export default {
 
   // Destruction lifecycle hook
   beforeDestroy() {
-    this.detachEventListeners()
+    this.detachEventListeners(this.stageObj.getContent())
   },
 }
 </script>

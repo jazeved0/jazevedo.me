@@ -29,6 +29,7 @@ export default {
         height: radius,
         listening: false,
         sceneFunc: function(context) {
+          if (size <= 0) return
           context.beginPath()
           const spacing = 1
           if (size <= 4) {
