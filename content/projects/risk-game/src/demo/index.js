@@ -8,7 +8,7 @@ import VueInterop from './vue-interop'
 
 import './style.scss'
 
-const preloads = ['/projects/risk-game/demo/demo_castle.png']
+const preloads = ['/projects/risk-game/demo_castle.png']
 const prefix = 'Risk Demo'
 const logBase = (message, prefixes) =>
   console.log(prefixes.map(p => `[${p}] `).join('') + message)
