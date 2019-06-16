@@ -1,1 +1,2 @@
-*.vue linguist-detectable=false
+# Mark .vue files as vendored because they come from another repo
+*.vue linguist-vendored=true
