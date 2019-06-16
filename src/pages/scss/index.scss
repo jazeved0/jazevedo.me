@@ -25,12 +25,12 @@ body {
 
         @include respond-below(lg) {
             /* Fill more height on smaller screens */
-            background-position-x: -540px!important;
-            background-size: 2100px 550px!important;
+            background-position-x: -540px !important;
+            background-size: 2100px 550px !important;
         }
 
         @include respond-below(xs) {
-            background-position-x: -620px!important;
+            background-position-x: -620px !important;
         }
     }
 
@@ -66,7 +66,7 @@ body {
 
     .lead {
         width: 1150px;
-        color: #F7F8F8;
+        color: #f7f8f8;
         padding: 0 25px;
 
         @include respond-above(1080) {

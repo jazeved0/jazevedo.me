@@ -10,7 +10,8 @@ $side-padding-adjust: 0.3em;
 
 .topic {
     display: inline-block;
-    padding: ($base-padding + $top-padding-adjust) ($base-padding + $side-padding-adjust) $base-padding;
+    padding: ($base-padding + $top-padding-adjust)
+        ($base-padding + $side-padding-adjust) $base-padding;
     font-size: $base-font-size;
     font-weight: $base-font-weight;
     line-height: 1;

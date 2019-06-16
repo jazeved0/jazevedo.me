@@ -3,6 +3,7 @@ const fsExtra = require('fs-extra')
 const ProjectPageTemplate = path.resolve('./src/templates/Project/main.js')
 const _ = require('lodash')
 const buttonSchema = require('./src/components/LinkButtonAuto/schema.js')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 // Whether or not to print verbose debug messages to stdout
 const verbose = false
@@ -200,11 +201,24 @@ function printCopyResults(reporter) {
   )
 }
 
-// Allow relative imports like "import foo from 'components/Foo'"
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
+    // Allow relative imports like "import foo from 'components/Foo'"
     resolve: {
       modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+      extensions: ['.js', '.mjs', '.json', '.mdx', '.vue']
     },
+    // Vue in React support
+    module: {
+      rules: [
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader'
+        }
+      ]
+    },
+    plugins: [
+      new VueLoaderPlugin()
+    ]
   })
 }

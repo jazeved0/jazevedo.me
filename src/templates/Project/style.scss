@@ -65,7 +65,7 @@
         margin-bottom: 1.8em;
     }
 
-    .topics{
+    .topics {
         margin-bottom: 2rem;
     }
 }
@@ -82,7 +82,12 @@
         margin-top: 0 !important;
     }
 
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         color: $-light;
     }
 
@@ -94,16 +99,29 @@
         margin-top: 1.75rem;
     }
 
-    h4, h5 {
+    h4,
+    h5 {
         margin-top: 1.5rem;
     }
 
     blockquote {
         background-color: blend($-tertiary, $-dark, 0.65);
-        padding: 1rem 3rem;
+        padding: 2rem 3rem 1.5rem;
         margin-top: 2.5rem;
         margin-bottom: 2.5rem;
         border-left: solid 1rem $-tertiary;
+
+        @include respond-below(sm) {
+            padding: 1.5rem 1.75rem;
+        }
+
+        & > *:first-child {
+            margin-top: 0;
+        }
+
+        & > *:last-child {
+            margin-bottom: 0;
+        }
     }
 
     li {
@@ -169,7 +187,8 @@
             margin-left: 0;
         }
 
-        &.figure, &.gatsby-resp-image-figure {
+        &.figure,
+        &.gatsby-resp-image-figure {
             display: table;
             margin-top: 3rem;
             margin-bottom: 3rem;
@@ -184,18 +203,18 @@
             }
 
             img:not(.brand-img) {
-                border-bottom-left-radius: 0!important;
-                border-bottom-right-radius: 0!important;
+                border-bottom-left-radius: 0 !important;
+                border-bottom-right-radius: 0 !important;
                 box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.3);
                 margin-bottom: 0;
             }
 
             figcaption {
                 padding: 10px 16px;
-                background-color: #252E44;
-                border: solid 1px #2F3B56;
+                background-color: #252e44;
+                border: solid 1px #2f3b56;
                 border-top: none;
-                color: #F7F8F8;
+                color: #f7f8f8;
                 border-bottom-right-radius: $img-border-radius !important;
                 border-bottom-left-radius: $img-border-radius !important;
                 opacity: 0.8;
@@ -211,7 +230,7 @@
 .background-top {
     @include respond-below(lg) {
         /* Fill more height on smaller screens */
-        background-position-x: -800px!important;
-        background-size: 2700px 800px!important;
+        background-position-x: -800px !important;
+        background-size: 2700px 800px !important;
     }
 }

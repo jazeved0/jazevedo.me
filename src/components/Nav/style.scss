@@ -26,7 +26,8 @@ $nav-link-active-border-width: 0.15rem;
         }
 
         %link-hover-behavior {
-            &:hover, &:active {
+            &:hover,
+            &:active {
                 opacity: 0.75;
             }
         }
@@ -59,7 +60,8 @@ $nav-link-active-border-width: 0.15rem;
                     margin-bottom: 0.6rem;
                 }
 
-                &.active-link, .active-link {
+                &.active-link,
+                .active-link {
                     border-bottom-color: $-light;
                 }
             }
@@ -123,13 +125,17 @@ $nav-link-active-border-width: 0.15rem;
             $border-width: 2px;
 
             /* Style navbar dropdown */
-            button.navbar-toggler{
+            button.navbar-toggler {
                 border-color: $border-color;
                 border-width: $border-width;
                 z-index: 20;
 
                 background-size: 100% 200%;
-                background-image: linear-gradient(to bottom, transparent 50%, $-dark 50%);
+                background-image: linear-gradient(
+                    to bottom,
+                    transparent 50%,
+                    $-dark 50%
+                );
                 @include transition(background-position 0.1s);
                 transition-delay: 0.375s;
 
@@ -137,7 +143,7 @@ $nav-link-active-border-width: 0.15rem;
                     border-left: 2px solid transparent;
                     border-right: 2px solid transparent;
                     background-color: rgb(33, 40, 59);
-                    content: " ";
+                    content: ' ';
                     position: absolute;
                     top: 59px;
                     height: 0;
@@ -205,4 +211,3 @@ $nav-link-active-border-width: 0.15rem;
         }
     }
 }
-

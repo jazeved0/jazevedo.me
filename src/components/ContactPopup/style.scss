@@ -19,7 +19,7 @@ $close-button-size: 0.9;
     z-index: 99999998;
 
     &.active {
-        visibility: visible!important;
+        visibility: visible !important;
         transition-delay: 0s;
         pointer-events: auto;
 
@@ -69,11 +69,11 @@ $close-button-size: 0.9;
             height: 100%;
 
             span {
-                content: " ";
+                content: ' ';
             }
 
             // Hide on small screens
-            @media(max-width: 400px) {
+            @media (max-width: 400px) {
                 & {
                     display: none;
                 }
@@ -82,7 +82,8 @@ $close-button-size: 0.9;
         a {
             color: $-light;
 
-            &:hover, &:active {
+            &:hover,
+            &:active {
                 text-decoration: underline;
                 opacity: 0.8;
             }

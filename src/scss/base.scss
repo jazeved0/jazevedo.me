@@ -92,20 +92,22 @@ hr {
 }
 
 $link-color: lighten($-primary, 10%);
-main a:not(.btn), article a:not(.btn) {
+main a:not(.btn),
+article a:not(.btn) {
     color: $link-color;
     text-decoration: none;
     transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
     border-bottom: 1px solid rgba($link-color, 0.4);
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
         color: $link-color;
         border-bottom-color: $link-color;
     }
 }
 
 hr.short {
-    @extend %short-hr
+    @extend %short-hr;
 }
 
 article {

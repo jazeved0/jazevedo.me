@@ -1,43 +1,31 @@
 import React from 'react'
 import classNames from 'classnames'
 import { dataHook } from './data-hook'
+import { preloadImage } from '../../../../../src/util'
 
 import Figure from 'components/Figure'
+import VueInterop from './vue-interop'
 
 import './style.scss'
-import { preloadImage, loadScript } from '../../../../../src/util'
 
-const preloads = ['/projects/risk-game/demo/castle.png']
-const scripts = [
-  '/projects/risk-game/demo/app.d64af9e4.js',
-  '/projects/risk-game/demo/chunk-vendors.6c484327.js',
-]
+const preloads = ['/projects/risk-game/demo_castle.png']
 const prefix = 'Risk Demo'
-const log = message => console.log(`[${prefix}] ${message}`)
+const logBase = (message, prefixes) =>
+  console.log(prefixes.map(p => `[${p}] `).join('') + message)
+export const log = (message, ...prefixes) =>
+  logBase(message, [prefix, ...prefixes])
 
 class Demo extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { preloads: [], scripts: [] }
+    this.state = { preloads: [] }
+    this.preload = this.preload.bind(this)
   }
 
-  componentDidMount() {
-    this.bootstrapAppSettings()
+  preload() {
     this.setState({
       preloads: this.preloadImages(),
-      scripts: this.loadScripts(),
     })
-  }
-
-  componentWillUnmount() {
-    this.unloadScripts()
-  }
-
-  bootstrapAppSettings() {
-    const { height, scale } = this.props
-    window.appHeight = height
-    window.appScaleFactor = scale
-    log(`Mounted component with height ${height}px and scale ${scale}`)
   }
 
   preloadImages() {
@@ -46,35 +34,8 @@ class Demo extends React.Component {
     return preloadedImages
   }
 
-  loadScripts() {
-    const statusClosure = Object.assign(
-      ...scripts.map(url => {
-        return { [url]: false }
-      })
-    )
-    const loadCallback = url => {
-      return () => {
-        statusClosure[url] = true
-        log(`Loaded script at ${url}`)
-        const unfinished = Object.values(statusClosure).includes(false)
-        if (!unfinished) {
-          log('Loaded all scripts')
-        }
-      }
-    }
-    return scripts.map(url => loadScript(url, loadCallback(url)))
-  }
-
-  unloadScripts() {
-    this.state.scripts.forEach(script => {
-      document.head.removeChild(script)
-    })
-    log(`Unloaded all scripts`)
-    this.setState({ preloads: [], scripts: [] })
-  }
-
   render() {
-    const { label, className, height, ...rest } = this.props
+    const { label, className, height, scale, ...rest } = this.props
     return (
       <Figure
         caption={label}
@@ -83,7 +44,13 @@ class Demo extends React.Component {
         {...rest}
       >
         <Wrapper height={height}>
-          <div id="app" />
+          <div id="app">
+            <VueInterop
+              preload={this.preload}
+              initialScale={scale}
+              height={height}
+            />
+          </div>
         </Wrapper>
       </Figure>
     )
