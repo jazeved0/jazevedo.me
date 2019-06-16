@@ -3,16 +3,28 @@
 </template>
 
 <script>
-import { Image } from 'konva'
-const image = new Image()
+import { log } from '../index'
+
+const image = document.createElement('img')
 const imgWidth = 28
 const imgHeight = 28
-let a = 4
-image.src = '../../static/images/corrected.png'
+const imageOnLoadCallbacks = new Set()
+image.onload = () => {
+  log('Image loaded, forcing redraw', 'Vue', 'CastleIcon')
+  imageOnLoadCallbacks.forEach(callback => callback())
+}
+image.src = '/projects/risk-game/demo_castle.png'
+
+const layerRefWrapper = {
+  layerRef: null,
+  needsRedraw: false,
+}
+
 export default {
   props: {
     x: Number,
     y: Number,
+    onLoad: Function,
   },
   computed: {
     config: function() {
@@ -29,6 +41,9 @@ export default {
         listening: false,
       }
     },
+  },
+  mounted() {
+    imageOnLoadCallbacks.add(this.onLoad)
   },
 }
 </script>

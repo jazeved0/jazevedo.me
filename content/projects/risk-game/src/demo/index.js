@@ -2,14 +2,18 @@ import React from 'react'
 import classNames from 'classnames'
 import { dataHook } from './data-hook'
 import { preloadImage } from '../../../../../src/util'
-import { log } from './util'
 
 import Figure from 'components/Figure'
 import VueInterop from './vue-interop'
 
 import './style.scss'
 
-const preloads = ['/projects/risk-game/demo/castle.png']
+const preloads = ['/projects/risk-game/demo/demo_castle.png']
+const prefix = 'Risk Demo'
+const logBase = (message, prefixes) =>
+  console.log(prefixes.map(p => `[${p}] `).join('') + message)
+export const log = (message, ...prefixes) =>
+  logBase(message, [prefix, ...prefixes])
 
 class Demo extends React.Component {
   constructor(props) {
@@ -19,17 +23,9 @@ class Demo extends React.Component {
   }
 
   preload() {
-    this.bootstrapAppSettings()
     this.setState({
       preloads: this.preloadImages(),
     })
-  }
-
-  bootstrapAppSettings() {
-    const { height, scale } = this.props
-    window.appHeight = height
-    window.appScaleFactor = scale
-    log(`Mounted component with height ${height}px and scale ${scale}`)
   }
 
   preloadImages() {
@@ -39,7 +35,7 @@ class Demo extends React.Component {
   }
 
   render() {
-    const { label, className, height, ...rest } = this.props
+    const { label, className, height, scale, ...rest } = this.props
     return (
       <Figure
         caption={label}
@@ -49,7 +45,11 @@ class Demo extends React.Component {
       >
         <Wrapper height={height}>
           <div id="app">
-            <VueInterop preload={this.preload} />
+            <VueInterop
+              preload={this.preload}
+              initialScale={scale}
+              height={height}
+            />
           </div>
         </Wrapper>
       </Figure>

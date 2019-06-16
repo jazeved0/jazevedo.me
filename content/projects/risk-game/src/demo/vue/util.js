@@ -169,9 +169,16 @@ export const specialSeqToArray = string => {
 export const exists = object =>
   !(typeof object === 'undefined' || object === null)
 
-/* eslint-disable no-console */
-export const logError = message => console.log('[Error] ' + message)
-/* eslint-enable no-console */
+import { log } from '../index'
+export const logError = message => log(message, 'Vue', 'Error')
 
-const prefix = 'Risk Demo'
-export const log = message => console.log(`[${prefix}] ${message}`)
+export const debounce = (fn, delay) => {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
