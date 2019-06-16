@@ -14,10 +14,11 @@ const preloads = ['/projects/risk-game/demo/castle.png']
 class Demo extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { preloads: [], scripts: [] }
+    this.state = { preloads: [] }
+    this.preload = this.preload.bind(this)
   }
 
-  componentDidMount() {
+  preload() {
     this.bootstrapAppSettings()
     this.setState({
       preloads: this.preloadImages(),
@@ -48,7 +49,7 @@ class Demo extends React.Component {
       >
         <Wrapper height={height}>
           <div id="app">
-            <VueInterop />
+            <VueInterop preload={this.preload} />
           </div>
         </Wrapper>
       </Figure>

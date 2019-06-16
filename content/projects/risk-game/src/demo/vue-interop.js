@@ -11,6 +11,7 @@ class VueInterop extends React.Component {
   }
 
   componentDidMount () {
+    if (this.props.preload) this.props.preload()
     GameCanvas = require("./GameCanvas.vue").default
     this.setState( { mount : true });
     log('Loading Vue component, forcing re-render')
