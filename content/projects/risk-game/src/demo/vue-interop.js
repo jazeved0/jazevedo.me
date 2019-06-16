@@ -3,15 +3,18 @@ import { VueWrapper } from 'vuera'
 
 let GameCanvas
 
-export default class VueInterop extends React.Component {
+class VueInterop extends React.Component {
   constructor () {
     super()
     this.state = { mount : false }
   }
+
   componentDidMount () {
-    GameCanvas = require("./GameCanvas.vue");
+    GameCanvas = require("./GameCanvas.vue").default
     this.setState( { mount : true });
+    console.log('[Risk Demo] Loading Vue component, forcing re-render')
   }
+
   render () {
     if (GameCanvas !== undefined ) {
       return (

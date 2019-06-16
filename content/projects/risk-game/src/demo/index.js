@@ -23,15 +23,15 @@ class Demo extends React.Component {
   }
 
   componentDidMount() {
-    this.bootstrapAppSettings()
-    this.setState({
-      preloads: this.preloadImages(),
-      scripts: this.loadScripts(),
-    })
+    // this.bootstrapAppSettings()
+    // this.setState({
+    //   preloads: this.preloadImages(),
+    //   scripts: this.loadScripts(),
+    // })
   }
 
   componentWillUnmount() {
-    this.unloadScripts()
+    // this.unloadScripts()
   }
 
   bootstrapAppSettings() {
