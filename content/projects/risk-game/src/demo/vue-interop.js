@@ -1,8 +1,9 @@
 import React from 'react'
+import { log } from './util'
+
 import { VueWrapper } from 'vuera'
 
 let GameCanvas
-
 class VueInterop extends React.Component {
   constructor () {
     super()
@@ -12,7 +13,7 @@ class VueInterop extends React.Component {
   componentDidMount () {
     GameCanvas = require("./GameCanvas.vue").default
     this.setState( { mount : true });
-    console.log('[Risk Demo] Loading Vue component, forcing re-render')
+    log('Loading Vue component, forcing re-render')
   }
 
   render () {

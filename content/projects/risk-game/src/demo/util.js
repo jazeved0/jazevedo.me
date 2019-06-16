@@ -1,24 +1,3 @@
-export const getCookie = (cname) => {
-  const name = cname + "=";
-  const decodedCookie = decodeURIComponent(document.cookie);
-  const ca = decodedCookie.split(';');
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) === 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-};
-
-export const pascalToUnderscore = (s) =>
-  s.replace(/(?:^|\.?)([A-Z])/g, function (x, y) {
-    return "_" + y.toLowerCase();
-  }).replace(/^_/, "");
-
 export const colorLuminance = (hex, lum) => {
   // validate hex string
   hex = String(hex).replace(/[^0-9a-f]/gi, '');
@@ -41,7 +20,7 @@ const hsvToRgb = (color) => {
   let r, g, b, i, f, p, q, t;
   let h = color.h;
   let s = color.s;
-  let v = color.v; 
+  let v = color.v;
   i = Math.floor(h * 6);
   f = h * 6 - i;
   p = v * (1 - s);
@@ -146,3 +125,6 @@ export const exists = (object) => !(typeof object === 'undefined' || object === 
 /* eslint-disable no-console */
 export const logError = (message) => console.log("[Error] " + message);
 /* eslint-enable no-console */
+
+const prefix = 'Risk Demo'
+export const log = message => console.log(`[${prefix}] ${message}`)
