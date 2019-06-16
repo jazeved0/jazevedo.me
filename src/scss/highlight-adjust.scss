@@ -3,7 +3,7 @@
  */
 
 /* Adjust the position of the line numbers */
-.gatsby-highlight pre[class*="language-"].line-numbers {
+.gatsby-highlight pre[class*='language-'].line-numbers {
     padding-left: 3.5em;
 }
 
@@ -18,16 +18,19 @@
     overflow: auto;
 }
 
-.gatsby-highlight pre[class*="language-"].line-numbers {
+.gatsby-highlight pre[class*='language-'].line-numbers {
     padding: 0;
     padding-left: 3.5em;
     overflow: initial;
 }
 
-pre[class*="language-"] {
+pre[class*='language-'] {
     margin-bottom: 1em;
 }
 
-.token.cdata, .token.comment, .token.doctype, .token.prolog {
+.token.cdata,
+.token.comment,
+.token.doctype,
+.token.prolog {
     color: #7b808a;
 }

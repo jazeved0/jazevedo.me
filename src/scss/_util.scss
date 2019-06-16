@@ -34,16 +34,23 @@ $cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);
     @return rgba($r, $g, $b, $a);
 }
 
-@mixin custom-font($tag, $weight, $size, $small-size, $trail: "", $line-height: "") {
+@mixin custom-font(
+    $tag,
+    $weight,
+    $size,
+    $small-size,
+    $trail: '',
+    $line-height: ''
+) {
     #{$tag} {
         font-weight: $weight;
         font-size: $size;
-        @if $trail != "" {
+        @if $trail != '' {
             margin-bottom: $trail;
         } @else {
             margin-bottom: 0;
         }
-        @if $line-height != "" {
+        @if $line-height != '' {
             line-height: $line-height;
         } @else {
             line-height: $size;

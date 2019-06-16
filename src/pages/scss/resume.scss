@@ -1,4 +1,6 @@
-html, body, .resume-layout {
+html,
+body,
+.resume-layout {
     height: 100vh;
 }
 
@@ -7,7 +9,8 @@ html, body, .resume-layout {
     overflow-y: hidden;
 }
 
-.resume-layout, .resume-layout main {
+.resume-layout,
+.resume-layout main {
     display: flex;
     flex-direction: column;
 

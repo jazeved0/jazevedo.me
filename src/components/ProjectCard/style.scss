@@ -16,14 +16,15 @@ div.project-card {
 
     box-shadow: $drop-shadow;
 
-    @include card-config(sm,   2, 12px);
-    @include card-config(lg,   3, 12px);
+    @include card-config(sm, 2, 12px);
+    @include card-config(lg, 3, 12px);
 
     a {
         cursor: pointer;
     }
 
-    &:hover, &:focus-within {
+    &:hover,
+    &:focus-within {
         .description {
             height: 100% !important;
         }
@@ -56,8 +57,8 @@ div.project-card {
         }
 
         .overlay {
-            background-color: rgba(darken($-secondary, 12%), 0.7);;
-            transition: background-color .5s ease;
+            background-color: rgba(darken($-secondary, 12%), 0.7);
+            transition: background-color 0.5s ease;
         }
 
         &:hover {
@@ -75,7 +76,7 @@ div.project-card {
             overflow: hidden;
             width: 100%;
             height: 0;
-            transition: .5s ease;
+            transition: 0.5s ease;
             color: $-light;
 
             .inner {
@@ -108,7 +109,7 @@ div.project-card {
                 height: auto;
                 font-size: 0;
                 /* Add drop shadow */
-                filter: drop-shadow( 0 0 8px rgba(black, .45));
+                filter: drop-shadow(0 0 8px rgba(black, 0.45));
             }
         }
     }
@@ -134,7 +135,8 @@ div.project-card {
                 }
             }
 
-            &:hover, &:active {
+            &:hover,
+            &:active {
                 * {
                     color: $-tertiary;
                     opacity: 0.9;
