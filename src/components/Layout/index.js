@@ -5,24 +5,37 @@ import { dataHook } from './data-hook'
 
 import Nav from 'components/Nav'
 import Meta from 'components/Meta'
+import Footer from 'components/Footer'
 
 import 'scss/base.scss'
+import './style.scss'
 
-function Layout({ title, nav, stickyNav, children, className, ...rest }) {
+function Layout({
+  title,
+  nav,
+  stickyNav,
+  children,
+  transparentFooter,
+  className,
+  ...rest
+}) {
   const siteMeta = dataHook()
 
   return (
-    <div className={className}>
+    <div className={classNames(className, 'site-wrapper')}>
       <Meta title={title} siteMeta={siteMeta} />
-      <div
-        className={classNames('nav-container', {
-          'sticky-scroll': isNil(stickyNav) ? true : stickyNav,
-        })}
-      >
-        <Nav {...rest} />
-        {nav}
+      <div className="content">
+        <div
+          className={classNames('nav-container', {
+            'sticky-scroll': isNil(stickyNav) ? true : stickyNav,
+          })}
+        >
+          <Nav {...rest} />
+          {nav}
+        </div>
+        {children}
       </div>
-      {children}
+      <Footer className={classNames({ transparent: transparentFooter })} />
     </div>
   )
 }

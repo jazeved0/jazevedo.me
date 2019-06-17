@@ -6,7 +6,7 @@
       @mouseover="handleMouseOver"
       @mouseout="handleMouseOut"
       @mouseup="handleMouseUp"
-      @tap="handleMouseUp({evt: {which: 1}})"
+      @tap="handleMouseUp({evt: {which: 1}}, true)"
     ></v-path>
     <v-group v-if="isHighlighted" :config="clipConfig">
       <v-path :config="highlightConfig"></v-path>
@@ -48,10 +48,10 @@ export default {
     },
 
     // Mouse down event callback
-    handleMouseUp({ evt }) {
+    handleMouseUp({ evt }, isTouch = false) {
       const { which } = evt
       if (which !== 1 && which !== 3) return
-      this.$emit('territory-click-raw', which === 1)
+      this.$emit('territory-click-raw', which === 1, isTouch)
     },
   },
 

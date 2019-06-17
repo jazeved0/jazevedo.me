@@ -26,7 +26,12 @@ const IndexPage = ({ data }) => {
   const projects = map(get(data, 'remark.projects'), parseProject)
 
   return (
-    <Layout title={title} custom={true} stickyNav={false}>
+    <Layout
+      title={title}
+      custom={true}
+      stickyNav={false}
+      className="index-page"
+    >
       <Background />
       <main>
         <Lead content={leadHtml} />

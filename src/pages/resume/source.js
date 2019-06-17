@@ -23,8 +23,13 @@ const ResumeSourcePage = ({ data }) => {
   }
 
   return (
-    <Layout title={title} nav={<Toolbar buttons={buttons} background="dark" />}>
-      <main className="bg-one-dark">
+    <Layout
+      title={title}
+      nav={<Toolbar buttons={buttons} background="dark" />}
+      transparentFooter={true}
+      className="bg-one-dark"
+    >
+      <main>
         {!isNil(contentHtml) && contentHtml.trim() != '' ? (
           <div
             className="container pt-4 pb-5 source-content"

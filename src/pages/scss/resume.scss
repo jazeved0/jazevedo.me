@@ -9,16 +9,16 @@ body,
     overflow-y: hidden;
 }
 
-.resume-layout,
-.resume-layout main {
+.resume-layout .content {
     display: flex;
     flex-direction: column;
 
-    & > *:not(:last-child) {
-        flex-grow: 0;
+    main {
+        flex-grow: 1;
     }
 
-    & > *:last-child {
-        flex-grow: 1;
+    .pdf-wrapper {
+        height: 100%;
+        position: relative;
     }
 }

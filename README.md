@@ -12,7 +12,7 @@ This is personal portfolio, where I post my current resume as well as the latest
 - [Projects index](https://jazevedo.me/projects)
 - [Status](https://status.jazevedo.me/)
 
-![home page](https://i.imgur.com/I1I3eMY.png)
+![home page](https://i.imgur.com/90a2XVp.png)
 
 ## Setup
 

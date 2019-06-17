@@ -30,6 +30,10 @@ class Nav extends React.Component {
     })
   }
 
+  componentDidMount() {
+    if (window.location.hash === '#contact') this.showPopup()
+  }
+
   render() {
     const { custom, className } = this.props
     const wrapperClass = classNames('navbar-outer', className, {

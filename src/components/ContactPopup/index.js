@@ -24,12 +24,20 @@ class ContactPopup extends React.Component {
   componentDidMount() {
     document.addEventListener('keydown', this.escPressed, false)
   }
+
   componentWillUnmount() {
     document.removeEventListener('keydown', this.escPressed, false)
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.show && this.props.show) this.focusCloseButton()
+    if (!prevProps.show === this.props.show) {
+      if (!prevProps.show) {
+        this.focusCloseButton()
+        history.replaceState(null, null, '#contact')
+      } else {
+        history.replaceState(null, null, ' ')
+      }
+    }
   }
 
   focusCloseButton() {

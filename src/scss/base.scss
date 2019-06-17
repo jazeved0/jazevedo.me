@@ -2,6 +2,7 @@
 @import './theme';
 @import './util';
 @import './extend';
+@import './media';
 
 // Options
 $enable-rounded: true !default;
@@ -39,11 +40,6 @@ $link-hover-decoration: none !default;
 // Scrollbar style
 @import './scroll';
 
-html,
-body {
-    min-height: 100vh;
-}
-
 * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -66,25 +62,6 @@ hr {
     border: solid 1px rgba($-light, 0.11);
 }
 
-.noscript-alert {
-    z-index: 300000;
-    box-shadow: $drop-shadow;
-    .container {
-        align-items: center;
-        justify-content: start;
-    }
-}
-
-.nav-container {
-    &.sticky-scroll {
-        z-index: 3000000;
-        position: sticky;
-        right: 0;
-        left: 0;
-        top: 0;
-    }
-}
-
 .alert-dark {
     color: $-light;
     background-color: rgba($-light, 0.1);
@@ -93,7 +70,8 @@ hr {
 
 $link-color: lighten($-primary, 10%);
 main a:not(.btn),
-article a:not(.btn) {
+article a:not(.btn),
+.footer a:not(.btn) {
     color: $link-color;
     text-decoration: none;
     transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -111,8 +89,16 @@ hr.short {
 }
 
 article {
-    ol > li {
-        padding-left: 0.5rem;
+    ol {
+        padding-inline-start: 40px;
+
+        @include respond-below(sm) {
+            padding-inline-start: 24px;
+        }
+
+        & > li {
+            padding-left: 0.5rem;
+        }
     }
 
     ul:not(.navbar-nav):not(.button-bar) {

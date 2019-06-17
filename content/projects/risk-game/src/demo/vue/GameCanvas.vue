@@ -24,7 +24,7 @@
           :highlight="territory.highlight"
           :baseColor="territory.baseColor"
           :path="territory.path"
-          @territory-click-raw="left => handleTerritoryMouseUp(index, left)"
+          @territory-click-raw="(left, isTouch) => handleTerritoryMouseUp(index, left, isTouch)"
         ></v-territory>
       </v-layer>
       <v-layer ref="castleLayer">
@@ -246,13 +246,17 @@ export default {
     },
 
     // Handles territory clicks
-    handleTerritoryMouseUp(index, left) {
+    handleTerritoryMouseUp(index, left, isTouch) {
       if (exists(this.stageObj)) {
-        const mousePos = this.stageObj.getPointerPosition()
-        const distSquared =
-          (mousePos.x - this.mouseDownLoc.x) ** 2 +
-          (mousePos.y - this.mouseDownLoc.y) ** 2
-        if (distSquared > 144) return
+        if (!isTouch) {
+          // Exit if in a full drag
+          const mousePos = this.stageObj.getPointerPosition()
+          const distSquared =
+            (mousePos.x - this.mouseDownLoc.x) ** 2 +
+            (mousePos.y - this.mouseDownLoc.y) ** 2
+          if (distSquared > 144) return
+        }
+
         if (left) {
           ++this.armyData[index].size
         } else if (this.armyData[index].size > 0) {
@@ -327,6 +331,7 @@ export default {
 
     // Handles touch move input (event callback)
     handleTouchMove(event) {
+      if (!exists(event.touches)) return
       const t1 = event.touches[0]
       const t2 = event.touches[1]
       if (t1 && t2) {
