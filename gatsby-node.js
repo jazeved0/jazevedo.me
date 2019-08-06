@@ -33,6 +33,10 @@ exports.sourceNodes = ({ actions, reporter }) => {
       frontmatter: Frontmatter
     }
 
+    type File implements Node {
+      childMdx: Mdx
+    }
+
     type Frontmatter {
       title: String
       buttons: [Button]
