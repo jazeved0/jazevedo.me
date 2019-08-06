@@ -8,7 +8,7 @@ import scope from '../../mdx-scope'
 import Layout from 'components/Layout'
 import ButtonBar from 'components/ButtonBar'
 import Topic from 'components/Topic'
-import { MDXRenderer } from 'gatsby-mdx'
+import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
 
 import './style.scss'
