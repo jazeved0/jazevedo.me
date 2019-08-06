@@ -51,6 +51,7 @@ const ProjectPageTemplate = ({ data, pageContext }) => {
   const { isMdx, isAuxillary: isAux } = pageContext
   const frontmatter = (isMdx ? data.mdx : data.markdownRemark).frontmatter
   const content = isMdx ? data.mdx.body : data.markdownRemark.html
+  console.log({ frontmatter, content, pageContext, data })
 
   return (
     <Layout title={frontmatter.shortTitle}>

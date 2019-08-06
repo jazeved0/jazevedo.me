@@ -27,7 +27,6 @@ exports.sourceNodes = ({ actions, reporter }) => {
   const typeDefs = `
     type Mdx implements Node {
       frontmatter: Frontmatter
-      body: String
     }
 
     type MarkdownRemark implements Node {
