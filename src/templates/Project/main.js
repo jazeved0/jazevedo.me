@@ -36,9 +36,7 @@ export const pageQuery = graphql`
       frontmatter {
         ...PageData
       }
-      code {
-        body
-      }
+      body
     }
     markdownRemark(id: { eq: $id }) {
       html
@@ -52,7 +50,7 @@ export const pageQuery = graphql`
 const ProjectPageTemplate = ({ data, pageContext }) => {
   const { isMdx, isAuxillary: isAux } = pageContext
   const frontmatter = (isMdx ? data.mdx : data.markdownRemark).frontmatter
-  const content = isMdx ? data.mdx.code.body : data.markdownRemark.html
+  const content = isMdx ? data.mdx.body : data.markdownRemark.html
 
   return (
     <Layout title={frontmatter.shortTitle}>
