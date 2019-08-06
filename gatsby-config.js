@@ -87,7 +87,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-config-mdx`,
+      resolve: `gatsby-plugin-mdx`,
       options: {
         gatsbyRemarkPlugins: [
           {
