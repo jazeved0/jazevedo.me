@@ -14,6 +14,22 @@ buttons:
 # `resume.tex`
 
 ```latex{numberLines: true}
+---
+title: Resume Source
+buttons:
+  - text: Back
+    icon: chevron-left
+    href: '/resume'
+    class: 'btn-primary'
+  - text: View on Overleaf
+    icon: overleaf
+    href: 'https://www.overleaf.com/read/yjnpqvnbkrdg'
+    class: 'btn-secondary'
+---
+
+# `resume.tex`
+
+```latex{numberLines: true}
 \documentclass[a4paper,11pt]{article}
 
 % Base packages
@@ -31,6 +47,9 @@ buttons:
 \setlogokern{eX}{-0.04em}
 \setLaTeXa{\raisebox{5em}{\scshape a}}
 
+% Set up zmq logo
+\newcommand{\zmq}{\O{}MQ}
+
 % Setup link colors
 \usepackage{hyperref}
 \definecolor{linkcolour}{rgb}{0,0.2,0.6}
@@ -38,7 +57,10 @@ buttons:
 
 % Load font from otf files
 \usepackage{fontspec}
-\defaultfontfeatures{Mapping=tex-text}
+\defaultfontfeatures{
+  Mapping=tex-text,
+  Numbers=Lining
+}
 \setmainfont[
   SmallCapsFont = Fontin-SmallCaps.otf,
   BoldFont = Fontin-Bold.otf,
@@ -90,7 +112,7 @@ buttons:
 
 % Set up margins/origin
 \hsize=7.5in \vsize=11in
-\hoffset=-0.65in \voffset=-0.4in
+\hoffset=-0.65in \voffset=-0.485in
 % Output page size
 \pdfpagewidth=8.5in
 \pdfpageheight=11in
@@ -102,7 +124,7 @@ buttons:
 \begin{center}
      \Huge       Joseph Azevedo
   \\ \normalsize • \href{mailto:joseph.az@gatech.edu}{joseph.az@gatech.edu} • (423) 284-1197 •
-\href{https://github.com/jazevedo620}{github.com/jazevedo620} • \href{https://jazevedo.me}{Portfolio} • \\[6pt]
+\href{https://github.com/jazevedo620}{github.com/jazevedo620} • \href{https://jazevedo.me}{Portfolio site} • \\[6pt]
 \end{center}
 % Spacing
 \vspace{-4pt}
@@ -117,15 +139,15 @@ buttons:
   \ritem[]{Graduation date: May 2021 (Expected)}
 \end{rsection}
 % Spacing
-\vspace{-9pt}
+\vspace{-13pt}
 
 
 % Section: Skills
 \begin{rskills}
-  \rskill{Programming}      {Java, Scala, JavaScript, HTML/CSS/Sass, Python, PHP, C\#, C, C++, Batch}
-  \rskill{Software}         {Git, Docker, Kubernetes, OpenShift, \LaTeX, JetBrains IDEs, Nginx, Apache, Wordpress, Webpack, Jekyll, Gatsby.js}
-  \rskill{Frameworks}       {Bootstrap, jQuery, D3, Node.js, WPF, Android SDK, .NET, Play, Akka, Vue.js, React}
-  \rskill{Concepts}         {Containerization \& Orchestration,  Client/server model, Agile development, SPAs}
+  \rskill{Programming}      {Java, Scala, JavaScript, HTML/CSS/Sass, Python, C\#}
+  \rskill{Software}         {Git, Docker, Kubernetes, OpenShift, \LaTeX, JetBrains IDEs, Nginx, Apache, Wordpress, Webpack, Jekyll, Gatsby.js, Storybook, Socket.io, Redux}
+  \rskill{Frameworks}       {Bootstrap, jQuery, D3, Node.js, WPF, Android SDK, .NET, Play, Akka, Vue.js, React, Flask}
+  \rskill{Concepts}         {Containerization \& Orchestration,  Agile development, Microservice architectures}
   \rskill{Relevant Courses} {Object oriented programming, Data structures \& algorithms, Objects \& design,
 Computational organization \& programming, Information visualization, Systems and Networks, Database systems}
 \end{rskills}
@@ -135,6 +157,25 @@ Computational organization \& programming, Information visualization, Systems an
 
 % Section: Projects
 \begin{rsection}{Projects}
+  % Project: archit.us
+  \rheader{May 2019 - Current}{Architus Fullstack Application}
+  \rdesc{Open source Discord bot with React web dashboard \& microservice backend {\normalfont • \href{https://archit.us/}{archit.us} •
+\href{https://github.com/architus}{(Github)}}}
+  \ritem{Engineered frontend web app with React/Redux to consume, display, and process API data}
+  \ritem{Helped build microservice-based backend using Flask, \zmq, PostgreSQL, Kafka, and Elasticsearch}
+  \ritem{Developed documentation sites: \href{https://docs.archit.us/}{Gatsby-based implementation docs site} \& \href{https://storybook.archit.us/}{Storybook component docs}}
+  \rskip
+
+  % Project: Gamefest Website
+  \rheader{Jun 2018 - Current}{\textit{Gamefest} Website: Event Information}
+  \rdesc{Static site development as a part of a team {\normalfont • \href{https://gamefest.gg}{gamefest.gg} •
+\href{https://2018.gamefest.gg}{(2018)}}}
+  \ritem{Developed static jQuery/Bootstrap site hosted using Apache in 2018}
+  \ritem{Rebuilt the site using React/Gatsby.js/Bootstrap and deployed on Netlify in 2019}
+  \ritem{Leveraged CI patterns such as license compliance, linting, and automated deployment}
+  \ritem{Interfaced with third-party tournament service Smash.gg for payment and registration}
+  \rskip
+
   % Project: 2340 Risk
   \rheader{Jan 2019 - May 2019}{Risk Web Application}
   \rdesc{Software engineering class group project {\normalfont • \href{https://riskgame.ga/}{riskgame.ga} •
@@ -144,27 +185,9 @@ Computational organization \& programming, Information visualization, Systems an
 and scalable way of processing game \& lobby state}
   \ritem{Containerized application using Docker Alpine JRE image and configured Kubernetes/OpenShift deployment on
 OpenShift Online as well as Azure}
-  \rskip
-
-  % Project: Gamefest Website
-  \rheader{Jun 2018 - Nov 2018}{\textit{Gamefest} Website: Event Information}
-  \rdesc{Static site development as a part of a team {\normalfont • \href{https://gamefest.gg}{gamefest.gg} •
-\href{https://web.archive.org/web/20181029052602im_/https://gamefest.gg/}{(archived)}}}
-  \ritem{Built front-end with jQuery and Bootstrap; static backend on Apache webserver}
-  \ritem{Utilized Git for version control and issue tracking}
-  \ritem{Interfaced with third-party tournament service Smash.gg for payment and registration}
-  \rskip
-
-  % Project: FBLA Desktop Application
-  \rheader{Aug 2017 - Feb 2018}{Business-focused Desktop Database Client}
-  \rdesc{Desktop database client program to manage the issuance of library books {\normalfont •
-\href{https://github.com/jazevedo620/LibraryManager}{(Github)}}}
-  \ritem{Built application's data model in C\# and leveraging XAML's responsive binding to build the UI}
-  \ritem{Created documentation via \LaTeX\ \& used Git for version control}
-  \ritem{Utilized a variety of open source APIs to facilitate development (i.e. scheduling \& UI toolkits)}
 \end{rsection}
 % Spacing
-\vspace{-2pt}
+\vspace{-3pt}
 
 % Section: Work Experience
 \begin{rsection}{Work Experience}
