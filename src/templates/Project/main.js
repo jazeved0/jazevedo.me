@@ -83,7 +83,7 @@ function ProjectHead({ type, title, start, end, lead, topics, buttons }) {
 }
 
 function ProjectContent({ content, isMdx, isAux }) {
-  return content.trim() === '' ? (
+  return content == null || content.trim() === '' ? (
     <div className="project-content">
       <hr className="short mt-0" />
     </div>
