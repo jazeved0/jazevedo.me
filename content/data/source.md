@@ -136,8 +136,8 @@ buttons:
 
 % Section: Skills
 \begin{rskills}
-  \rskill{Programming}      {Java, Scala, JavaScript, HTML/CSS/Sass, Python, C\#}
-  \rskill{Software}         {Git, Docker, Kubernetes, OpenShift, \LaTeX, JetBrains IDEs, Nginx, Apache, Wordpress, Webpack, Jekyll, Gatsby.js, Storybook, Socket.io, Redux}
+  \rskill{Programming}      {Java, Scala, JavaScript, HTML/CSS/Sass, Python, SQL, C\#}
+  \rskill{Software}         {Git, Docker, Kubernetes, OpenShift, \LaTeX, JetBrains IDEs, Nginx, Apache, Wordpress, Webpack, Jekyll, Gatsby.js, Storybook, Socket.io, Redux, MySQL}
   \rskill{Frameworks}       {Bootstrap, jQuery, D3, Node.js, WPF, Android SDK, .NET, Play, Akka, Vue.js, React, Flask}
   \rskill{Concepts}         {Containerization \& Orchestration,  Agile development, Microservice architectures}
   \rskill{Relevant Courses} {\footnotesize Object oriented programming, Data structures \& algorithms, Objects \& design,
@@ -184,7 +184,7 @@ Computational organization \& programming, Information visualization, Systems an
   \rheader{Aug 2019 - Current}{Teaching Assistant}
   \rdesc{College of Computing \ |\ \  Georgia Institute of Technology {\normalfont • CS 2340 - Objects \& Design}}
   \ritem{Graded project milestones \& held office hours for students making a group project in JSwing or Flask}
-  \ritem{Acted as a resource for students learning agile development, server/client design, \& object-oriented design}
+  \ritem{Developed codestyle autograder scripts/workflow for Java \& Python used by over 400 students}
   \rskip
 
   % Job: AXR Website
