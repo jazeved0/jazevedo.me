@@ -137,7 +137,7 @@ buttons:
 % Section: Skills
 \begin{rskills}
   \rskill{Programming}      {Java, Scala, JavaScript, HTML/CSS/Sass, Python, SQL, C\#}
-  \rskill{Software}         {Git, Docker, Kubernetes, OpenShift, \LaTeX, JetBrains IDEs, Nginx, Apache, Wordpress, Webpack, Jekyll, Gatsby.js, Storybook, Socket.io, Redux, MySQL}
+  \rskill{Software}         {Git, Docker, Kubernetes, OpenShift, \LaTeX, Nginx, Apache, Wordpress, Webpack, Gatsby.js, Storybook, Socket.io, Redux, MySQL, GraphQL, Linux (Ubuntu), Windows}
   \rskill{Frameworks}       {Bootstrap, jQuery, D3, Node.js, WPF, Android SDK, .NET, Play, Akka, Vue.js, React, Flask}
   \rskill{Concepts}         {Containerization \& Orchestration,  Agile development, Microservice architectures}
   \rskill{Relevant Courses} {\footnotesize Object oriented programming, Data structures \& algorithms, Objects \& design,
