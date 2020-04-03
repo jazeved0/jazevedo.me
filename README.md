@@ -1,6 +1,6 @@
 # [![jazevedo.me](https://i.imgur.com/Gpldp9a.png)](https://jazevedo.me/)
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjazevedo620%2Fjazevedo.me.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjazevedo620%2Fjazevedo.me?ref=badge_shield) [![Uptime](https://img.shields.io/uptimerobot/ratio/m782911913-b294638d9eef6ebcdb451307.svg)](https://status.jazevedo.me/) [![Netlify Status](https://api.netlify.com/api/v1/badges/361d0295-d038-4c28-bb0e-55b0fd4e9475/deploy-status)](https://app.netlify.com/sites/jazevedo-me/deploys)
+[![Uptime](https://img.shields.io/uptimerobot/ratio/m782911913-b294638d9eef6ebcdb451307.svg)](https://status.jazevedo.me/) [![Netlify Status](https://api.netlify.com/api/v1/badges/361d0295-d038-4c28-bb0e-55b0fd4e9475/deploy-status)](https://app.netlify.com/sites/jazevedo-me/deploys)
 
 This is personal portfolio, where I post my current resume as well as the latest projects I've been working on. The site is located at [https://jazevedo.me](https://jazevedo.me), and is built using [Gatsby.js](https://www.gatsbyjs.org/) + [React](https://reactjs.org) for static site generation.
 
@@ -41,8 +41,3 @@ gatsby build
 
 The built files should reside at `repo_root/public`
 
----
-
-## 📜 License
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjazevedo620%2Fjazevedo.me.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjazevedo620%2Fjazevedo.me?ref=badge_large)
