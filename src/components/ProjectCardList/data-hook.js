@@ -41,17 +41,6 @@ export const dataHook = () => {
         ) {
           edges {
             node {
-              childImageSharp {
-                fluid(
-                  maxHeight: 100
-                  maxWidth: 200
-                  cropFocus: CENTER
-                  quality: 90
-                  fit: CONTAIN
-                ) {
-                  ...GatsbyImageSharpFluid_withWebp
-                }
-              }
               relativeDirectory
               publicURL
             }

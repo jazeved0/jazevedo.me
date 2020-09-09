@@ -178,7 +178,7 @@ buttons:
 % Section: Leadership
 \begin{rsection}{Leadership}
   % Position: GTE President
-  \rheader{July 2019 -\\ Current}{President}
+  \rheader{July 2019 -\\ Aug 2020}{President}
   \rdesc{Georgia Tech Esports Club}
   \ritem{Led one of the largest student organizations at Georgia Tech with over 300 active members and 30 competitve teams}
   \ritem{Designed for and led push to unify branding for the club and its events, including logos, graphics, and videos}
