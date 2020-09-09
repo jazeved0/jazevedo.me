@@ -40,29 +40,29 @@ buttons:
 \definecolor{linkcolour}{rgb}{0,0.2,0.6}
 \hypersetup{colorlinks,breaklinks,urlcolor=linkcolour, linkcolor=linkcolour}
 
-% Load font from otf files
-\usepackage{fontspec}
-\defaultfontfeatures{
-  Mapping=tex-text,
-  Numbers=Lining
-}
-\setmainfont[
-  SmallCapsFont = Fontin-SmallCaps.otf,
-  BoldFont = Fontin-Bold.otf,
-  ItalicFont = Fontin-Italic.otf
-]
-{Fontin.otf}
+% Use multirow package for vertically joined rows
+\usepackage{multirow}
+
+% Enable configuring spacing in Skills
+\usepackage{setspace}
+
+% Enable intelligent spacing for using in dots
+\usepackage{xspace}
+
+% Load font
+\usepackage{libertine}
 
 % Configure title format
 \usepackage{titlesec}
 \titleformat{\section}{\Large\scshape\raggedright}{}{0em}{}[{\titlerule[0.4pt]}]
-\titlespacing{\section}{0pt}{0pt}{0pt}
+\titlespacing{\section}{0pt}{0pt}{5pt}
 
 % Variables
 % Left column width
-\newcommand{\lcolwidth}{3.5cm}
+\newcommand{\lcolwidth}{2.2cm}
+\newcommand{\lcolwidthinner}{2.1cm}
 % Right column width
-\newcommand{\rcolwidth}{14.9cm}
+\newcommand{\rcolwidth}{16.2cm}
 
 
 % Defines resume section environment
@@ -71,11 +71,18 @@ buttons:
     \section{#1}
     \begin{tabular}{>{\raggedleft\arraybackslash}p{\lcolwidth}|p{\rcolwidth}}
    } {
+    \\\multicolumn{2}{c}{} \\[-10pt]
     \end{tabular}
   }
 % defines resume subsection header
 \newcommand{\rheader}[2]{
-  \textsc{#1} & \textbf{#2}
+    \multirow[t]{2}{*}{
+        \begin{minipage}[t]{\lcolwidthinner}
+            \begin{flushright}
+                \textsc{#1}
+            \end{flushright}
+        \end{minipage}
+    } & \textbf{#2}
 }
 % defines resume subsection subheader
 \newcommand{\rdesc}[1]{
@@ -84,19 +91,22 @@ buttons:
 % defines resume subsection line
 \newcommand{\rline}[1]{\\& #1}
 % defines resume subsection item
-\newcommand{\ritem}[2][ • ]{\\[-2pt]& \footnotesize{#1#2}}
+\newcommand{\ritem}[2][ •\hspace{3pt}]{\\[-2pt]& \footnotesize{#1#2}}
 % Defines resume skills environment
 \newenvironment{rskills}[1][Skills]
   {
+    % \setstretch{0.75}
     \section{#1}
     \begin{tabular}{>{\raggedleft\arraybackslash}p{\lcolwidth}p{\rcolwidth}}
     } {
     \end{tabular}
   }
 % defines resume skills section line
-\newcommand{\rskill}[2]{\textsc{#1}:& #2 \\}
+\newcommand{\rskill}[2]{\textsc{#1}:& #2 \\ & \\[-12pt]}
 % defines resume subsection gap
-\newcommand{\rskip}{\\\multicolumn{2}{c}{} \\}
+\newcommand{\rskip}{\\\multicolumn{2}{c}{} \\[-5pt]}
+% dot with spaces on the sides as appropriate
+\newcommand{\rdot}{\xspace\hspace{0pt}•\hspace{3pt}\xspace}
 
 
 % Begin document
@@ -115,99 +125,106 @@ buttons:
 % Title
 \begin{center}
      \Huge       Joseph Azevedo
-  \\[2pt] \normalsize • \href{mailto:joseph.az@gatech.edu}{joseph.az@gatech.edu} • US Citizen • (423) 284-1197 •
-\href{https://github.com/jazevedo620}{\faGithub\ jazevedo620} • \href{https://jazevedo.me}{Portfolio: jazevedo.me} • \\[6pt]
+  \\[2pt] \normalsize \href{mailto:joseph.az@gatech.edu}{joseph.az@gatech.edu} \rdot US Citizen \rdot (423) 284-1197 \rdot
+\href{https://github.com/jazevedo620}{\faGithub\ jazevedo620} \rdot \href{https://jazevedo.me}{Portfolio: jazevedo.me} \\[6pt]
 \end{center}
 % Spacing
-\vspace{-0pt}
+\vspace{6pt}
 
 
 % Section: Education
 \begin{rsection}{Education}
-  \rheader{Jun 2018 - Current}{Georgia Institute of Technology{\normalfont, Atlanta, GA \dotfill\  GPA: 4.0/4.0}}
+  \rheader{Jun 2018 -\\ Current}{Georgia Institute of Technology{\normalfont, Atlanta, GA \hfill\  GPA: 4.0/4.0\ }}
   \rline{Bachelor of Science, Computer Science \hfill Graduation date: May 2021}
   \vspace{2pt}
   \ritem[]{Concentration: Information Internetworks \& Media}
-  \ritem[]{Hispanic Scholarship Foundation Scholar}
 \end{rsection}
 % Spacing
-\vspace{-13pt}
+\vspace{-9pt}
 
 
 % Section: Skills
 \begin{rskills}
-  \rskill{Programming}      {Java, Scala, JavaScript, HTML/CSS/Sass, Python, SQL, C\#}
-  \rskill{Software}         {Git, Docker, Kubernetes, OpenShift, \LaTeX, Nginx, Apache, Wordpress, Webpack, Gatsby.js, Storybook, Socket.io, Redux, MySQL, GraphQL, Linux (Ubuntu), Windows}
-  \rskill{Frameworks}       {Bootstrap, jQuery, D3, Node.js, WPF, Android SDK, .NET, Play, Akka, Vue.js, React, Flask}
-  \rskill{Concepts}         {Containerization \& Orchestration,  Agile development, Microservice architectures}
-  \rskill{Relevant Courses} {\footnotesize Object oriented programming, Data structures \& algorithms, Objects \& design,
-Computational organization \& programming, Information visualization, Systems and Networks, Database systems, Design \& Analysis of Algorithms}
+  \rskill{Languages}        {Go, Rust, Python, Scala, TypeScript, Bash, Java, SQL, C\#, C, JavaScript, HTML/CSS}
+  \rskill{Software}         {Git, Docker, Kubernetes, Helm, OpenShift, \LaTeX, Nginx, Apache, Maven, Webpack, Babel,
+                             gRPC/Protobuf, Linux, Windows, SQL (Postgres, MySQL), NoSQL (MongoDB, Elasticsearch)}
+  \rskill{Frameworks}       {React, Flask, Express, Play, Akka, Vue.js, Android SDK, .NET, WPF}
+  \rskill{Concepts}         {Containerization, Agile/SCRUM, Microservices, Unit \& integration testing, CI/CD pipelines}
 \end{rskills}
 % Spacing
-\vspace{-14pt}
-
-
-% Section: Projects
-\begin{rsection}{Projects}
-  % Project: archit.us
-  \rheader{May 2019 - Current}{Architus Fullstack Application}
-  \rdesc{Open source Discord bot with React web dashboard {\normalfont • \href{https://archit.us/}{archit.us} •
-\href{https://github.com/architus/archit.us}{\faGithub\ architus/archit.us}}}
-  \ritem{Engineered frontend web app with React/Redux to consume, display, and process API data}
-  \ritem{Helped build microservice-based backend using Flask, RabbitMQ, PostgreSQL, Kafka, and Elasticsearch}
-  \ritem{Developed documentation sites: \href{https://docs.archit.us/}{Gatsby-based implementation docs site} \& \href{https://storybook.archit.us/}{Storybook component docs}}
-  \rskip
-
-  % Project: Gamefest Website
-  \rheader{Jun 2018 - Current}{\textit{Gamefest} Website: Event Information}
-  \rdesc{Static site development as a part of a team {\normalfont • \href{https://gamefest.gg}{gamefest.gg} •
-\href{https://github.com/gamefest/gamefest.gg}{\faGithub\ gamefest/gamefest.gg}}}
-  \ritem{Rebuilt the site for the 2019 event using React/Gatsby.js/Bootstrap and Netlify for CI/deployment}
-  \ritem{Leveraged CI/CD patterns such as license compliance, linting, and automated deployment}
-  \rskip
-
-  % Project: 2340 Risk
-  \rheader{Jan 2019 - May 2019}{Risk Web Application}
-  \rdesc{Software engineering class group project {\normalfont • \href{https://riskgame.ga/}{riskgame.ga} •
-\href{https://github.com/jazevedo620/cs2340-risk}{\faGithub\ jazevedo620/cs2340-risk}}}
-  \ritem{Helped build front-end with Vue.js/Vuex and Bootstrap, leveraging a Konva.js canvas to render the game}
-  \ritem{Engineered back-end/network model in Scala Play, using Akka actors to process game \& lobby state}
-  \ritem{Containerized application using Docker/Alpine \& configured both Kubernetes \& OpenShift deployment}
-\end{rsection}
-% Spacing
-\vspace{-3pt}
+\vspace{0pt}
 
 
 % Section: Work Experience
 \begin{rsection}{Work Experience}
-  % Job: CS 2340 TA
-  \rheader{Aug 2019 - Current}{Teaching Assistant}
-  \rdesc{College of Computing \ |\ \  Georgia Institute of Technology {\normalfont • CS 2340 - Objects \& Design}}
-  \ritem{Graded project milestones \& held office hours for students making a group project in JSwing or Flask}
-  \ritem{Developed codestyle autograder scripts/workflow for Java \& Python used by over 400 students}
+  % Job: MathWorks software engineering intern
+  \rheader{May 2020 - Aug 2020}{Software Engineering Intern}
+  \rdesc{MathWorks}
+  \ritem{Developed new features in a Golang microservice and a React dashboard, including unit and integration testing}
+  \ritem{Designed custom Kubernetes controller to work with internal framework and manage dynamic deployments}
+  \ritem{Wrote design documentation and created proof of concept in Go investigating Kubernetes integration}
   \rskip
-
-  % Job: AXR Website
-  \rheader{Feb 2019 - Jul 2019}{Web Design \& Development Intern}
-  \rdesc{Axis Replay {\normalfont •
-\href{https://axr.gg}{axr.gg} •
-\href{https://web.archive.org/web/20190412204444_/https://www.axisreplay.com/}{Before (archived): bit.ly/axrgg-old}}}
-  \ritem{Redesigned company's main website, developing accompanying mockups and branding guidelines}
-  \ritem{Developed custom PHP to handle modular and conditional injection of various styles and scripts}
-  \ritem{Used an Apache/MySQL/PHP stack with Wordpress on AWS to configure staging before deploying}
+  
+  % Job: CS 2340 TA 
+  \rheader{Aug 2019 -\\ Current}{Teaching Assistant}
+  \rdesc{Georgia Institute of Technology \ {\normalfont |}\hspace{2pt} CS 2340 - Objects \& Design}
+  \ritem{Graded project milestones and held office hours for students making a group project in JSwing or Flask}
+  \ritem{Created code style autograder scripts/workflow for Java and Python used by over 800 students}
 \end{rsection}
 % Spacing
-\vspace{-8pt}
+\vspace{-5pt}
 
 
 % Section: Leadership
 \begin{rsection}{Leadership}
   % Position: GTE President
-  \rheader{Apr 2019 - Current}{President}
+  \rheader{July 2019 -\\ Current}{President}
   \rdesc{Georgia Tech Esports Club}
-  \ritem{Led one of the largest student organizations at Georgia Tech with over 300 active members and 30 teams}
-  \ritem{Developed and unified branding for the club and its events, including logos, graphics, and videos}
-  \ritem{Conducted corporate outreach and worked with campus administration for funding/partnerships}
+  \ritem{Led one of the largest student organizations at Georgia Tech with over 300 active members and 30 competitve teams}
+  \ritem{Designed for and led push to unify branding for the club and its events, including logos, graphics, and videos}
+  \ritem{Worked with team of officers to conduct corporate outreach and partner with campus administration for funding}
+  \rskip
+  
+  % Position: Gamefest organizer
+  \rheader{Jun 2019 -\\ Nov 2019}{Logistics \& Event Administrator}
+  \rdesc{Gamefest 2019
+    {\normalfont\rdot \href{https://gamefest.gg/}{gamefest.gg}}}
+  \ritem{Led a small team of organizers to plan and host a regional collegiate tournament with over 400 participants}
+  \ritem{Managed and organized a team of 20 volunteers working the day of the event}
+\end{rsection}
+% Spacing
+\vspace{-5pt}
+
+
+% Section: Projects
+\begin{rsection}{Projects}
+  % Project: rAdvisor performance monitor
+  \rheader{Feb 2020 -\\ May 2020}{rAdvisor}
+  \rdesc{Open-source system resource utilization tool for Docker \& Kubernetes
+    {\normalfont \rdot \href{https://github.com/elba-docker/radvisor}{\faGithub\ elba-docker/radvisor}}}
+  \ritem{Developed a high-performance, concurrent CLI tool in Rust that monitors Linux cgroups and polls the Docker daemon}
+  \ritem{Conducted hundreds of distributed experimental workflows using Python/Bash to test overhead and consistency}
+  \ritem{Wrote final report that details the software design, experimental procedure, and results
+    \rdot \href{https://github.com/elba-docker/report}{\faGithub\ elba-docker/report}}
+  \rskip
+  
+  % Project: archit.us
+  \rheader{May 2019 -\\ Current}{Architus Full Stack Application}
+  \rdesc{Open-source chat bot \& API with web dashboard
+    {\normalfont \rdot \href{https://archit.us/}{architus} \rdot
+        \href{https://github.com/architus/architus}{\faGithub\ architus/architus} \rdot
+        \href{https://github.com/architus/archit.us}{\faGithub\ architus/archit.us}}}
+  \ritem{Engineered front-end web application with React/Redux to consume, process, and display API data}
+  \ritem{Built microservice-based back-end using Python/Flask, Rust, RabbitMQ, PostgreSQL, and Elasticsearch}
+  \ritem{Led migration to use Kubernetes, motivated by increased server load and growing user base (230,000 users)}
+  \rskip
+  
+  % Project: 2340 Risk
+  \rheader{Jan 2019 - May 2019}{Risk Web Application}
+  \rdesc{Software engineering class group project {\normalfont • \href{https://riskgame.ga/}{riskgame.ga} •
+\href{https://github.com/jazevedo620/cs2340-risk}{\faGithub\ jazevedo620/cs2340-risk}}}
+  \ritem{Engineered back-end and websocket-based network model in Scala, using Akka actors to process game and lobby state}
+  \ritem{Containerized application using Docker/Alpine and configured deployment on both Kubernetes and OpenShift}
 \end{rsection}
 
 
