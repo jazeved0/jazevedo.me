@@ -172,7 +172,7 @@ buttons:
   \rskip
   
   % Job: CS 2340 TA 
-  \rheader{Aug 2019 -\\[-1pt] Current}{Teaching Assistant}
+  \rheader{Aug 2019 -\\[-1pt] Current}{Senior Teaching Assistant}
   \rdesc{Georgia Institute of Technology \ {\normalfont |}\hspace{2pt} CS 2340 - Objects \& Design (Object-oriented design)}
   \ritem{Led a team of 6 other teaching assistants to prepare and deliver lectures over the course of the semester}
   \ritem{Graded project milestones and held office hours for students making a group project in \textbf{Java Swing} or \textbf{Python Flask}}
