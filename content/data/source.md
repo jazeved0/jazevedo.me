@@ -118,7 +118,7 @@ buttons:
 
 % Set up margins/origin
 \hsize=7.5in \vsize=11in
-\hoffset=-0.65in \voffset=-0.515in
+\hoffset=-0.65in \voffset=-0.5in
 % Output page size
 \pdfpagewidth=8.5in
 \pdfpageheight=11in
@@ -139,21 +139,20 @@ buttons:
 % Section: Education
 \begin{rsection}{Education}
   \rheader{Jun 2018 -\\[-1pt] Current}{Georgia Institute of Technology{\normalfont, Atlanta, GA \hfill\  GPA: 4.0/4.0\ }}
-  \rline{Bachelor of Science, Computer Science \hfill Graduation date: May 2021}
+  \rline{Bachelor of Science, Computer Science \hfill Graduation date: May 2022}
   \vspace{2pt}
   \ritem[]{Concentration: Networking \& Graphics}
-  \ritem[]{Candidate for Master's in Computer Science (Expected graduation: May 2022)}
 \end{rsection}
 % Spacing
-\vspace{-6pt}
+\vspace{-4pt}
 
 
 % Section: Skills
 \begin{rskills}
   \rskill{Languages}        {Go, Rust, Python, Java, Scala, TypeScript, JavaScript, HTML/CSS, Bash, SQL, C\#, C}
   \rskill{Software}         {Git, Docker, Kubernetes, OpenShift, Azure, \LaTeX, Nginx, Apache, Maven, Webpack, Babel,
-                             gRPC/Protobuf, Linux, Windows, SQL (Postgres, MySQL), NoSQL (MongoDB, Elasticsearch)}
-  \rskill{Frameworks}       {React, Flask, Express, Play, Akka, Vue.js, Android SDK, .NET, WPF}
+                             gRPC/Protobuf, Linux, Windows, SQL (Postgres, MySQL), NoSQL (MongoDB, Elasticsearch), ANTLR, Selenium}
+  \rskill{Frameworks}       {React, Flask, Express, Play, Akka, Vue.js, jQuery, Android SDK, React Native, .NET, WPF}
   \rskill{Concepts}         {Containerization, Orchestration, Agile/SCRUM, Microservices, Unit \& integration testing, CI/CD}
   \rskill{Coursework}       {Data structures, Algorithms, Databases, Object-oriented design, Networking, Operating systems, Combinatorics}
 \end{rskills}
@@ -167,7 +166,7 @@ buttons:
   \rheader{May 2020 -\\[-1pt] Aug 2020}{Software Engineering Intern}
   \rdesc{MathWorks}
   \ritem{Developed new features in a \textbf{Golang} microservice and a \textbf{React} dashboard, including unit and integration testing}
-  \ritem{Designed custom \textbf{Kubernetes} controller to work with internal framework and manage dynamic deployments}
+  \ritem{Designed a custom \textbf{Kubernetes} controller to work with internal framework and manage dynamic deployments}
   \ritem{Wrote design documentation and created proof of concept in \textbf{Go} investigating \textbf{Kubernetes} integration}
   \rskip
   
@@ -176,10 +175,10 @@ buttons:
   \rdesc{Georgia Institute of Technology \ {\normalfont |}\hspace{2pt} CS 2340 - Objects \& Design (Object-oriented design)}
   \ritem{Led a team of 6 other teaching assistants to prepare and deliver lectures over the course of the semester}
   \ritem{Graded project milestones and held office hours for students making a group project in \textbf{Java Swing} or \textbf{Python Flask}}
-  \ritem{Created code style autograder scripts/workflow using \textbf{Python} for student projects used by 1,300 students over 3 semesters}
+  \ritem{Created code style autograder scripts/workflow using \textbf{Python} for student projects used by 1,300+ students over 3 semesters}
 \end{rsection}
 % Spacing
-\vspace{-5pt}
+\vspace{-3pt}
 
 
 % Section: Leadership
@@ -187,8 +186,8 @@ buttons:
   % Position: GTE President
   \rheader{July 2019 -\\[-1pt] Aug 2020}{President}
   \rdesc{Georgia Tech Esports Club}
-  \ritem{Led one of the largest student organizations at Georgia Tech with over \textbf{300 active members} and \textbf{30 competitve teams}}
-  \ritem{Designed for and led push to unify branding for the club and its events, including logos, graphics, and videos}
+  \ritem{Led one of the largest student organizations at Georgia Tech with over \textbf{300 active members} and \textbf{30 competitive teams}}
+  \ritem{Designed for and coordinated push to unify branding for the club and its events, including logos, graphics, and videos}
   \ritem{Worked with team of officers to conduct corporate outreach and partner with campus administration for funding}
   % Position: Gamefest organizer
   \rsubheader{Logistics \& Event Organizer}{
@@ -197,7 +196,7 @@ buttons:
   \rsubitem{Worked with campus administration to secure support and managed a team of \textbf{20 volunteers} working the day of the event}
 \end{rsection}
 % Spacing
-\vspace{-5pt}
+\vspace{-3pt}
 
 
 % Section: Projects
@@ -222,13 +221,12 @@ buttons:
         \href{https://github.com/architus/archit.us}{\faGithub\ architus/archit.us}}}
   \ritem{Engineered front-end web application with \textbf{React}/\textbf{Redux} to consume, process, and display API data}
   \ritem{Built microservice-based back-end using \textbf{Python}/\textbf{Flask}, \textbf{Rust}, \textbf{RabbitMQ}, \textbf{PostgreSQL}, and \textbf{Elasticsearch}}
-  \ritem{Led migration to use \textbf{Kubernetes}, motivated by increased server load and growing user base (\textbf{40,000+ users})}
+  \ritem{Spearheaded migration to use \textbf{Kubernetes}, motivated by increased server load and growing user base (\textbf{40,000+ users})}
   \rskip
   
   % Project: 2340 Risk
   \rheader{Jan 2019 -\\[-1pt] May 2019}{Risk Web Application}
-  \rdesc{Software engineering class group project {\normalfont • \href{https://riskgame.ga/}{riskgame.ga} •
-\href{https://github.com/jazevedo620/cs2340-risk}{\faGithub\ jazevedo620/cs2340-risk}}}
+  \rdesc{Software engineering class group project {\normalfont \rdot  \href{https://github.com/jazevedo620/cs2340-risk}{\faGithub\ jazevedo620/cs2340-risk}}}
   \ritem{Engineered back-end and websocket-based network model in \textbf{Scala}, using \textbf{Akka} actors to process game and lobby state}
   \ritem{Containerized application using \textbf{Docker}/\textbf{Alpine} and configured deployment on both \textbf{Kubernetes} and \textbf{OpenShift}}
 \end{rsection}
