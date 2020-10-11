@@ -28,10 +28,12 @@ body,
 .site-wrapper {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .content {
-    flex: 1 0 auto;
+    // flex: 1 0 auto;
+    position: relative;
 }
 .footer {
     flex-shrink: 0;

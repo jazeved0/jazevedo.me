@@ -130,12 +130,6 @@ $close-button-size: 0.9;
         width: $base-size;
         height: $base-size;
         font-size: 3em;
-        @include respond-below(xs) {
-            $base-size: 2rem;
-            width: $base-size;
-            height: $base-size;
-            font-size: 2em;
-        }
 
         line-height: 1;
         text-align: center;
