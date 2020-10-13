@@ -12,6 +12,7 @@ body,
 .resume-layout .content {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 
     main {
         flex-grow: 1;
