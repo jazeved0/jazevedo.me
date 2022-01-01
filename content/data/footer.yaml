@@ -1,0 +1,11 @@
+# "Made with" links:
+links:
+  - icon: gatsby
+    href: "https://www.gatsbyjs.org/"
+  - icon: github
+    href: "https://github.com/jazeved0/jazevedo.me"
+  - icon: react
+    href: "https://reactjs.org/"
+
+# GitHub link to site's source:
+github: "https://github.com/jazeved0/jazevedo.me"

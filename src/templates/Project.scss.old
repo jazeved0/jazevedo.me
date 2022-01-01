@@ -1,0 +1,100 @@
+--img-border-radius: 8px;
+
+img {
+    border-radius: var(--img-border-radius) !important;
+    box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+p {
+    .gatsby-resp-image-wrapper + em {
+        display: table;
+        margin: -0.5rem auto 3rem;
+        max-width: 40rem;
+        text-align: center;
+        font-style: normal;
+        opacity: 0.8;
+    }
+}
+
+.gatsby-resp-image-wrapper {
+    max-width: none !important;
+
+    .gatsby-resp-image-background-image {
+      border-radius: var(--img-border-radius) !important;
+      box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.3) !important;
+    }
+}
+
+figure {
+    &.gatsby-resp-image-figure {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &.left {
+        margin-left: 0;
+    }
+
+    &.merged-figure {
+        p {
+      border-radius: var(--img-border-radius) !important;
+      box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.3) !important;
+        }
+
+        a:not(:first-child) {
+            span.gatsby-resp-image-background-image,
+            img.gatsby-resp-image-image {
+                border-top-left-radius: 0 !important;
+                border-top-right-radius: 0 !important;
+            }
+        }
+
+        span.gatsby-resp-image-background-image,
+        img.gatsby-resp-image-image {
+            box-shadow: none !important;
+        }
+    }
+
+    &.figure,
+    &.gatsby-resp-image-figure {
+        display: table;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        max-width: 800px;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        a {
+            display: inline !important;
+        }
+
+        img:not(.brand-img) {
+            border-bottom-left-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+            box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.3);
+            margin-bottom: 0;
+        }
+
+        figcaption {
+            padding: 10px 16px;
+            background-color: #252e44;
+            border: solid 1px #2f3b56;
+            border-top: none;
+            color: #f7f8f8;
+            border-bottom-right-radius: var(--img-border-radius) !important;
+            border-bottom-left-radius: var(--img-border-radius) !important;
+            opacity: 0.8;
+
+            display: table-caption;
+            caption-side: bottom;
+            box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.3);
+        }
+    }
+}
+
+.gatsby-resp-iframe-wrapper {
+    margin-top: 1rem;
+}

@@ -1,2 +1,10 @@
-# Mark .vue files as vendored because they come from another repo
-*.vue linguist-vendored=true
+# Mark Risk demo files as vendored because they come from another repo
+content/projects/risk-game/local/demo/vue/** linguist-vendored=true
+
+# Mark college explorer source files as vendored because they come from another repo
+content/projects/college-explorer/**/*.css linguist-vendored=true
+content/projects/college-explorer/**/*.html linguist-vendored=true
+content/projects/college-explorer/**/*.js linguist-vendored=true
+
+# Mark everything in src/vendor directory as vendored
+src/vendor/** linguist-vendored=true
