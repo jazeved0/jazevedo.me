@@ -118,7 +118,7 @@ const Styled = {
     & p {
       font-size: 1.2rem;
       margin-bottom: ${gap.nano};
-      font-weight: 300;
+      font-weight: 400;
     }
 
     & a {

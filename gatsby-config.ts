@@ -111,7 +111,7 @@ const plugins: PluginDefs[] = [
     },
   },
   "gatsby-plugin-catch-links",
-  "gatsby-plugin-offline",
+  "gatsby-plugin-remove-serviceworker",
   "gatsby-plugin-react-helmet",
   "gatsby-plugin-image",
   "gatsby-plugin-sharp",

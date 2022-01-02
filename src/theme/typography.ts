@@ -14,7 +14,7 @@ const baseFontStack =
   `'Segoe UI Emoji', 'Segoe UI Symbol'`;
 
 const fonts = {
-  body: baseFontStack,
+  body: `Lato, ${baseFontStack}`,
   headings: `Lato, ${baseFontStack}`,
   monospace:
     `Lato, SFMono-Regular, Menlo, Monaco, Consolas, ` +
