@@ -1,7 +1,7 @@
 {
   "name": "jazevedo.me",
   "description": "Personal portfolio website made with Gatsby",
-  "author": "Joseph Azevedo <joseph.az@gatech.edu>",
+  "author": "Joseph Azevedo <jazevedo620@gmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "gatsby-ts build",

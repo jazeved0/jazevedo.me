@@ -33,10 +33,15 @@ const Styled = {
     --card-bg: ${color("bg+10")};
     --card-highlight-bg: transparent;
 
-    &:hover {
-      box-shadow: ${shadow("z5")};
-      transform: translateY(-4px);
-      --card-highlight-bg: ${color("bg+15")};
+    /* Only enable hover styles on devices with hover support.
+    Otherwise, it runs the risk of disrupting smooth horizontal scrolling
+    inside <ProjectCarousel>s on devices like iOS */
+    @media (hover: hover) {
+      &:hover {
+        box-shadow: ${shadow("z5")};
+        transform: translateY(-4px);
+        --card-highlight-bg: ${color("bg+15")};
+      }
     }
   `,
   CardTop: styled.div`

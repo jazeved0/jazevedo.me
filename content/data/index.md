@@ -6,7 +6,7 @@ subHeadline: Concentration in Systems
 # The email gets displayed in a "spoiler"
 # that only displays the email in the HTML on hover,
 # in hopes of foiling email spam scrapers:
-email: joseph.az@gatech.edu
+email: jazevedo620@gmail.com
 ---
 
 I’m an aspiring software engineer and researcher living in Atlanta.

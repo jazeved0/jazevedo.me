@@ -80,6 +80,12 @@ const Styled = {
     justify-self: start;
     width: var(--image-size);
     height: var(--image-size);
+
+    img,
+    picture {
+      /* Needed for image to appear correctly on iOS */
+      border-radius: 1000px;
+    }
   `,
   ContentWrapper: styled.article`
     grid-area: content;
