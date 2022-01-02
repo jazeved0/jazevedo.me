@@ -1,0 +1,8 @@
+# Social links, displayed in the header
+links:
+  - text: Github
+    icon: github
+    href: "https://github.com/jazeved0"
+  - text: LinkedIn
+    icon: linkedin
+    href: "https://www.linkedin.com/in/joseph-az/"
