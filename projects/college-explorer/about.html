@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Explorer | About</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+    <link rel="stylesheet" href="assets/common.css" type="text/css" >
+</head>
+<body for="html-export">
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand ml-3" href="live">College Explorer</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="live">Home</a>
+                    <a class="nav-item nav-link active" href="about">About <span class="sr-only">(current)</span></a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="mume markdown-preview container py-5">
+            <h1 class="mume-header" id="project-5-description">Project 5 Description</h1>
+    
+            <h2 class="mume-header" id="team-joseph-avocado-and-nichole-deeb">Team: Joseph Avocado and Nichole Deeb</h2>
+            <p>Dataset Chosen:<br>
+            <code>colleges.csv</code></p>
+            <h2 class="mume-header" id="supported-analytic-tasks">Supported Analytic Tasks</h2>
+    
+            <ul>
+                <li>Cluster colleges together that have similar values for a specific selected key
+                    <ul>
+                        <li>Rapidly analyze proximity or lack thereof between colleges based on population and acceptance rate</li>
+                        <li>Easily change the selected key with a dropdown that instantly begins to regenerate the clusters for the new key</li>
+                        <li>View the relationship that acceptance rate and undergraduate population has on the location of colleges in the clusters</li>
+                    </ul>
+                </li>
+                <li>Use brushing to select a rectangular area and receive average information about the cluster
+                    <ul>
+                        <li>Select the entire data set and view average information about the sample as a whole</li>
+                        <li>Shows averages of acceptance rate, average cost, ACT and SAT scores, and the selected key if it falls outside of these specifications (i.e. Poverty Rate if and only if it selected as the key)</li>
+                    </ul>
+                </li>
+                <li>Live search filtering for specific colleges to see their location in the clusters (i.e. &quot;Georgia&quot; will highlight all colleges that have &quot;Georgia&quot; in their name)</li>
+                <li>Highlight Ivy League colleges and see their locations in the clusters</li>
+                <li>View data of a single data point, showing all relevant information as well as the selected key</li>
+            </ul>
+            <h2 class="mume-header" id="design-overview">Design Overview</h2>
+    
+            <p>We focused our design mainly around the correlation of colleges&apos; undergraduate population and admission rate (reflecting how &quot;prestigious&quot; the school is) versus a variety of different variables that we allowed the user to select themselves. With this selected variable, we utilized the <a href="https://lvdmaaten.github.io/tsne/">t-SNE library</a> to simulate forces and enforce clustering, meaning that the points representing schools with similar values for these variables will tend to be closer together.</p>
+            <p>Overall, our design is intended to show relationships between colleges on a large-scale graph with over a thousand data points. We allowed individual searches to separate out specific colleges, but our design was generally more geared to large clusters of colleges. For instance, we wanted to allow the ability to glance at a cluster of ACT scores, and easily see that typically smaller colleges with lower admission rate (more green in color) were in clusters with higher ACT averages, and so forth.</p>
+            <h2 class="mume-header" id="screenshots-of-user-interface">Screenshots of User Interface</h2>
+    
+            <p><img src="assets/initial.png" alt="initial view" class="img-fluid" title="Initial view"><br>
+            Initial view upon starting the cluster</p>
+            <p><img src="assets/selection.png" alt="selection" class="img-fluid" title="Selection"><br>
+            Selection interface, where a data item turns blue and its attributes are displayed to the right</p>
+            <p><img src="assets/brushing.png" alt="brushing" class="img-fluid" title="Brushing"><br>
+            Brushing interface shown when the mouse is clicked and dragged in the data view area</p>
+            <p><img src="assets/filtering.png" alt="flitering" class="img-fluid" title="Filtering"><br>
+            The filtering interface that shows when a filter string is inputted into the filter input box</p>
+            <p><img src="assets/ivy_league.png" alt="ivy league" class="img-fluid" title="Ivy League"><br>
+            Ivy league highlighting interface that shows when the <strong>Highlight Ivy League Schools</strong> button is pressed</p>
+            <h2 class="mume-header" id="additional-notesui-explanations">Additional Notes/UI Explanations</h2>
+            <p>We wanted the first two characteristics, undergraduate population and admission rate, to always be visibile in the visualization, as they were our primary motivating factor. Because of this, we encoded their values in the data points themselves, deciding on the following encodings:</p>
+            <ul>
+                <li><strong>Undergraduate population</strong> - represented as the size of each data mark (a visual cue to the real-life idea of university &quot;size&quot;)</li>
+                <li><strong>Admission rate</strong> - represented as the color of each data mark, with red being the greatest admissions rate (lowest selectivity) and green being the least admissions rate (greatest selectivity). This was designed as a cue to the idea that more selective colleges are usually ranked better, and are therefore better in general than less selective colleges (utilizing the green/red good/bad visual association)</li>
+            </ul>
+            <h3 class="mume-header" id="inclusion-of-ivy-league-highlighting">Inclusion of Ivy League Highlighting</h3>
+    
+            <p>We wanted to use a baseline to compare other colleges against, so we used very notorious and prestigous colleges as a baseline: the Ivy League. The Ivy League has 8 member colleges, all of which are listed below, and are world renown for their academics.</p>
+            <ul>
+                <li>Brown University</li>
+                <li>University of Pennsylvania</li>
+                <li>Cornell University</li>
+                <li>Harvard University</li>
+                <li>Yale University</li>
+                <li>Princeton University</li>
+                <li>Columbia University</li>
+                <li>Darthmouth College</li>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>

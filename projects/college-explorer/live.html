@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>College Explorer | Data</title>
+		<meta charset="UTF-8"/> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css" integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css" integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
+        <link rel="stylesheet" href="assets/common.css" type="text/css" >
+        <link rel="stylesheet" href="assets/index.css" type="text/css" />
+   	</head>
+   	<body>
+        <header>
+            <!-- Navbar -->
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand ml-3" href="live">College Explorer</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" href="live">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link" href="about">About</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div class="container pt-5">
+                <h1>Cluster View</h1>
+                <p class="preamble light-text">
+                    The following visualization plots college information collected on a wide variety of universities
+                    across the United States, clustering them by a specified value. Filter the displayed colleges by the filter
+                    box below, or change the data attribute used by the
+                    <a href="https://lvdmaaten.github.io/tsne/" target="_blank" rel="noopener">t-SNE clustering algorithm</a> in
+                    the selection box to the right. Click on a data point to view its details, or drag a brush to gain insights
+                    about a cluster or region.
+                </p>
+                <div class="row flex-md-row-reverse">
+                    <div id="selection-info" class="col-12 col-md-3 pl-md-0">
+                        <h2><i class="fas fa-key mr-2"></i> Cluster Key</h2>
+                        <select class="form-control" id="cluster-key" onchange="startGraph();">
+                            <option value="Average Cost">Average Cost</option>
+                            <option value="Admission Rate">Admission Rate</option>
+                            <option value="ACT Median">ACT Median</option>
+                            <option value="SAT Average">SAT Average</option>
+                            <option value="% Part-time Undergrads">% Part-time Undergrads</option>
+                            <option value="Expenditure Per Student">Expenditure Per Student</option>
+                            <option value="Average Faculty Salary">Average Faculty Salary</option>
+                            <option value="% Full-time Faculty">% Full-time Faculty</option>
+                            <option value="Retention Rate (First Time Students)">Retention Rate (First Time Students)</option>
+                            <option value="Median Debt on Graduation">Median Debt on Graduation</option>
+                            <option value="% Federal Loans">% Federal Loans</option>
+                            <option value="Median Family Income">Median Family Income</option>
+                            <option value="Poverty Rate">Poverty Rate</option>
+                            <option value="Median Earnings 8 years After Entry">Median Earnings 8 years After Entry</option>
+                            <option value="Undergrad Population">Undergrad Population</option>
+                        </select>
+                        <div class="pl-md-1 brush-information">
+                            <p id="name" class="h3"></p>
+                            <p id="control" class="h4"></p>
+                            <div class="d-flex" style="justify-content: space-between;">
+                                <span>Acceptance Rate:</span>
+                                <span>
+                                    <span id="acceptance_rate"></span>
+                                    <span style="margin-left: 2px; opacity: 0.6; font-weight: 400;">%</span>
+                                </span>
+                            </div>
+                            <div class="d-flex" style="justify-content: space-between;">
+                                <span>Average Cost:</span>
+                                <span>
+                                    <span style="margin-right: 2px; opacity: 0.6; font-weight: 400;">$</span>
+                                    <span id="average_cost"></span>
+                                </span>
+                            </div>
+                            <div class="d-flex" style="justify-content: space-between;">
+                                <span>Region:</span>
+                                <span id="region"></span>
+                            </div>
+                            <div class="d-flex" style="justify-content: space-between;">
+                                <span>Locale:</span>
+                                <span id="locale"></span>
+                            </div>
+                            <div class="d-flex" style="justify-content: space-between;">
+                                <span>ACT Median:</span>
+                                <span id="act"></span>
+                            </div>
+                            <div class="d-flex" style="justify-content: space-between;">
+                                <span>SAT Average:</span>
+                                <span id="sat"></span>
+                            </div>
+                            <div id="active-key-container" class="d-flex" style="justify-content: space-between;">
+                                <span id="active-key-label"></span>
+                                <span id="active-key"></span>
+                            </div>
+                            <div class="legend">
+                                <div class="legend-item">
+                                    <p>Undergraduate Population</p>
+                                    <div id="size-legend"></div>
+                                </div>
+                                <div class="legend-item">
+                                    <p>Admission Rate</p>
+                                    <div id="color-legend"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-9 mt-4 mt-md-0">
+                        <i id="filter-icon" class="fas fa-filter d-none d-md-block"></i>
+                        <div class="input-group mb-3">
+                            <input id="college-filter" oninput="filter();" type="text" class="form-control"
+                            placeholder="Filter colleges" aria-label="College filter" spellcheck="false">
+                        </div>
+                        <div id="wrapper"></div>
+                        <button type="button" class="btn btn-primary mt-4" onclick="highlightIvy();"><i class="fas fa-leaf mr-2"></i> Highlight Ivy League Schools</button>
+                        <button type="button" class="btn btn-primary mt-4 ml-2" onclick="startGraph();"><i class="fas fa-sync-alt mr-2"></i> Refresh Simulation</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src='https://raw.githack.com/karpathy/tsnejs/master/tsne.js'></script>
+        <script type="text/javascript" src="assets/main.js"></script>
+	</body>
+</html>
