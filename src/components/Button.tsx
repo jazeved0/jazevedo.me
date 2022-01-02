@@ -20,7 +20,7 @@ const Styled = {
     justify-content: center;
 
     svg {
-      display: block;
+      display: block !important;
     }
 
     box-shadow: ${shadow("z1")};

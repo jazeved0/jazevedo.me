@@ -17,8 +17,8 @@ const Styled = {
     svg {
       position: relative;
       /* Nudges */
-      top: 4px;
-      left: 6px;
+      top: 3px;
+      left: 8px;
     }
   `,
   SwitchLabel: styled.span`
