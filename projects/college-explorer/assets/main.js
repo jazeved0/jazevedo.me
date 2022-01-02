@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const width = 1000,
   height = 640,
   margin = 40,
