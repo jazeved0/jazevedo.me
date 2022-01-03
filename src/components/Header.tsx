@@ -18,7 +18,7 @@ import { container } from "../theme/layout";
 import { gap } from "../theme/spacing";
 import Switch from "./Switch";
 import Icon from "./Icon";
-import { between, down } from "../theme/media";
+import { down } from "../theme/media";
 
 const Styled = {
   HeaderOuter: styled.div`

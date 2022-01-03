@@ -7,9 +7,9 @@ import { PluginOptions as MdxPluginOptions } from "gatsby-plugin-mdx";
 import { backgroundColor, themeColor } from "./src/theme/color";
 
 const description = [
-  "My name is Joseph, and I'm a third-year computer science student at Georgia Tech",
-  "with experience in web application development and distributed systems.",
-  "I enjoy working on projects that focus on solving interesting problems in creative ways",
+  "My name is Joseph, and I'm an aspiring software engineer and researcher living in Atlanta",
+  "with prior internships at MathWorks, Stripe, and Datadog.",
+  "I'm interested in distributed systems, observability, and operating systems.",
 ].join(" ");
 
 const siteMetadata = {

@@ -137,6 +137,7 @@ const Styled = {
   `,
   Carousel: styled(ProjectCarousel)`
     grid-area: carousel;
+    width: 100%;
   `,
   CarouselPositioner: styled.div`
     margin-left: var(--content-padding);

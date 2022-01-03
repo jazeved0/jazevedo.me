@@ -27,8 +27,7 @@ with a system resource utilization monitor called
 which is designed to collect high-granularity time-series data
 for the resource utilization of
 [Docker containers](https://www.docker.com/resources/what-container) and
-[Kubernetes pods](https://kubernetes.io/docs/concepts/workloads/pods/)--
-all with minimal overhead.
+[Kubernetes pods](https://kubernetes.io/docs/concepts/workloads/pods/)--all with minimal overhead.
 At Datadog, I researched and implemented a proof-of-concept
 for a touchless HTTPS traffic monitor for [Go applications](https://go.dev/),
 heavily utilizing [Linux eBPF functionality](https://ebpf.io/)
