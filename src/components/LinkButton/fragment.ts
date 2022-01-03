@@ -6,5 +6,6 @@ export const fragment = graphql`
     icon
     text
     variant
+    ariaLabel
   }
 `;

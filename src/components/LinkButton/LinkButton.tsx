@@ -52,6 +52,7 @@ export default function LinkButton({
   children,
   iconClassName,
   draggable,
+  ariaLabel,
 }: LinkButtonProps): React.ReactElement {
   const useAnchor = isExternal(href) || isFile(href) || onClick != null;
   const content = (
@@ -75,6 +76,7 @@ export default function LinkButton({
         download={download}
         style={style}
         draggable={draggable}
+        aria-label={ariaLabel ?? undefined}
       >
         {content}
       </a>
@@ -90,6 +92,7 @@ export default function LinkButton({
       activeClassName={activeLinkClassName}
       onClick={onClick}
       draggable={draggable}
+      aria-label={ariaLabel ?? undefined}
     >
       {content}
     </Link>

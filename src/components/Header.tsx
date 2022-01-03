@@ -13,7 +13,7 @@ import {
   mode,
 } from "../theme/color";
 import BrandSvg from "../images/brand.inline.svg";
-import { useDown } from "../hooks";
+import { useInitialRender } from "../hooks";
 import { container } from "../theme/layout";
 import { gap } from "../theme/spacing";
 import Switch from "./Switch";
@@ -28,7 +28,6 @@ const Styled = {
       text-decoration: none;
       color: ${color("text-strong")};
       white-space: nowrap;
-      padding: ${gap.atto} ${gap.pico};
 
       &:hover,
       &:active {
@@ -53,14 +52,26 @@ const Styled = {
     }
   `,
   Header: styled.nav`
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
     flex-shrink: 1;
 
+    display: grid;
+    --column-gap: ${gap.kilo};
+    grid-template-columns: auto var(--column-gap) auto var(--column-gap) auto 1fr;
+    grid-template-rows: minmax(35px, auto);
+    grid-template-areas: "brand . links . switch .";
+    align-items: center;
+
+    ${down("lg")} {
+      --column-gap: ${gap.centi};
+    }
+
     ${down("md")} {
-      justify-content: space-between;
+      grid-template-columns: auto 1fr auto;
+      grid-template-rows: minmax(35px, auto) auto;
+      grid-template-areas:
+        "brand . switch"
+        "links links links";
+      --column-gap: 0;
     }
   `,
   Links: styled.div`
@@ -68,54 +79,50 @@ const Styled = {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    grid-area: links;
+    gap: ${gap.nano};
 
-    & > * {
-      &:not(:last-child) {
-        margin-right: ${gap.nano};
+    ${down("lg")} {
+      gap: ${gap.femto};
+    }
 
-        ${down("lg")} {
-          margin-right: ${gap.femto};
-        }
-      }
+    --link-x-padding: ${gap.pico};
+    --link-y-padding: ${gap.femto};
+    padding-top: var(--link-y-padding);
+
+    ${down("md")} {
+      --link-y-padding: ${gap.femto};
+
+      flex-wrap: wrap;
+
+      /* Visually correct for left padding */
+      margin-left: calc(-1 * var(--link-x-padding));
     }
 
     a {
+      padding: var(--link-y-padding) var(--link-x-padding);
+
       &.active-link {
         border-bottom: 2px solid ${color("text-strong")};
-      }
-    }
-
-    ${between("md", "lg")} {
-      .header-link-icon {
-        display: none;
       }
     }
   `,
   BrandLink: styled(Link)`
     transform: translateY(3px);
-    margin-right: ${gap.kilo} !important;
+    grid-area: brand;
+    align-self: stretch;
+    --brand-x-padding: ${gap.nano};
+    padding: 0 var(--brand-x-padding);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
     /* Visually correct for left padding */
-    margin-left: -${gap.pico};
-
-    ${down("lg")} {
-      margin-right: ${gap.centi} !important;
-    }
-
-    ${down("md")} {
-      margin-right: 0 !important;
-    }
+    margin-left: calc(-1 * var(--brand-x-padding));
   `,
   ThemeSwitcherWrapper: styled.div`
-    margin-left: ${gap.kilo};
-
-    ${down("lg")} {
-      margin-left: ${gap.centi};
-    }
-
-    ${down("md")} {
-      margin-left: 0;
-    }
+    grid-area: switch;
   `,
   Switch: styled(Switch)`
     display: flex;
@@ -132,23 +139,13 @@ const Styled = {
   CheckedIcon: styled(Icon)`
     color: ${color("light")};
   `,
-  MobileLinksWrapper: styled.div`
-    flex-shrink: 1;
-  `,
 };
-
-const MobileLinks = styled(Styled.Links)`
-  flex-shrink: 1;
-  flex-wrap: wrap;
-
-  /* Visually correct for left padding */
-  margin-left: -${gap.pico};
-`;
 
 // Must stay synchronized with below staticQuery
 type StaticQueryResult = {
   file: {
     childDataYaml: {
+      brandText: string;
       links: ButtonFragment[];
     };
   };
@@ -164,6 +161,7 @@ function useData(): StaticQueryResult {
           sourceInstanceName: { eq: "data" }
         ) {
           childDataYaml {
+            brandText
             links {
               ...Buttons
             }
@@ -190,14 +188,12 @@ export default function Header({
   className,
   style,
 }: HeaderProps): React.ReactElement {
-  const { links: socialLinks } = useData().file.childDataYaml;
+  const { links: socialLinks, brandText } = useData().file.childDataYaml;
   const links: ButtonFragment[] = [
     { href: "/resume", text: "Resume" },
     { href: "/projects", text: "Projects" },
     ...socialLinks,
   ];
-
-  const isMobile = useDown("md");
 
   return (
     <Styled.HeaderOuter
@@ -206,44 +202,27 @@ export default function Header({
       data-spacing={spacing}
     >
       <Styled.Header>
-        <Styled.BrandLink to="/">
+        <Styled.BrandLink to="/" aria-label={brandText}>
           {/* Brand text is written in Dubai font, Bold:
               https://dubaifont.com/
               https://www.fontsquirrel.com/fonts/dubai */}
           <BrandSvg style={{ height: 22 }} />
         </Styled.BrandLink>
-        {!isMobile && (
-          <Styled.Links>
-            {links.map((link, i) => (
-              <LinkButton
-                key={i}
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...link}
-                iconClassName="header-link-icon"
-                activeLinkClassName="active-link"
-              />
-            ))}
-          </Styled.Links>
-        )}
+        <Styled.Links>
+          {links.map((link, i) => (
+            <LinkButton
+              key={i}
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...link}
+              iconClassName="header-link-icon"
+              activeLinkClassName="active-link"
+            />
+          ))}
+        </Styled.Links>
         <Styled.ThemeSwitcherWrapper>
           <ThemeSwitcher />
         </Styled.ThemeSwitcherWrapper>
       </Styled.Header>
-      {isMobile && (
-        <Styled.MobileLinksWrapper>
-          <MobileLinks>
-            {links.map((link, i) => (
-              <LinkButton
-                key={i}
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...link}
-                iconClassName="header-link-icon"
-                activeLinkClassName="active-link"
-              />
-            ))}
-          </MobileLinks>
-        </Styled.MobileLinksWrapper>
-      )}
     </Styled.HeaderOuter>
   );
 }
@@ -262,9 +241,12 @@ function ThemeSwitcher(): React.ReactElement | null {
     [setMode]
   );
 
-  // Skip rendering when server-rendering
-  if (typeof window === "undefined") {
-    return null;
+  // Skip rendering when server-rendering,
+  // but include a div that takes up the same space
+  // to prevent layout shift.
+  const initialRender = useInitialRender();
+  if (initialRender) {
+    return <div style={{ width: 56, height: 28 }} />;
   }
 
   return (

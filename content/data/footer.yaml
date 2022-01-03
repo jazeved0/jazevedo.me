@@ -2,10 +2,13 @@
 links:
   - icon: gatsby
     href: "https://www.gatsbyjs.org/"
+    ariaLabel: Gatsby
   - icon: github
     href: "https://github.com/jazeved0/jazevedo.me"
+    ariaLabel: GitHub
   - icon: react
     href: "https://reactjs.org/"
+    ariaLabel: React
 
 # GitHub link to site's source:
 github: "https://github.com/jazeved0/jazevedo.me"
