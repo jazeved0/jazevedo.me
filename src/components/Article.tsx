@@ -146,21 +146,21 @@ const Styled = {
         border: none;
 
         ${mode(ColorMode.Light)} {
-          tr:nth-child-of-type(2n) {
+          tr:nth-of-type(2n) {
             background-color: ${color("bg+10")};
           }
 
-          tr:nth-child-of-type(2n + 1) {
+          tr:nth-of-type(2n + 1) {
             background-color: ${color("bg+5")};
           }
         }
 
         ${mode(ColorMode.Dark)} {
-          tr:nth-child-of-type(2n) {
+          tr:nth-of-type(2n) {
             background-color: ${color("bg+15")};
           }
 
-          tr:nth-child-of-type(2n + 1) {
+          tr:nth-of-type(2n + 1) {
             background-color: ${color("bg+10")};
           }
         }
