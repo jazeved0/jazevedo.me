@@ -89,6 +89,11 @@ const Styled = {
         padding: ${gap.nano};
       }
 
+      /* This is somewhat risky with Emotion SSR,
+      but as far as I understand that only is a risk
+      if a <style> can be interleaved in the DOM as the first child,
+      which shouldn't happen since neither the block quote or its children
+      are Emotion components (probably) */
       & > :first-child {
         margin-top: 0;
       }
@@ -101,15 +106,15 @@ const Styled = {
       border-radius: var(--border-radius);
       box-shadow: ${shadow("z2")};
 
-      thead tr:first-child th:first-child {
+      thead tr:first-of-type th:first-of-type {
         border-top-left-radius: var(--border-radius);
       }
 
-      thead tr:first-child th:last-child {
+      thead tr:first-of-type th:last-child {
         border-top-right-radius: var(--border-radius);
       }
 
-      tbody tr:last-child td:first-child {
+      tbody tr:last-child td:first-of-type {
         border-bottom-left-radius: var(--border-radius);
       }
 
@@ -125,14 +130,14 @@ const Styled = {
         text-align: left;
       }
 
-      td:not(:first-child),
-      th:not(:first-child) {
+      td:not(:first-of-type),
+      th:not(:first-of-type) {
         min-width: 8rem;
       }
 
-      @include respond-below(md) {
-        td:not(:first-child),
-        th:not(:first-child) {
+      ${down("md")} {
+        td:not(:first-of-type),
+        th:not(:first-of-type) {
           min-width: 10rem;
         }
       }
@@ -141,21 +146,21 @@ const Styled = {
         border: none;
 
         ${mode(ColorMode.Light)} {
-          tr:nth-child(2n) {
+          tr:nth-child-of-type(2n) {
             background-color: ${color("bg+10")};
           }
 
-          tr:nth-child(2n + 1) {
+          tr:nth-child-of-type(2n + 1) {
             background-color: ${color("bg+5")};
           }
         }
 
         ${mode(ColorMode.Dark)} {
-          tr:nth-child(2n) {
+          tr:nth-child-of-type(2n) {
             background-color: ${color("bg+15")};
           }
 
-          tr:nth-child(2n + 1) {
+          tr:nth-child-of-type(2n + 1) {
             background-color: ${color("bg+10")};
           }
         }

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Suspense } from "react";
 import styled from "@emotion/styled";
 
 import Figure from "../../../../../src/components/Figure";
-import VueInterop from "./vue-interop";
 import { color, riskOceanColor } from "../../../../../src/theme/color";
+import { VueInteropProps } from "./vue-interop";
 
 const Styled = {
   Figure: styled(Figure)`
@@ -87,6 +87,7 @@ export type DemoProps = {
 
 type DemoState = {
   preloads: HTMLImageElement[];
+  VueInterop: React.ComponentType<VueInteropProps> | null;
 };
 
 /**
@@ -102,8 +103,17 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     // However, this is used to prevent dropping the image elements
     // as they are being used to load the data.
     // eslint-disable-next-line react/no-unused-state
-    this.state = { preloads: [] };
+    this.state = { preloads: [], VueInterop: null };
     this.preload = this.preload.bind(this);
+  }
+
+  componentDidMount(): void {
+    // It's unclear why this is needed,
+    // but otherwise the app crashes when attempting to mount it.
+    setTimeout(() => {
+      const VueInterop = React.lazy(() => import("./vue-interop"));
+      this.setState({ VueInterop });
+    });
   }
 
   preload = (): void => {
@@ -119,6 +129,9 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
   render(): React.ReactElement {
     const { label, height, scale, className, style } = this.props;
     const { previewBase64 } = getImageData();
+    const { VueInterop } = this.state;
+
+    const isSSR = typeof window === "undefined";
     return (
       <Styled.Figure
         caption={label}
@@ -131,15 +144,25 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
             backgroundImage: `url('data:image/png;base64,${previewBase64}')`,
           }}
         >
-          <Styled.App id="app">
-            <VueInterop
-              preload={this.preload}
-              passthroughProps={{
-                initialScale: scale,
-                height,
-              }}
-            />
-          </Styled.App>
+          {/* Load the Vue interop component using React.lazy
+            to prevent including the Vue code/compatability shim
+            in the main app bundle.
+            This still includes the Vue runtime,
+            but it especially helps with Konva,
+            which is ~43 KiB gzipped */}
+          {!isSSR && VueInterop != null && (
+            <Suspense fallback={<div />}>
+              <Styled.App id="app">
+                <VueInterop
+                  preload={this.preload}
+                  passthroughProps={{
+                    initialScale: scale,
+                    height,
+                  }}
+                />
+              </Styled.App>
+            </Suspense>
+          )}
         </Styled.Wrapper>
       </Styled.Figure>
     );

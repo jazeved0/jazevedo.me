@@ -1,10 +1,5 @@
 import { parseToRgb } from "polished";
 import React from "react";
-import tinycolor, { Instance } from "tinycolor2";
-
-// Re-export tinycolor for convenience
-export const Color = tinycolor;
-export type ColorInstance = Instance;
 
 /**
  * Page-wide color mode (light/dark)
@@ -50,9 +45,9 @@ const colors = {
     "bg-5": "#CDDEEB",
     "bg-10": "#C4D6E5",
     // Other colors
-    "primary+10": "#6883d4",
-    primary: "#5775cf",
-    "primary-10": "#4e69ba",
+    "primary+10": "#627dd3",
+    primary: "#506FCE",
+    "primary-10": "#4864b9",
     shadowLight: "rgba(0, 0, 0, 0.06)",
     shadowMedium: "rgba(0, 0, 0, 0.075)",
     shadowBold: "rgba(0, 0, 0, 0.09)",

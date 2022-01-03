@@ -42,7 +42,7 @@ class VueInterop extends React.Component<VueInteropProps, VueInteropState> {
 
   render(): React.ReactElement | null {
     const { passthroughProps } = this.props;
-    if (GameCanvas == null) return null;
+    if (GameCanvas == null) return <div />;
     // eslint-disable-next-line react/jsx-props-no-spreading
     return <VueWrapper component={GameCanvas} {...passthroughProps} />;
   }
