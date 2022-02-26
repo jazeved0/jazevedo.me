@@ -137,7 +137,7 @@ void function() {
 
 <span class="token comment">% Set up margins/origin</span>
 <span class="token function selector">\hsize</span>=7.5in <span class="token function selector">\vsize</span>=11in
-<span class="token function selector">\hoffset</span>=-0.65in <span class="token function selector">\voffset</span>=-0.5in
+<span class="token function selector">\hoffset</span>=-0.65in <span class="token function selector">\voffset</span>=-0.52in
 <span class="token comment">% Output page size</span>
 <span class="token function selector">\pdfpagewidth</span>=8.5in
 <span class="token function selector">\pdfpageheight</span>=11in
@@ -162,9 +162,15 @@ void function() {
 
 <span class="token comment">% Section: Education</span>
 <span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">rsection</span><span class="token punctuation">}</span><span class="token punctuation">{</span>Education<span class="token punctuation">}</span>
-  <span class="token function selector">\rheader</span><span class="token punctuation">{</span>Jun 2018 -<span class="token function selector">\\</span><span class="token punctuation">[</span>-1pt<span class="token punctuation">]</span> Current<span class="token punctuation">}</span><span class="token punctuation">{</span>Georgia Institute of Technology
-    <span class="token punctuation">{</span><span class="token function selector">\normalfont</span>, Atlanta, GA <span class="token function selector">\hfill</span><span class="token function selector">\ </span> GPA: 4.0/4.0<span class="token function selector">\ </span><span class="token punctuation">}</span><span class="token punctuation">}</span>
-  <span class="token function selector">\rline</span><span class="token punctuation">{</span>Bachelor of Science, Computer Science <span class="token function selector">\hfill</span> Graduation date: May 2022<span class="token punctuation">}</span>
+  <span class="token function selector">\rheader</span><span class="token punctuation">{</span>Jan 2022 -<span class="token function selector">\\</span><span class="token punctuation">[</span>-1pt<span class="token punctuation">]</span> Current<span class="token punctuation">}</span><span class="token punctuation">{</span>Georgia Institute of Technology,
+    <span class="token punctuation">{</span><span class="token function selector">\normalfont</span> Atlanta, GA <span class="token function selector">\hfill</span><span class="token function selector">\ </span> GPA: 4.0/4.0<span class="token function selector">\ </span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token function selector">\rline</span><span class="token punctuation">{</span>Master of Science, Computer Science <span class="token function selector">\hfill</span> Graduation date: Dec 2022<span class="token punctuation">}</span>
+  <span class="token function selector">\vspace</span><span class="token punctuation">{</span>2pt<span class="token punctuation">}</span>
+  <span class="token function selector">\ritem</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>Concentration: Computer systems<span class="token punctuation">}</span>
+  <span class="token function selector">\rskip</span>
+  <span class="token function selector">\rheader</span><span class="token punctuation">{</span>Jun 2018 -<span class="token function selector">\\</span><span class="token punctuation">[</span>-1pt<span class="token punctuation">]</span> Dec 2021<span class="token punctuation">}</span><span class="token punctuation">{</span>Georgia Institute of Technology,
+    <span class="token punctuation">{</span><span class="token function selector">\normalfont</span> Atlanta, GA <span class="token function selector">\hfill</span><span class="token function selector">\ </span> GPA: 4.0/4.0<span class="token function selector">\ </span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token function selector">\rline</span><span class="token punctuation">{</span>Bachelor of Science, Computer Science<span class="token punctuation">}</span>
   <span class="token function selector">\vspace</span><span class="token punctuation">{</span>2pt<span class="token punctuation">}</span>
   <span class="token function selector">\ritem</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>Concentration: Networking <span class="token function selector">\&amp;</span> Graphics<span class="token punctuation">}</span>
 <span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">rsection</span><span class="token punctuation">}</span>
@@ -174,18 +180,15 @@ void function() {
 
 <span class="token comment">% Section: Skills</span>
 <span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">rskills</span><span class="token punctuation">}</span>
-  <span class="token function selector">\rskill</span><span class="token punctuation">{</span>Languages<span class="token punctuation">}</span>  <span class="token punctuation">{</span>Go, Rust, Python, Java, Scala, Kotlin, C, TypeScript,
-                      JavaScript, HTML/CSS, Bash, SQL, C<span class="token function selector">\#</span><span class="token punctuation">}</span>
-  <span class="token function selector">\rskill</span><span class="token punctuation">{</span>Software<span class="token punctuation">}</span>   <span class="token punctuation">{</span>Git, Docker, Kubernetes, OpenShift, Azure, <span class="token function selector">\LaTeX</span>,
-                      Nginx, Apache, Maven, Webpack, Babel,
-                      gRPC/Protobuf, Linux, Windows, SQL (Postgres, MySQL)
-                      NoSQL (MongoDB, Elasticsearch), ANTLR, Selenium<span class="token punctuation">}</span>
-  <span class="token function selector">\rskill</span><span class="token punctuation">{</span>Frameworks<span class="token punctuation">}</span> <span class="token punctuation">{</span>React, Flask, Express, Play, Akka, Vue.js, jQuery,
-                      Android SDK, React Native, .NET, WPF<span class="token punctuation">}</span>
+  <span class="token function selector">\rskill</span><span class="token punctuation">{</span>Languages<span class="token punctuation">}</span>  <span class="token punctuation">{</span>Go, Rust, Python, C, C++, Bash, Java, C<span class="token function selector">\#</span>,
+                      TypeScript, JavaScript, HTML/CSS, SQL<span class="token punctuation">}</span>
+  <span class="token function selector">\rskill</span><span class="token punctuation">{</span>Software<span class="token punctuation">}</span>   <span class="token punctuation">{</span>Git, Docker, Kubernetes, Nginx, gRPC, Linux, Windows, SQL (Postgres, MySQL)
+                      NoSQL (MongoDB, Elasticsearch)<span class="token punctuation">}</span>
+  <span class="token function selector">\rskill</span><span class="token punctuation">{</span>Frameworks<span class="token punctuation">}</span> <span class="token punctuation">{</span>React, Flask, Express, Vue.js, jQuery<span class="token punctuation">}</span>
   <span class="token function selector">\rskill</span><span class="token punctuation">{</span>Concepts<span class="token punctuation">}</span>   <span class="token punctuation">{</span>Containerization, Orchestration, Agile/SCRUM, Microservices,
-                      Unit <span class="token function selector">\&amp;</span> integration testing, CI/CD<span class="token punctuation">}</span>
-  <span class="token function selector">\rskill</span><span class="token punctuation">{</span>Coursework<span class="token punctuation">}</span> <span class="token punctuation">{</span>Data structures, Algorithms, Databases, Object-oriented design,
-                      Networking, Operating systems, Combinatorics<span class="token punctuation">}</span>
+                      Unit <span class="token function selector">\&amp;</span> integration testing, CI/CD, Benchmarking<span class="token punctuation">}</span>
+  <span class="token function selector">\rskill</span><span class="token punctuation">{</span>Coursework<span class="token punctuation">}</span> <span class="token punctuation">{</span>Data structures, Algorithms, Databases, Networking,
+                      Standard/Advanced operating systems, Cloud computing<span class="token punctuation">}</span>
 <span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">rskills</span><span class="token punctuation">}</span>
 <span class="token comment">% Spacing</span>
 <span class="token function selector">\vspace</span><span class="token punctuation">{</span>7pt<span class="token punctuation">}</span>
@@ -193,6 +196,28 @@ void function() {
 
 <span class="token comment">% Section: Work Experience</span>
 <span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">rsection</span><span class="token punctuation">}</span><span class="token punctuation">{</span>Work Experience<span class="token punctuation">}</span>
+  <span class="token comment">% Job: Datadog software engineering intern</span>
+  <span class="token function selector">\rheader</span><span class="token punctuation">{</span>Aug 2021 -<span class="token function selector">\\</span><span class="token punctuation">[</span>-1pt<span class="token punctuation">]</span> Dec 2021<span class="token punctuation">}</span><span class="token punctuation">{</span>Software Engineering Intern<span class="token punctuation">}</span>
+  <span class="token function selector">\rdesc</span><span class="token punctuation">{</span>Datadog<span class="token punctuation">}</span>
+  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Designed a novel touchless monitoring daemon using <span class="token function selector">\textbf</span><span class="token punctuation">{</span>eBPF<span class="token punctuation">}</span>
+    to inspect <span class="token function selector">\textbf</span><span class="token punctuation">{</span>HTTPS<span class="token punctuation">}</span> traffic created by <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Go<span class="token punctuation">}</span> services <span class="token function selector">\textit</span><span class="token punctuation">{</span>before encryption<span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Utilized <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Linux eBPF<span class="token punctuation">}</span>, Linux binary formats (<span class="token function selector">\textbf</span><span class="token punctuation">{</span>ELF<span class="token punctuation">}</span>, <span class="token function selector">\textbf</span><span class="token punctuation">{</span>DWARF<span class="token punctuation">}</span>),
+    <span class="token function selector">\&amp;</span> <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Go<span class="token punctuation">}</span> compiler/runtime internals to create proof-of-concept<span class="token punctuation">}</span>
+  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Developed code generation tooling to extract <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Go<span class="token punctuation">}</span> version-specific
+    metadata from compiler artifacts, facilitating a wide range of supported <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Go<span class="token punctuation">}</span> versions<span class="token punctuation">}</span>
+  <span class="token function selector">\rskip</span>
+ 
+  <span class="token comment">% Job: Stripe software engineering intern</span>
+  <span class="token function selector">\rheader</span><span class="token punctuation">{</span>May 2021 -<span class="token function selector">\\</span><span class="token punctuation">[</span>-1pt<span class="token punctuation">]</span> Aug 2021<span class="token punctuation">}</span><span class="token punctuation">{</span>Software Engineering Intern<span class="token punctuation">}</span>
+  <span class="token function selector">\rdesc</span><span class="token punctuation">{</span>Stripe<span class="token punctuation">}</span>
+  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Worked with another intern to develop a <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Ruby<span class="token punctuation">}</span> client library (incl.<span class="token function selector">\ </span>automated tests)
+    for an internal config distribution platform<span class="token punctuation">}</span>
+  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Developed a last-mile caching sidecar in <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Go<span class="token punctuation">}</span> (incl.<span class="token function selector">\ </span>automated tests) to
+    bypass limitations of <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Ruby<span class="token punctuation">}</span> multi-threading <span class="token function selector">\&amp;</span> serve a local <span class="token function selector">\textbf</span><span class="token punctuation">{</span>HTTP API<span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Created separate <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Kubernetes<span class="token punctuation">}</span> and <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Puppet<span class="token punctuation">}</span> deployment
+    configurations to facilitate integration with existing services<span class="token punctuation">}</span>
+  <span class="token function selector">\rskip</span>
+ 
   <span class="token comment">% Job: MathWorks software engineering intern</span>
   <span class="token function selector">\rheader</span><span class="token punctuation">{</span>May 2020 -<span class="token function selector">\\</span><span class="token punctuation">[</span>-1pt<span class="token punctuation">]</span> Aug 2020<span class="token punctuation">}</span><span class="token punctuation">{</span>Software Engineering Intern<span class="token punctuation">}</span>
   <span class="token function selector">\rdesc</span><span class="token punctuation">{</span>MathWorks<span class="token punctuation">}</span>
@@ -205,7 +230,7 @@ void function() {
   <span class="token function selector">\rskip</span>
 
   <span class="token comment">% Job: CS 2340 TA</span>
-  <span class="token function selector">\rheader</span><span class="token punctuation">{</span>Aug 2019 -<span class="token function selector">\\</span><span class="token punctuation">[</span>-1pt<span class="token punctuation">]</span> Current<span class="token punctuation">}</span><span class="token punctuation">{</span>Senior Teaching Assistant<span class="token punctuation">}</span>
+  <span class="token function selector">\rheader</span><span class="token punctuation">{</span>Aug 2019 -<span class="token function selector">\\</span><span class="token punctuation">[</span>-1pt<span class="token punctuation">]</span> Dec 2020<span class="token punctuation">}</span><span class="token punctuation">{</span>Senior Teaching Assistant<span class="token punctuation">}</span>
   <span class="token function selector">\rdesc</span><span class="token punctuation">{</span>Georgia Institute of Technology <span class="token function selector">\ </span><span class="token punctuation">{</span><span class="token function selector">\normalfont</span> |<span class="token punctuation">}</span><span class="token function selector">\hspace</span><span class="token punctuation">{</span>2pt<span class="token punctuation">}</span>
     CS 2340 - Objects <span class="token function selector">\&amp;</span> Design (Object-oriented design)<span class="token punctuation">}</span>
   <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Led a team of 6 other teaching assistants to prepare and deliver lectures
@@ -226,17 +251,10 @@ void function() {
   <span class="token function selector">\rdesc</span><span class="token punctuation">{</span>Georgia Tech Esports Club<span class="token punctuation">}</span>
   <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Led one of the largest student organizations at Georgia Tech
     with over <span class="token function selector">\textbf</span><span class="token punctuation">{</span>300 active members<span class="token punctuation">}</span> and <span class="token function selector">\textbf</span><span class="token punctuation">{</span>30 competitive teams<span class="token punctuation">}</span><span class="token punctuation">}</span>
-  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Designed for and coordinated push to unify branding
-    for the club and its events, including logos, graphics, and videos<span class="token punctuation">}</span>
-  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Worked with team of officers to conduct corporate outreach and partner
-    with campus administration for funding<span class="token punctuation">}</span>
-  <span class="token comment">% Position: Gamefest organizer</span>
-  <span class="token function selector">\rsubheader</span><span class="token punctuation">{</span>Logistics <span class="token function selector">\&amp;</span> Event Organizer<span class="token punctuation">}</span><span class="token punctuation">{</span>
-    Gamefest 2019 <span class="token punctuation">{</span><span class="token function selector">\normalfont</span><span class="token function selector">\rdot</span> <span class="token function selector">\href</span><span class="token punctuation">{</span>https://gamefest.gg/<span class="token punctuation">}</span><span class="token punctuation">{</span>gamefest.gg<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
-  <span class="token function selector">\rsubitem</span><span class="token punctuation">{</span>Led a small team of organizers to plan and host
-    a regional collegiate tournament with over <span class="token function selector">\textbf</span><span class="token punctuation">{</span>400 participants<span class="token punctuation">}</span><span class="token punctuation">}</span>
-  <span class="token function selector">\rsubitem</span><span class="token punctuation">{</span>Worked with campus administration to secure support and managed
-    a team of <span class="token function selector">\textbf</span><span class="token punctuation">{</span>20 volunteers<span class="token punctuation">}</span> working the day of the event<span class="token punctuation">}</span>
+  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Planned and led a team of <span class="token function selector">\textbf</span><span class="token punctuation">{</span>20 organizers<span class="token punctuation">}</span> to host a regional
+    collegiate LAN tournament
+    (<span class="token function selector">\href</span><span class="token punctuation">{</span>https://web.archive.org/web/20201111230854/https://gamefest.gg/<span class="token punctuation">}</span><span class="token punctuation">{</span>Gamefest<span class="token punctuation">}</span>)
+    with over <span class="token function selector">\textbf</span><span class="token punctuation">{</span>400 participants<span class="token punctuation">}</span><span class="token punctuation">}</span>
 <span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">rsection</span><span class="token punctuation">}</span>
 <span class="token comment">% Spacing</span>
 <span class="token function selector">\vspace</span><span class="token punctuation">{</span>-3pt<span class="token punctuation">}</span>
@@ -255,34 +273,8 @@ void function() {
     using <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Python<span class="token punctuation">}</span>/<span class="token function selector">\textbf</span><span class="token punctuation">{</span>Bash<span class="token punctuation">}</span> to test overhead and consistency<span class="token punctuation">}</span>
   <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Wrote final report that details the software design, experimental procedure, and results
     <span class="token function selector">\rdot</span> <span class="token function selector">\href</span><span class="token punctuation">{</span>https://github.com/elba-docker/report<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\faGithub</span><span class="token function selector">\ </span>elba-docker/report<span class="token punctuation">}</span><span class="token punctuation">}</span>
-  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Continued working as a <span class="token function selector">\textbf</span><span class="token punctuation">{</span>research assistant<span class="token punctuation">}</span> starting Fall 2020
-    at Georgia Tech to work on integrating this tool into a system
-    <span class="token function selector">\newline</span><span class="token function selector">\hphantom</span><span class="token punctuation">{</span>t<span class="token function selector">\,</span><span class="token punctuation">}</span> performance monitoring toolkit<span class="token punctuation">}</span>
-  <span class="token function selector">\rskip</span>
-
-  <span class="token comment">% Project: archit.us</span>
-  <span class="token function selector">\rheader</span><span class="token punctuation">{</span>May 2019 -<span class="token function selector">\\</span><span class="token punctuation">[</span>-1pt<span class="token punctuation">]</span> Current<span class="token punctuation">}</span><span class="token punctuation">{</span>Architus Full Stack Application<span class="token punctuation">}</span>
-  <span class="token function selector">\rdesc</span><span class="token punctuation">{</span>Open-source chat bot <span class="token function selector">\&amp;</span> API with web dashboard
-    <span class="token punctuation">{</span><span class="token function selector">\normalfont</span> <span class="token function selector">\rdot</span> <span class="token function selector">\href</span><span class="token punctuation">{</span>https://archit.us/<span class="token punctuation">}</span><span class="token punctuation">{</span>architus<span class="token punctuation">}</span> <span class="token function selector">\rdot</span>
-        <span class="token function selector">\href</span><span class="token punctuation">{</span>https://github.com/architus/architus<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\faGithub</span><span class="token function selector">\ </span>architus/architus<span class="token punctuation">}</span> <span class="token function selector">\rdot</span>
-        <span class="token function selector">\href</span><span class="token punctuation">{</span>https://github.com/architus/archit.us<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\faGithub</span><span class="token function selector">\ </span>architus/archit.us<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
-  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Engineered front-end web application with <span class="token function selector">\textbf</span><span class="token punctuation">{</span>React<span class="token punctuation">}</span>/<span class="token function selector">\textbf</span><span class="token punctuation">{</span>Redux<span class="token punctuation">}</span>
-    to consume, process, and display API data<span class="token punctuation">}</span>
-  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Built microservice-based back-end using <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Python<span class="token punctuation">}</span>/<span class="token function selector">\textbf</span><span class="token punctuation">{</span>Flask<span class="token punctuation">}</span>,
-    <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Rust<span class="token punctuation">}</span>, <span class="token function selector">\textbf</span><span class="token punctuation">{</span>RabbitMQ<span class="token punctuation">}</span>, <span class="token function selector">\textbf</span><span class="token punctuation">{</span>PostgreSQL<span class="token punctuation">}</span>, and <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Elasticsearch<span class="token punctuation">}</span><span class="token punctuation">}</span>
-  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Spearheaded migration to use <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Kubernetes<span class="token punctuation">}</span>, motivated by
-    increased server load and growing user base (<span class="token function selector">\textbf</span><span class="token punctuation">{</span>40,000+ users<span class="token punctuation">}</span>)<span class="token punctuation">}</span>
-  <span class="token function selector">\rskip</span>
-
-  <span class="token comment">% Project: 2340 Risk</span>
-  <span class="token function selector">\rheader</span><span class="token punctuation">{</span>Jan 2019 -<span class="token function selector">\\</span><span class="token punctuation">[</span>-1pt<span class="token punctuation">]</span> May 2019<span class="token punctuation">}</span><span class="token punctuation">{</span>Risk Web Application<span class="token punctuation">}</span>
-  <span class="token function selector">\rdesc</span><span class="token punctuation">{</span>Software engineering class group project
-    <span class="token punctuation">{</span><span class="token function selector">\normalfont</span> <span class="token function selector">\rdot</span>
-    <span class="token function selector">\href</span><span class="token punctuation">{</span>https://github.com/jazeved0/cs2340-risk<span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token function selector">\faGithub</span><span class="token function selector">\ </span>jazeved0/cs2340-risk<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
-  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Engineered back-end and websocket-based network model in <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Scala<span class="token punctuation">}</span>,
-    using <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Akka<span class="token punctuation">}</span> actors to process game and lobby state<span class="token punctuation">}</span>
-  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Containerized application using <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Docker<span class="token punctuation">}</span>/<span class="token function selector">\textbf</span><span class="token punctuation">{</span>Alpine<span class="token punctuation">}</span>
-    and configured deployment on both <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Kubernetes<span class="token punctuation">}</span> and <span class="token function selector">\textbf</span><span class="token punctuation">{</span>OpenShift<span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token function selector">\ritem</span><span class="token punctuation">{</span>Integrated with performance monitoring toolkit as part of ongoing work
+    as a <span class="token function selector">\textbf</span><span class="token punctuation">{</span>Research Assistant<span class="token punctuation">}</span> at GT since Fall 2020<span class="token punctuation">}</span>
 <span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">rsection</span><span class="token punctuation">}</span>
 
 
