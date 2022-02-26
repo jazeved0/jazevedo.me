@@ -102,7 +102,7 @@
 
 % Set up margins/origin
 \hsize=7.5in \vsize=11in
-\hoffset=-0.65in \voffset=-0.5in
+\hoffset=-0.65in \voffset=-0.52in
 % Output page size
 \pdfpagewidth=8.5in
 \pdfpageheight=11in
@@ -127,9 +127,15 @@
 
 % Section: Education
 \begin{rsection}{Education}
-  \rheader{Jun 2018 -\\[-1pt] Current}{Georgia Institute of Technology
-    {\normalfont, Atlanta, GA \hfill\  GPA: 4.0/4.0\ }}
-  \rline{Bachelor of Science, Computer Science \hfill Graduation date: May 2022}
+  \rheader{Jan 2022 -\\[-1pt] Current}{Georgia Institute of Technology,
+    {\normalfont Atlanta, GA \hfill\  GPA: 4.0/4.0\ }}
+  \rline{Master of Science, Computer Science \hfill Graduation date: Dec 2022}
+  \vspace{2pt}
+  \ritem[]{Concentration: Computer systems}
+  \rskip
+  \rheader{Jun 2018 -\\[-1pt] Dec 2021}{Georgia Institute of Technology,
+    {\normalfont Atlanta, GA \hfill\  GPA: 4.0/4.0\ }}
+  \rline{Bachelor of Science, Computer Science}
   \vspace{2pt}
   \ritem[]{Concentration: Networking \& Graphics}
 \end{rsection}
@@ -139,18 +145,15 @@
 
 % Section: Skills
 \begin{rskills}
-  \rskill{Languages}  {Go, Rust, Python, Java, Scala, Kotlin, C, TypeScript,
-                      JavaScript, HTML/CSS, Bash, SQL, C\#}
-  \rskill{Software}   {Git, Docker, Kubernetes, OpenShift, Azure, \LaTeX,
-                      Nginx, Apache, Maven, Webpack, Babel,
-                      gRPC/Protobuf, Linux, Windows, SQL (Postgres, MySQL)
-                      NoSQL (MongoDB, Elasticsearch), ANTLR, Selenium}
-  \rskill{Frameworks} {React, Flask, Express, Play, Akka, Vue.js, jQuery,
-                      Android SDK, React Native, .NET, WPF}
+  \rskill{Languages}  {Go, Rust, Python, C, C++, Bash, Java, C\#,
+                      TypeScript, JavaScript, HTML/CSS, SQL}
+  \rskill{Software}   {Git, Docker, Kubernetes, Nginx, gRPC, Linux, Windows, SQL (Postgres, MySQL)
+                      NoSQL (MongoDB, Elasticsearch)}
+  \rskill{Frameworks} {React, Flask, Express, Vue.js, jQuery}
   \rskill{Concepts}   {Containerization, Orchestration, Agile/SCRUM, Microservices,
-                      Unit \& integration testing, CI/CD}
-  \rskill{Coursework} {Data structures, Algorithms, Databases, Object-oriented design,
-                      Networking, Operating systems, Combinatorics}
+                      Unit \& integration testing, CI/CD, Benchmarking}
+  \rskill{Coursework} {Data structures, Algorithms, Databases, Networking,
+                      Standard/Advanced operating systems, Cloud computing}
 \end{rskills}
 % Spacing
 \vspace{7pt}
@@ -158,6 +161,28 @@
 
 % Section: Work Experience
 \begin{rsection}{Work Experience}
+  % Job: Datadog software engineering intern
+  \rheader{Aug 2021 -\\[-1pt] Dec 2021}{Software Engineering Intern}
+  \rdesc{Datadog}
+  \ritem{Designed a novel touchless monitoring daemon using \textbf{eBPF}
+    to inspect \textbf{HTTPS} traffic created by \textbf{Go} services \textit{before encryption}}
+  \ritem{Utilized \textbf{Linux eBPF}, Linux binary formats (\textbf{ELF}, \textbf{DWARF}),
+    \& \textbf{Go} compiler/runtime internals to create proof-of-concept}
+  \ritem{Developed code generation tooling to extract \textbf{Go} version-specific
+    metadata from compiler artifacts, facilitating a wide range of supported \textbf{Go} versions}
+  \rskip
+ 
+  % Job: Stripe software engineering intern
+  \rheader{May 2021 -\\[-1pt] Aug 2021}{Software Engineering Intern}
+  \rdesc{Stripe}
+  \ritem{Worked with another intern to develop a \textbf{Ruby} client library (incl.\ automated tests)
+    for an internal config distribution platform}
+  \ritem{Developed a last-mile caching sidecar in \textbf{Go} (incl.\ automated tests) to
+    bypass limitations of \textbf{Ruby} multi-threading \& serve a local \textbf{HTTP API}}
+  \ritem{Created separate \textbf{Kubernetes} and \textbf{Puppet} deployment
+    configurations to facilitate integration with existing services}
+  \rskip
+ 
   % Job: MathWorks software engineering intern
   \rheader{May 2020 -\\[-1pt] Aug 2020}{Software Engineering Intern}
   \rdesc{MathWorks}
@@ -170,7 +195,7 @@
   \rskip
 
   % Job: CS 2340 TA
-  \rheader{Aug 2019 -\\[-1pt] Current}{Senior Teaching Assistant}
+  \rheader{Aug 2019 -\\[-1pt] Dec 2020}{Senior Teaching Assistant}
   \rdesc{Georgia Institute of Technology \ {\normalfont |}\hspace{2pt}
     CS 2340 - Objects \& Design (Object-oriented design)}
   \ritem{Led a team of 6 other teaching assistants to prepare and deliver lectures
@@ -191,17 +216,10 @@
   \rdesc{Georgia Tech Esports Club}
   \ritem{Led one of the largest student organizations at Georgia Tech
     with over \textbf{300 active members} and \textbf{30 competitive teams}}
-  \ritem{Designed for and coordinated push to unify branding
-    for the club and its events, including logos, graphics, and videos}
-  \ritem{Worked with team of officers to conduct corporate outreach and partner
-    with campus administration for funding}
-  % Position: Gamefest organizer
-  \rsubheader{Logistics \& Event Organizer}{
-    Gamefest 2019 {\normalfont\rdot \href{https://gamefest.gg/}{gamefest.gg}}}
-  \rsubitem{Led a small team of organizers to plan and host
-    a regional collegiate tournament with over \textbf{400 participants}}
-  \rsubitem{Worked with campus administration to secure support and managed
-    a team of \textbf{20 volunteers} working the day of the event}
+  \ritem{Planned and led a team of \textbf{20 organizers} to host a regional
+    collegiate LAN tournament
+    (\href{https://web.archive.org/web/20201111230854/https://gamefest.gg/}{Gamefest})
+    with over \textbf{400 participants}}
 \end{rsection}
 % Spacing
 \vspace{-3pt}
@@ -220,34 +238,8 @@
     using \textbf{Python}/\textbf{Bash} to test overhead and consistency}
   \ritem{Wrote final report that details the software design, experimental procedure, and results
     \rdot \href{https://github.com/elba-docker/report}{\faGithub\ elba-docker/report}}
-  \ritem{Continued working as a \textbf{research assistant} starting Fall 2020
-    at Georgia Tech to work on integrating this tool into a system
-    \newline\hphantom{t\,} performance monitoring toolkit}
-  \rskip
-
-  % Project: archit.us
-  \rheader{May 2019 -\\[-1pt] Current}{Architus Full Stack Application}
-  \rdesc{Open-source chat bot \& API with web dashboard
-    {\normalfont \rdot \href{https://archit.us/}{architus} \rdot
-        \href{https://github.com/architus/architus}{\faGithub\ architus/architus} \rdot
-        \href{https://github.com/architus/archit.us}{\faGithub\ architus/archit.us}}}
-  \ritem{Engineered front-end web application with \textbf{React}/\textbf{Redux}
-    to consume, process, and display API data}
-  \ritem{Built microservice-based back-end using \textbf{Python}/\textbf{Flask},
-    \textbf{Rust}, \textbf{RabbitMQ}, \textbf{PostgreSQL}, and \textbf{Elasticsearch}}
-  \ritem{Spearheaded migration to use \textbf{Kubernetes}, motivated by
-    increased server load and growing user base (\textbf{40,000+ users})}
-  \rskip
-
-  % Project: 2340 Risk
-  \rheader{Jan 2019 -\\[-1pt] May 2019}{Risk Web Application}
-  \rdesc{Software engineering class group project
-    {\normalfont \rdot
-    \href{https://github.com/jazeved0/cs2340-risk}{\faGithub\ jazeved0/cs2340-risk}}}
-  \ritem{Engineered back-end and websocket-based network model in \textbf{Scala},
-    using \textbf{Akka} actors to process game and lobby state}
-  \ritem{Containerized application using \textbf{Docker}/\textbf{Alpine}
-    and configured deployment on both \textbf{Kubernetes} and \textbf{OpenShift}}
+  \ritem{Integrated with performance monitoring toolkit as part of ongoing work
+    as a \textbf{Research Assistant} at GT since Fall 2020}
 \end{rsection}
 
 
