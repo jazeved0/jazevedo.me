@@ -40,7 +40,6 @@ const Styled = {
 // Must stay synchronized with below pageQuery
 type PageQueryResult = {
   mdx: {
-    body: string;
     frontmatter: {
       shortTitle: string;
       type: string;
@@ -60,7 +59,6 @@ type PageQueryResult = {
 export const pageQuery = graphql`
   query ($id: String!) {
     mdx(id: { eq: $id }) {
-      body
       frontmatter {
         shortTitle
         type
@@ -89,6 +87,7 @@ export type ProjectPageContext = {
 export type ProjectPageTemplateProps = {
   data: PageQueryResult;
   pageContext: ProjectPageContext;
+  children?: React.ReactNode;
 };
 
 /**
@@ -99,9 +98,9 @@ export type ProjectPageTemplateProps = {
 export default function ProjectPageTemplate({
   data,
   pageContext,
+  children,
 }: ProjectPageTemplateProps): React.ReactElement {
   const { isAuxillary } = pageContext;
-  const { body } = data.mdx;
   const { shortTitle, type, title, start, end, lead, topics, buttons } =
     data.mdx.frontmatter;
 
@@ -122,7 +121,7 @@ export default function ProjectPageTemplate({
           />
         )}
         <Styled.ProjectContent>
-          <Mdx content={body} />
+          <Mdx content={children} />
         </Styled.ProjectContent>
         <Styled.ProjectEndRule />
       </Styled.PageLayout>

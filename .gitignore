@@ -9,3 +9,4 @@ public
 .cache/
 .vscode/
 desktop.ini
+src/gatsby-types.d.ts

@@ -188,7 +188,7 @@ export const pageQuery = graphql`
     }
 
     topProjects: allFile(
-      sort: { fields: [childMdx___frontmatter___importance], order: DESC }
+      sort: { childMdx: { frontmatter: { importance: DESC } } }
       limit: 10
       filter: {
         childMdx: { frontmatter: { importance: { ne: null } } }

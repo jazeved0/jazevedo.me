@@ -45,7 +45,7 @@ type PageQueryResult = {
 export const pageQuery = graphql`
   query {
     allFile(
-      sort: { fields: [childMdx___frontmatter___importance], order: DESC }
+      sort: { childMdx: { frontmatter: { importance: DESC } } }
       limit: 1000
       filter: {
         relativePath: { regex: "/^[^/]+/index.md$/" }

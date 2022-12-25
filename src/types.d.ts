@@ -11,58 +11,21 @@ declare module "*.svg" {
   export default url;
 }
 
-declare module "vue-loader/lib/plugin" {
-  export default class VueLoaderPlugin {}
-}
+type GatsbyPlugin<P extends string, O> = {
+  resolve: P;
+  options: O;
+};
 
-declare module "gatsby-plugin-google-analytics" {
-  // Types taken from:
-  // https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-plugin-google-analytics/src/gatsby-node.js
+declare module "gatsby-plugin-google-gtag" {
+  // TODO add actual types for this
   export type PluginOptions = {
-    /** The property ID; the tracking code won't be generated without it */
-    trackingId: string;
-    /** Defines where to place the tracking script - \`true\` in the head and \`false\` in the body */
-    head?: boolean;
-    anonymize?: boolean;
-    respectDNT?: boolean;
-    /** Avoids sending pageview hits from custom paths */
-    exclude?: string;
-    /** Delays sending pageview hits on route update (in milliseconds) */
-    pageTransitionDelay?: number;
-    /** Enables Google Optimize using your container Id */
-    optimizeId?: string;
-    /** Enables Google Optimize Experiment ID */
-    experimentId?: string;
-    /** Set Variation ID. 0 for original 1,2,3.... */
-    variationId?: string;
-    /** Defers execution of google analytics script after page load */
-    defer?: boolean;
-    sampleRate?: number;
-    siteSpeedSampleRate?: number;
-    cookieDomain?: string;
-    cookieFlags?: string;
-    name?: string;
-    clientId?: string;
-    alwaysSendReferrer?: boolean;
-    allowAnchor?: boolean;
-    cookieName?: string;
-    cookieExpires?: number;
-    storeGac?: boolean;
-    legacyCookieDomain?: string;
-    legacyHistoryImport?: boolean;
-    allowLinker?: boolean;
-    storage?: string;
-    allowAdFeatures?: boolean;
-    dataSource?: string;
-    queueTime?: number;
-    forceSSL?: boolean;
-    transport?: string;
-    enableWebVitalsTracking?: boolean;
+    trackingIds: string[];
   };
 }
 
 declare module "gatsby-plugin-manifest" {
   // Types taken from:
+  // TODO update these types to match the latest version of gatsby-plugin-manifest
   // https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-plugin-manifest/src/pluginOptionsSchema.js
 
   /** https://w3c.github.io/manifest-app-info/#platform-member */
@@ -234,44 +197,24 @@ declare module "gatsby-plugin-manifest" {
   };
 }
 
-declare module "gatsby-plugin-mdx" {
-  import { GatsbyPlugin } from "gatsby-ts";
-  import { Node } from "gatsby";
+declare module "gatsby-plugin-react-svg" {
+  // TODO Add real types here
+  export interface PluginOptions {
+    rule: { include: RegExp };
+  }
+}
 
-  export { MDXRenderer } from "gatsby-plugin-mdx";
+declare module "gatsby-plugin-mdx" {
+  // TODO Add real types here
+  import { Node } from "gatsby";
 
   // Types taken from:
   // https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-plugin-mdx/gatsby-node.js
   export type PluginOptions = {
     /** Configure the file extensions that gatsby-plugin-mdx will process */
     extensions?: string[];
-    /** Set the layout components for MDX source types */
-    defaultLayouts?: { [k: string]: unknown };
     /** Use Gatsby-specific remark plugins */
-    gatsbyRemarkPlugins?: GatsbyPlugin[];
-    /** Enable fast parsing mode? This may break certain implied transformation dependencies. Disable if you have problems */
-    lessBabel?: boolean;
-    /** Specify remark plugins */
-    remarkPlugins?: Array<
-      | ((...p: unknown[]) => unknown)
-      | { [k: string]: unknown }
-      | Array<{ [k: string]: unknown } | ((...p: unknown[]) => unknown)>
-    >;
-    /** Specify rehype plugins */
-    rehypePlugins?: Array<
-      | ((...p: unknown[]) => unknown)
-      | { [k: string]: unknown }
-      | Array<{ [k: string]: unknown } | ((...p: unknown[]) => unknown)>
-    >;
-    plugins?: Array<{ [k: string]: unknown } | string>;
-    /** Determine which media types are processed by MDX */
-    mediaTypes?: string[];
-    /** Disable MDX transformation for nodes where this function returns true */
-    shouldBlockNodeFromTransformation?: ?((node: Node) => boolean);
-    /** [deprecated] This is a legacy option that used to define root directory of the project. It was needed to generate a cache directory location. It currently has no effect. */
-    root?: string;
-    /** MDX will be parsed using CommonMark. */
-    commonmark?: boolean;
+    gatsbyRemarkPlugins?: (GatsbyPlugin<string, {}> | string)[];
   };
 }
 
@@ -284,15 +227,4 @@ declare module "gatsby-plugin-dark-mode" {
       toggleTheme: (newTheme: string) => void;
     }) => React.ReactNode;
   }>;
-}
-
-declare module "vuera" {
-  import React from "react";
-
-  export type VueWrapperProps = {
-    component: unknown;
-    [passthrough: string]: unknown;
-  };
-
-  export const VueWrapper: React.ComponentType<VueWrapperProps>;
 }

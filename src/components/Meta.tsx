@@ -1,6 +1,5 @@
 import { useStaticQuery, graphql } from "gatsby";
 import React from "react";
-import Helmet from "react-helmet";
 
 import { useColorMode, useInitialRender } from "../hooks";
 import {
@@ -40,9 +39,10 @@ export type MetaProps = {
 };
 
 /**
- * Uses react-helmet to add elements to the <meta> HTML element
- * at the root of the HTML page.
- * Useful for adding SEO metadata/titles
+ * Gatsby 4.19+ Head-style component used to display SEO/meta-related tags in
+ * the page's `<head>`.
+ *
+ * https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
 export default function Meta({ title }: MetaProps): React.ReactElement {
   const data = useData();
@@ -59,89 +59,50 @@ export default function Meta({ title }: MetaProps): React.ReactElement {
   const colorMode = initialRender ? defaultMode : currentColorMode;
 
   return (
-    <Helmet
-      htmlAttributes={{ lang: "en" }}
-      meta={[
-        { charSet: "utf-8" },
-        {
-          name: "color-scheme",
-          content: colorMode === ColorMode.Light ? "light" : "dark",
-        },
-        {
-          httpEquiv: "x-ua-compatible",
-          content: "ie=edge",
-        },
-        {
-          httpEquiv: "viewport",
-          content: "width=device-width, initial-scale=1, shrink-to-fit=no",
-        },
-        {
-          name: "robots",
-          content: "index, follow",
-        },
-        {
-          httpEquiv: "Content-Type",
-          content: "text/html; charset=UTF-8",
-        },
-        {
-          name: "msapplication-TileColor",
-          content: msTileColor,
-        },
-        {
-          property: "og:image",
-          content: "/img/meta/thumbnail.png",
-        },
-        {
-          property: "og:description",
-          content: description,
-        },
-        {
-          name: "description",
-          content: description,
-        },
-        {
-          property: "og:type",
-          content: "website",
-        },
-        {
-          name: "twitter:card",
-          content: "summary",
-        },
-        {
-          property: "og:title",
-          content: derivedTitle,
-        },
-      ]}
-      link={[
-        {
-          href: "/img/meta/apple-touch-icon.png",
-          rel: "apple-touch-icon",
-          sizes: "180x180",
-        },
-        {
-          href: "/img/meta/favicon.ico",
-          rel: "icon",
-          type: "image/x-icon",
-        },
-        {
-          rel: "icon",
-          type: "image/png",
-          sizes: "32x32",
-          href: "/img/meta/favicon-32x32.png",
-        },
-        {
-          rel: "icon",
-          type: "image/png",
-          sizes: "16x16",
-          href: "/img/meta/favicon-16x16.png",
-        },
-        {
-          rel: "mask-icon",
-          color: maskIconColor,
-          href: "/img/meta/safari-pinned-tab.svg",
-        },
-      ]}
-      title={derivedTitle}
-    />
+    <>
+      <meta charSet="utf-8" />
+      <meta
+        name="color-scheme"
+        content={colorMode === ColorMode.Light ? "light" : "dark"}
+      />
+      <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+      <meta
+        httpEquiv="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
+      <meta name="robots" content="index, follow" />
+      <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta name="msapplication-TileColor" content={msTileColor} />
+      <meta property="og:image" content="/img/meta/thumbnail.png" />
+      <meta property="og:description" content={description} />
+      <meta name="description" content={description} />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary" />
+      <meta property="og:title" content={derivedTitle} />
+      <link
+        href="/img/meta/apple-touch-icon.png"
+        rel="apple-touch-icon"
+        sizes="180x180"
+      />
+      <link href="/img/meta/favicon.ico" rel="icon" type="image/x-icon" />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="/img/meta/favicon-32x32.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/img/meta/favicon-16x16.png"
+      />
+      <link
+        rel="mask-icon"
+        color={maskIconColor}
+        href="/img/meta/safari-pinned-tab.svg"
+      />
+      <title>{derivedTitle}</title>
+    </>
   );
 }
