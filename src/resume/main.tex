@@ -41,12 +41,30 @@
 \titleformat{\section}{\large\scshape\raggedright}{}{0em}{}[{\titlerule[0.4pt]}]
 \titlespacing{\section}{0pt}{0pt}{5pt}
 
-% Variables
-% Left column width
-\newcommand{\lcolwidth}{2.2cm}
-\newcommand{\lcolwidthinner}{2.1cm}
-% Right column width
-\newcommand{\rcolwidth}{16.2cm}
+% Set up spacing variables
+\newdimen{\lcolwidth}
+\newdimen{\rcolwidth}
+\newdimen{\sectionvspace}
+\newdimen{\subsectionvspace}
+\newdimen{\pagevoffset}
+\newdimen{\pagehoffset}
+\newdimen{\hlinewidth}
+
+% Spacing variables
+% -----------------
+% Left/label column width:
+\setlength{\lcolwidth}{2.2cm}
+% Right/content column width (adjust as needed to fit content)
+\setlength{\rcolwidth}{16.2cm}
+% Amount of space between sections (can be negative)
+\setlength{\sectionvspace}{-4pt}
+% Amount of space between sub-sections (can be negative)
+\setlength{\subsectionvspace}{-5pt}
+% Nudge content to center it on page (might need tweaking after changing other settings):
+\setlength{\pagevoffset}{-0.52in}
+\setlength{\pagehoffset}{-0.65in}
+% Defines the width of the horizontal lines under section headers:
+\setlength{\hlinewidth}{7.5in}
 
 
 % Defines resume section environment
@@ -61,7 +79,7 @@
 % defines resume subsection header
 \newcommand{\rheader}[2]{
     \multirow[t]{2}{*}{
-        \begin{minipage}[t]{\lcolwidthinner}
+        \begin{minipage}[t]{\dimexpr \lcolwidth - 0.1cm}
             \begin{flushright}
                 \textsc{#1}
             \end{flushright}
@@ -92,7 +110,7 @@
 % defines resume skills section line
 \newcommand{\rskill}[2]{\textsc{#1}:& \small #2 \\ & \\[-14pt]}
 % defines resume subsection gap
-\newcommand{\rskip}{\\\multicolumn{2}{c}{} \\[-5pt]}
+\newcommand{\rskip}{\\\multicolumn{2}{c}{} \\[\subsectionvspace]}
 % dot with spaces on the sides as appropriate
 \newcommand{\rdot}{\xspace\hspace{0pt}•\hspace{3pt}\xspace}
 
@@ -101,8 +119,8 @@
 \begin{document}
 
 % Set up margins/origin
-\hsize=7.5in \vsize=11in
-\hoffset=-0.65in \voffset=-0.52in
+\hsize=\hlinewidth \vsize=11in
+\hoffset=\pagehoffset \voffset=\pagevoffset
 % Output page size
 \pdfpagewidth=8.5in
 \pdfpageheight=11in
@@ -125,8 +143,8 @@
 \href{https://github.com/jazeved0}{\faGithub\ jazeved0} \rdot
     \href{https://jazevedo.me}{Portfolio: jazevedo.me} \\[6pt]
 \end{center}
-% Spacing
-\vspace{11pt}
+% Spacing (\sectionvspace + adjustment):
+\vspace{\dimexpr \sectionvspace + 15pt}
 
 
 % Section: Education
@@ -143,8 +161,7 @@
   \vspace{2pt}
   \ritem[]{Concentration: Networking \& Graphics}
 \end{rsection}
-% Spacing
-\vspace{-4pt}
+\vspace{\sectionvspace}
 
 
 % Section: Skills
@@ -159,8 +176,8 @@
   \rskill{Coursework} {Data structures, Algorithms, Databases, Networking,
                       Standard/Advanced operating systems, Cloud computing}
 \end{rskills}
-% Spacing
-\vspace{7pt}
+% Spacing (\sectionvspace + adjustment):
+\vspace{\dimexpr \sectionvspace + 11pt}
 
 
 % Section: Work Experience
@@ -209,8 +226,7 @@
   \ritem{Created code style autograder scripts/workflow using \textbf{Python}
     for student projects used by 1,300+ students over 3 semesters}
 \end{rsection}
-% Spacing
-\vspace{-3pt}
+\vspace{\sectionvspace}
 
 
 % Section: Leadership
@@ -225,8 +241,7 @@
     (\href{https://web.archive.org/web/20201111230854/https://gamefest.gg/}{Gamefest})
     with over \textbf{400 participants}}
 \end{rsection}
-% Spacing
-\vspace{-3pt}
+\vspace{\sectionvspace}
 
 
 % Section: Projects
