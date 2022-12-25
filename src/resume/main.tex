@@ -55,16 +55,16 @@
 % Left/label column width:
 \setlength{\lcolwidth}{2.2cm}
 % Right/content column width (adjust as needed to fit content)
-\setlength{\rcolwidth}{16.2cm}
+\setlength{\rcolwidth}{16.29cm}
 % Amount of space between sections (can be negative)
-\setlength{\sectionvspace}{-4pt}
+\setlength{\sectionvspace}{-2pt}
 % Amount of space between sub-sections (can be negative)
-\setlength{\subsectionvspace}{-5pt}
+\setlength{\subsectionvspace}{-3pt}
 % Nudge content to center it on page (might need tweaking after changing other settings):
-\setlength{\pagevoffset}{-0.52in}
-\setlength{\pagehoffset}{-0.65in}
+\setlength{\pagevoffset}{-0.45in}
+\setlength{\pagehoffset}{-0.675in}
 % Defines the width of the horizontal lines under section headers:
-\setlength{\hlinewidth}{7.5in}
+\setlength{\hlinewidth}{7.55in}
 
 
 % Defines resume section environment
@@ -141,7 +141,7 @@
   \\[2pt] \normalsize \href{mailto:jazevedo620\at\gmaildotcom}{jazevedo620\at\gmaildotcom}
     \rdot US Citizen \rdot \phoneandrdot
 \href{https://github.com/jazeved0}{\faGithub\ jazeved0} \rdot
-    \href{https://jazevedo.me}{Portfolio: jazevedo.me} \\[6pt]
+    \href{https://jazevedo.me}{Website: jazevedo.me} \\[6pt]
 \end{center}
 % Spacing (\sectionvspace + adjustment):
 \vspace{\dimexpr \sectionvspace + 15pt}
@@ -149,11 +149,11 @@
 
 % Section: Education
 \begin{rsection}{Education}
-  \rheader{Jan 2022 -\\[-1pt] Current}{Georgia Institute of Technology,
+  \rheader{Jan 2022 -\\[-1pt] Dec 2022}{Georgia Institute of Technology,
     {\normalfont Atlanta, GA \hfill\  GPA: 4.0/4.0\ }}
-  \rline{Master of Science, Computer Science \hfill Graduation date: Dec 2022}
+  \rline{Master of Science, Computer Science}
   \vspace{2pt}
-  \ritem[]{Concentration: Computer systems}
+  \ritem[]{Concentration: Computing Systems}
   \rskip
   \rheader{Jun 2018 -\\[-1pt] Dec 2021}{Georgia Institute of Technology,
     {\normalfont Atlanta, GA \hfill\  GPA: 4.0/4.0\ }}
@@ -166,15 +166,13 @@
 
 % Section: Skills
 \begin{rskills}
-  \rskill{Languages}  {Go, Rust, Python, C, C++, Bash, Java, C\#,
-                      TypeScript, JavaScript, HTML/CSS, SQL}
-  \rskill{Software}   {Git, Docker, Kubernetes, Nginx, gRPC, Linux, Windows, SQL (Postgres, MySQL)
+  \rskill{Languages}  {Go, Rust, Python, Java, TypeScript, HTML/CSS, C/C++}
+  \rskill{Software}   {Git, Docker, Kubernetes, gRPC, Linux, Windows, SQL (Postgres, MySQL)
                       NoSQL (MongoDB, Elasticsearch)}
-  \rskill{Frameworks} {React, Flask, Express, Vue.js, jQuery}
-  \rskill{Concepts}   {Containerization, Orchestration, Agile/SCRUM, Microservices,
+  \rskill{Concepts}   {Containerization, Microservices/RPC,
                       Unit \& integration testing, CI/CD, Benchmarking}
-  \rskill{Coursework} {Data structures, Algorithms, Databases, Networking,
-                      Standard/Advanced operating systems, Cloud computing}
+  \rskill{Coursework} {Data structures, Algorithms, Databases, Networks,
+                      Operating systems I/II, Cloud computing, Distributed systems}
 \end{rskills}
 % Spacing (\sectionvspace + adjustment):
 \vspace{\dimexpr \sectionvspace + 11pt}
@@ -185,12 +183,12 @@
   % Job: Datadog software engineering intern
   \rheader{Aug 2021 -\\[-1pt] Dec 2021}{Software Engineering Intern}
   \rdesc{Datadog}
-  \ritem{Designed a novel touchless monitoring daemon using \textbf{eBPF}
-    to inspect \textbf{HTTPS} traffic created by \textbf{Go} services \textit{before encryption}}
-  \ritem{Utilized \textbf{Linux eBPF}, Linux binary formats (\textbf{ELF}, \textbf{DWARF}),
+  \ritem{Designed a novel monitoring daemon using \textbf{eBPF}
+    to collect \textbf{HTTPS} traffic from \textbf{Go} programs \textit{in-memory \& before encryption}}
+  \ritem{Utilized \textbf{Linux eBPF} \& \textbf{C}, Linux binary formats (\textbf{ELF}, \textbf{DWARF}),
     \& \textbf{Go} compiler/runtime internals to create proof-of-concept}
-  \ritem{Developed code generation tooling to extract \textbf{Go} version-specific
-    metadata from compiler artifacts, facilitating a wide range of supported \textbf{Go} versions}
+  \ritem{Developed code generation tooling to automatically extract \textbf{Go} version-specific
+    metadata from compiler artifacts, facilitating a wide range of supported \textbf{Go} compiler versions}
   \rskip
 
   % Job: Stripe software engineering intern
@@ -200,27 +198,25 @@
     for an internal config distribution platform}
   \ritem{Developed a last-mile caching sidecar in \textbf{Go} (incl.\ automated tests) to
     bypass limitations of \textbf{Ruby} multi-threading \& serve a local \textbf{HTTP API}}
-  \ritem{Created separate \textbf{Kubernetes} and \textbf{Puppet} deployment
-    configurations to facilitate integration with existing services}
+  \ritem{Created both \textbf{Kubernetes} and \textbf{Puppet} deployment
+    configurations to facilitate integration with existing service deployments}
   \rskip
 
   % Job: MathWorks software engineering intern
   \rheader{May 2020 -\\[-1pt] Aug 2020}{Software Engineering Intern}
   \rdesc{MathWorks}
-  \ritem{Developed new features in a \textbf{Golang} microservice
-    and a \textbf{React} dashboard, including unit and integration testing}
-  \ritem{Designed a custom \textbf{Kubernetes} controller
-    to work with internal framework and manage dynamic deployments}
-  \ritem{Wrote design documentation and created proof of concept
-    in \textbf{Go} investigating \textbf{Kubernetes} integration}
+  \ritem{Added new features to a \textbf{Go} microservice
+    and its \textbf{React}/\textbf{JavaScript} web dashboard, including unit and integration testing}
+  \ritem{Developed a custom \textbf{Kubernetes} controller
+    in \textbf{Go} to work with internal orchestration service to manage dynamic deployments}
   \rskip
 
   % Job: CS 2340 TA
-  \rheader{Aug 2019 -\\[-1pt] Dec 2020}{Senior Teaching Assistant}
+  \rheader{Aug 2019 -\\[-1pt] Dec 2020}{Teaching Assistant}
   \rdesc{Georgia Institute of Technology \ {\normalfont |}\hspace{2pt}
     CS 2340 - Objects \& Design (Object-oriented design)}
-  \ritem{Led a team of 6 other teaching assistants to prepare and deliver lectures
-    over the course of the semester}
+  \ritem{Led a team of 6 other teaching assistants to prepare and deliver 15 supplemental lectures
+    over the course of a semester}
   \ritem{Graded project milestones and held office hours for students
     making a group project in \textbf{Java Swing} or \textbf{Python Flask}}
   \ritem{Created code style autograder scripts/workflow using \textbf{Python}
@@ -235,7 +231,7 @@
   \rheader{July 2019 -\\[-1pt] Aug 2020}{President}
   \rdesc{Georgia Tech Esports Club}
   \ritem{Led one of the largest student organizations at Georgia Tech
-    with over \textbf{300 active members} and \textbf{30 competitive teams}}
+    with over \textbf{300 active members} and \textbf{20 competitive teams}}
   \ritem{Planned and led a team of \textbf{20 organizers} to host a regional
     collegiate LAN tournament
     (\href{https://web.archive.org/web/20201111230854/https://gamefest.gg/}{Gamefest})
@@ -251,14 +247,14 @@
   \rdesc{Open-source system resource utilization tool for Docker \& Kubernetes
     {\normalfont \rdot
     \href{https://github.com/elba-docker/radvisor}{\faGithub\ elba-docker/radvisor}}}
-  \ritem{Developed a high-performance, concurrent CLI tool in \textbf{Rust}
-    that monitors \textbf{Linux} cgroups and polls the \textbf{Docker} daemon}
-  \ritem{Conducted hundreds of distributed experimental workflows
-    using \textbf{Python}/\textbf{Bash} to test overhead and consistency}
+  \ritem{Developed a low-overhead monitoring daemon in \textbf{Rust}
+    that monitors \textbf{Linux cgroups} and polls \textbf{Docker}/\textbf{Kubernetes}}
+  \ritem{Conducted hundreds of distributed cloud experiments
+    using \textbf{Python}/\textbf{Bash} to test the tool's overhead and consistency}
   \ritem{Wrote final report that details the software design, experimental procedure, and results
     \rdot \href{https://github.com/elba-docker/report}{\faGithub\ elba-docker/report}}
-  \ritem{Integrated with performance monitoring toolkit as part of ongoing work
-    as a \textbf{Research Assistant} at GT since Fall 2020}
+  \ritem{Integrated with performance monitoring toolkit during the course of work
+    as a \textbf{Research Assistant} at Georgia Tech}
 \end{rsection}
 
 
