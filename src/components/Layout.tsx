@@ -28,6 +28,7 @@ export type LayoutProps = {
   className?: string;
   style?: React.CSSProperties;
   hideFooter?: boolean;
+  overrideHeaderLinks?: React.ReactNode;
 };
 
 /**
@@ -41,13 +42,14 @@ export default function Layout({
   className,
   style,
   hideFooter = false,
+  overrideHeaderLinks,
 }: LayoutProps): React.ReactElement {
   return (
     <ColorModeProvider>
       <Styled.Layout>
         <GlobalCss />
         <Meta title={title} />
-        <Header spacing={headerSpacing} />
+        <Header spacing={headerSpacing} overrideLinks={overrideHeaderLinks} />
         <div style={{ flexGrow: 1, ...style }} className={className}>
           {children}
         </div>

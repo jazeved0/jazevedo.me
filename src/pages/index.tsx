@@ -249,7 +249,7 @@ export default function IndexPage({
             <Mdx content={body} />
           </Styled.About>
           <Styled.Heading>
-            Recent projects{" "}
+            Past projects{" "}
             <Button
               href="/projects"
               text="View All"

@@ -4,8 +4,8 @@
 // Some modifications have been made;
 // minor deobfuscation/de-minification in order to more easily read the code,
 // plus a direct way of setting/resetting the colors was added
-// in order to more easily create a React wrapper.
-// (see <StripeGradient>)
+// in order to more easily create an idiomatic React wrapper.
+// (see /src/components/StripeGradient.tsx)
 
 // https://kevinhufnagl.com/wp-content/themes/lightisol/dist/js/min/lightisol-gradient.min.js?ver=1.0
 //

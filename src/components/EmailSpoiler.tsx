@@ -4,7 +4,15 @@ import React, { useState } from "react";
 import { highlight, strongHighlight } from "../theme/mixins";
 
 const Styled = {
-  SpoilerWrapper: styled.span``,
+  SpoilerWrapper: styled.span`
+    /* When forced-colors are enabled, add a border to improve the contrast
+    of the hit target (the color is ignored) */
+    @media (forced-colors: active) {
+      border: 2px solid white;
+      padding: 2px 6px 3px;
+      border-radius: 4px;
+    }
+  `,
   SpoilerLabel: styled.span`
     ${highlight}
     &:hover,

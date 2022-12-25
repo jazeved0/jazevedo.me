@@ -56,14 +56,19 @@ const Styled = {
         padding: 10px 16px;
         background-color: ${color("bg+15")};
         border-top: none;
-        color: ${color("text-strong")};
+        color: ${color("text")};
         border-bottom-right-radius: var(--img-border-radius) !important;
         border-bottom-left-radius: var(--img-border-radius) !important;
-        opacity: 0.8;
 
         display: table-caption;
         caption-side: bottom;
         box-shadow: ${shadow("z2")};
+
+        /* When forced-colors are enabled, manually add a border
+        (the color is ignored) */
+        @media (forced-colors: active) {
+          border: solid 1px white;
+        }
       }
     }
   `,

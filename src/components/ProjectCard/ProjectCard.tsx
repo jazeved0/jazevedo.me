@@ -43,6 +43,22 @@ const Styled = {
         --card-highlight-bg: ${color("bg+15")};
       }
     }
+
+    /* When forced-colors are enabled, add a border to improve the contrast
+    of the hit target (the color is ignored) */
+    @media (forced-colors: active) {
+      border: 2px solid white;
+    }
+
+    /* When prefers-reduced-motion is enabled, disable the transition/transform */
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+
+      /* HACK: increase specificity to override the &:hover style */
+      &:not(#__increase_specificity) {
+        transform: none;
+      }
+    }
   `,
   CardTop: styled.div`
     display: flex;

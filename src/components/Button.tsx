@@ -96,6 +96,18 @@ const Styled = {
       automatically get wrapped */
       position: relative;
     }
+
+    /* When forced-colors are enabled, add a border to improve the contrast
+    of the hit target (the color is ignored). Additionally, add an underline on
+    hover to improve the readability of the states. */
+    @media (forced-colors: active) {
+      border: 2px solid white;
+
+      &:hover,
+      &:active {
+        text-decoration: underline;
+      }
+    }
   `,
 };
 

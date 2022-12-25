@@ -20,6 +20,7 @@ import {
 
 /**
  * Gets the current active color mode.
+ *
  * **Note**: care should be taken when using this to render on the server,
  * as there may be a flash upon initially rendering.
  * Additionally, if the initial render disagrees with the server-side render,
@@ -27,6 +28,11 @@ import {
  * When using this hook, consider also using `useInitialRender()`
  * to skip out on the server-side render.
  * In server side rendering, this returns `defaultMode`.
+ *
+ * **Note**: this hook always returns `defaultMode` when forced-colors are
+ * enabled. This is to prevent bugs resulting from the appearance of the
+ * page differing slightly between selected themes if the appropriate overrides
+ * are not in place. This is implemented at the context root.
  */
 export function useColorMode(): ColorMode {
   return useContext(ColorModeContext).mode;
@@ -49,42 +55,42 @@ export function useShallowStability<T>(value: T): T {
 /**
  * Executes media queries.
  * From https://usehooks.com/useMedia/
- * @param queries - List of query strings
- * @param values - List of matching values
+ * @param queries - Map of media queries to values when they match
  * @param defaultValue - Default value to use if none match
  */
-export function useMedia<T>(
-  queries: string[],
-  values: T[],
-  defaultValue: T
-): T {
+export function useMedia<T>(queries: Record<string, T>, defaultValue: T): T {
   const memoizedQueries = useShallowStability(queries);
-  const memoizedValues = useShallowStability(values);
 
-  // Array containing a media query list for each query
-  const mediaQueryLists = useMemo(
-    () =>
-      memoizedQueries.map((q) =>
-        typeof window === "undefined"
-          ? {
-              matches: false,
-              addListener: (): null => null,
-              removeListener: (): null => null,
-            }
-          : window.matchMedia(q)
-      ),
-    [memoizedQueries]
-  );
+  // Convert the query map into two arrays for the media queries and values.
+  // The array is sorted by the media queries (using lexicographical order).
+  const [mediaQueryLists, values] = useMemo<[MediaQueryList[], T[]]>(() => {
+    const sortedQueries = Object.keys(memoizedQueries).sort();
+    const values = sortedQueries.map((q) => memoizedQueries[q]);
+    const queryLists = sortedQueries.map<MediaQueryList>((q) =>
+      typeof window === "undefined"
+        ? // Create a shim for the MediaQueryList interface
+          {
+            matches: false,
+            media: q,
+            addListener: (): null => null,
+            removeListener: (): null => null,
+            addEventListener: (): null => null,
+            removeEventListener: (): null => null,
+            onchange: null,
+            dispatchEvent: (): boolean => false,
+          }
+        : window.matchMedia(q)
+    );
+    return [queryLists, values];
+  }, [memoizedQueries]);
 
   // Function that gets value based on matching media query
   const getValue = useCallback((): T => {
     // Get index of first media query that matches
     const index = mediaQueryLists.findIndex((mql) => mql.matches);
     // Return related value or defaultValue if none
-    return typeof memoizedValues[index] !== "undefined"
-      ? memoizedValues[index]
-      : defaultValue;
-  }, [defaultValue, memoizedValues, mediaQueryLists]);
+    return typeof values[index] !== "undefined" ? values[index] : defaultValue;
+  }, [defaultValue, values, mediaQueryLists]);
 
   // State and setter for matched value
   const [value, setValue] = useState(getValue);
@@ -106,13 +112,22 @@ export function useMedia<T>(
 }
 
 /**
+ * Simplified version of `useMedia` that only accepts a single media query
+ * and determines whether it matches or not.
+ * @param query - Media query to match
+ * @returns Whether the media query matches or not
+ */
+export function useMediaQuery(query: string): boolean {
+  const mediaQueries = useMemo(() => ({ [query]: true }), [query]);
+  return useMedia<boolean>(mediaQueries, false);
+}
+
+/**
  * Determines if the current screen size is larger than the given breakpoint
  * @param b - breakpoint key
  */
 export function useUp(b: BreakpointKey): boolean {
-  const breakpoints = useMemo(() => [minWidth(breakpoint(b))], [b]);
-  const values = useMemo(() => [true], []);
-  return useMedia(breakpoints, values, false);
+  return useMediaQuery(minWidth(breakpoint(b)));
 }
 
 /**
@@ -120,9 +135,7 @@ export function useUp(b: BreakpointKey): boolean {
  * @param b - breakpoint key
  */
 export function useDown(b: BreakpointKey): boolean {
-  const breakpoints = useMemo(() => [maxWidth(breakpoint(b))], [b]);
-  const values = useMemo(() => [true], []);
-  return useMedia(breakpoints, values, false);
+  return useMediaQuery(maxWidth(breakpoint(b)));
 }
 
 /**
@@ -131,12 +144,7 @@ export function useDown(b: BreakpointKey): boolean {
  * @param b - upper breakpoint key
  */
 export function useBetween(a: BreakpointKey, b: BreakpointKey): boolean {
-  const breakpoints = useMemo(
-    () => [betweenWidth(breakpoint(a), breakpoint(b))],
-    [a, b]
-  );
-  const values = useMemo(() => [true], []);
-  return useMedia(breakpoints, values, false);
+  return useMediaQuery(betweenWidth(breakpoint(a), breakpoint(b)));
 }
 
 export type UseDragResult = {

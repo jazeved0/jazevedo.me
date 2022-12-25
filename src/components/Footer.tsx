@@ -22,6 +22,12 @@ const Styled = {
     ${container}
 
     background-color: ${color("bg-5")};
+
+    /* When forced-colors are enabled, add a border to improve the contrast
+    between the main content & footer (the color is ignored) */
+    @media (forced-colors: active) {
+      border-top: 1px solid white;
+    }
   `,
   FooterContent: styled.div`
     display: flex;
@@ -45,7 +51,7 @@ const Styled = {
       color: ${color("text")};
       padding: ${gap.pico} ${gap.pico};
       border-radius: 4px;
-      border: none !important;
+      border: none;
       --highlight-color: transparent;
       background-color: var(--highlight-color);
 
@@ -72,6 +78,12 @@ const Styled = {
 
       &:not(:last-child) {
         margin-right: ${gap.atto};
+      }
+
+      /* When forced-colors are enabled, add a border to improve the contrast
+      of the hit target (the color is ignored) */
+      @media (forced-colors: active) {
+        border: 1px solid white;
       }
     }
   `,

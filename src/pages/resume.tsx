@@ -15,12 +15,13 @@ const Styled = {
     align-items: stretch;
     height: 100%;
   `,
-  Toolbar: styled.div`
-    ${container}
-    padding-bottom: ${gap.nano};
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 100%;
+  HeaderBar: styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  `,
+  HeaderPageTitle: styled.h1`
+    margin-right: ${gap.micro};
   `,
   PdfWrapper: styled.div`
     background-color: ${chromePdfBackground};
@@ -75,9 +76,13 @@ export default function ResumePage({
 }: ResumePageProps): React.ReactElement {
   const { pdf } = data.file.childMdx.frontmatter;
   return (
-    <Layout title="Resume" headerSpacing="compact" hideFooter>
-      <Styled.PageLayout>
-        <Styled.Toolbar>
+    <Layout
+      title="Resume"
+      headerSpacing="compact"
+      hideFooter
+      overrideHeaderLinks={
+        <Styled.HeaderBar>
+          <Styled.HeaderPageTitle>Resume</Styled.HeaderPageTitle>
           <Styled.ToolbarButtonBar>
             <Styled.ToolbarButton
               href={pdf}
@@ -91,7 +96,10 @@ export default function ResumePage({
               text="View source"
             />
           </Styled.ToolbarButtonBar>
-        </Styled.Toolbar>
+        </Styled.HeaderBar>
+      }
+    >
+      <Styled.PageLayout>
         <Styled.PdfWrapper>
           <embed
             src={pdf}

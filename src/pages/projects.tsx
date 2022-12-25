@@ -72,7 +72,7 @@ export default function ProjectsPage({
   return (
     <Layout title="Projects" headerSpacing="compact">
       <Styled.Content>
-        <Styled.Title>Projects</Styled.Title>
+        <Styled.Title>Past Projects</Styled.Title>
         <Styled.CardLayout>
           {projects.map((project, i) => (
             <Styled.ProjectCard project={project} key={i} />

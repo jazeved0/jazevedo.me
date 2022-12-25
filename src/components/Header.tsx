@@ -4,7 +4,7 @@ import { useStaticQuery, graphql, Link } from "gatsby";
 import { darken, lighten } from "polished";
 
 import { ButtonFragment } from "./LinkButton/schema";
-import LinkButton from "./LinkButton/LinkButton";
+import LinkButton, { LinkButtonProps } from "./LinkButton/LinkButton";
 import {
   color,
   ColorMode,
@@ -20,26 +20,26 @@ import Switch from "./Switch";
 import Icon from "./Icon";
 import { down } from "../theme/media";
 
+const linkCommonStyle = `
+  text-decoration: none;
+  color: ${color("text-strong")};
+  white-space: nowrap;
+
+  &:hover,
+  &:active {
+    ${mode(ColorMode.Dark)} {
+      color: ${lighten(0.3, hybridColor("primary", ColorMode.Dark))};
+    }
+
+    ${mode(ColorMode.Light)} {
+      color: ${darken(0.1, hybridColor("primary", ColorMode.Light))};
+    }
+  }
+`;
+
 const Styled = {
   HeaderOuter: styled.div`
     ${container}
-
-    a {
-      text-decoration: none;
-      color: ${color("text-strong")};
-      white-space: nowrap;
-
-      &:hover,
-      &:active {
-        ${mode(ColorMode.Dark)} {
-          color: ${lighten(0.3, hybridColor("primary", ColorMode.Dark))};
-        }
-
-        ${mode(ColorMode.Light)} {
-          color: ${darken(0.1, hybridColor("primary", ColorMode.Light))};
-        }
-      }
-    }
 
     &[data-spacing="sparse"] {
       padding-top: ${gap.milli};
@@ -74,12 +74,14 @@ const Styled = {
       --column-gap: 0;
     }
   `,
+  LinksOuter: styled.div`
+    grid-area: links;
+  `,
   Links: styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    grid-area: links;
     gap: ${gap.nano};
 
     ${down("lg")} {
@@ -98,16 +100,30 @@ const Styled = {
       /* Visually correct for left padding */
       margin-left: calc(-1 * var(--link-x-padding));
     }
+  `,
+  HeaderPageLink: styled(LinkButton)`
+    ${linkCommonStyle}
 
-    a {
-      padding: var(--link-y-padding) var(--link-x-padding);
+    padding: var(--link-y-padding) var(--link-x-padding);
 
-      &.active-link {
-        border-bottom: 2px solid ${color("text-strong")};
+    &.active-link {
+      border-bottom: 2px solid ${color("text-strong")};
+    }
+
+    /* When forced-colors are enabled, restore the default link
+    underline-on-hover behavior */
+    @media (forced-colors: active) {
+      text-decoration: initial;
+
+      &:hover,
+      &:active {
+        text-decoration: underline;
       }
     }
   `,
   BrandLink: styled(Link)`
+    ${linkCommonStyle}
+
     transform: translateY(3px);
     grid-area: brand;
     align-self: stretch;
@@ -120,6 +136,19 @@ const Styled = {
 
     /* Visually correct for left padding */
     margin-left: calc(-1 * var(--brand-x-padding));
+
+    /* When forced-colors are enabled, manually add a bottom-border
+    to the brand link on hover to make it more visible */
+    @media (forced-colors: active) {
+      &:hover,
+      &:active {
+        --brand-forced-color-border-width: 3px;
+
+        border-bottom: var(--brand-forced-color-border-width) solid white;
+        /* Compensate for the border width to avoid a visual shift */
+        padding-top: var(--brand-forced-color-border-width);
+      }
+    }
   `,
   ThemeSwitcherWrapper: styled.div`
     grid-area: switch;
@@ -174,6 +203,7 @@ function useData(): StaticQueryResult {
 
 export type HeaderProps = {
   spacing?: "compact" | "sparse";
+  overrideLinks?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
 };
@@ -185,6 +215,7 @@ export type HeaderProps = {
  */
 export default function Header({
   spacing = "compact",
+  overrideLinks,
   className,
   style,
 }: HeaderProps): React.ReactElement {
@@ -208,17 +239,23 @@ export default function Header({
               https://www.fontsquirrel.com/fonts/dubai */}
           <BrandSvg style={{ height: 22 }} />
         </Styled.BrandLink>
-        <Styled.Links>
-          {links.map((link, i) => (
-            <LinkButton
-              key={i}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...link}
-              iconClassName="header-link-icon"
-              activeLinkClassName="active-link"
-            />
-          ))}
-        </Styled.Links>
+        <Styled.LinksOuter>
+          {overrideLinks != null ? (
+            <>{overrideLinks}</>
+          ) : (
+            <Styled.Links>
+              {links.map((link, i) => (
+                <Styled.HeaderPageLink
+                  key={i}
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...link}
+                  iconClassName="header-link-icon"
+                  activeLinkClassName="active-link"
+                />
+              ))}
+            </Styled.Links>
+          )}
+        </Styled.LinksOuter>
         <Styled.ThemeSwitcherWrapper>
           <ThemeSwitcher />
         </Styled.ThemeSwitcherWrapper>

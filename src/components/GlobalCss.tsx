@@ -80,7 +80,7 @@ export default function GlobalCss(): React.ReactElement {
           * {
             animation-duration: 0.01ms !important;
             animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
+            transition: none !important;
             scroll-behavior: auto !important;
           }
         }

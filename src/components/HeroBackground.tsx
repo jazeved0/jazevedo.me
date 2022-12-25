@@ -10,7 +10,7 @@ import {
   heroGradientColors,
 } from "../theme/color";
 import StripeGradient from "./StripeGradient";
-import { useColorMode } from "../hooks";
+import { useColorMode, useMediaQuery } from "../hooks";
 
 function enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[] {
   return Object.keys(obj).filter((k) => Number.isNaN(+k)) as K[];
@@ -34,6 +34,14 @@ const Styled = {
     }
 
     ${mode(ColorMode.Dark)} {
+      .light-fallback {
+        display: none;
+      }
+    }
+
+    /* When forced-colors are enabled, hide the background */
+    @media (forced-colors: active) {
+      .dark-fallback,
       .light-fallback {
         display: none;
       }
@@ -101,6 +109,11 @@ const Styled = {
           }`
       )
       .join("\n")}
+
+    /* When forced-colors are enabled, hide the background */
+      @media (forced-colors: active) {
+      display: none;
+    }
   `,
 };
 
@@ -123,11 +136,20 @@ export default function HeroBackground({
   className,
   style,
 }: HeroBackgroundProps): React.ReactElement {
-  // The prop this gets passed to (Gradient.colors)
-  // only has a meaning in the JS runtime,
-  // so there is no risk for hydration side effects
-  // by using it even on the initial render.
+  // Disable the animated gradient if the agent prefers reduced motion,
+  // or if a forced color/high contrast mode is enabled.
+  // The gradient always returns `null` on its first render (i.e. renders
+  // nothing to the DOM), so it's safe to render the component on the first
+  // render without worrying about hydration inconsistencies.
+  const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const usingForcedColor = useMediaQuery("(forced-colors: active)");
+  const renderGradientCanvas = !usingForcedColor && !reducedMotion;
+
+  // This gets passed to the gradient component. As a result, it's safe
+  // to use this value without gating it on the initial render (for the same
+  // reason as above).
   const colorMode = useColorMode();
+
   return (
     <Styled.HeroLayout className={className} style={style}>
       <StaticImage
@@ -160,15 +182,17 @@ export default function HeroBackground({
         quality={60}
         draggable={false}
       />
-      <Styled.HeroGradient
-        colors={heroGradientColors[colorMode]}
-        style={{
-          gridArea: "1/1",
-          height: "100%",
-          width: "100%",
-          zIndex: 1,
-        }}
-      />
+      {renderGradientCanvas && (
+        <Styled.HeroGradient
+          colors={heroGradientColors[colorMode]}
+          style={{
+            gridArea: "1/1",
+            height: "100%",
+            width: "100%",
+            zIndex: 1,
+          }}
+        />
+      )}
       <Styled.HeroMask style={{ gridArea: "1/1", zIndex: 2 }} />
     </Styled.HeroLayout>
   );

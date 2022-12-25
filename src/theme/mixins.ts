@@ -58,6 +58,17 @@ export const highlightLinks = `
     transparent 90%,
     transparent 100%
   );
+
+  /* When forced-colors are enabled, restore the default link
+  underline-on-hover behavior */
+  @media (forced-colors: active) {
+    text-decoration: initial;
+
+    &:hover,
+    &:active {
+      text-decoration: underline;
+    }
+  }
 `;
 
 const scrollBase = `

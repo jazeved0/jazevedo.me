@@ -56,6 +56,11 @@ const Styled = {
         filter: drop-shadow(0 0 24px rgba(0, 0, 0, 0.2));
       }
     }
+
+    /* When forced-colors are enabled, hide the background */
+    @media (forced-colors: active) {
+      display: none;
+    }
   `,
 };
 

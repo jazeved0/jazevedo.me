@@ -75,7 +75,8 @@ const Styled = {
     blockquote {
       padding: ${gap.micro};
       border-left: solid 8px ${color("primary")};
-      border-radius: 8px;
+      border-bottom-left-radius: 8px;
+      border-top-left-radius: 8px;
 
       ${mode(ColorMode.Light)} {
         background-color: ${rgba(hybridColor("primary", ColorMode.Light), 0.2)};
@@ -96,6 +97,15 @@ const Styled = {
       are Emotion components (probably) */
       & > :first-child {
         margin-top: 0;
+      }
+
+      /* When forced-colors are enabled, manually add a border */
+      @media (forced-colors: active) {
+        /* Add a border to every side except left
+        (it already has a thick border) */
+        border-right: solid 1px;
+        border-bottom: solid 1px;
+        border-top: solid 1px;
       }
     }
 
@@ -120,6 +130,17 @@ const Styled = {
 
       tbody tr:last-child td:last-child {
         border-bottom-right-radius: var(--border-radius);
+      }
+
+      /* When forced-colors are enabled, manually add a border
+      (the color is ignored) */
+      @media (forced-colors: active) {
+        border: solid 1px white;
+
+        td,
+        th {
+          border: solid 1px white;
+        }
       }
 
       td,

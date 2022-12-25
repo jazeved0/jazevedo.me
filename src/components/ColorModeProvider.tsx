@@ -1,5 +1,6 @@
 import { ThemeToggler } from "gatsby-plugin-dark-mode";
 import React, { useMemo } from "react";
+import { useMediaQuery } from "../hooks";
 
 import { ColorModeContext, ColorMode, defaultMode } from "../theme/color";
 
@@ -42,12 +43,20 @@ type MemoizedContextProviderProps = {
 /**
  * Wraps the `ColorModeContext.Provider` component to ensure that context values
  * get memoized between renders (since the context value is an object).
+ *
+ * This is also the location that the forced-colors override is applied.
+ * See `useColorMode` for more details on the motivation for this.
  */
 function MemoizedContextProvider({
   children,
   mode,
   setMode,
 }: MemoizedContextProviderProps): React.ReactElement {
+  const usingForcedColor = useMediaQuery("(forced-colors: active)");
+  if (usingForcedColor) {
+    mode = defaultMode;
+  }
+
   return (
     <ColorModeContext.Provider
       value={useMemo(

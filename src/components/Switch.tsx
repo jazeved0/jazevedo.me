@@ -21,6 +21,17 @@ const Styled = {
       top: 3px;
       left: 8px;
     }
+
+    /* When forced-colors are enabled, add a border to improve the contrast
+    of the hit target (the color is ignored) */
+    @media (forced-colors: active) {
+      border: 2px solid white;
+
+      & .react-switch-handle {
+        /* Important to override inline styling: */
+        border: 2px solid white !important;
+      }
+    }
   `,
   SwitchLabel: styled.span`
     margin-left: ${gap.nano};
