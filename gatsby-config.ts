@@ -50,6 +50,13 @@ const plugins: PluginDefs[] = [
       name: "data",
     },
   },
+  {
+    resolve: "gatsby-source-filesystem",
+    options: {
+      path: `${__dirname}/src/pages`,
+      name: "pages",
+    },
+  },
   // TODO figure out manifest plugin config
   // {
   //   resolve: `gatsby-plugin-manifest`,

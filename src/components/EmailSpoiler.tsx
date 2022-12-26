@@ -26,7 +26,7 @@ const Styled = {
 };
 
 export type EmailSpoilerProps = {
-  email: string;
+  email: React.ReactNode;
 };
 
 /**

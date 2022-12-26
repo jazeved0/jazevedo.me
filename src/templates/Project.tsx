@@ -92,7 +92,7 @@ export type ProjectPageTemplateProps = PageProps<
 >;
 
 /**
- * Page template for any markdown-rendered pages in /projects/**.
+ * Page template for any markdown-rendered pages in /content/projects/**.
  * Handles both main project pages (with the <ProjectOverview>)
  * as well as "auxillary" pages that are simple markdown pages.
  */
