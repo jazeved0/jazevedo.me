@@ -55,6 +55,15 @@ const Styled = {
     &.isLoaded {
       opacity: 1;
     }
+
+    /* When forced-colors or prefers-reduced-motion are enabled, hide the
+    canvas. This is also done in script, but duplicate it here. */
+    @media (forced-colors: active) {
+      display: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      display: none;
+    }
   `,
   HeroMask: styled.div`
     height: 100%;
@@ -111,7 +120,7 @@ const Styled = {
       .join("\n")}
 
     /* When forced-colors are enabled, hide the background */
-      @media (forced-colors: active) {
+    @media (forced-colors: active) {
       display: none;
     }
   `,
