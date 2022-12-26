@@ -61,6 +61,13 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = ({
   }
 };
 
+// Print results of the above function
+export const onPostBootstrap: GatsbyNode["onPostBootstrap"] = ({
+  reporter,
+}) => {
+  postCopyProjectFiles(reporter);
+};
+
 // Dynamically create project pages
 export const createPages: GatsbyNode["createPages"] = async ({
   graphql,
@@ -71,11 +78,4 @@ export const createPages: GatsbyNode["createPages"] = async ({
   activity.start();
   await createProjectPages({ actions, graphql, reporter });
   activity.end();
-};
-
-// Print results of the above function
-export const onPostBootstrap: GatsbyNode["onPostBootstrap"] = ({
-  reporter,
-}) => {
-  postCopyProjectFiles(reporter);
 };
