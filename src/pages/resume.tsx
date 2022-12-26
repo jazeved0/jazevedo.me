@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { graphql } from "gatsby";
+import type { PageProps } from "gatsby";
 
 import Layout from "../components/Layout";
 import { gap } from "../theme/spacing";
@@ -97,9 +98,7 @@ export const pageQuery = graphql`
   }
 `;
 
-export type ResumePageProps = {
-  data: PageQueryResult;
-};
+export type ResumePageProps = PageProps<PageQueryResult>;
 
 export default function ResumePage({
   data,
@@ -107,7 +106,6 @@ export default function ResumePage({
   const { pdf } = data.file.childMdx.frontmatter;
   return (
     <Layout
-      title="Resume"
       headerSpacing="compact"
       hideFooter
       overrideHeaderLinks={
@@ -151,4 +149,10 @@ export default function ResumePage({
       </Styled.PageLayout>
     </Layout>
   );
+}
+
+// Gatsby Head component:
+// https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+export function Head(): React.ReactElement {
+  return <Meta title="Resume" />;
 }

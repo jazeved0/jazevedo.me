@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import Meta from "./Meta";
 import GlobalCss from "./GlobalCss";
 import ColorModeProvider from "./ColorModeProvider";
 import Header from "./Header";
@@ -22,7 +21,6 @@ const Styled = {
 };
 
 export type LayoutProps = {
-  title: string;
   headerSpacing?: "compact" | "sparse";
   children: React.ReactNode;
   className?: string;
@@ -36,7 +34,6 @@ export type LayoutProps = {
  * rendering context providers and the header/footer (if applicable)
  */
 export default function Layout({
-  title,
   headerSpacing,
   children,
   className,
@@ -48,7 +45,6 @@ export default function Layout({
     <ColorModeProvider>
       <Styled.Layout>
         <GlobalCss />
-        <Meta title={title} />
         <Header spacing={headerSpacing} overrideLinks={overrideHeaderLinks} />
         <div style={{ flexGrow: 1, ...style }} className={className}>
           {children}

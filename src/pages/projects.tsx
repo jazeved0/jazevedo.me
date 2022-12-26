@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { graphql } from "gatsby";
+import type { PageProps } from "gatsby";
 
 import Layout from "../components/Layout";
 import { gap } from "../theme/spacing";
 import { container } from "../theme/layout";
 import { ProjectCardFragment } from "../components/ProjectCard/types";
 import ProjectCard from "../components/ProjectCard";
+import Meta from "../components/Meta";
 
 const Styled = {
   Content: styled.article`
@@ -61,16 +63,14 @@ export const pageQuery = graphql`
   }
 `;
 
-export type ProjectsPageProps = {
-  data: PageQueryResult;
-};
+export type ProjectsPageProps = PageProps<PageQueryResult>;
 
 export default function ProjectsPage({
   data,
 }: ProjectsPageProps): React.ReactElement {
   const projects = data.allFile.projectFiles.map(({ childMdx }) => childMdx);
   return (
-    <Layout title="Projects" headerSpacing="compact">
+    <Layout headerSpacing="compact">
       <Styled.Content>
         <Styled.Title>Past Projects</Styled.Title>
         <Styled.CardLayout>
@@ -81,4 +81,10 @@ export default function ProjectsPage({
       </Styled.Content>
     </Layout>
   );
+}
+
+// Gatsby Head component:
+// https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+export function Head(): React.ReactElement {
+  return <Meta title="Projects" />;
 }

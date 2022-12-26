@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect, useRef } from "react";
 import { graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import styled from "@emotion/styled";
+import type { PageProps, HeadProps } from "gatsby";
 
 import Mdx from "../components/Mdx";
 import HeroBackground from "../components/HeroBackground";
@@ -16,6 +17,7 @@ import { down } from "../theme/media";
 import { ProjectCardFragment } from "../components/ProjectCard/types";
 import ProjectCarousel from "../components/ProjectCarousel";
 import Button from "../components/Button";
+import Meta from "../components/Meta";
 
 const Styled = {
   PageLayout: styled.div`
@@ -205,25 +207,19 @@ export const pageQuery = graphql`
   }
 `;
 
-export type IndexPageProps = {
-  data: PageQueryResult;
-};
+export type IndexPageProps = PageProps<PageQueryResult>;
 
 export default function IndexPage({
   data,
 }: IndexPageProps): React.ReactElement {
   const { body, frontmatter } = data.file.childMdx;
-  const { title, name, headline, subHeadline, email } = frontmatter;
+  const { name, headline, subHeadline, email } = frontmatter;
   const projects = data.topProjects.projectFiles.map(
     ({ childMdx }) => childMdx
   );
 
   return (
-    <Layout
-      title={title}
-      headerSpacing="sparse"
-      style={{ overflowX: "hidden" }}
-    >
+    <Layout headerSpacing="sparse" style={{ overflowX: "hidden" }}>
       <HeroBackground />
       <Styled.PageLayout>
         <Styled.ProfileWrapper>
@@ -265,6 +261,14 @@ export default function IndexPage({
       </Styled.PageLayout>
     </Layout>
   );
+}
+
+export type IndexHeadProps = HeadProps<PageQueryResult>;
+
+// Gatsby Head component:
+// https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+export function Head({ data }: IndexHeadProps): React.ReactElement {
+  return <Meta title={data.file.childMdx.frontmatter.title} />;
 }
 
 // ? -----------------

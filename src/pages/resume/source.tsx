@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { graphql } from "gatsby";
+import type { PageProps } from "gatsby";
 
 import Layout from "../../components/Layout";
 import { gap } from "../../theme/spacing";
 import { container } from "../../theme/layout";
 import Button from "../../components/Button";
 import Mdx from "../../components/Mdx";
+import Meta from "../../components/Meta";
 
 const Styled = {
   SourceContent: styled.article`
@@ -64,9 +66,7 @@ export const pageQuery = graphql`
   }
 `;
 
-export type ResumePageProps = {
-  data: PageQueryResult;
-};
+export type ResumePageProps = PageProps<PageQueryResult>;
 
 export default function ResumePage({
   data,
@@ -74,7 +74,7 @@ export default function ResumePage({
   const { body, frontmatter } = data.file.childMdx;
   const { overleaf, github } = frontmatter;
   return (
-    <Layout title="Resume Source" headerSpacing="compact">
+    <Layout headerSpacing="compact">
       <Styled.SourceContent>
         <Styled.Title>Resume Source</Styled.Title>
         <Styled.ButtonBar>
@@ -87,4 +87,10 @@ export default function ResumePage({
       </Styled.SourceContent>
     </Layout>
   );
+}
+
+// Gatsby Head component:
+// https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+export function Head(): React.ReactElement {
+  return <Meta title="Resume Source" />;
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
+import type { PageProps, HeadProps } from "gatsby";
 
 import Layout from "../components/Layout";
 import Mdx from "../components/Mdx";
@@ -11,6 +12,7 @@ import { gap } from "../theme/spacing";
 import Article from "../components/Article";
 import { container } from "../theme/layout";
 import { color } from "../theme/color";
+import Meta from "../components/Meta";
 
 const Styled = {
   PageLayout: styled.div`
@@ -84,11 +86,10 @@ export type ProjectPageContext = {
   isAuxillary: boolean;
 };
 
-export type ProjectPageTemplateProps = {
-  data: PageQueryResult;
-  pageContext: ProjectPageContext;
-  children?: React.ReactNode;
-};
+export type ProjectPageTemplateProps = PageProps<
+  PageQueryResult,
+  ProjectPageContext
+>;
 
 /**
  * Page template for any markdown-rendered pages in /projects/**.
@@ -101,11 +102,11 @@ export default function ProjectPageTemplate({
   children,
 }: ProjectPageTemplateProps): React.ReactElement {
   const { isAuxillary } = pageContext;
-  const { shortTitle, type, title, start, end, lead, topics, buttons } =
+  const { type, title, start, end, lead, topics, buttons } =
     data.mdx.frontmatter;
 
   return (
-    <Layout title={shortTitle}>
+    <Layout>
       {!isAuxillary && <ProjectBackground />}
       <Styled.PageLayout>
         {!isAuxillary && (
@@ -127,4 +128,12 @@ export default function ProjectPageTemplate({
       </Styled.PageLayout>
     </Layout>
   );
+}
+
+export type ProjectHeadProps = HeadProps<PageQueryResult>;
+
+// Gatsby Head component:
+// https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+export function Head({ data }: ProjectHeadProps): React.ReactElement {
+  return <Meta title={data.mdx.frontmatter.shortTitle} />;
 }
