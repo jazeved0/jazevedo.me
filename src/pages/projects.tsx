@@ -50,7 +50,7 @@ export const pageQuery = graphql`
       sort: { childMdx: { frontmatter: { importance: DESC } } }
       limit: 1000
       filter: {
-        relativePath: { regex: "/^[^/]+/index.md$/" }
+        relativePath: { regex: "/^[^/]+/index.mdx$/" }
         sourceInstanceName: { eq: "projects" }
       }
     ) {

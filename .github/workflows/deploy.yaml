@@ -27,7 +27,7 @@ jobs:
           extra_fonts: |
             ./src/resume/*.otf
 
-      # The final path here should be synchronized with /content/data/resume.md
+      # The final path here should be synchronized with /content/data/resume.mdx
       - name: Move resume PDF into /public
         run: |
           mkdir -p ./public/resume

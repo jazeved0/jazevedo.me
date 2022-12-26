@@ -48,7 +48,7 @@ export async function createProjectPages({
         limit: $limit
         filter: {
           sourceInstanceName: { eq: "projects" }
-          extension: { regex: "/^(?:md)|(?:mdx)$/" }
+          extension: { eq: "mdx" }
         }
       ) {
         nodes {
@@ -79,7 +79,7 @@ export async function createProjectPages({
 
   // Trims a path to be the proper local path
   const trimPath = (p: string): string =>
-    p.replace("index", "").replace(".md", "").replace(/\/$/, "");
+    p.replace("index", "").replace(".mdx", "").replace(/\/$/, "");
 
   // Create projects pages
   data.projectPages.nodes.forEach(({ childMdx, relativePath, name }) => {

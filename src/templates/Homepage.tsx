@@ -166,7 +166,7 @@ function useData(): StaticQueryResult {
           limit: 10
           filter: {
             childMdx: { frontmatter: { importance: { ne: null } } }
-            relativePath: { regex: "/^[^/]+/index.md$/" }
+            relativePath: { regex: "/^[^/]+/index.mdx$/" }
             sourceInstanceName: { eq: "projects" }
           }
         ) {

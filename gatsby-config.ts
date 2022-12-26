@@ -96,7 +96,7 @@ const plugins: PluginDefs[] = [
   {
     resolve: "gatsby-plugin-mdx",
     options: {
-      extensions: [".md"],
+      extensions: [".mdx"],
       gatsbyRemarkPlugins: [
         {
           resolve: "gatsby-remark-images",
