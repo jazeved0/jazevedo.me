@@ -25,7 +25,7 @@ export type MdxProps = {
 };
 
 /**
- * MDX Renderer, including shortcodes used when writing MDX
+ * MDX component provider, including shortcodes used when writing MDX
  */
 export default function Mdx({
   children,
