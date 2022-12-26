@@ -142,6 +142,7 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   plugins: plugins as GatsbyConfig["plugins"],
   pathPrefix,
+  trailingSlash: "never",
 };
 
 export default config;
