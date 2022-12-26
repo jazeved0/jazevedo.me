@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React, { useState } from "react";
+import { useMediaQuery } from "../hooks";
 
 import { highlight, strongHighlight } from "../theme/mixins";
 
@@ -21,6 +22,17 @@ const Styled = {
     }
 
     background-color: var(--highlight-color);
+
+    @media (hover: hover) {
+      & > span.tap-label {
+        display: none;
+      }
+    }
+    @media (hover: none) {
+      & > span.hover-label {
+        display: none;
+      }
+    }
   `,
   SpoilerText: styled.span``,
 };
@@ -37,15 +49,37 @@ export default function EmailSpoiler({
   email,
 }: EmailSpoilerProps): React.ReactElement {
   const [mouseOver, setMouseOver] = useState(false);
+  const hasHover = useMediaQuery("(hover: hover)");
   return (
     <Styled.SpoilerWrapper
-      onMouseEnter={(): void => setMouseOver(true)}
-      onMouseLeave={(): void => setMouseOver(false)}
-      onFocus={(): void => setMouseOver(true)}
       tabIndex={0}
+      onMouseEnter={(): void => {
+        if (hasHover) setMouseOver(true);
+      }}
+      onMouseLeave={(): void => {
+        if (hasHover) setMouseOver(false);
+      }}
+      onFocus={(): void => {
+        if (!hasHover) setMouseOver(true);
+      }}
+      onClick={(): void => {
+        if (!hasHover) setMouseOver(true);
+      }}
+      onBlur={(): void => {
+        if (!hasHover) setMouseOver(false);
+      }}
     >
       {!mouseOver && (
-        <Styled.SpoilerLabel>Hover to show email</Styled.SpoilerLabel>
+        <Styled.SpoilerLabel>
+          <span className="hover-label" aria-hidden={!hasHover}>
+            Hover
+          </span>
+          <span className="tap-label" aria-hidden={hasHover}>
+            Tap
+          </span>{" "}
+          to show email
+          <noscript> (this won't work without JavaScript)</noscript>
+        </Styled.SpoilerLabel>
       )}
       {mouseOver && <Styled.SpoilerText>{email}</Styled.SpoilerText>}
     </Styled.SpoilerWrapper>
