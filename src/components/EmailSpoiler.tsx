@@ -59,15 +59,11 @@ export default function EmailSpoiler({
       onMouseLeave={(): void => {
         if (hasHover) setMouseOver(false);
       }}
-      onFocus={(): void => {
-        if (!hasHover) setMouseOver(true);
-      }}
       onClick={(): void => {
         if (!hasHover) setMouseOver(true);
       }}
-      onBlur={(): void => {
-        if (!hasHover) setMouseOver(false);
-      }}
+      onFocus={(): void => setMouseOver(true)}
+      onBlur={(): void => setMouseOver(false)}
     >
       {!mouseOver && (
         <Styled.SpoilerLabel>

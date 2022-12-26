@@ -1,7 +1,8 @@
-import HomepageMdxLayout, { ContentWrapper, ProjectCarousel } from "../templates/Homepage";
+import HomepageLayout from "../templates/Homepage";
 import Meta from "../components/Meta";
 import Button from "../components/Button";
 import { gap } from "../theme/spacing";
+import { StaticImage } from "gatsby-plugin-image";
 
 {/* Gatsby Head component:
 https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/ */}
@@ -9,69 +10,65 @@ export function Head() {
   return <Meta title="Portfolio" />;
 }
 
-{/* Layout wrapper component */}
-export default function Layout({ children }) {
-  return (
-    <HomepageMdxLayout
-      name="Joseph Azevedo"
-      headline="Software engineer"
-      subHeadline="Stripe"
-      // The email gets displayed in a "spoiler"
-      // that only displays the email in the HTML on hover,
-      // in hopes of foiling email spam scrapers:
-      email="jazevedo620@gmail.com"
-    >
-      {/* The MDX content below gets passed to the layout as-is,
-      and appears below the name/profile: */}
-      {children}
-    </HomepageMdxLayout>
-  );
-}
+<HomepageLayout>
+  <HomepageLayout.ProfilePicture
+    renderImage={props =>
+      <StaticImage src="../../static/img/profile.jpg" {...props} />}
+  />
+  {/* The email gets displayed in a "spoiler"
+  that only displays the email in the HTML on hover,
+  in hopes of foiling email spam scrapers: */}
+  <HomepageLayout.Name 
+    name="Joseph Azevedo"
+    headline="Software engineer"
+    subHeadline="Stripe"
+    email="jazevedo620@gmail.com"
+  />
+  <HomepageLayout.Content>
+    ## About
 
-<ContentWrapper>
-  ## About
+    I'm a software engineer living in the Bay Area,
+    and I currently work at [Stripe](https://stripe.com/).
+    I studied at the [Georgia Institute of Technology](https://www.gatech.edu/),
+    where I earned both my Bachelor's and Master's degrees in Computer Science
+    (with an emphasis in networking/graphics and computer systems, respectively).
+    Companies I completed internships at include [MathWorks](https://www.mathworks.com/),
+    Stripe, and [Datadog](https://www.datadoghq.com/).
+    I also worked as an undergraduate research assistant
+    in the [Center for Experimental Research in Computer Systems](https://www.cercs.gatech.edu/www.cercs.gatech.edu/index.html)
+    under Dr. Calton Pu and in close collaboration with Rodrigo Alves Lima.
 
-  I'm a software engineer living in the Bay Area,
-  and I currently work at [Stripe](https://stripe.com/).
-  I studied at the [Georgia Institute of Technology](https://www.gatech.edu/),
-  where I earned both my Bachelor's and Master's degrees in Computer Science.
-  Companies I completed internships at include [MathWorks](https://www.mathworks.com/),
-  Stripe, and [Datadog](https://www.datadoghq.com/).
-  I also worked as an undergraduate research assistant
-  in the [Center for Experimental Research in Computer Systems](https://www.cercs.gatech.edu/www.cercs.gatech.edu/index.html)
-  under Dr. Calton Pu and in close collaboration with Rodrigo Alves Lima.
+    My past research work revolved primarily around distributed systems and observability,
+    and how to build tools that can _effectively_ instrument production systems.
+    In my work in CERCS, I developed and ran experiments
+    with a novel resource utilization monitor called
+    [rAdvisor](https://github.com/elba-docker/radvisor),
+    which was designed to collect high-granularity time-series data
+    for the resource utilization of
+    [Docker containers](https://www.docker.com/resources/what-container) and
+    [Kubernetes pods](https://kubernetes.io/docs/concepts/workloads/pods/)--all with minimal overhead.
+    At Datadog, I designed and implemented a novel monitoring daemon
+    to monitor HTTPS traffic from [Go applications](https://go.dev/) in-memory &amp; before encryption,
+    using [Linux eBPF](https://ebpf.io/) and Go runtime/compiler internals.
 
-  My past research work revolved primarily around distributed systems and observability,
-  and how to build tools that can _effectively_ instrument production systems.
-  In my work in CERCS, I developed and ran experiments
-  with a system resource utilization monitor called
-  [rAdvisor](https://github.com/elba-docker/radvisor),
-  which is designed to collect high-granularity time-series data
-  for the resource utilization of
-  [Docker containers](https://www.docker.com/resources/what-container) and
-  [Kubernetes pods](https://kubernetes.io/docs/concepts/workloads/pods/)--all with minimal overhead.
-  At Datadog, I researched and implemented a proof-of-concept
-  for a touchless HTTPS traffic monitor for [Go applications](https://go.dev/),
-  heavily utilizing [Linux eBPF functionality](https://ebpf.io/)
-  and Go runtime/compiler internals.
+    In my free time, I enjoy web development and graphic design,
+    and have contributed to a small handful of open source projects.
+    During my time at Georgia Tech, I worked as a maintainer on
+    [GT Scheduler](https://github.com/gt-scheduler/website),
+    an open source scheduling application used by GT students
+    that seeks to improve upon the course registration process.
+    I also enjoy playing computer games and keeping up with esports.
+    At Georgia Tech,
+    I was an officer and then president of the Esports club,
+    where I worked with campus administrators and external companies
+    to secure sponsorships, host and plan events
+    ([like Gamefest](https://web.archive.org/web/20190511140843/https://gamefest.gg/)),
+    and organize resources for competitive teams.
 
-  In my free time, I enjoy web development and graphic design,
-  and have contributed to a small handful of open source projects.
-  During my time at Georgia Tech, I worked as a maintainer on
-  [GT Scheduler](https://github.com/gt-scheduler/website),
-  an open source scheduling application used by GT students
-  that seeks to improve upon the course registration process.
-  I also enjoy playing computer games and keeping up with esports.
-  At Georgia Tech,
-  I was an officer and then president of the Esports club,
-  where I worked with campus administrators and external companies
-  to secure sponsorships, host and plan events
-  ([like Gamefest](https://web.archive.org/web/20190511140843/https://gamefest.gg/)),
-  and organize resources for competitive teams.
-
-  ## Past projects <Button href="/projects" text="View All" style={{ fontSize: "1.05rem", marginLeft: gap.nano, verticalAlign: "2px" }} />
-
-{/* End Content wrapper component so that project carousel
-can fully bleed to both sides of the page: */}
-</ContentWrapper>
-<ProjectCarousel />
+    {/* Include the heading for the project carousel inside the Content,
+    but include the carousel component outside (so it can be in its own
+    CSS grid section and fully bleed to both sides of the page) */}
+    ## Past projects <Button href="/projects" text="View All" style={{ fontSize: "1.05rem", marginLeft: gap.nano, verticalAlign: "2px" }} />
+  </HomepageLayout.Content>
+  <HomepageLayout.ProjectCarousel />
+</HomepageLayout>

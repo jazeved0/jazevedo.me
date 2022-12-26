@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref,color}
+\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\hypersetup{colorlinks,breaklinks,urlcolor=linkcolour, linkcolor=linkcolour}
+
+\title{Resume Placeholder}
+% HACK: remove space for author/date:
+% https://tex.stackexchange.com/a/2808
+\author{\vspace{-9ex}}
+\date{\vspace{-9ex}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{plain}
+
+This repository does not contain the compiled resume (instead, it contains the \LaTeX\ source code).
+See \href{https://jazevedo.me/resume}{the live site for a copy of the compiled resume}.
+
+\section{Links}
+\begin{itemize}
+    \item \href{https://github.com/jazeved0/jazevedo.me/tree/main/src/resume/main.tex}{source code (GitHub)}
+    \item \href{./source}{source code mirror}
+    \item \href{https://github.com/jazeved0/jazevedo.me/tree/main/.github/workflows/deploy.yaml}{GitHub Action that compiles resume during deployment}
+\end{itemize}
+
+\end{document}

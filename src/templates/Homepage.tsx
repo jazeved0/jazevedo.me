@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
 import { graphql, useStaticQuery } from "gatsby";
-import { StaticImage } from "gatsby-plugin-image";
+import type { StaticImage } from "gatsby-plugin-image";
 import styled from "@emotion/styled";
 
 import HeroBackground from "../components/HeroBackground";
@@ -149,7 +149,7 @@ const Styled = {
   `,
 };
 
-// Must stay synchronized with below pageQuery
+// Must stay synchronized with below static query
 type StaticQueryResult = {
   topProjects: {
     projectFiles: Array<{
@@ -182,60 +182,105 @@ function useData(): StaticQueryResult {
   );
 }
 
-export type HomepageMdxLayoutProps = {
-  name: React.ReactNode;
-  headline: React.ReactNode;
-  subHeadline: React.ReactNode;
-  email: React.ReactNode;
+export type HomepageLayoutProps = {
   children?: React.ReactNode;
 };
 
 /**
  * MDX Layout component for the /src/pages/index.mdx page.
+ *
+ * This uses a CSS Grid to lay out its 4 sub-components:
+ *
+ * - `<HomepageLayout.ProfilePicture>` - the large profile picture
+ * - `<HomepageLayout.Name>` the 'name' section, including the heading/
+ *   sub-heading and email
+ * - `<HomepageLayout.Content>` - the main content (containing an "About"
+ *   section). This also should contain the heading, if any, for the project
+ *   carousel, since it aligns the heading with the left of the initial scroll
+ *   of the carousel (which is actually a full-bleed horizontal scroll
+ *   container).
+ * - `<HomepageLayout.ProjectCarousel>` - a horizontally-scrolling project
+ *   carousel
  */
-export default function HomepageMdxLayout({
-  name,
-  headline,
-  subHeadline,
-  email,
-  children,
-}: HomepageMdxLayoutProps): React.ReactElement {
+function HomepageLayout({ children }: HomepageLayoutProps): React.ReactElement {
   return (
     <Layout headerSpacing="sparse" style={{ overflowX: "hidden" }}>
       <HeroBackground />
       <Styled.PageLayout>
-        <Styled.ProfileWrapper>
-          <StaticImage
-            src="../../static/img/profile.jpg"
-            alt=""
-            layout="constrained"
-            width={256}
-            quality={90}
-            placeholder="blurred"
-          />
-        </Styled.ProfileWrapper>
-        <Styled.NameWrapper>
-          <Styled.Name>{name}</Styled.Name>
-          <Styled.Headline>{headline}</Styled.Headline>
-          <Styled.SubHeadline>{subHeadline}</Styled.SubHeadline>
-          <Styled.EmailSpoilerHeading>
-            <Icon name="envelope" style={{ marginRight: gap.nano }} />
-            <EmailSpoiler email={email} />
-          </Styled.EmailSpoilerHeading>
-        </Styled.NameWrapper>
         <Mdx>{children}</Mdx>
       </Styled.PageLayout>
     </Layout>
   );
 }
 
-// ? -----------------
-// ? Helper Components
-// ? -----------------
+// Set up and export the aggregate (parent & sub-components):
+type HomepageLayoutAggregate = typeof HomepageLayout & {
+  ProfilePicture: typeof ProfilePicture;
+  Name: typeof Name;
+  Content: typeof Styled.ContentWrapper;
+  ProjectCarousel: typeof ProjectCarousel;
+};
+const HomepageLayoutAggregate: HomepageLayoutAggregate =
+  HomepageLayout as HomepageLayoutAggregate;
+HomepageLayoutAggregate.ProfilePicture = ProfilePicture;
+HomepageLayoutAggregate.Name = Name;
+HomepageLayoutAggregate.Content = Styled.ContentWrapper;
+HomepageLayoutAggregate.ProjectCarousel = ProjectCarousel;
+export default HomepageLayoutAggregate;
 
-export const ContentWrapper = Styled.ContentWrapper;
+// ? --------------
+// ? Sub Components
+// ? --------------
 
-export function ProjectCarousel(): React.ReactElement {
+export type ProfilePictureProps = {
+  renderImage: (
+    props: Omit<React.ComponentProps<typeof StaticImage>, "src">
+  ) => React.ReactElement;
+};
+
+function ProfilePicture({
+  renderImage,
+}: ProfilePictureProps): React.ReactElement {
+  return (
+    <Styled.ProfileWrapper>
+      {renderImage({
+        alt: "",
+        layout: "constrained",
+        width: 256,
+        quality: 90,
+        placeholder: "blurred",
+      })}
+    </Styled.ProfileWrapper>
+  );
+}
+
+export type NameProps = {
+  name: React.ReactNode;
+  headline: React.ReactNode;
+  subHeadline: React.ReactNode;
+  email: React.ReactNode;
+};
+
+function Name({
+  name,
+  headline,
+  subHeadline,
+  email,
+}: NameProps): React.ReactElement {
+  return (
+    <Styled.NameWrapper>
+      <Styled.Name>{name}</Styled.Name>
+      <Styled.Headline>{headline}</Styled.Headline>
+      <Styled.SubHeadline>{subHeadline}</Styled.SubHeadline>
+      <Styled.EmailSpoilerHeading>
+        <Icon name="envelope" style={{ marginRight: gap.nano }} />
+        <EmailSpoiler email={email} />
+      </Styled.EmailSpoilerHeading>
+    </Styled.NameWrapper>
+  );
+}
+
+function ProjectCarousel(): React.ReactElement {
   const data = useData();
   const projects = data.topProjects.projectFiles.map(
     ({ childMdx }) => childMdx
