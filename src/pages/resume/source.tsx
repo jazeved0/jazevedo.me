@@ -52,7 +52,7 @@ export const pageQuery = graphql`
   query {
     file(
       name: { eq: "resume" }
-      extension: { eq: "md" }
+      extension: { eq: "mdx" }
       sourceInstanceName: { eq: "data" }
     ) {
       childMdx {
@@ -68,6 +68,8 @@ export const pageQuery = graphql`
 
 export type ResumePageProps = PageProps<PageQueryResult>;
 
+// TODO give this page some TLC (as far as styling goes),
+// and figure out how to get the source code onto this page.
 export default function ResumePage({
   data,
 }: ResumePageProps): React.ReactElement {
@@ -83,7 +85,7 @@ export default function ResumePage({
           <Button href={overleaf} icon="overleaf" text="View on Overleaf" />
         </Styled.ButtonBar>
         <div style={{ height: gap.milli }} />
-        <Mdx content={body} />
+        TODO
       </Styled.SourceContent>
     </Layout>
   );

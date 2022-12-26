@@ -86,7 +86,7 @@ export const pageQuery = graphql`
   query {
     file(
       name: { eq: "resume" }
-      extension: { eq: "md" }
+      extension: { eq: "mdx" }
       sourceInstanceName: { eq: "data" }
     ) {
       childMdx {

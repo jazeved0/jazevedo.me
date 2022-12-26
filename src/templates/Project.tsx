@@ -122,7 +122,7 @@ export default function ProjectPageTemplate({
           />
         )}
         <Styled.ProjectContent>
-          <Mdx content={children} />
+          <Mdx>{children}</Mdx>
         </Styled.ProjectContent>
         <Styled.ProjectEndRule />
       </Styled.PageLayout>

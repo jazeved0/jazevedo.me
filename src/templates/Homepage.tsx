@@ -14,6 +14,7 @@ import { highlightLinks } from "../theme/mixins";
 import { down } from "../theme/media";
 import { ProjectCardFragment } from "../components/ProjectCard/types";
 import BaseProjectCarousel from "../components/ProjectCarousel";
+import Mdx from "../components/Mdx";
 
 const Styled = {
   PageLayout: styled.div`
@@ -222,7 +223,7 @@ export default function HomepageMdxLayout({
             <EmailSpoiler email={email} />
           </Styled.EmailSpoilerHeading>
         </Styled.NameWrapper>
-        {children}
+        <Mdx>{children}</Mdx>
       </Styled.PageLayout>
     </Layout>
   );

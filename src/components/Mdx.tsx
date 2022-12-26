@@ -20,7 +20,7 @@ export const overrides: MDXComponents = {
 };
 
 export type MdxProps = {
-  content: React.ReactNode;
+  children: React.ReactNode;
   components?: MDXComponents;
 };
 
@@ -28,12 +28,12 @@ export type MdxProps = {
  * MDX Renderer, including shortcodes used when writing MDX
  */
 export default function Mdx({
-  content,
+  children,
   components,
 }: MdxProps): React.ReactElement {
   const componentsMemo = useMemo<MDXComponents>(
     () => ({ ...shortcodes, ...overrides, ...components }),
     [components]
   );
-  return <MDXProvider components={componentsMemo}>{content}</MDXProvider>;
+  return <MDXProvider components={componentsMemo}>{children}</MDXProvider>;
 }
