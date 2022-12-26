@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 import { graphql } from "gatsby";
 
 import Layout from "../components/Layout";
 import { gap } from "../theme/spacing";
-import { container } from "../theme/layout";
 import { chromePdfBackground } from "../theme/color";
-import Button from "../components/Button";
+import Button, { buttonSizeStyles } from "../components/Button";
+import Meta from "../components/Meta";
+import { down, up } from "../theme/media";
 
 const Styled = {
   PageLayout: styled.div`
@@ -18,10 +20,22 @@ const Styled = {
   HeaderBar: styled.div`
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: ${gap.nano};
+
+    ${down("md")} {
+      padding-top: ${gap.femto};
+      gap: ${gap.pico};
+    }
   `,
   HeaderPageTitle: styled.h1`
-    margin-right: ${gap.micro};
+    font-size: 1.5rem;
+    align-self: center;
+
+    ${down("md")} {
+      font-size: 1.25rem;
+    }
   `,
   PdfWrapper: styled.div`
     background-color: ${chromePdfBackground};
@@ -29,13 +43,29 @@ const Styled = {
     height: 100%;
     position: relative;
   `,
-  ToolbarButtonBar: styled.div`
-    display: flex;
-    flex-direction: row;
-  `,
-  ToolbarButton: styled(Button)`
-    &:not(:last-child) {
-      margin-right: ${gap.nano};
+  HeaderBarButton: styled(Button)`
+    flex-shrink: 0;
+
+    ${down("md")} {
+      ${css(buttonSizeStyles["small"])}
+
+      /* Make the button icons larger */
+      & svg {
+        transform: scale(1.4);
+      }
+    }
+
+    /* Hide the text download button
+    and show the icon download button on medium screens. */
+    ${up("lg")} {
+      &.download-icon-button {
+        display: none;
+      }
+    }
+    ${down("lg")} {
+      &.download-text-button {
+        display: none;
+      }
     }
   `,
 };
@@ -83,19 +113,28 @@ export default function ResumePage({
       overrideHeaderLinks={
         <Styled.HeaderBar>
           <Styled.HeaderPageTitle>Resume</Styled.HeaderPageTitle>
-          <Styled.ToolbarButtonBar>
-            <Styled.ToolbarButton
-              href={pdf}
-              download
-              icon="download"
-              text="Download"
-            />
-            <Styled.ToolbarButton
-              href="/resume/source"
-              icon="file-code"
-              text="View source"
-            />
-          </Styled.ToolbarButtonBar>
+          {/* One of the following buttons will be hidden,
+            depending on the screen size: */}
+          <Styled.HeaderBarButton
+            href={pdf}
+            download
+            icon="download"
+            ariaLabel="Download"
+            className="download-icon-button"
+          />
+          <Styled.HeaderBarButton
+            href={pdf}
+            download
+            icon="download"
+            text="Download"
+            className="download-text-button"
+          />
+
+          <Styled.HeaderBarButton
+            href="/resume/source"
+            icon="file-code"
+            text="View source"
+          />
         </Styled.HeaderBar>
       }
     >

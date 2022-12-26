@@ -7,6 +7,7 @@ import { color } from "../theme/color";
 import { shadow } from "../theme/shadows";
 import LinkButton from "./LinkButton";
 import { LinkButtonProps } from "./LinkButton/LinkButton";
+import { CSSProperties } from "@emotion/serialize";
 
 const Styled = {
   Button: styled(LinkButton)`
@@ -54,8 +55,6 @@ const Styled = {
       }
     }
 
-    --x-padding: 15px;
-    --y-padding: 8px;
     padding-top: calc(var(--y-padding) - calc(var(--border-size) * 2));
     padding-bottom: calc(var(--y-padding) - calc(var(--border-size) * 2));
     padding-left: calc(var(--x-padding) - calc(var(--border-size) * 2));
@@ -111,8 +110,36 @@ const Styled = {
   `,
 };
 
+export type ButtonSize = "small" | "regular";
+
+/**
+ * Style to apply to a <Button> based on its size.
+ *
+ * This is applied automatically by <Button> based on the `size` prop.
+ * These are also exported so that they can be used by other components
+ * in advanced selectors.
+ */
+export const buttonSizeStyles: Record<
+  ButtonSize,
+  // Use `Record<string, CSSProperties[keyof CSSProperties]>` instead of
+  // `CSSProperties` because the latter doesn't allow for CSS custom variable
+  // properties (`--*`):
+  Record<string, CSSProperties[keyof CSSProperties]>
+> = {
+  small: {
+    "--x-padding": "10px",
+    "--y-padding": "6px",
+    fontSize: "0.75rem",
+  },
+  regular: {
+    "--x-padding": "15px",
+    "--y-padding": "8px",
+  },
+};
+
 export type ButtonProps = LinkButtonProps & {
   variant?: "solid" | "hollow" | null;
+  size?: "small" | "regular";
 };
 
 /**
@@ -122,6 +149,7 @@ export default function Button({
   variant,
   className,
   children,
+  style,
   ...rest
 }: ButtonProps): React.ReactElement {
   // Manually wrap any text nodes with a <span> element
@@ -137,6 +165,10 @@ export default function Button({
   return (
     <Styled.Button
       className={classNames(className, `variant-${variant ?? "solid"}`)}
+      style={{
+        ...buttonSizeStyles[rest.size ?? "regular"],
+        ...style,
+      }}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
     >
