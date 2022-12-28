@@ -5,18 +5,22 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     name: Build & Deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - name: Install
-        run: yarn install --frozen-lockfile
+        run: npm ci --legacy-peer-deps
 
       - name: Build
-        run: yarn build
+        run: npm run build
 
       - name: Compile resume
         uses: xu-cheng/latex-action@v2
@@ -24,14 +28,16 @@ jobs:
           root_file: |
             ./src/resume/main.tex
           latexmk_use_xelatex: true
-          extra_fonts: |
-            ./src/resume/*.otf
 
-      # The final path here should be synchronized with /content/data/resume.mdx
+      # The paths here must remain synchronized with the paths in
+      # content/data/resume.yaml:
       - name: Move resume PDF into /public
         run: |
           mkdir -p ./public/resume
           mv ./main.pdf ./public/resume/azevedo-joseph.pdf
+      - name: Copy resume source into /public
+        run: |
+          cp ./src/resume/main.tex ./public/resume/main.tex
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3

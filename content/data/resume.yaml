@@ -1,0 +1,19 @@
+# Output path of the PDF on the website.
+# This path is used as the target for the PDF embed on the /resume page.
+# In development, there is a placeholder file already existing at
+# /static/resume/azevedo-joseph.pdf.
+# In production, the resume is compiled from source and placed in this location
+# (see /.github/workflows/deploy.yaml).
+pdf: /resume/azevedo-joseph.pdf
+
+# Output path of the source on the website.
+# This path is used to make the "Edit on Overleaf" functionality work, when
+# used in a special link: https://www.overleaf.com/devs
+# In development, this file does not exist on the website (it only exists in
+# the source code at /src/resume/main.tex).
+# In production, this file is copied into the 'public' folder during deployment
+# (see /.github/workflows/deploy.yaml).
+hostedSource: /resume/main.tex
+
+# Path to file on GitHub
+github: https://github.com/jazeved0/jazevedo.me/tree/main/src/resume/main.tex

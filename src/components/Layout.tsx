@@ -21,12 +21,11 @@ const Styled = {
 };
 
 export type LayoutProps = {
-  headerSpacing?: "compact" | "sparse";
+  headerProps?: React.ComponentProps<typeof Header>;
   children: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
   hideFooter?: boolean;
-  overrideHeaderLinks?: React.ReactNode;
 };
 
 /**
@@ -34,18 +33,17 @@ export type LayoutProps = {
  * rendering context providers and the header/footer (if applicable)
  */
 export default function Layout({
-  headerSpacing,
+  headerProps = {},
   children,
   className,
   style,
   hideFooter = false,
-  overrideHeaderLinks,
 }: LayoutProps): React.ReactElement {
   return (
     <ColorModeProvider>
       <Styled.Layout>
         <GlobalCss />
-        <Header spacing={headerSpacing} overrideLinks={overrideHeaderLinks} />
+        <Header {...headerProps} />
         <div style={{ flexGrow: 1, ...style }} className={className}>
           {children}
         </div>

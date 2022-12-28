@@ -70,7 +70,7 @@ export default function ProjectsPage({
 }: ProjectsPageProps): React.ReactElement {
   const projects = data.allFile.projectFiles.map(({ childMdx }) => childMdx);
   return (
-    <Layout headerSpacing="compact">
+    <Layout headerProps={{ spacing: "compact" }}>
       <Styled.Content>
         <Styled.Title>Past Projects</Styled.Title>
         <Styled.CardLayout>

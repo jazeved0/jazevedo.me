@@ -50,7 +50,7 @@ const Styled = {
 
 export default function NotFoundPage(): React.ReactElement {
   return (
-    <Layout headerSpacing="sparse">
+    <Layout headerProps={{ spacing: "sparse" }}>
       <HeroBackground />
       <Styled.PageLayout>
         <Styled.PageTitle>404</Styled.PageTitle>

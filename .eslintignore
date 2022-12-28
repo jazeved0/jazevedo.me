@@ -1,2 +1,5 @@
 public
-.cache
+.createSchemaCustomization
+
+# Generated files
+src/gatsby-types.d.ts

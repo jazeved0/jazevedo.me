@@ -1,11 +1,27 @@
+% This is the source code for the placeholder at /static/resume/azevedo-joseph.pdf.
+% The point is to be a placeholder so that the page at /resume is not empty in development.
+% It is replaced with the actual compiled resume during deployment:
+% See /.github/workflows/deploy.yaml
+%
+% To recompile this placeholder, the default Overleaf settings (pdfLaTeX & 2022 TeX Live) were used.
+% A CI workflow automatically verifies that the placeholder is up-to-date by visually comparing the PDFs
+% (see /.github/workflows/placeholder.yaml).
+
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref,color}
 \definecolor{linkcolour}{rgb}{0,0.2,0.6}
 \hypersetup{colorlinks,breaklinks,urlcolor=linkcolour, linkcolor=linkcolour}
+\usepackage{libertine}
+\usepackage{metalogo}
+\setlogokern{La}{-0.05em}
+\setlogokern{aT}{-0.05em}
+\setlogokern{Te}{-0.1em}
+\setlogokern{eX}{-0.04em}
+\setLaTeXa{\raisebox{5em}{\scshape a}}
 
-\title{Resume Placeholder}
+\title{\vspace{-7ex}Resume Placeholder}
 % HACK: remove space for author/date:
 % https://tex.stackexchange.com/a/2808
 \author{\vspace{-9ex}}
@@ -16,13 +32,14 @@
 \maketitle
 \thispagestyle{plain}
 
-This repository does not contain the compiled resume (instead, it contains the \LaTeX\ source code).
-See \href{https://jazevedo.me/resume}{the live site for a copy of the compiled resume}.
+\noindent
+This repository does not contain the compiled resume (instead, it contains the \LaTeX\ source code for the resume).
+See \href{https://jazevedo.me/resume}{the live site for a copy of the compiled resume}. Extra.
 
 \section{Links}
 \begin{itemize}
     \item \href{https://github.com/jazeved0/jazevedo.me/tree/main/src/resume/main.tex}{source code (GitHub)}
-    \item \href{./source}{source code mirror}
+    \item \href{https://github.com/jazeved0/jazevedo.me/tree/main/src/resume/placeholder.tex}{source code for this placeholder (GitHub)}
     \item \href{https://github.com/jazeved0/jazevedo.me/tree/main/.github/workflows/deploy.yaml}{GitHub Action that compiles resume during deployment}
 \end{itemize}
 

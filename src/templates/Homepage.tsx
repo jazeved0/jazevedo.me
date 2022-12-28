@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
 import { graphql, useStaticQuery } from "gatsby";
-import type { StaticImage } from "gatsby-plugin-image";
+import { StaticImage } from "gatsby-plugin-image";
 import styled from "@emotion/styled";
 
 import HeroBackground from "../components/HeroBackground";
@@ -204,7 +204,7 @@ export type HomepageLayoutProps = {
  */
 function HomepageLayout({ children }: HomepageLayoutProps): React.ReactElement {
   return (
-    <Layout headerSpacing="sparse" style={{ overflowX: "hidden" }}>
+    <Layout headerProps={{ spacing: "sparse" }} style={{ overflowX: "hidden" }}>
       <HeroBackground />
       <Styled.PageLayout>
         <Mdx>{children}</Mdx>
@@ -232,24 +232,17 @@ export default HomepageLayoutAggregate;
 // ? Sub Components
 // ? --------------
 
-export type ProfilePictureProps = {
-  renderImage: (
-    props: Omit<React.ComponentProps<typeof StaticImage>, "src">
-  ) => React.ReactElement;
-};
-
-function ProfilePicture({
-  renderImage,
-}: ProfilePictureProps): React.ReactElement {
+function ProfilePicture(): React.ReactElement {
   return (
     <Styled.ProfileWrapper>
-      {renderImage({
-        alt: "",
-        layout: "constrained",
-        width: 256,
-        quality: 90,
-        placeholder: "blurred",
-      })}
+      <StaticImage
+        src="../../static/img/profile.jpg"
+        alt=""
+        layout="constrained"
+        width={256}
+        quality={90}
+        placeholder="blurred"
+      />
     </Styled.ProfileWrapper>
   );
 }

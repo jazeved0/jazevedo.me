@@ -2,7 +2,6 @@ import HomepageLayout from "../templates/Homepage";
 import Meta from "../components/Meta";
 import Button from "../components/Button";
 import { gap } from "../theme/spacing";
-import { StaticImage } from "gatsby-plugin-image";
 
 {/* Gatsby Head component:
 https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/ */}
@@ -11,14 +10,11 @@ export function Head() {
 }
 
 <HomepageLayout>
-  <HomepageLayout.ProfilePicture
-    renderImage={props =>
-      <StaticImage src="../../static/img/profile.jpg" {...props} />}
-  />
+  <HomepageLayout.ProfilePicture />
   {/* The email gets displayed in a "spoiler"
   that only displays the email in the HTML on hover,
   in hopes of foiling email spam scrapers: */}
-  <HomepageLayout.Name 
+  <HomepageLayout.Name
     name="Joseph Azevedo"
     headline="Software engineer"
     subHeadline="Stripe"

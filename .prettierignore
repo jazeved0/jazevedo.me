@@ -1,6 +1,9 @@
 public
 .cache
 
+# Generated files
+src/gatsby-types.d.ts
+
 # Prettier does not yet (really) support formatting MDX v2:
 # - https://github.com/prettier/prettier/issues/12209
 # - https://github.com/orgs/mdx-js/discussions/2127
