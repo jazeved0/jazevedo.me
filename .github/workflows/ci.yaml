@@ -114,7 +114,7 @@ jobs:
         run: |
           mkdir -p ./artifacts
           cp ./placeholder.pdf ./artifacts/modified.pdf
-          cp ./src/resume/azevedo-joseph.pdf ./artifacts/original.pdf
+          cp ./static/resume/azevedo-joseph.pdf ./artifacts/original.pdf
         if: ${{ env.src_changed == 'true' }}
       - name: Add compiled PDF to artifacts
         uses: actions/upload-artifact@v3
@@ -133,7 +133,7 @@ jobs:
           sudo apt-get install -y poppler-utils
         if: env.src_changed == 'true'
       - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: "3.9"
         if: env.src_changed == 'true'
