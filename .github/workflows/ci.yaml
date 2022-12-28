@@ -138,8 +138,8 @@ jobs:
       - name: Compare PDFs
         run: |
           PIP_INSTALL_LOCATION=$(python -c 'import os,sysconfig;print(sysconfig.get_path("scripts",f"{os.name}_user"))')
-          $PIP_INSTALL_LOCATION/diff-pdf-visually -v ./placeholder.pdf ./static/resume/azevedo-joseph.pdf
-          if [ $? -eq 0 ]; then
+          $PIP_INSTALL_LOCATION/diff-pdf-visually -v ./placeholder.pdf ./static/resume/azevedo-joseph.pdf || exit_status=$?
+          if [ $exit_status -eq 0 ]; then
             echo "The placeholder resume PDF is up to date."
           else
             echo "The placeholder resume PDF is out of date. Please recompile the PDF from source (/src/resume/placeholder.tex)."
