@@ -110,12 +110,18 @@ jobs:
           root_file: |
             ./src/resume/placeholder.tex
         if: ${{ env.src_changed == 'true' }}
+      - name: Prepare artifacts
+        run: |
+          mkdir -p ./artifacts
+          cp ./placeholder.pdf ./artifacts/modified.pdf
+          cp ./src/resume/azevedo-joseph.pdf ./artifacts/original.pdf
+        if: ${{ env.src_changed == 'true' }}
       - name: Add compiled PDF to artifacts
         uses: actions/upload-artifact@v3
         with:
           name: placeholder-resume
           path: |
-            ./placeholder.pdf
+            ./artifacts
         # Skip when running locally in https://github.com/nektos/act:
         if: ${{ !env.ACT && env.src_changed == 'true' }}
 
