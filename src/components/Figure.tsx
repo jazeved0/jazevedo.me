@@ -91,6 +91,7 @@ export default function Figure({
   left = false,
   merged = false,
   className,
+  style,
 }: FigureProps): React.ReactElement {
   return (
     <Styled.Figure
@@ -99,6 +100,7 @@ export default function Figure({
         left,
         merged,
       })}
+      style={style}
     >
       {children}
       <figcaption>{caption}</figcaption>

@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
 import React, { useState } from "react";
-import { useMediaQuery } from "../hooks";
+import styled from "@emotion/styled";
 
+import { useMediaQuery } from "../hooks";
 import { highlight, strongHighlight } from "../theme/mixins";
 
 const Styled = {
@@ -74,7 +74,7 @@ export default function EmailSpoiler({
             Tap
           </span>{" "}
           to show email
-          <noscript> (this won't work without JavaScript)</noscript>
+          <noscript> (this won&apos;t work without JavaScript)</noscript>
         </Styled.SpoilerLabel>
       )}
       {mouseOver && <Styled.SpoilerText>{email}</Styled.SpoilerText>}

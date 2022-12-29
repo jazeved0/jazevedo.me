@@ -43,6 +43,7 @@ export default function Layout({
     <ColorModeProvider>
       <Styled.Layout>
         <GlobalCss />
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <Header {...headerProps} />
         <div style={{ flexGrow: 1, ...style }} className={className}>
           {children}

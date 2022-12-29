@@ -15,5 +15,7 @@ pdf: /resume/azevedo-joseph.pdf
 # (see /.github/workflows/deploy.yaml).
 hostedSource: /resume/main.tex
 
-# Path to file on GitHub
+# Path to file on GitHub.
+# This must stay synchronized with the URL in /static/resume/source.html,
+# which is a client-side redirect to the GitHub URL.
 github: https://github.com/jazeved0/jazevedo.me/tree/main/src/resume/main.tex

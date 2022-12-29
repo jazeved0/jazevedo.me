@@ -68,7 +68,7 @@ const Styled = {
     flex-shrink: 0;
 
     ${down("md")} {
-      ${css(buttonSizeStyles["small"])}
+      ${css(buttonSizeStyles.small)}
 
       /* Make the button icons larger */
       & svg {

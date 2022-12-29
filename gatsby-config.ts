@@ -1,11 +1,8 @@
 import type { GatsbyConfig } from "gatsby";
-// import type { PluginOptions as ManifestPluginOptions } from "gatsby-plugin-manifest";
 import type { PluginOptions as GoogleAnalyticsPluginOptions } from "gatsby-plugin-google-gtag";
 import type { PluginOptions as MdxPluginOptions } from "gatsby-plugin-mdx";
 import type { PluginOptions as ReactSvgPluginOptions } from "gatsby-plugin-react-svg";
 import type { FileSystemConfig } from "gatsby-source-filesystem";
-
-// import { backgroundColor, themeColor } from "./src/theme/color";
 
 const description = [
   "My name is Joseph, and I'm an aspiring software engineer and researcher living in Atlanta",
@@ -29,7 +26,6 @@ type GatsbyPlugin<P extends string, O> = {
 type PluginDefs =
   | GatsbyPlugin<"gatsby-plugin-mdx", MdxPluginOptions>
   | GatsbyPlugin<"gatsby-plugin-google-gtag", GoogleAnalyticsPluginOptions>
-  // | GatsbyPlugin<"gatsby-plugin-manifest", ManifestPluginOptions>
   | GatsbyPlugin<"gatsby-plugin-react-svg", ReactSvgPluginOptions>
   | FileSystemConfig
   | string;
@@ -57,36 +53,6 @@ const plugins: PluginDefs[] = [
       name: "pages",
     },
   },
-  // TODO figure out manifest plugin config
-  // {
-  //   resolve: `gatsby-plugin-manifest`,
-  //   options: {
-  //     name: "Personal Portfolio",
-  //     short_name: "Portfolio",
-  //     description: "Joseph Azevedo's personal portfolio",
-  //     start_url: "/",
-  //     background_color: backgroundColor,
-  //     theme_color: themeColor,
-  //     display: "standalone",
-  //     icons: [
-  //       {
-  //         src: "/img/meta/android-chrome-192x192.png",
-  //         sizes: "192x192",
-  //         type: "image/png",
-  //       },
-  //       {
-  //         src: "/img/meta/android-chrome-256x256.png",
-  //         sizes: "256x256",
-  //         type: "image/png",
-  //       },
-  //       {
-  //         src: "/img/meta/android-chrome-512x512.png",
-  //         sizes: "512x512",
-  //         type: "image/png",
-  //       },
-  //     ],
-  //   },
-  // },
   {
     resolve: "gatsby-plugin-google-gtag",
     options: {
@@ -105,9 +71,6 @@ const plugins: PluginDefs[] = [
             showCaptions: false,
           },
         },
-        // TODO get gatsby-remark-embed-snippet working
-        // (or find an alternative)
-        // "gatsby-remark-embed-snippet",
         {
           resolve: "gatsby-remark-responsive-iframe",
           options: {},

@@ -15,12 +15,12 @@ const nonDefaultModes = Object.values(ColorMode).filter(
   (m) => m !== defaultMode
 );
 
-export type ColorModeContext = {
+export type ColorModeContextType = {
   mode: ColorMode;
   setMode: (newMode: ColorMode) => void;
 };
 
-export const ColorModeContext = React.createContext<ColorModeContext>({
+export const ColorModeContext = React.createContext<ColorModeContextType>({
   mode: defaultMode,
   setMode: () => null,
 });

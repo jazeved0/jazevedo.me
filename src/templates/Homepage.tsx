@@ -214,14 +214,14 @@ function HomepageLayout({ children }: HomepageLayoutProps): React.ReactElement {
 }
 
 // Set up and export the aggregate (parent & sub-components):
-type HomepageLayoutAggregate = typeof HomepageLayout & {
+type HomepageLayoutAggregateType = typeof HomepageLayout & {
   ProfilePicture: typeof ProfilePicture;
   Name: typeof Name;
   Content: typeof Styled.ContentWrapper;
   ProjectCarousel: typeof ProjectCarousel;
 };
-const HomepageLayoutAggregate: HomepageLayoutAggregate =
-  HomepageLayout as HomepageLayoutAggregate;
+const HomepageLayoutAggregate: HomepageLayoutAggregateType =
+  HomepageLayout as HomepageLayoutAggregateType;
 HomepageLayoutAggregate.ProfilePicture = ProfilePicture;
 HomepageLayoutAggregate.Name = Name;
 HomepageLayoutAggregate.Content = Styled.ContentWrapper;

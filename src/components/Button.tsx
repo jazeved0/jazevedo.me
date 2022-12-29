@@ -7,7 +7,6 @@ import { color } from "../theme/color";
 import { shadow } from "../theme/shadows";
 import LinkButton from "./LinkButton";
 import { LinkButtonProps } from "./LinkButton/LinkButton";
-import { CSSProperties } from "@emotion/serialize";
 
 const Styled = {
   Button: styled(LinkButton)`
@@ -124,7 +123,7 @@ export const buttonSizeStyles: Record<
   // Use `Record<string, CSSProperties[keyof CSSProperties]>` instead of
   // `CSSProperties` because the latter doesn't allow for CSS custom variable
   // properties (`--*`):
-  Record<string, CSSProperties[keyof CSSProperties]>
+  Record<string, React.CSSProperties[keyof React.CSSProperties]>
 > = {
   small: {
     "--x-padding": "10px",

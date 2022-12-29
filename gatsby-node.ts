@@ -36,11 +36,8 @@ import {
 
 // Define custom graphql schema to enforce rigid type structures
 export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] =
-  ({ actions, reporter }) => {
-    const activity = reporter.activityTimer("creating custom graphql schema");
-    activity.start();
+  ({ actions }) => {
     createGraphQLTypes(actions);
-    activity.end();
   };
 
 // Create resolvers on project MDX nodes
