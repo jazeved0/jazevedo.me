@@ -108,6 +108,8 @@ export const heroGradientColors = {
 /**
  * Bootstrap-like variant, using colors injected from the theme.
  * See https://getbootstrap.com/docs/4.0/content/tables/#contextual-classes
+ *
+ * Currently `never`, more can be added later.
  */
 export type Variant = never;
 
