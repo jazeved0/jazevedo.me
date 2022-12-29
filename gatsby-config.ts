@@ -3,6 +3,7 @@ import type { PluginOptions as GoogleAnalyticsPluginOptions } from "gatsby-plugi
 import type { PluginOptions as MdxPluginOptions } from "gatsby-plugin-mdx";
 import type { PluginOptions as ReactSvgPluginOptions } from "gatsby-plugin-react-svg";
 import type { FileSystemConfig } from "gatsby-source-filesystem";
+import RemarkGFM from "remark-gfm";
 
 const description = [
   "My name is Joseph, and I'm an aspiring software engineer and researcher living in Atlanta",
@@ -63,6 +64,12 @@ const plugins: PluginDefs[] = [
     resolve: "gatsby-plugin-mdx",
     options: {
       extensions: [".mdx"],
+      mdxOptions: {
+        remarkPlugins: [
+          // Add support for GitHub-flavored Markdown (GFM), including tables
+          RemarkGFM,
+        ],
+      },
       gatsbyRemarkPlugins: [
         {
           resolve: "gatsby-remark-images",
