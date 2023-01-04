@@ -168,7 +168,8 @@ jobs:
         with:
           filters: |
             src:
-              - 'content/risk-game/local/demo/vue-embed/**'
+              - 'content/projects/risk-game/local/demo/vue-embed/**'
+              - 'content/projects/risk-game/demo/**'
         # Skip when running locally in https://github.com/nektos/act:
         if: ${{ !env.ACT }}
       - name: Assign filter result to variable
@@ -191,11 +192,11 @@ jobs:
 
       - name: Install
         run: npm ci --legacy-peer-deps
-        working-directory: ./content/risk-game/local/demo/vue-embed
+        working-directory: ./content/projects/risk-game/local/demo/vue-embed
         if: ${{ env.src_changed == 'true' }}
 
       - name: Build
-        run: content/risk-game/local/demo/build-embed.sh
+        run: content/projects/risk-game/local/demo/build-embed.sh
         if: ${{ env.src_changed == 'true' }}
 
       - name: Add compiled files to artifacts
@@ -203,7 +204,7 @@ jobs:
         with:
           name: risk-game-demo
           path: |
-            ./content/risk-game/demo
+            ./content/projects/risk-game/demo
         # Skip when running locally in https://github.com/nektos/act:
         if: ${{ !env.ACT && env.src_changed == 'true' }}
 
@@ -215,7 +216,7 @@ jobs:
         with:
           filters: |
             compiled:
-              - 'content/risk-game/demo/**'
+              - 'content/projects/risk-game/demo/**'
         # Skip when running locally in https://github.com/nektos/act:
         if: ${{ !env.ACT && env.src_changed == 'true' }}
       - name: Assign filter result to variable
