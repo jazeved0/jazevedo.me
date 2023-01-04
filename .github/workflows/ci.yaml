@@ -75,7 +75,7 @@ jobs:
 
   # Uses "paths-filter" to only run the job when the resume source changes:
   # https://github.com/dorny/paths-filter
-  ci-check-placeholder:
+  ci-check-resume-placeholder:
     name: Placeholder check
     runs-on: ubuntu-22.04
     steps:
@@ -152,3 +152,85 @@ jobs:
             echo "The placeholder resume PDF is out of date. Please recompile the PDF from source (/src/resume/placeholder.tex)."
             exit 1
           fi
+
+  # Uses "paths-filter" to only run the job when the risk-game demo source changes:
+  # https://github.com/dorny/paths-filter
+  ci-check-risk-game-demo:
+    name: Risk game demo check
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Check to see if source changed
+        uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            src:
+              - 'content/risk-game/local/demo/vue-embed/**'
+        # Skip when running locally in https://github.com/nektos/act:
+        if: ${{ !env.ACT }}
+      - name: Assign filter result to variable
+        run: |
+          # If running locally in act, consider the source to have changed:
+          if [ -n "${{ env.ACT }}" ]; then
+            echo "src_changed=true" >> $GITHUB_ENV
+          else
+            echo "src_changed=${{ steps.filter.outputs.src }}" >> $GITHUB_ENV
+          fi
+
+      # Every step after this will only run if the source changed, by including
+      # the following condition:
+      # if: ${{ env.src_changed == 'true' }}
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+        if: ${{ env.src_changed == 'true' }}
+
+      - name: Install
+        run: npm ci --legacy-peer-deps
+        working-directory: ./content/risk-game/local/demo/vue-embed
+        if: ${{ env.src_changed == 'true' }}
+
+      - name: Build
+        run: content/risk-game/local/demo/build-embed.sh
+        if: ${{ env.src_changed == 'true' }}
+
+      - name: Add compiled files to artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: risk-game-demo
+          path: |
+            ./content/risk-game/demo
+        # Skip when running locally in https://github.com/nektos/act:
+        if: ${{ !env.ACT && env.src_changed == 'true' }}
+
+      # Compare the compiled files with the ones in the repository using:
+      # https://github.com/dorny/paths-filter:
+      - name: Check to see if compiled files changed
+        uses: dorny/paths-filter@v2
+        id: check-changed
+        with:
+          filters: |
+            compiled:
+              - 'content/risk-game/demo/**'
+        # Skip when running locally in https://github.com/nektos/act:
+        if: ${{ !env.ACT && env.src_changed == 'true' }}
+      - name: Assign filter result to variable
+        run: |
+          # If running locally in act, then there's nothing to compare against:
+          if [ -n "${{ env.ACT }}" ]; then
+            echo "compiled_changed=false" >> $GITHUB_ENV
+          else
+            echo "compiled_changed=${{ steps.check-changed.outputs.compiled }}" >> $GITHUB_ENV
+          fi
+        if: ${{ env.src_changed == 'true' }}
+      - name: Fail if compiled files changed
+        run: |
+          if [ "${{ env.compiled_changed }}" == "true" ]; then
+            echo "The compiled files are out of date. Please recompile the files from source."
+            exit 1
+          fi
+        if: ${{ env.src_changed == 'true' }}
