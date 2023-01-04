@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { alphaBlended, colorLuminance, colorSaturation, exists } from './util'
+import { alphaBlended, colorLuminance, colorSaturation, exists } from '../util'
 import Konva from 'konva'
 
 export default {

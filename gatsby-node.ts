@@ -1,5 +1,4 @@
 import type { GatsbyNode } from "gatsby";
-// import VueLoaderPlugin from "vue-loader/lib/plugin";
 
 import { createGraphQLTypes } from "./src/build/graphql-types";
 import { createProjectPages } from "./src/build/create-project-pages";
@@ -8,31 +7,6 @@ import {
   onFileCreated,
   postCopyProjectFiles,
 } from "./src/build/copy-project-files";
-
-// TODO: redo Vue integration (probably to use an iframe?)
-// export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
-//   actions,
-// }) => {
-//   actions.setWebpackConfig({
-//     // Add .vue to list of resolved extensions
-//     resolve: {
-//       extensions: [".vue"],
-//     },
-//     // Vue in React support
-//     // Note: this includes the Vue runtime in each page,
-//     // but it should be pretty much idle on most of them.
-//     // TODO: remove Vue on most pages.
-//     module: {
-//       rules: [
-//         {
-//           test: /\.vue$/,
-//           loader: "vue-loader",
-//         },
-//       ],
-//     },
-//     plugins: [new VueLoaderPlugin()],
-//   });
-// };
 
 // Define custom graphql schema to enforce rigid type structures
 export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] =

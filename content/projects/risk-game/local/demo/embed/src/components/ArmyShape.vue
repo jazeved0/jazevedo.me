@@ -231,12 +231,12 @@ export default {
 
             // foreground text
             context.fillStyle = textFill
-            context.font = 'bold 15px Roboto'
+            context.font = 'bold 14px sans-serif'
             context.shadowBlur = 6
             context.shadowOpacity = 0.4
             context.textBaseline = 'middle'
             context.textAlign = 'center'
-            context.fillText(size, 0, 2)
+            context.fillText(size, 0, 1)
           }
         },
       }

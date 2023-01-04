@@ -42,9 +42,8 @@
 </template>
 
 <script>
-import { clamp, distance, exists, logError } from './util'
-import { log } from '../index'
-import dataFile from './data'
+import { clamp, distance, exists, log, logError } from '../util'
+import dataFile from '../assets/data'
 
 // Components
 import ArmyShape from './ArmyShape'
@@ -154,14 +153,14 @@ export default {
       if (exists(this.initialScale)) {
         // use passed in initial scale
         k = this.initialScale
-        log(`Using non-default scale ${k.toFixed(2)}`, 'Vue')
+        log(`Using non-default scale ${k.toFixed(2)}`, 'GameCanvas')
       } else {
         // make initial map take up 3/4 of smaller dimension
         const margin = Math.min(totalW, totalH) / 8
         const kw = (totalW - 2 * margin) / size.a
         const kh = (totalH - 2 * margin) / size.b
         k = Math.min(kw, kh)
-        log(`Calculating default fit scale ${k.toFixed(2)}`, 'Vue')
+        log(`Calculating default fit scale ${k.toFixed(2)}`, 'GameCanvas')
       }
       return {
         x: (totalW - size.a * k) / 2,
@@ -239,9 +238,9 @@ export default {
     handleCastleIconLoad() {
       if (exists(this.$refs) && exists(this.$refs.castleLayer)) {
         this.$refs.castleLayer.getStage().batchDraw()
-        log('Calling batch draw on castle layer', 'Vue', 'GameCanvas')
+        log('Calling batch draw on castle layer', 'GameCanvas')
       } else {
-        logError('StageWrapper not found. Skipping icon-driven redraw')
+        logError('StageWrapper not found. Skipping icon-driven redraw', 'GameCanvas')
       }
     },
 
@@ -440,7 +439,7 @@ export default {
       }
       log(
         `Loaded stage dimensions from globals: { w: ${dims.w}, h: ${dims.h} }`,
-        'Vue'
+        'GameCanvas'
       )
       const stage = this.stageObj
       const initialTransform = this.calculateInitialTransform()

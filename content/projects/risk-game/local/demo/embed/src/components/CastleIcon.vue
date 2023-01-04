@@ -3,17 +3,17 @@
 </template>
 
 <script>
-import { log } from '../index'
+import { log } from '../util'
 
 const image = document.createElement('img')
 const imgWidth = 28
 const imgHeight = 28
 const imageOnLoadCallbacks = new Set()
 image.onload = () => {
-  log('Image loaded, forcing redraw', 'Vue', 'CastleIcon')
+  log('Image loaded, forcing redraw', 'CastleIcon')
   imageOnLoadCallbacks.forEach(callback => callback())
 }
-image.src = '/projects/risk-game/demo_castle.png'
+image.src = './static/castle.png'
 
 const layerRefWrapper = {
   layerRef: null,

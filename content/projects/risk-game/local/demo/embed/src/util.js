@@ -171,8 +171,17 @@ export const specialSeqToArray = (string) => {
 export const exists = (object) =>
   !(typeof object === "undefined" || object === null);
 
-import { log } from "../index";
-export const logError = (message) => log(message, "Vue", "Error");
+export const log = (message, subsystem) => {
+  if (exists(window.console)) {
+    window.console.log(`[${subsystem}] ${message}`);
+  }
+};
+
+export const logError = (message, subsystem) => {
+  if (exists(window.console)) {
+    window.console.error(`[${subsystem}] ${message}`);
+  }
+};
 
 export const debounce = (fn, delay) => {
   var timer = null;

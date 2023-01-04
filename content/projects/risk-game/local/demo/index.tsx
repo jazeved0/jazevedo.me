@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 import Figure from "../../../../../src/components/Figure";
 import { color, riskOceanColor } from "../../../../../src/theme/color";
-import { VueInteropProps } from "./vue-interop";
+import type { VueInteropProps } from "./vue-interop";
 
 const Styled = {
   Figure: styled(Figure)`
