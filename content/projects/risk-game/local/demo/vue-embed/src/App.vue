@@ -47,6 +47,8 @@ html,
 body {
   height: 100%;
   overflow: hidden;
+  /* Same color as canvas background: */
+  background-color: #1d2951;
 }
 
 #canvas-container {

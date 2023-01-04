@@ -1,5 +1,7 @@
-# Mark Risk demo files as vendored because they come from another repo
-content/projects/risk-game/local/demo/vue/** linguist-vendored=true
+# Mark Risk demo source files as vendored because they come from another repo
+content/projects/risk-game/local/demo/vue-embed/** linguist-vendored=true
+# Mark Risk demo build files as generated
+content/projects/risk-game/demo/** linguist-generated=true
 
 # Mark college explorer source files as vendored because they come from another repo
 content/projects/college-explorer/**/*.css linguist-vendored=true

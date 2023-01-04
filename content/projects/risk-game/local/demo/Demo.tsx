@@ -1,9 +1,8 @@
-import React, { Suspense } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 
 import Figure from "../../../../../src/components/Figure";
 import { color, riskOceanColor } from "../../../../../src/theme/color";
-import type { VueInteropProps } from "./vue-interop";
 
 const Styled = {
   Figure: styled(Figure)`
@@ -17,46 +16,34 @@ const Styled = {
     width: 100%;
     margin-bottom: 0;
     box-shadow: 0 0 12px 4px ${color("shadowMedium")};
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
   `,
-  App: styled.div`
+  Embed: styled.iframe`
     position: relative;
     width: 100%;
     min-height: 100%;
     min-width: 100%;
+    background-color: ${riskOceanColor};
+    border: none;
+  `,
+  Fallback: styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
 
-    @keyframes fadein {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
-    .stage-wrapper {
-      /* Include background color in generated components to allow preview
-      image to display until then */
-      background-color: ${riskOceanColor};
-      animation: fadein $fade-in-duration;
-
-      &,
-      .stage {
-        @extend %base-sizing;
-        overflow: hidden;
-        height: 100%;
-      }
+    /* Fade the fallback out once the iframe is loaded */
+    &[data-loaded="true"] {
+      opacity: 0;
     }
   `,
 };
-
-function preloadImage(url: string): HTMLImageElement {
-  const img = new Image();
-  img.src = url;
-  return img;
-}
 
 type ImageData = { previewBase64: string };
 
@@ -69,102 +56,60 @@ function getImageData(): ImageData {
   };
 }
 
-const preloads = ["/projects/risk-game/demo_castle.png"];
-const prefix = "Risk Demo";
-const logBase = (message: string, prefixes: string[]): void =>
-  // eslint-disable-next-line no-console
-  console.log(prefixes.map((p) => `[${p}] `).join("") + message);
-export const log = (message: string, ...prefixes: string[]): void =>
-  logBase(message, [prefix, ...prefixes]);
-
 export type DemoProps = {
   label: string;
   height: number;
-  scale: number;
+  embedSrc: string;
   className?: string;
   style?: React.CSSProperties;
 };
 
-type DemoState = {
-  preloads: HTMLImageElement[];
-  VueInterop: React.ComponentType<VueInteropProps> | null;
-};
-
 /**
- * Contains the risk game canvas Vue component mounted in React,
- * using vuera as the compatability shim.
- * Additionally, handles preloading the castle image
- * and reloading the children once it has been fetched.
+ * Renders the risk game demo canvas as an iframe.
+ * The inner page is a Vue app that renders the game canvas.
  */
-export default class Demo extends React.Component<DemoProps, DemoState> {
-  constructor(props: DemoProps) {
-    super(props);
-    // "preloads" is "unused" in that it is only written to.
-    // However, this is used to prevent dropping the image elements
-    // as they are being used to load the data.
-    // eslint-disable-next-line react/no-unused-state
-    this.state = { preloads: [], VueInterop: null };
-    this.preload = this.preload.bind(this);
-  }
+export default function Demo({
+  label,
+  height,
+  embedSrc,
+  className,
+  style,
+}: DemoProps): React.ReactElement {
+  const { previewBase64 } = getImageData();
 
-  componentDidMount(): void {
-    // It's unclear why this is needed,
-    // but otherwise the app crashes when attempting to mount it.
-    setTimeout(() => {
-      const VueInterop = React.lazy(() => import("./vue-interop"));
-      this.setState({ VueInterop });
-    });
-  }
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (iframe == null) {
+      return;
+    }
 
-  preload = (): void => {
-    const preloadedImages = preloads.map((url) => preloadImage(url));
-    preloads.forEach((url) => log(`Preloaded image at ${url}`));
+    const onLoad = () => {
+      setIsLoaded(true);
+    };
 
-    this.setState({
-      // eslint-disable-next-line react/no-unused-state
-      preloads: preloadedImages,
-    });
-  };
+    iframe.addEventListener("load", onLoad);
+    return () => {
+      iframe.removeEventListener("load", onLoad);
+    };
+  }, [iframeRef]);
 
-  render(): React.ReactElement {
-    const { label, height, scale, className, style } = this.props;
-    const { previewBase64 } = getImageData();
-    const { VueInterop } = this.state;
-
-    const isSSR = typeof window === "undefined";
-    return (
-      <Styled.Figure
-        caption={label}
-        style={{ width: "100%", maxWidth: "none", ...style }}
-        className={className}
-      >
-        <Styled.Wrapper
+  return (
+    <Styled.Figure
+      caption={label}
+      style={{ width: "100%", maxWidth: "none", ...style }}
+      className={className}
+    >
+      <Styled.Wrapper style={{ height: `${height}px` }}>
+        <Styled.Embed src={embedSrc} ref={iframeRef} />
+        <Styled.Fallback
+          data-loaded={isLoaded}
           style={{
-            height: `${height}px`,
             backgroundImage: `url('data:image/png;base64,${previewBase64}')`,
           }}
-        >
-          {/* Load the Vue interop component using React.lazy
-            to prevent including the Vue code/compatability shim
-            in the main app bundle.
-            This still includes the Vue runtime,
-            but it especially helps with Konva,
-            which is ~43 KiB gzipped */}
-          {!isSSR && VueInterop != null && (
-            <Suspense fallback={<div />}>
-              <Styled.App id="app">
-                <VueInterop
-                  preload={this.preload}
-                  passthroughProps={{
-                    initialScale: scale,
-                    height,
-                  }}
-                />
-              </Styled.App>
-            </Suspense>
-          )}
-        </Styled.Wrapper>
-      </Styled.Figure>
-    );
-  }
+        />
+      </Styled.Wrapper>
+    </Styled.Figure>
+  );
 }
