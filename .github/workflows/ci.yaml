@@ -222,6 +222,8 @@ jobs:
 
       # Compare the compiled files with the ones in the repository using:
       # https://github.com/dorny/paths-filter:
+      # HACK: Ignore changes to the "demo/static/js/manifest.*.js.map" file,
+      #       since it seems to change between local development and CI.
       - name: Check to see if compiled files changed
         uses: dorny/paths-filter@v2
         id: check-changed
@@ -230,6 +232,8 @@ jobs:
           filters: |
             compiled:
               - 'content/projects/risk-game/demo/**'
+          # Output the files that changed as a JSON string:
+          list-files: json
         # Skip when running locally in https://github.com/nektos/act:
         if: ${{ !env.ACT && env.src_changed == 'true' }}
       - name: Assign filter result to variable
@@ -238,7 +242,23 @@ jobs:
           if [ -n "${{ env.ACT }}" ]; then
             echo "compiled_changed=false" >> $GITHUB_ENV
           else
-            echo "compiled_changed=${{ steps.check-changed.outputs.compiled }}" >> $GITHUB_ENV
+            # HACK: Ignore changes to the "demo/static/js/manifest.*.js.map" file,
+            #       using `jq` to check whether it was the only changed file.
+            hack_ignore_changes=0
+            changed_files_json="${{ steps.check-changed.outputs.compiled_files }}"
+            if [ "$(echo "$changed_files_json" | jq length)" == "1" ]; then
+              only_file_changed="$(echo "$changed_files_json" | jq -r '.[0]')"
+              if [[ "$only_file_changed" =~ content/projects/risk-game/demo/static/js/manifest\..*\.js\.map\$ ]]; then
+                hack_ignore_changes=1
+              fi
+            fi
+
+            if [ "$hack_ignore_changes" == "1" ]; then
+              echo "The only change was to the 'demo/static/js/manifest.*.js.map' file, which is ignored."
+              echo "compiled_changed=false" >> $GITHUB_ENV
+            else
+              echo "compiled_changed=${{ steps.check-changed.outputs.compiled }}" >> $GITHUB_ENV
+            fi
           fi
         if: ${{ env.src_changed == 'true' }}
       - name: Fail if compiled files changed
