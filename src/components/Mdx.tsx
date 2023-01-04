@@ -6,11 +6,13 @@ import Figure from "./Figure";
 import Icon from "./Icon";
 import LinkButton from "./LinkButton/LinkButton";
 import CodeBlock from "./CodeBlock";
+import Iframe from "./Iframe";
 
 // Shortcodes available to MDX content
 export const shortcodes: MDXComponents = {
   Figure,
   Icon,
+  Iframe,
 } as const;
 
 // React components that replace HTML components in the markdown

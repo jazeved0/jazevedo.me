@@ -236,8 +236,9 @@ const Styled = {
       }
     }
 
-    .gatsby-resp-iframe-wrapper {
+    .iframe-article-block {
       margin-top: ${gap.micro};
+      border-radius: var(--img-border-radius);
     }
   `,
 };

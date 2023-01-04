@@ -16,6 +16,9 @@ const Styled = {
     width: 100%;
     margin-bottom: 0;
     box-shadow: 0 0 12px 4px ${color("shadowMedium")};
+    overflow: hidden;
+    border-top-left-radius: var(--img-border-radius);
+    border-top-right-radius: var(--img-border-radius);
   `,
   Embed: styled.iframe`
     position: relative;

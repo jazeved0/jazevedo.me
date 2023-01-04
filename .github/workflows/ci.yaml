@@ -199,7 +199,7 @@ jobs:
           node-version: 18
         if: ${{ env.src_changed == 'true' }}
       - name: Install
-        run: npm ci --legacy-peer-deps
+        run: npm ci
         working-directory: ./content/projects/risk-game/local/demo/vue-embed
         if: ${{ env.src_changed == 'true' }}
       - name: Build
