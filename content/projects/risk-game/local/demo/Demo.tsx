@@ -79,18 +79,18 @@ export default function Demo({
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
+  useEffect((): void | (() => void) => {
     const iframe = iframeRef.current;
     if (iframe == null) {
       return;
     }
 
-    const onLoad = () => {
+    const onLoad = (): void => {
       setIsLoaded(true);
     };
 
     iframe.addEventListener("load", onLoad);
-    return () => {
+    return (): void => {
       iframe.removeEventListener("load", onLoad);
     };
   }, [iframeRef]);

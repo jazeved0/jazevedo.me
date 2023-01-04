@@ -23,13 +23,15 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
-        # Always run the linter, even if prettier failed
-        if: ${{ steps.install.outcome == 'success' }}
+        # Always run the linter:
+        # https://stackoverflow.com/a/58859404
+        if: success() || failure()
 
       - name: Run tsc
         run: npm run typecheck
-        # Always run the typechecker, even if prettier failed
-        if: ${{ steps.install.outcome == 'success' }}
+        # Always run the typechecker:
+        # https://stackoverflow.com/a/58859404
+        if: success() || failure()
 
   ci-build:
     name: Build
@@ -189,7 +191,6 @@ jobs:
 
       - name: Copy original before build
         run: |
-          mkdir -p /tmp/original-risk-game-demo
           cp -r ./content/projects/risk-game/demo /tmp/original-risk-game-demo
         if: ${{ env.src_changed == 'true' }}
       - name: Setup Node

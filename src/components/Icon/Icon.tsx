@@ -67,9 +67,10 @@ const prefixLookup = icons.reduce((map, icon) => {
   return map;
 }, new Map<IconName, IconPrefix>());
 
-const resolveClass = (name: IconName): [IconPrefix, IconName] => {
-  return [prefixLookup.get(name) ?? "fas", name];
-};
+const resolveClass = (name: IconName): [IconPrefix, IconName] => [
+  prefixLookup.get(name) ?? "fas",
+  name,
+];
 
 const Styled = {
   Wrapper: styled.span`

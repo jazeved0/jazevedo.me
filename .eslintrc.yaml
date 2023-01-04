@@ -1,12 +1,12 @@
 extends:
   - react-app
   - airbnb
-  # Enable eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
-  - plugin:prettier/recommended
-  - prettier
   - plugin:react-hooks/recommended
   - plugin:@typescript-eslint/recommended
   - plugin:@typescript-eslint/recommended-requiring-type-checking
+  # Enable eslint-config-prettier to disable ESLint rules
+  # that would conflict with prettier:
+  - prettier
 plugins:
   - "@typescript-eslint"
 
@@ -75,6 +75,8 @@ rules:
   "jsx-a11y/href-no-hash": off
   "@typescript-eslint/no-unused-vars": [warn]
   "@typescript-eslint/explicit-function-return-type": [error]
+  # This rule is useless with TypeScript:
+  consistent-return: off
 
   # Disable the normal `dot-notation` in favor of the one in `@typescript-eslint`.
   # From https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/dot-notation.md
