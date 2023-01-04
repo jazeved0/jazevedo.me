@@ -9,7 +9,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
@@ -37,7 +38,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
@@ -185,26 +187,35 @@ jobs:
       # the following condition:
       # if: ${{ env.src_changed == 'true' }}
 
-      - uses: actions/setup-node@v3
+      - name: Copy original before build
+        run: |
+          mkdir -p /tmp/original-risk-game-demo
+          cp -r ./content/projects/risk-game/demo /tmp/original-risk-game-demo
+        if: ${{ env.src_changed == 'true' }}
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 18
         if: ${{ env.src_changed == 'true' }}
-
       - name: Install
         run: npm ci --legacy-peer-deps
         working-directory: ./content/projects/risk-game/local/demo/vue-embed
         if: ${{ env.src_changed == 'true' }}
-
       - name: Build
         run: content/projects/risk-game/local/demo/build-embed.sh
         if: ${{ env.src_changed == 'true' }}
-
+      - name: Prepare artifacts
+        run: |
+          mkdir -p ./artifacts
+          cp -r ./content/projects/risk-game/demo ./artifacts/modified
+          cp -r /tmp/original-risk-game-demo ./artifacts/original
+        if: ${{ env.src_changed == 'true' }}
       - name: Add compiled files to artifacts
         uses: actions/upload-artifact@v3
         with:
           name: risk-game-demo
           path: |
-            ./content/projects/risk-game/demo
+            ./artifacts
         # Skip when running locally in https://github.com/nektos/act:
         if: ${{ !env.ACT && env.src_changed == 'true' }}
 
@@ -214,6 +225,7 @@ jobs:
         uses: dorny/paths-filter@v2
         id: check-changed
         with:
+          base: HEAD
           filters: |
             compiled:
               - 'content/projects/risk-game/demo/**'
