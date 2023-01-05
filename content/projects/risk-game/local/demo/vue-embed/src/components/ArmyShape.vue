@@ -16,7 +16,7 @@ export default {
       const color = this.color
       const radius = size < 5 ? 5 : size > 9 ? 12 : 10
       const bgOffset = 3
-      const bgFill = 'rgba(245, 243, 242, 0.55)'
+      const bgFill = 'rgba(245, 242, 242, 0.55)'
       const textFill = 'rgb(245, 242, 242)'
       const position = {
         a: this.x,
