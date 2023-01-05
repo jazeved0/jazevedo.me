@@ -244,11 +244,13 @@ jobs:
           else
             # HACK: Ignore changes to the "demo/static/js/manifest.*.js.map" file,
             #       using `jq` to check whether it was the only changed file.
+            changed_files_json='${{ steps.check-changed.outputs.compiled_files }}'
+            echo "The following files changed:"
+            echo "$changed_files_json" | jq -r '.[]'
             hack_ignore_changes=0
-            changed_files_json="${{ steps.check-changed.outputs.compiled_files }}"
             if [ "$(echo "$changed_files_json" | jq length)" == "1" ]; then
               only_file_changed="$(echo "$changed_files_json" | jq -r '.[0]')"
-              if [[ "$only_file_changed" =~ content/projects/risk-game/demo/static/js/manifest\..*\.js\.map\$ ]]; then
+              if [[ "$only_file_changed" =~ content/projects/risk-game/demo/static/js/manifest\..*\.js\.map$ ]]; then
                 hack_ignore_changes=1
               fi
             fi
