@@ -53,6 +53,9 @@ jobs:
         run: npm run build
         env:
           CI: "true"
+          # Used for the resume metadata fetching via the GitHub GraphQL API
+          # (needs to have `public_repo` (read-only) scope or equivalent):
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   ci-build-resume:
     name: Build resume
