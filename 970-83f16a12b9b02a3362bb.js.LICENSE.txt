@@ -1,4 +1,0 @@
-/*!
- * vue-konva v2.1.7 - https://github.com/konvajs/vue-konva#readme
- * MIT Licensed
- */

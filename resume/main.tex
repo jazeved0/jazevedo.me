@@ -1,0 +1,258 @@
+\documentclass[a4paper,11pt]{article}
+
+% Base packages
+\usepackage{array}
+\usepackage{xunicode,xltxtra,url,parskip}
+\RequirePackage{color,graphicx}
+% Page formatting
+\usepackage{fontawesome}
+\usepackage[big]{layaureo}
+
+% Set up LaTeX logo
+\usepackage{metalogo}
+\setlogokern{La}{-0.05em}
+\setlogokern{aT}{-0.05em}
+\setlogokern{Te}{-0.1em}
+\setlogokern{eX}{-0.04em}
+\setLaTeXa{\raisebox{5em}{\scshape a}}
+
+% Setup link colors
+\usepackage{hyperref}
+\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\hypersetup{colorlinks,breaklinks,urlcolor=linkcolour, linkcolor=linkcolour}
+
+% Use multirow package for vertically joined rows
+\usepackage{multirow}
+
+% Enable configuring spacing in Skills
+\usepackage{setspace}
+
+% Enable intelligent spacing for using in dots
+\usepackage{xspace}
+
+% Load font
+\usepackage{libertine}
+
+% Configure title format
+\usepackage{titlesec}
+\titleformat{\section}{\large\scshape\raggedright}{}{0em}{}[{\titlerule[0.4pt]}]
+\titlespacing{\section}{0pt}{0pt}{5pt}
+
+% Set up spacing variables
+\newdimen{\lcolwidth}
+\newdimen{\rcolwidth}
+\newdimen{\sectionvspace}
+\newdimen{\subsectionvspace}
+\newdimen{\pagevoffset}
+\newdimen{\pagehoffset}
+\newdimen{\hlinewidth}
+
+% Spacing variables
+% -----------------
+% Left/label column width:
+\setlength{\lcolwidth}{2.2cm}
+% Right/content column width (adjust as needed to fit content)
+\setlength{\rcolwidth}{16.29cm}
+% Amount of space between sections (can be negative)
+\setlength{\sectionvspace}{-2pt}
+% Amount of space between sub-sections (can be negative)
+\setlength{\subsectionvspace}{-3pt}
+% Nudge content to center it on page (might need tweaking after changing other settings):
+\setlength{\pagevoffset}{-0.45in}
+\setlength{\pagehoffset}{-0.675in}
+% Defines the width of the horizontal lines under section headers:
+\setlength{\hlinewidth}{7.55in}
+
+
+% Defines resume section environment
+\newenvironment{rsection}[1]
+  {
+    \section{#1}
+    \begin{tabular}{>{\raggedleft\arraybackslash}p{\lcolwidth}|p{\rcolwidth}}
+   } {
+    \\\multicolumn{2}{c}{} \\[-10pt]
+    \end{tabular}
+  }
+% defines resume subsection header
+\newcommand{\rheader}[2]{
+    \multirow[t]{2}{*}{
+        \begin{minipage}[t]{\dimexpr \lcolwidth - 0.1cm}
+            \begin{flushright}
+                \textsc{#1}
+            \end{flushright}
+        \end{minipage}
+    } & \textbf{#2}
+}
+% defines resume subsection subheader
+\newcommand{\rdesc}[1]{
+  \\[-2pt]&\small{\emph{#1}\vspace{1pt} }
+}
+% defines resume subsection line
+\newcommand{\rline}[1]{\\& #1}
+% defines resume subsection item
+\newcommand{\ritem}[2][ •\hspace{3pt}]{\\[-2pt]& \footnotesize{#1#2}}
+% defines resume subsubsection header
+\newcommand{\rsubheader}[2]{\\[1pt]& \footnotesize{\textbf{#1} \textit{#2}}\\[-12pt]}
+% defines resume subsubsection item
+\newcommand{\rsubitem}[1]{\ritem[\hspace{6pt}•\hspace{4pt}]{#1}}
+% Defines resume skills environment
+\newenvironment{rskills}[1][Skills]
+  {
+    % \setstretch{0.75}
+    \section{#1}
+    \begin{tabular}{>{\raggedleft\arraybackslash}p{\lcolwidth}p{\rcolwidth}}
+    } {
+    \end{tabular}
+  }
+% defines resume skills section line
+\newcommand{\rskill}[2]{\textsc{#1}:& \small #2 \\ & \\[-14pt]}
+% defines resume subsection gap
+\newcommand{\rskip}{\\\multicolumn{2}{c}{} \\[\subsectionvspace]}
+% dot with spaces on the sides as appropriate
+\newcommand{\rdot}{\xspace\hspace{0pt}•\hspace{3pt}\xspace}
+
+
+% Begin document
+\begin{document}
+
+% Set up margins/origin
+\hsize=\hlinewidth \vsize=11in
+\hoffset=\pagehoffset \voffset=\pagevoffset
+% Output page size
+\pdfpagewidth=8.5in
+\pdfpageheight=11in
+% Non-numbered pages
+\pagestyle{empty}
+
+% Meager attempt to slow down email spam scrapers
+\newcommand{\at}{@}
+\newcommand{\gmaildotcom}{gmail.com}
+
+% REPLACEME: use real phone number for print resumes/submitting for applications
+% \newcommand{\phoneandrdot}{\xspace(000) 000-0000\rdot\xspace}
+\newcommand{\phoneandrdot}{\xspace}
+
+% Title
+\begin{center}
+     \Huge       Joseph Azevedo
+  \\[2pt] \normalsize \href{mailto:jazevedo620\at\gmaildotcom}{jazevedo620\at\gmaildotcom}
+    \rdot US Citizen \rdot \phoneandrdot
+\href{https://github.com/jazeved0}{\faGithub\ jazeved0} \rdot
+    \href{https://jazevedo.me}{Website: jazevedo.me} \\[6pt]
+\end{center}
+% Spacing (\sectionvspace + adjustment):
+\vspace{\dimexpr \sectionvspace + 15pt}
+
+
+% Section: Education
+\begin{rsection}{Education}
+  \rheader{Jan 2022 -\\[-1pt] Dec 2022}{Georgia Institute of Technology,
+    {\normalfont Atlanta, GA \hfill\  GPA: 4.0/4.0\ }}
+  \rline{Master of Science, Computer Science}
+  \vspace{2pt}
+  \ritem[]{Concentration: Computing Systems}
+  \rskip
+  \rheader{Jun 2018 -\\[-1pt] Dec 2021}{Georgia Institute of Technology,
+    {\normalfont Atlanta, GA \hfill\  GPA: 4.0/4.0\ }}
+  \rline{Bachelor of Science, Computer Science}
+  \vspace{2pt}
+  \ritem[]{Concentration: Networking \& Graphics}
+\end{rsection}
+\vspace{\sectionvspace}
+
+
+% Section: Skills
+\begin{rskills}
+  \rskill{Languages}  {Go, Rust, Python, Java, TypeScript, HTML/CSS, C/C++}
+  \rskill{Software}   {Git, Docker, Kubernetes, gRPC, Linux, Windows, SQL (Postgres, MySQL)
+                      NoSQL (MongoDB, Elasticsearch)}
+  \rskill{Concepts}   {Containerization, Microservices/RPC,
+                      Unit \& integration testing, CI/CD, Benchmarking}
+  \rskill{Coursework} {Data structures, Algorithms, Databases, Networks,
+                      Operating systems I/II, Cloud computing, Distributed systems}
+\end{rskills}
+% Spacing (\sectionvspace + adjustment):
+\vspace{\dimexpr \sectionvspace + 11pt}
+
+
+% Section: Work Experience
+\begin{rsection}{Work Experience}
+  % Job: Datadog software engineering intern
+  \rheader{Aug 2021 -\\[-1pt] Dec 2021}{Software Engineering Intern}
+  \rdesc{Datadog}
+  \ritem{Designed a novel monitoring daemon using \textbf{eBPF}
+    to collect \textbf{HTTPS} traffic from \textbf{Go} programs \textit{in-memory \& before encryption}}
+  \ritem{Utilized \textbf{Linux eBPF} \& \textbf{C}, Linux binary formats (\textbf{ELF}, \textbf{DWARF}),
+    \& \textbf{Go} compiler/runtime internals to create proof-of-concept}
+  \ritem{Developed code generation tooling to automatically extract \textbf{Go} version-specific
+    metadata from compiler artifacts, facilitating a wide range of supported \textbf{Go} compiler versions}
+  \rskip
+
+  % Job: Stripe software engineering intern
+  \rheader{May 2021 -\\[-1pt] Aug 2021}{Software Engineering Intern}
+  \rdesc{Stripe}
+  \ritem{Worked with another intern to develop a \textbf{Ruby} client library (incl.\ automated tests)
+    for an internal config distribution platform}
+  \ritem{Developed a last-mile caching sidecar in \textbf{Go} (incl.\ automated tests) to
+    bypass limitations of \textbf{Ruby} multi-threading \& serve a local \textbf{HTTP API}}
+  \ritem{Created both \textbf{Kubernetes} and \textbf{Puppet} deployment
+    configurations to facilitate integration with existing service deployments}
+  \rskip
+
+  % Job: MathWorks software engineering intern
+  \rheader{May 2020 -\\[-1pt] Aug 2020}{Software Engineering Intern}
+  \rdesc{MathWorks}
+  \ritem{Added new features to a \textbf{Go} microservice
+    and its \textbf{React}/\textbf{JavaScript} web dashboard, including unit and integration testing}
+  \ritem{Developed a custom \textbf{Kubernetes} controller
+    in \textbf{Go} to work with internal orchestration service to manage dynamic deployments}
+  \rskip
+
+  % Job: CS 2340 TA
+  \rheader{Aug 2019 -\\[-1pt] Dec 2020}{Teaching Assistant}
+  \rdesc{Georgia Institute of Technology \ {\normalfont |}\hspace{2pt}
+    CS 2340 - Objects \& Design (Object-oriented design)}
+  \ritem{Led a team of 6 other teaching assistants to prepare and deliver 15 supplemental lectures
+    over the course of a semester}
+  \ritem{Graded project milestones and held office hours for students
+    making a group project in \textbf{Java Swing} or \textbf{Python Flask}}
+  \ritem{Created code style autograder scripts/workflow using \textbf{Python}
+    for student projects used by 1,300+ students over 3 semesters}
+\end{rsection}
+\vspace{\sectionvspace}
+
+
+% Section: Leadership
+\begin{rsection}{Leadership}
+  % Position: GTE President
+  \rheader{July 2019 -\\[-1pt] Aug 2020}{President}
+  \rdesc{Georgia Tech Esports Club}
+  \ritem{Led one of the largest student organizations at Georgia Tech
+    with over \textbf{300 active members} and \textbf{20 competitive teams}}
+  \ritem{Planned and led a team of \textbf{20 organizers} to host a regional
+    collegiate LAN tournament
+    (\href{https://web.archive.org/web/20201111230854/https://gamefest.gg/}{Gamefest})
+    with over \textbf{400 participants}}
+\end{rsection}
+\vspace{\sectionvspace}
+
+
+% Section: Projects
+\begin{rsection}{Projects}
+  % Project: rAdvisor performance monitor
+  \rheader{Feb 2020 -\\[-1pt] Dec 2021}{rAdvisor}
+  \rdesc{Open-source system resource utilization monitor for Docker \& Kubernetes
+    {\normalfont \rdot
+    \href{https://github.com/elba-docker/radvisor}{\faGithub\ elba-docker/radvisor}}}
+  \ritem{Developed a low-overhead monitoring daemon in \textbf{Rust}
+    that monitors \textbf{Linux cgroups} and polls \textbf{Docker}/\textbf{Kubernetes}}
+  \ritem{Conducted hundreds of distributed cloud experiments
+    using \textbf{Python}/\textbf{Bash} to test the tool's overhead and consistency}
+  \ritem{Wrote final report that details the software design, experimental procedure, and results
+    \rdot \href{https://github.com/elba-docker/report}{\faGithub\ elba-docker/report}}
+  \ritem{Integrated with performance monitoring toolkit during the course of work
+    as a \textbf{Research Assistant} at Georgia Tech}
+\end{rsection}
+
+
+\end{document}
