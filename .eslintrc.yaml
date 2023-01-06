@@ -12,9 +12,7 @@ plugins:
 
 env:
   browser: true
-  commonjs: true
   es6: true
-  jest: true
   node: true
 
 parser: "@typescript-eslint/parser"
@@ -57,12 +55,6 @@ rules:
           - index
       pathGroupsExcludedImportTypes: []
       warnOnUnassignedImports: true
-      pathGroups:
-        - pattern: "*.{css,scss}"
-          group: sibling
-          position: after
-          patternOptions:
-            matchBase: true
 
   # Disable prop-types as we use TypeScript for type checking
   "react/require-default-props": off
