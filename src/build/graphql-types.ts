@@ -21,12 +21,21 @@ export function createGraphQLTypes({ createTypes }: Actions): void {
   }
 
   type Frontmatter {
-    title: String
+    title: String!
+    # Used for SEO:
+    description: String!
+
+    # All following fields are ignored for non-main pages
+    # (and must be nullable in the schema):
+
+    importance: Int
     buttons: [Button!]
-    shortTitle: String
+    # Required for main pages:
     type: String
+    # Required for main pages:
     start: String
     end: String
+    # Required for main pages:
     lead: String
     topics: Topics
   }

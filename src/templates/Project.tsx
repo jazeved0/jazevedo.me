@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
+import type { PageProps, HeadProps } from "gatsby";
 
 import Layout from "../components/Layout";
 import Mdx from "../components/Mdx";
@@ -11,6 +12,7 @@ import { gap } from "../theme/spacing";
 import Article from "../components/Article";
 import { container } from "../theme/layout";
 import { color } from "../theme/color";
+import Meta from "../components/Meta";
 
 const Styled = {
   PageLayout: styled.div`
@@ -40,19 +42,20 @@ const Styled = {
 // Must stay synchronized with below pageQuery
 type PageQueryResult = {
   mdx: {
-    body: string;
     frontmatter: {
-      shortTitle: string;
-      type: string;
       title: string;
-      start: string;
-      end?: string | null;
-      lead: string;
-      topics?: {
-        main?: string[] | null;
-        secondary?: string[] | null;
+      description: string;
+
+      // All following fields are ignored for non-main pages:
+      buttons: ButtonFragment[] | null;
+      type: string | null;
+      start: string | null;
+      end: string | null;
+      lead: string | null;
+      topics: {
+        main: string[] | null;
+        secondary: string[] | null;
       } | null;
-      buttons?: ButtonFragment[] | null;
     };
   };
 };
@@ -60,20 +63,20 @@ type PageQueryResult = {
 export const pageQuery = graphql`
   query ($id: String!) {
     mdx(id: { eq: $id }) {
-      body
       frontmatter {
-        shortTitle
-        type
         title
+        description
+
+        buttons {
+          ...Buttons
+        }
+        type
         start
         end
         lead
         topics {
           main
           secondary
-        }
-        buttons {
-          ...Buttons
         }
       }
     }
@@ -86,46 +89,74 @@ export type ProjectPageContext = {
   isAuxillary: boolean;
 };
 
-export type ProjectPageTemplateProps = {
-  data: PageQueryResult;
-  pageContext: ProjectPageContext;
-};
+export type ProjectPageTemplateProps = PageProps<
+  PageQueryResult,
+  ProjectPageContext
+>;
 
 /**
- * Page template for any markdown-rendered pages in /projects/**.
+ * Page template for any markdown-rendered pages in /content/projects/**.
  * Handles both main project pages (with the <ProjectOverview>)
  * as well as "auxillary" pages that are simple markdown pages.
  */
 export default function ProjectPageTemplate({
   data,
   pageContext,
+  children,
 }: ProjectPageTemplateProps): React.ReactElement {
   const { isAuxillary } = pageContext;
-  const { body } = data.mdx;
-  const { shortTitle, type, title, start, end, lead, topics, buttons } =
+  const { title, buttons, type, start, end, lead, topics } =
     data.mdx.frontmatter;
 
-  return (
-    <Layout title={shortTitle}>
-      {!isAuxillary && <ProjectBackground />}
-      <Styled.PageLayout>
-        {!isAuxillary && (
+  if (!isAuxillary) {
+    // Main project page:
+    // Check for required frontmatter fields
+    if (type === null || start === null || lead === null) {
+      throw new Error(
+        `Missing required frontmatter fields for project page "${title}": type, start, lead`
+      );
+    }
+
+    return (
+      <Layout overlayChildren={<ProjectBackground />}>
+        <Styled.PageLayout>
           <Styled.ProjectOverview
             type={type}
             title={title}
             start={start}
-            end={end ?? null}
+            end={end}
             lead={lead}
             mainTopics={topics?.main ?? []}
             secondaryTopics={topics?.secondary ?? []}
             buttons={buttons ?? []}
           />
-        )}
-        <Styled.ProjectContent>
-          <Mdx content={body} />
-        </Styled.ProjectContent>
-        <Styled.ProjectEndRule />
-      </Styled.PageLayout>
-    </Layout>
-  );
+          <Styled.ProjectContent>
+            <Mdx>{children}</Mdx>
+          </Styled.ProjectContent>
+          <Styled.ProjectEndRule />
+        </Styled.PageLayout>
+      </Layout>
+    );
+  } else {
+    // Auxillary page:
+    return (
+      <Layout>
+        <Styled.PageLayout>
+          <Styled.ProjectContent>
+            <Mdx>{children}</Mdx>
+          </Styled.ProjectContent>
+          <Styled.ProjectEndRule />
+        </Styled.PageLayout>
+      </Layout>
+    );
+  }
+}
+
+export type ProjectHeadProps = HeadProps<PageQueryResult>;
+
+// Gatsby Head component:
+// https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+export function Head({ data }: ProjectHeadProps): React.ReactElement {
+  const { title, description } = data.mdx.frontmatter;
+  return <Meta title={title} description={description} />;
 }

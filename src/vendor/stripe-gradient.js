@@ -505,6 +505,7 @@ export class Gradient {
   isMetaKey = false;
   isGradientLegendVisible = false;
   isMouseDown = false;
+  onLoadCallback = null;
 
   handleScroll = () => {
     clearTimeout(this.scrollingTimeout),
@@ -1125,6 +1126,9 @@ export class Gradient {
     if (this.sectionColors && this.sectionColors.length > 0) {
       this.init();
       this.addIsLoadedClass();
+      if (this.onLoadCallback != null) {
+        this.onLoadCallback();
+      }
     } else if (
       this.computedCanvasStyle &&
       this.computedCanvasStyle.getPropertyValue(colorCssVar(0)).indexOf("#") !==
@@ -1133,6 +1137,9 @@ export class Gradient {
       this.initGradientColors();
       this.init();
       this.addIsLoadedClass();
+      if (this.onLoadCallback != null) {
+        this.onLoadCallback();
+      }
     } else {
       // Enqueue another retry
       this.cssVarRetries += 1;
@@ -1176,6 +1183,10 @@ export class Gradient {
       this.initMesh();
       this.resize();
     }
+  }
+
+  setOnLoadCallback(callback) {
+    this.onLoadCallback = callback;
   }
 }
 

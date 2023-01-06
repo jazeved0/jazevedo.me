@@ -1,7 +1,7 @@
-import { ThemeToggler } from "gatsby-plugin-dark-mode";
 import React, { useMemo } from "react";
-import { useMediaQuery } from "../hooks";
+import { ThemeToggler } from "gatsby-plugin-dark-mode";
 
+import { useMediaQuery } from "../hooks";
 import { ColorModeContext, ColorMode, defaultMode } from "../theme/color";
 
 export type ColorModeProviderProps = {
@@ -52,19 +52,20 @@ function MemoizedContextProvider({
   mode,
   setMode,
 }: MemoizedContextProviderProps): React.ReactElement {
+  let derivedMode = mode;
   const usingForcedColor = useMediaQuery("(forced-colors: active)");
   if (usingForcedColor) {
-    mode = defaultMode;
+    derivedMode = defaultMode;
   }
 
   return (
     <ColorModeContext.Provider
       value={useMemo(
         () => ({
-          mode,
+          mode: derivedMode,
           setMode,
         }),
-        [mode, setMode]
+        [derivedMode, setMode]
       )}
     >
       {children}

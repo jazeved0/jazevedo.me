@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import styled from "@emotion/styled";
 import { StaticImage } from "gatsby-plugin-image";
 import { rgba } from "polished";
@@ -19,10 +19,7 @@ function enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[] {
 const Styled = {
   HeroLayout: styled.div`
     display: grid;
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
+    height: min(100%, 100vh);
     width: 100%;
     z-index: -1;
     user-select: none;
@@ -50,10 +47,17 @@ const Styled = {
   HeroGradient: styled(StripeGradient)`
     opacity: 0;
     transition: opacity 2.5s linear;
-
-    /* stripe-gradient applies the .isLoaded class */
-    &.isLoaded {
+    &.hero-gradient-loaded {
       opacity: 1;
+    }
+
+    /* When forced-colors or prefers-reduced-motion are enabled, hide the
+    canvas. This is also done in script, but duplicate it here. */
+    @media (forced-colors: active) {
+      display: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      display: none;
     }
   `,
   HeroMask: styled.div`
@@ -111,7 +115,7 @@ const Styled = {
       .join("\n")}
 
     /* When forced-colors are enabled, hide the background */
-      @media (forced-colors: active) {
+    @media (forced-colors: active) {
       display: none;
     }
   `,
@@ -150,6 +154,11 @@ export default function HeroBackground({
   // reason as above).
   const colorMode = useColorMode();
 
+  const [isLoaded, setIsLoaded] = useState(false);
+  const onLoad = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
+
   return (
     <Styled.HeroLayout className={className} style={style}>
       <StaticImage
@@ -185,6 +194,8 @@ export default function HeroBackground({
       {renderGradientCanvas && (
         <Styled.HeroGradient
           colors={heroGradientColors[colorMode]}
+          className={isLoaded ? "hero-gradient-loaded" : ""}
+          onLoad={onLoad}
           style={{
             gridArea: "1/1",
             height: "100%",

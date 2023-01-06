@@ -7,6 +7,7 @@ import { container } from "../theme/layout";
 import HeroBackground from "../components/HeroBackground";
 import { down } from "../theme/media";
 import { color } from "../theme/color";
+import Meta from "../components/Meta";
 
 const Styled = {
   PageLayout: styled.div`
@@ -49,7 +50,7 @@ const Styled = {
 
 export default function NotFoundPage(): React.ReactElement {
   return (
-    <Layout title="Not Found" headerSpacing="sparse">
+    <Layout headerProps={{ spacing: "sparse" }}>
       <HeroBackground />
       <Styled.PageLayout>
         <Styled.PageTitle>404</Styled.PageTitle>
@@ -60,4 +61,10 @@ export default function NotFoundPage(): React.ReactElement {
       </Styled.PageLayout>
     </Layout>
   );
+}
+
+// Gatsby Head component:
+// https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+export function Head(): React.ReactElement {
+  return <Meta title="Not Found" noIndex />;
 }

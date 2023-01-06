@@ -7,7 +7,7 @@ const destination = "public";
 // node.sourceInstanceName allowlist
 const allowedSourceInstances = ["projects"];
 // node.extension denylist
-const disallowedExtensions = ["md"];
+const disallowedExtensions = ["mdx"];
 // custom denylist filters
 const imageExtensions = ["jpg", "jpeg", "png", "svg"];
 const disallowedImages = ["card", "logo", "icon"];

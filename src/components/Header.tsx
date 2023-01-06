@@ -4,7 +4,7 @@ import { useStaticQuery, graphql, Link } from "gatsby";
 import { darken, lighten } from "polished";
 
 import { ButtonFragment } from "./LinkButton/schema";
-import LinkButton, { LinkButtonProps } from "./LinkButton/LinkButton";
+import LinkButton from "./LinkButton/LinkButton";
 import {
   color,
   ColorMode,
@@ -39,7 +39,13 @@ const linkCommonStyle = `
 
 const Styled = {
   HeaderOuter: styled.div`
-    ${container}
+    &:not([data-no-container="true"]) {
+      ${container}
+    }
+    &[data-no-container="true"] {
+      padding-left: var(--site-padding);
+      padding-right: var(--site-padding);
+    }
 
     &[data-spacing="sparse"] {
       padding-top: ${gap.milli};
@@ -168,6 +174,36 @@ const Styled = {
   CheckedIcon: styled(Icon)`
     color: ${color("light")};
   `,
+  BrandLinkTitle: styled.div`
+    --brand-link-title-spacing: ${gap.nano};
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+
+    & > h1 {
+      font-size: 1.3rem;
+      font-weight: 400;
+
+      /* Vertically align with brand */
+      margin-top: -3px;
+    }
+  `,
+  TitleSeparator: styled.div`
+    /* Don't use gap on the flex parent, and instead manually set
+    margin/padding for each element. This allows the tap target for the brand
+    link to be maximal. */
+    margin-right: calc(var(--brand-link-title-spacing) - 2px);
+    align-self: stretch;
+
+    width: 2px;
+
+    /* Vertically nudge slightly */
+    top: -2px;
+    bottom: 0;
+    position: relative;
+    background-color: ${color("text-faint")};
+  `,
 };
 
 // Must stay synchronized with below staticQuery
@@ -203,7 +239,8 @@ function useData(): StaticQueryResult {
 
 export type HeaderProps = {
   spacing?: "compact" | "sparse";
-  overrideLinks?: React.ReactNode;
+  customContent?: React.ReactNode;
+  noContainer?: boolean;
   className?: string;
   style?: React.CSSProperties;
 };
@@ -215,11 +252,12 @@ export type HeaderProps = {
  */
 export default function Header({
   spacing = "compact",
-  overrideLinks,
+  customContent,
+  noContainer = false,
   className,
   style,
 }: HeaderProps): React.ReactElement {
-  const { links: socialLinks, brandText } = useData().file.childDataYaml;
+  const { links: socialLinks } = useData().file.childDataYaml;
   const links: ButtonFragment[] = [
     { href: "/resume", text: "Resume" },
     { href: "/projects", text: "Projects" },
@@ -231,18 +269,14 @@ export default function Header({
       className={className}
       style={style}
       data-spacing={spacing}
+      data-no-container={noContainer}
     >
-      <Styled.Header>
-        <Styled.BrandLink to="/" aria-label={brandText}>
-          {/* Brand text is written in Dubai font, Bold:
-              https://dubaifont.com/
-              https://www.fontsquirrel.com/fonts/dubai */}
-          <BrandSvg style={{ height: 22 }} />
-        </Styled.BrandLink>
-        <Styled.LinksOuter>
-          {overrideLinks != null ? (
-            <>{overrideLinks}</>
-          ) : (
+      {customContent != null ? (
+        customContent
+      ) : (
+        <Styled.Header>
+          <BrandLink />
+          <Styled.LinksOuter>
             <Styled.Links>
               {links.map((link, i) => (
                 <Styled.HeaderPageLink
@@ -254,12 +288,12 @@ export default function Header({
                 />
               ))}
             </Styled.Links>
-          )}
-        </Styled.LinksOuter>
-        <Styled.ThemeSwitcherWrapper>
-          <ThemeSwitcher />
-        </Styled.ThemeSwitcherWrapper>
-      </Styled.Header>
+          </Styled.LinksOuter>
+          <Styled.ThemeSwitcherWrapper>
+            <ThemeSwitcher />
+          </Styled.ThemeSwitcherWrapper>
+        </Styled.Header>
+      )}
     </Styled.HeaderOuter>
   );
 }
@@ -296,5 +330,61 @@ function ThemeSwitcher(): React.ReactElement | null {
       height={28}
       width={56}
     />
+  );
+}
+
+export type BrandLinkProps = {
+  className?: string;
+  style?: React.CSSProperties;
+};
+
+export function BrandLink({
+  className,
+  style,
+}: BrandLinkProps): React.ReactElement {
+  const { brandText } = useData().file.childDataYaml;
+  return (
+    <Styled.BrandLink
+      to="/"
+      aria-label={brandText}
+      className={className}
+      style={style}
+    >
+      {/* Brand text is written in Dubai font, Bold:
+        https://dubaifont.com/
+        https://www.fontsquirrel.com/fonts/dubai */}
+      <BrandSvg style={{ height: 22 }} />
+    </Styled.BrandLink>
+  );
+}
+
+export type BrandLinkTitleProps = {
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
+};
+
+const StyledBrandLinkTitleLink = styled(BrandLink)`
+  /* Remove excessive right padding */
+  padding-right: var(--brand-link-title-spacing);
+
+  /* Remove vertical nudging */
+  transform: none;
+`;
+
+/**
+ * Draws the brand link next to a title, separated by a vertical bar.
+ */
+export function BrandLinkTitle({
+  children,
+  className,
+  style,
+}: BrandLinkTitleProps): React.ReactElement {
+  return (
+    <Styled.BrandLinkTitle className={className} style={style}>
+      <StyledBrandLinkTitleLink />
+      <Styled.TitleSeparator />
+      <h1>{children}</h1>
+    </Styled.BrandLinkTitle>
   );
 }

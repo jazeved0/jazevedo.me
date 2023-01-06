@@ -15,12 +15,12 @@ const nonDefaultModes = Object.values(ColorMode).filter(
   (m) => m !== defaultMode
 );
 
-export type ColorModeContext = {
+export type ColorModeContextType = {
   mode: ColorMode;
   setMode: (newMode: ColorMode) => void;
 };
 
-export const ColorModeContext = React.createContext<ColorModeContext>({
+export const ColorModeContext = React.createContext<ColorModeContextType>({
   mode: defaultMode,
   setMode: () => null,
 });
@@ -36,6 +36,7 @@ const colors = {
     "text-ghost": "rgba(33, 33, 33, 0.03)",
     "text-ghost+1": "rgba(33, 33, 33, 0.05)",
     "text-ghost+2": "rgba(33, 33, 33, 0.08)",
+    "text-ghost+3": "rgba(33, 33, 33, 0.12)",
     // Background colors
     "bg+20": "#ffffff",
     "bg+15": "#ffffff",
@@ -63,6 +64,7 @@ const colors = {
     "text-ghost": "rgba(231, 243, 249, 0.05)",
     "text-ghost+1": "rgba(231, 243, 249, 0.07)",
     "text-ghost+2": "rgba(231, 243, 249, 0.1)",
+    "text-ghost+3": "rgba(231, 243, 249, 0.15)",
     // Background colors
     "bg+20": "#363D53",
     "bg+15": "#30374E",
@@ -92,7 +94,6 @@ const staticColors = {
 // Other colors
 export const backgroundColor = "#21283B";
 export const themeColor = "#2f3b56";
-export const msTileColor = "#ffc40d";
 export const maskIconColor = "#9e6276";
 export const chromePdfBackground = "#525659";
 export const riskOceanColor = "#1d2951";
@@ -108,6 +109,8 @@ export const heroGradientColors = {
 /**
  * Bootstrap-like variant, using colors injected from the theme.
  * See https://getbootstrap.com/docs/4.0/content/tables/#contextual-classes
+ *
+ * Currently `never`, more can be added later.
  */
 export type Variant = never;
 

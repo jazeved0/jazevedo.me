@@ -6,4 +6,6 @@ export class Gradient {
   initGradient(selector: string): void;
 
   setGradientColors(hexColors: string[]): void;
+
+  setOnLoadCallback(callback: () => void): void;
 }

@@ -43,11 +43,24 @@ export function injectTypographyGlobals(): string {
       font-family: ${font("body")};
       font-weight: 400;
       font-size: 1rem;
+
       h1, h2, h3, h4, h5, h6 {
         font-family: ${font("headings")};
         font-weight: 700;
         line-height: 1.1;
         color: inherit;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      h2 {
+        font-size: 2.1rem;
+      }
+
+      h3 {
+        font-size: 1.5rem;
       }
     }
   `;

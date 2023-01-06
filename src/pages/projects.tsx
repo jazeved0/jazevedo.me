@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { graphql } from "gatsby";
+import type { PageProps } from "gatsby";
 
 import Layout from "../components/Layout";
 import { gap } from "../theme/spacing";
 import { container } from "../theme/layout";
 import { ProjectCardFragment } from "../components/ProjectCard/types";
 import ProjectCard from "../components/ProjectCard";
+import Meta from "../components/Meta";
 
 const Styled = {
   Content: styled.article`
@@ -45,10 +47,10 @@ type PageQueryResult = {
 export const pageQuery = graphql`
   query {
     allFile(
-      sort: { fields: [childMdx___frontmatter___importance], order: DESC }
+      sort: { childMdx: { frontmatter: { importance: DESC } } }
       limit: 1000
       filter: {
-        relativePath: { regex: "/^[^/]+/index.md$/" }
+        relativePath: { regex: "/^[^/]+/index.mdx$/" }
         sourceInstanceName: { eq: "projects" }
       }
     ) {
@@ -61,16 +63,14 @@ export const pageQuery = graphql`
   }
 `;
 
-export type ProjectsPageProps = {
-  data: PageQueryResult;
-};
+export type ProjectsPageProps = PageProps<PageQueryResult>;
 
 export default function ProjectsPage({
   data,
 }: ProjectsPageProps): React.ReactElement {
   const projects = data.allFile.projectFiles.map(({ childMdx }) => childMdx);
   return (
-    <Layout title="Projects" headerSpacing="compact">
+    <Layout headerProps={{ spacing: "compact" }}>
       <Styled.Content>
         <Styled.Title>Past Projects</Styled.Title>
         <Styled.CardLayout>
@@ -80,5 +80,16 @@ export default function ProjectsPage({
         </Styled.CardLayout>
       </Styled.Content>
     </Layout>
+  );
+}
+
+// Gatsby Head component:
+// https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+export function Head(): React.ReactElement {
+  return (
+    <Meta
+      title="Projects"
+      description="Portfolio of past technical projects I contributed to during my education and career."
+    />
   );
 }

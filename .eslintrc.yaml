@@ -1,0 +1,171 @@
+extends:
+  - react-app
+  - airbnb
+  - plugin:react-hooks/recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
+  # Enable eslint-config-prettier to disable ESLint rules
+  # that would conflict with prettier:
+  - prettier
+plugins:
+  - "@typescript-eslint"
+
+env:
+  browser: true
+  es6: true
+  node: true
+
+parser: "@typescript-eslint/parser"
+parserOptions:
+  ecmaVersion: 2020
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+  project: ./tsconfig.json
+
+settings:
+  import/resolver:
+    node:
+      extensions:
+        - .js
+        - .jsx
+        - .ts
+        - .tsx
+
+rules:
+  "react/jsx-filename-extension":
+    - warn
+    - extensions: [".jsx", ".tsx"]
+  "import/extensions":
+    - error
+    - ignorePackages
+    - js: never
+      jsx: never
+      ts: never
+      tsx: never
+  "import/prefer-default-export": off
+  "import/order":
+    - warn
+    - newlines-between: always
+      groups:
+        - - builtin
+          - external
+        - - parent
+          - sibling
+          - index
+      pathGroupsExcludedImportTypes: []
+      warnOnUnassignedImports: true
+
+  # Disable prop-types as we use TypeScript for type checking
+  "react/require-default-props": off
+  "react/prop-types": off
+
+  "react/no-array-index-key": off
+  "no-plusplus": [warn, { allowForLoopAfterthoughts: true }]
+  "no-await-in-loop": off
+  "class-methods-use-this": off
+  "jsx-a11y/href-no-hash": off
+  "@typescript-eslint/no-unused-vars": [warn]
+  "@typescript-eslint/explicit-function-return-type": [error]
+  # This rule is useless with TypeScript:
+  consistent-return: off
+  # I disagree with this rule, for the aesthetics & readability of code
+  # that follows diverging paths in if/else statements:
+  no-else-return: off
+
+  # Disable the normal `dot-notation` in favor of the one in `@typescript-eslint`.
+  # From https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/dot-notation.md
+  "dot-notation": off
+  "@typescript-eslint/dot-notation": [error]
+  # Disable the normal `no-use-before-define` in favor of the one in `@typescript-eslint`.
+  # From https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-use-before-define.md#how-to-use
+  "no-use-before-define": off
+  "@typescript-eslint/no-use-before-define":
+    - warn
+    - typedefs: false
+      functions: false
+
+  # Add all accessibility rules from the base Gatsby eslint config:
+  # https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby/src/utils/eslint-config.ts
+  # https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/tree/master/docs/rules
+  "jsx-a11y/alt-text": warn
+  "jsx-a11y/anchor-has-content": warn
+  "jsx-a11y/anchor-is-valid": warn
+  "jsx-a11y/aria-activedescendant-has-tabindex": warn
+  "jsx-a11y/aria-props": warn
+  "jsx-a11y/aria-proptypes": warn
+  "jsx-a11y/aria-role": warn
+  "jsx-a11y/aria-unsupported-elements": warn
+  "jsx-a11y/autocomplete-valid":
+    - warn
+    - inputComponents: []
+  "jsx-a11y/click-events-have-key-events": warn
+  "jsx-a11y/control-has-associated-label":
+    - warn
+    - ignoreElements:
+        - audio
+        - canvas
+        - embed
+        - input
+        - textarea
+        - tr
+        - video
+      ignoreRoles:
+        - grid
+        - listbox
+        - menu
+        - menubar
+        - radiogroup
+        - row
+        - tablist
+        - toolbar
+        - tree
+        - treegrid
+      includeRoles:
+        - alert
+        - dialog
+  "jsx-a11y/heading-has-content": warn
+  "jsx-a11y/html-has-lang": warn
+  "jsx-a11y/iframe-has-title": warn
+  "jsx-a11y/img-redundant-alt": warn
+  "jsx-a11y/interactive-supports-focus":
+    - warn
+    - tabbable:
+        - button
+        - checkbox
+        - link
+        - progressbar
+        - searchbox
+        - slider
+        - spinbutton
+        - switch
+        - textbox
+  # "jsx-a11y/label-has-for": warn, was deprecated and replaced with jsx-a11y/has-associated-control in v6.1.0a
+  "jsx-a11y/label-has-associated-control": warn
+  "jsx-a11y/lang": warn
+  "jsx-a11y/media-has-caption": warn
+  "jsx-a11y/mouse-events-have-key-events": warn
+  "jsx-a11y/no-access-key": warn
+  "jsx-a11y/no-autofocus": warn
+  "jsx-a11y/no-distracting-elements": warn
+  "jsx-a11y/no-interactive-element-to-noninteractive-role": warn
+  "jsx-a11y/no-noninteractive-element-interactions":
+    - warn
+    - body:
+        - onError
+        - onLoad
+      iframe:
+        - onError
+        - onLoad
+      img:
+        - onError
+        - onLoad
+  "jsx-a11y/no-noninteractive-element-to-interactive-role": warn
+  "jsx-a11y/no-noninteractive-tabindex": warn
+  # "jsx-a11y/no-onchange": warn, Deprecated
+  "jsx-a11y/no-redundant-roles": warn
+  "jsx-a11y/no-static-element-interactions": warn
+  "jsx-a11y/role-has-required-aria-props": warn
+  "jsx-a11y/role-supports-aria-props": warn
+  "jsx-a11y/scope": warn
+  "jsx-a11y/tabindex-no-positive": warn

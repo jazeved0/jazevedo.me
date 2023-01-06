@@ -7,32 +7,51 @@ import { color, ColorMode, hybridColor, mode } from "../theme/color";
 import { down } from "../theme/media";
 import { shadow } from "../theme/shadows";
 import { highlightLinks } from "../theme/mixins";
+import { iframeClass } from "./Iframe";
+
+/**
+ * Class name for wrapping an image in a "card" (i.e. have a background color
+ * and padding outside the image).
+ */
+export const cardImageClass = "article-card-image";
 
 const Styled = {
   Article: styled.article`
+    --par-spacing: ${gap.micro};
+    --large-block-spacing: ${gap.milli};
+
+    ${down("md")} {
+      --large-block-spacing: ${gap.micro};
+    }
+
     h1,
     h2,
     h3,
     h4,
     h5,
     h6 {
-      margin-top: ${gap.milli};
+      margin-top: var(--large-block-spacing);
+      margin-bottom: var(--par-spacing);
     }
 
     pre,
     blockquote,
     hr,
-    table {
-      margin-top: ${gap.milli};
-      margin-bottom: ${gap.milli};
+    table,
+    figure {
+      margin-bottom: var(--large-block-spacing);
+    }
+
+    figure + figure {
+      ${down("md")} {
+        margin-top: calc(var(--site-padding) - var(--par-spacing));
+      }
     }
 
     p,
     ol,
-    ul,
-    table,
-    figure {
-      margin-top: ${gap.nano};
+    ul {
+      margin-bottom: var(--par-spacing);
     }
 
     h1,
@@ -67,9 +86,24 @@ const Styled = {
       }
     }
 
-    img {
-      max-width: 100%;
-      height: auto;
+    ul,
+    ol {
+      & > li {
+        & > :last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      &:not(.no-list-spacing) > li {
+        /* Add spacing to the start of each paragraph in a ul or ol,
+        since if it turns into a list of paragraphs, spacing is likely desired.
+        This can be turned off by using a div wrapper with the '.no-list-spacing' class. */
+        &:not(:first-of-type) {
+          & > p {
+            margin-top: var(--par-spacing);
+          }
+        }
+      }
     }
 
     blockquote {
@@ -90,13 +124,8 @@ const Styled = {
         padding: ${gap.nano};
       }
 
-      /* This is somewhat risky with Emotion SSR,
-      but as far as I understand that only is a risk
-      if a <style> can be interleaved in the DOM as the first child,
-      which shouldn't happen since neither the block quote or its children
-      are Emotion components (probably) */
-      & > :first-child {
-        margin-top: 0;
+      & > :last-child {
+        margin-bottom: 0;
       }
 
       /* When forced-colors are enabled, manually add a border */
@@ -216,28 +245,47 @@ const Styled = {
       }
     }
 
-    & a {
+    & a:not(.gatsby-resp-image-link) {
       ${highlightLinks}
     }
 
     --img-border-radius: 8px;
-
-    img {
-      border-radius: var(--img-border-radius);
-      box-shadow: ${shadow("z2")};
-    }
-
     .gatsby-resp-image-wrapper {
       max-width: none !important;
+      box-shadow: ${shadow("z2")};
+      border-radius: var(--img-border-radius);
+      overflow: hidden;
+    }
 
-      .gatsby-resp-image-background-image {
-        border-radius: var(--img-border-radius) !important;
-        box-shadow: ${shadow("z2")};
+    .${cardImageClass} {
+      --card-image-padding: ${gap.nano};
+
+      box-shadow: ${shadow("z2")};
+      padding: var(--card-image-padding);
+      background-color: ${color("bg+15")};
+      border-radius: var(--img-border-radius);
+
+      .gatsby-resp-image-wrapper {
+        /* Remove the default box shadow and border radius from the image wrapper */
+        box-shadow: none;
+        border-radius: 0;
       }
     }
 
-    .gatsby-resp-iframe-wrapper {
+    /* Add a border radius and box shadow to direct children that are
+    images or images in links. If needed an escape hatch can be added if this
+    is too zealous and also applies to inline images (but those should be in <p>'s) */
+    & > img,
+    & > a > img {
+      border-radius: var(--img-border-radius);
+      box-shadow: ${shadow("z2")};
+      display: block;
+    }
+
+    .${iframeClass} {
       margin-top: ${gap.micro};
+      border-radius: var(--img-border-radius);
+      box-shadow: ${shadow("z2")};
     }
   `,
 };

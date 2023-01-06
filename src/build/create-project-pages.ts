@@ -34,6 +34,9 @@ export async function createProjectPages({
         name: string;
         childMdx: {
           id: string;
+          internal: {
+            contentFilePath: string;
+          };
         };
       }>;
     };
@@ -45,7 +48,7 @@ export async function createProjectPages({
         limit: $limit
         filter: {
           sourceInstanceName: { eq: "projects" }
-          extension: { regex: "/^(?:md)|(?:mdx)$/" }
+          extension: { eq: "mdx" }
         }
       ) {
         nodes {
@@ -53,6 +56,9 @@ export async function createProjectPages({
           name
           childMdx {
             id
+            internal {
+              contentFilePath
+            }
           }
         }
       }
@@ -73,25 +79,28 @@ export async function createProjectPages({
 
   // Trims a path to be the proper local path
   const trimPath = (p: string): string =>
-    p.replace("index", "").replace(".md", "").replace(/\/$/, "");
+    p.replace("index", "").replace(".mdx", "").replace(/\/$/, "");
 
   // Create projects pages
-  data.projectPages.nodes.forEach(
-    ({ childMdx: { id }, relativePath, name }) => {
-      // Create final URL as trimmed filepath
-      const trimmedPath = trimPath(relativePath);
+  data.projectPages.nodes.forEach(({ childMdx, relativePath, name }) => {
+    // Create final URL as trimmed filepath
+    const trimmedPath = trimPath(relativePath);
 
-      // Determine whether the page is a main project page or auxillary page
-      const isMain = trimmedPath.indexOf("/") === -1 && name === "index";
-      const context: ProjectPageContext = { id, isAuxillary: !isMain };
-      createPage({
-        path: `projects/${trimmedPath}`,
-        component: ProjectPageTemplate,
-        context,
-      });
+    // Determine whether the page is a main project page or auxillary page
+    const isMain = trimmedPath.indexOf("/") === -1 && name === "index";
+    const context: ProjectPageContext = {
+      id: childMdx.id,
+      isAuxillary: !isMain,
+    };
+    createPage({
+      path: `projects/${trimmedPath}`,
+      // This is incredibly cursed:
+      // https://www.gatsbyjs.com/docs/how-to/routing/mdx/#make-a-layout-template-for-your-posts
+      component: `${ProjectPageTemplate}?__contentFilePath=${childMdx.internal.contentFilePath}`,
+      context,
+    });
 
-      const pageType = isMain ? "main" : "aux ";
-      reporter.info(`created ${pageType} page at /projects/${trimmedPath}`);
-    }
-  );
+    const pageType = isMain ? "main" : "aux ";
+    reporter.info(`created ${pageType} page at /projects/${trimmedPath}`);
+  });
 }

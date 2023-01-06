@@ -1,0 +1,9 @@
+public
+.cache
+
+# Generated files
+src/gatsby-types.d.ts
+
+# Risk-game demo embed source & build
+content/projects/risk-game/local/demo/vue-embed
+content/projects/risk-game/demo

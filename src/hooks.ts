@@ -63,7 +63,9 @@ export function useMedia<T>(queries: Record<string, T>, defaultValue: T): T {
 
   // Convert the query map into two arrays for the media queries and values.
   // The array is sorted by the media queries (using lexicographical order).
-  const [mediaQueryLists, values] = useMemo<[MediaQueryList[], T[]]>(() => {
+  const [memoizedQueryLists, memoizedValues] = useMemo<
+    [MediaQueryList[], T[]]
+  >(() => {
     const sortedQueries = Object.keys(memoizedQueries).sort();
     const values = sortedQueries.map((q) => memoizedQueries[q]);
     const queryLists = sortedQueries.map<MediaQueryList>((q) =>
@@ -87,10 +89,12 @@ export function useMedia<T>(queries: Record<string, T>, defaultValue: T): T {
   // Function that gets value based on matching media query
   const getValue = useCallback((): T => {
     // Get index of first media query that matches
-    const index = mediaQueryLists.findIndex((mql) => mql.matches);
+    const index = memoizedQueryLists.findIndex((mql) => mql.matches);
     // Return related value or defaultValue if none
-    return typeof values[index] !== "undefined" ? values[index] : defaultValue;
-  }, [defaultValue, values, mediaQueryLists]);
+    return typeof memoizedValues[index] !== "undefined"
+      ? memoizedValues[index]
+      : defaultValue;
+  }, [defaultValue, memoizedValues, memoizedQueryLists]);
 
   // State and setter for matched value
   const [value, setValue] = useState(getValue);
@@ -102,11 +106,11 @@ export function useMedia<T>(queries: Record<string, T>, defaultValue: T): T {
     // (as this hook callback is created once on mount).
     const handler = (): void => setValue(getValue);
     // Set a listener for each media query with above handler as callback.
-    mediaQueryLists.forEach((mql) => mql.addListener(handler));
+    memoizedQueryLists.forEach((mql) => mql.addListener(handler));
     // Remove listeners on cleanup
     return (): void =>
-      mediaQueryLists.forEach((mql) => mql.removeListener(handler));
-  }, [getValue, mediaQueryLists]);
+      memoizedQueryLists.forEach((mql) => mql.removeListener(handler));
+  }, [getValue, memoizedQueryLists]);
 
   return value;
 }

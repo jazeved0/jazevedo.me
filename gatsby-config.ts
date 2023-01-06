@@ -1,30 +1,44 @@
-import { FileSystemConfig } from "gatsby-source-filesystem";
-import { GatsbyPlugin } from "gatsby-ts";
-import { PluginOptions as ManifestPluginOptions } from "gatsby-plugin-manifest";
-import { PluginOptions as GoogleAnalyticsPluginOptions } from "gatsby-plugin-google-analytics";
-import { PluginOptions as MdxPluginOptions } from "gatsby-plugin-mdx";
+import type { GatsbyConfig } from "gatsby";
+import type { PluginOptions as GoogleAnalyticsPluginOptions } from "gatsby-plugin-google-gtag";
+import type { PluginOptions as MdxPluginOptions } from "gatsby-plugin-mdx";
+import type { PluginOptions as ReactSvgPluginOptions } from "gatsby-plugin-react-svg";
+import type { FileSystemConfig } from "gatsby-source-filesystem";
+import RemarkGFM from "remark-gfm";
 
-import { backgroundColor, themeColor } from "./src/theme/color";
+import type { GitHubMetadata } from "./src/build/resume-metadata";
 
 const description = [
-  "My name is Joseph, and I'm an aspiring software engineer and researcher living in Atlanta",
-  "with prior internships at MathWorks, Stripe, and Datadog.",
+  "My name is Joseph, and I'm software engineer living in the Bay Area",
+  "and currently working at Stripe.",
   "I'm interested in distributed systems, observability, and operating systems.",
 ].join(" ");
 
-const siteMetadata = {
+export const siteMetadata = {
   title: "Joseph Azevedo",
   description,
+  name: "Joseph Azevedo",
   siteUrl: "https://jazevedo.me/",
+  briefDescription: "Software Engineer at Stripe",
+  // Used in /src/build/resume-metadata.ts:
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  github: {
+    owner: "jazeved0",
+    name: "jazevedo.me",
+    branch: "main",
+  } satisfies GitHubMetadata,
 };
 
 const pathPrefix = "/";
 
+type GatsbyPlugin<P extends string, O> = {
+  resolve: P;
+  options: O;
+};
+
 type PluginDefs =
-  | GatsbyPlugin<"gatsby-plugin-google-analytics", GoogleAnalyticsPluginOptions>
-  | GatsbyPlugin<"gatsby-plugin-manifest", ManifestPluginOptions>
   | GatsbyPlugin<"gatsby-plugin-mdx", MdxPluginOptions>
-  | GatsbyPlugin<"gatsby-plugin-react-svg", { rule: { include: RegExp } }>
+  | GatsbyPlugin<"gatsby-plugin-google-gtag", GoogleAnalyticsPluginOptions>
+  | GatsbyPlugin<"gatsby-plugin-react-svg", ReactSvgPluginOptions>
   | FileSystemConfig
   | string;
 
@@ -45,61 +59,36 @@ const plugins: PluginDefs[] = [
     },
   },
   {
-    resolve: `gatsby-plugin-manifest`,
+    resolve: "gatsby-source-filesystem",
     options: {
-      name: "Personal Portfolio",
-      short_name: "Portfolio",
-      description: "Joseph Azevedo's personal portfolio",
-      start_url: "/",
-      background_color: backgroundColor,
-      theme_color: themeColor,
-      display: "standalone",
-      icons: [
-        {
-          src: "/img/meta/android-chrome-192x192.png",
-          sizes: "192x192",
-          type: "image/png",
-        },
-        {
-          src: "/img/meta/android-chrome-256x256.png",
-          sizes: "256x256",
-          type: "image/png",
-        },
-        {
-          src: "/img/meta/android-chrome-512x512.png",
-          sizes: "512x512",
-          type: "image/png",
-        },
-      ],
+      path: `${__dirname}/src/pages`,
+      name: "pages",
     },
   },
   {
-    resolve: "gatsby-plugin-google-analytics",
+    resolve: "gatsby-plugin-google-gtag",
     options: {
-      trackingId: "UA-141036948-1",
+      trackingIds: ["UA-141036948-1"],
     },
   },
   {
-    resolve: `gatsby-plugin-mdx`,
+    resolve: "gatsby-plugin-mdx",
     options: {
-      extensions: [`.md`],
+      extensions: [".mdx"],
+      mdxOptions: {
+        remarkPlugins: [
+          // Add support for GitHub-flavored Markdown (GFM), including tables
+          RemarkGFM,
+        ],
+      },
       gatsbyRemarkPlugins: [
         {
           resolve: "gatsby-remark-images",
           options: {
-            maxWidth: 800,
+            maxWidth: 1260,
             showCaptions: false,
-          },
-        },
-        "gatsby-remark-embed-snippet",
-        {
-          resolve: "gatsby-remark-responsive-iframe",
-          options: {},
-        },
-        {
-          resolve: "gatsby-remark-prismjs",
-          options: {
-            noInlineHighlight: true,
+            quality: 85,
+            backgroundColor: "none",
           },
         },
         {
@@ -112,12 +101,10 @@ const plugins: PluginDefs[] = [
   },
   "gatsby-plugin-catch-links",
   "gatsby-plugin-remove-serviceworker",
-  "gatsby-plugin-react-helmet",
   "gatsby-plugin-image",
   "gatsby-plugin-sharp",
   "gatsby-plugin-sitemap",
   "gatsby-transformer-sharp",
-  "gatsby-plugin-remove-trailing-slashes",
   "gatsby-plugin-emotion",
   "gatsby-plugin-dark-mode",
   {
@@ -130,8 +117,12 @@ const plugins: PluginDefs[] = [
   },
 ];
 
-export default {
+const config: GatsbyConfig = {
   siteMetadata,
+  graphqlTypegen: true,
+  plugins: plugins as GatsbyConfig["plugins"],
   pathPrefix,
-  plugins,
+  trailingSlash: "never",
 };
+
+export default config;
