@@ -2,12 +2,7 @@ import { useStaticQuery, graphql } from "gatsby";
 import React, { useEffect, useState } from "react";
 
 import { useInitialRender } from "../hooks";
-import {
-  msTileColor,
-  maskIconColor,
-  ColorMode,
-  defaultMode,
-} from "../theme/color";
+import { maskIconColor, ColorMode, defaultMode } from "../theme/color";
 
 // Must stay synchronized with below staticQuery
 type StaticQueryResult = {
@@ -113,7 +108,6 @@ export default function Meta({
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
       <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
-      <meta name="msapplication-TileColor" content={msTileColor} />
       <meta property="og:image" content="/img/meta/thumbnail.png" />
       <meta property="og:description" content={derivedDescription} />
       <meta name="description" content={derivedDescription} />

@@ -94,7 +94,6 @@ const staticColors = {
 // Other colors
 export const backgroundColor = "#21283B";
 export const themeColor = "#2f3b56";
-export const msTileColor = "#ffc40d";
 export const maskIconColor = "#9e6276";
 export const chromePdfBackground = "#525659";
 export const riskOceanColor = "#1d2951";
