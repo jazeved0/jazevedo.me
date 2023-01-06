@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Gradient } from "../vendor/stripe-gradient";
 import { useInitialRender } from "../hooks";
@@ -12,6 +12,7 @@ function uniqueId(): string {
 
 export type StripeGradientProps = {
   colors: string[];
+  onLoad?: () => void;
   className?: string;
   style?: React.CSSProperties;
 };
@@ -28,6 +29,7 @@ export type StripeGradientProps = {
  */
 export default function StripeGradient({
   colors,
+  onLoad,
   className,
   style,
 }: StripeGradientProps): React.ReactElement | null {
@@ -41,26 +43,40 @@ export default function StripeGradient({
   const [id] = useState(() => uniqueId());
   const canvasId = `gradient-canvas-${id}`;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     // Skip effects on the initial render
     if (initialRender) return;
 
-    // If the second layout effect hasn't yet run, skip this
+    // If the second layout effect hasn't yet run, skip this.
+    // This code only should run when the color changes post-initialization
+    // (the initial gradient initialization will handle the initial colors).
     if (gradientRef.current == null) return;
 
     // Otherwise, update the colors
     gradientRef.current.setGradientColors(colors);
   }, [initialRender, colors]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     // Skip effects on the initial render
     if (initialRender) return;
 
     const gradient = new Gradient();
     gradient.setGradientColors(colors);
-    gradient.initGradient(`#${canvasId}`);
-
+    if (onLoad != null) {
+      gradient.setOnLoadCallback(() => {
+        window.setTimeout(() => onLoad(), 0);
+      });
+    }
     gradientRef.current = gradient;
+
+    // Make the gradient initialization (can be heavy) low-priority:
+    window.requestIdleCallback(
+      () => {
+        gradient.initGradient(`#${canvasId}`);
+      },
+      { timeout: 1000 }
+    );
+
     // This hook should only run once upon mounting:
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialRender]);

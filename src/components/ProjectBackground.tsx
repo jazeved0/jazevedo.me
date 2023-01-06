@@ -7,17 +7,15 @@ import { mode, ColorMode, color } from "../theme/color";
 
 const Styled = {
   Wrapper: styled.div`
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
     height: 100%;
-    overflow: hidden;
+    width: 100%;
     z-index: -1;
+    overflow: hidden;
+    position: relative;
   `,
   SVG: styled(BackgroundSVG)`
     --width: 2920px;
-    --height: 700px;
+    --height: 737px;
 
     position: absolute;
     top: 0;
@@ -29,7 +27,7 @@ const Styled = {
       /* Fill more height on smaller screens */
       left: -910px;
       --width: 3030px;
-      --height: 800px;
+      --height: 843px;
     }
 
     /* These correspond to calsses in the SVG */

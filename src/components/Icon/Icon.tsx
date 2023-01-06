@@ -31,6 +31,8 @@ import {
   faDatabase,
   faSun,
   faMoon,
+  faTimes,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { csOverleaf, csGatsby } from "./custom-icons";
@@ -59,6 +61,8 @@ const icons: IconDefinition[] = [
   csGatsby,
   faSun,
   faMoon,
+  faTimes,
+  faCheck,
 ];
 
 library.add(...icons);

@@ -86,5 +86,10 @@ export default function ProjectsPage({
 // Gatsby Head component:
 // https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
 export function Head(): React.ReactElement {
-  return <Meta title="Projects" />;
+  return (
+    <Meta
+      title="Projects"
+      description="Portfolio of past technical projects I contributed to during my education and career."
+    />
+  );
 }

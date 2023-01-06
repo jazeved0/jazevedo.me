@@ -5,16 +5,27 @@ import type { PluginOptions as ReactSvgPluginOptions } from "gatsby-plugin-react
 import type { FileSystemConfig } from "gatsby-source-filesystem";
 import RemarkGFM from "remark-gfm";
 
+import type { GitHubMetadata } from "./src/build/resume-metadata";
+
 const description = [
-  "My name is Joseph, and I'm an aspiring software engineer and researcher living in Atlanta",
-  "with prior internships at MathWorks, Stripe, and Datadog.",
+  "My name is Joseph, and I'm software engineer living in the Bay Area",
+  "and currently working at Stripe.",
   "I'm interested in distributed systems, observability, and operating systems.",
 ].join(" ");
 
-const siteMetadata = {
+export const siteMetadata = {
   title: "Joseph Azevedo",
   description,
+  name: "Joseph Azevedo",
   siteUrl: "https://jazevedo.me/",
+  briefDescription: "Software Engineer at Stripe",
+  // Used in /src/build/resume-metadata.ts:
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  github: {
+    owner: "jazeved0",
+    name: "jazevedo.me",
+    branch: "main",
+  } satisfies GitHubMetadata,
 };
 
 const pathPrefix = "/";
@@ -74,8 +85,10 @@ const plugins: PluginDefs[] = [
         {
           resolve: "gatsby-remark-images",
           options: {
-            maxWidth: 800,
+            maxWidth: 1260,
             showCaptions: false,
+            quality: 85,
+            backgroundColor: "none",
           },
         },
         {

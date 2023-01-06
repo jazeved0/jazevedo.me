@@ -10,3 +10,6 @@ public
 .vscode/
 desktop.ini
 src/gatsby-types.d.ts
+
+# Ignore workspace file
+*.code-workspace

@@ -66,5 +66,5 @@ export default function NotFoundPage(): React.ReactElement {
 // Gatsby Head component:
 // https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
 export function Head(): React.ReactElement {
-  return <Meta title="Not Found" />;
+  return <Meta title="Not Found" noIndex />;
 }

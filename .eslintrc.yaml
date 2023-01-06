@@ -77,6 +77,9 @@ rules:
   "@typescript-eslint/explicit-function-return-type": [error]
   # This rule is useless with TypeScript:
   consistent-return: off
+  # I disagree with this rule, for the aesthetics & readability of code
+  # that follows diverging paths in if/else statements:
+  no-else-return: off
 
   # Disable the normal `dot-notation` in favor of the one in `@typescript-eslint`.
   # From https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/dot-notation.md

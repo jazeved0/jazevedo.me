@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { graphql } from "gatsby";
-import type { PageProps } from "gatsby";
+import type { PageProps, HeadProps } from "gatsby";
 
 import Layout from "../components/Layout";
 import { gap } from "../theme/spacing";
@@ -109,7 +109,13 @@ type PageQueryResult = {
   site: {
     siteMetadata: {
       siteUrl: string;
+      name: string;
+      briefDescription: string;
     };
+  };
+
+  resumeMetadata?: {
+    lastModified: string;
   };
 };
 
@@ -130,7 +136,13 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         siteUrl
+        name
+        briefDescription
       }
+    }
+
+    resumeMetadata {
+      lastModified
     }
   }
 `;
@@ -207,8 +219,31 @@ export default function ResumePage({
   );
 }
 
+export type ResumeHeadProps = HeadProps<PageQueryResult>;
+
 // Gatsby Head component:
 // https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
-export function Head(): React.ReactElement {
-  return <Meta title="Resume" />;
+export function Head({ data }: ResumeHeadProps): React.ReactElement {
+  const { name, briefDescription } = data.site.siteMetadata;
+
+  let lastModifiedString = "";
+  if (data.resumeMetadata != null) {
+    const lastModifiedDate = new Date(data.resumeMetadata.lastModified);
+    const lastModifiedDateString = lastModifiedDate.toLocaleDateString(
+      "en-US",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }
+    );
+    lastModifiedString = ` (last modified ${lastModifiedDateString})`;
+  }
+
+  return (
+    <Meta
+      title="Resume"
+      description={`Resume of ${name}${lastModifiedString} | ${briefDescription}}`}
+    />
+  );
 }

@@ -41,10 +41,11 @@ buttons:
     icon: github
 ---
 
-<Figure sharp left caption="Initial screen upon starting the application.">
-
-![initial screen](./local/banner.png)
-
+<Figure maxWidth={800}>
+  ![initial screen](./local/banner.png)
+  <figcaption>
+    Initial screen upon starting the application.
+  </figcaption>
 </Figure>
 
 ## 🏛 Underlying Architecture
@@ -53,10 +54,11 @@ As part of the design guidelines, Library Manager is a Client database programme
 
 Internally, Library Manager takes advantage of Microsoft's flagship .NET UI framework, Windows Presentation Foundation, or WPF. WPF works through two components: the design is programmed in **XAML**, or Extensible Application Markup Language (_different from XML_), while the behavior is programmed in **C#**. This separation of _design_ and _behavior_ is key to the framework's architecture, as it allows for the adoption of the Model-View-ViewModel design paradigm as outlined below.
 
-<Figure sharp left caption="WPF MVVM Architecture overview" style={{maxWidth: "500px"}}>
-
-![Architecture](./local/architecture.png)
-
+<Figure maxWidth={500}>
+  ![Architecture](./local/architecture.png)
+  <figcaption>
+    WPF MVVM Architecture overview
+  </figcaption>
 </Figure>
 
 ## 📚 Documentation
@@ -69,12 +71,10 @@ A brief slideshow discussing the development of the project has been created, an
 
 <Iframe
   src="https://docs.google.com/presentation/d/e/2PACX-1vTGNy98lkIgXEggQ311Q4-lEVoktZXNi6ZJbzeMykYx1stRzgmh1ap6npJRz_zBeCNXJ6MNUN8nVQ-w/embed?start=false&loop=false&delayms=3000"
-  frameborder="0"
   width="960"
   height="569"
-  allowfullscreen="true"
-  mozallowfullscreen="true"
-  webkitallowfullscreen="true"
+  allowFullScreen
+  style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
 />
 
 ## 🔗 Open Source External Packages

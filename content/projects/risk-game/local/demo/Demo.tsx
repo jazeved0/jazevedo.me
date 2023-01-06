@@ -100,7 +100,6 @@ export default function Demo({
 
   return (
     <Styled.Figure
-      caption={label}
       style={{ width: "100%", maxWidth: "none", ...style }}
       className={className}
     >
@@ -113,6 +112,7 @@ export default function Demo({
           }}
         />
       </Styled.Wrapper>
+      <figcaption>{label}</figcaption>
     </Styled.Figure>
   );
 }

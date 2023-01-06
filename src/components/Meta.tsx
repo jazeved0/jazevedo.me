@@ -36,6 +36,8 @@ function useData(): StaticQueryResult {
 
 export type MetaProps = {
   title?: string;
+  description?: string;
+  noIndex?: boolean;
 };
 
 /**
@@ -44,9 +46,20 @@ export type MetaProps = {
  *
  * https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export default function Meta({ title }: MetaProps): React.ReactElement {
+export default function Meta({
+  title,
+  description,
+  noIndex = false,
+}: MetaProps): React.ReactElement {
   const data = useData();
-  const { description, title: siteTitle } = data.site.meta;
+  const { description: siteDescription, title: siteTitle } = data.site.meta;
+
+  let derivedDescription: string;
+  if (description == null) {
+    derivedDescription = siteDescription;
+  } else {
+    derivedDescription = description;
+  }
 
   // If the page title is given, add it to the site title
   const derivedTitle = title != null ? `${title} | ${siteTitle}` : siteTitle;
@@ -99,12 +112,11 @@ export default function Meta({ title }: MetaProps): React.ReactElement {
         httpEquiv="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
-      <meta name="robots" content="index, follow" />
       <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
       <meta name="msapplication-TileColor" content={msTileColor} />
       <meta property="og:image" content="/img/meta/thumbnail.png" />
-      <meta property="og:description" content={description} />
-      <meta name="description" content={description} />
+      <meta property="og:description" content={derivedDescription} />
+      <meta name="description" content={derivedDescription} />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary" />
       <meta property="og:title" content={derivedTitle} />
@@ -132,6 +144,11 @@ export default function Meta({ title }: MetaProps): React.ReactElement {
         href="/img/meta/safari-pinned-tab.svg"
       />
       <title>{derivedTitle}</title>
+      {noIndex ? (
+        <meta name="robots" content="noindex" />
+      ) : (
+        <meta name="robots" content="index, follow" />
+      )}
     </>
   );
 }

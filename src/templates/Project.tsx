@@ -43,17 +43,19 @@ const Styled = {
 type PageQueryResult = {
   mdx: {
     frontmatter: {
-      shortTitle: string;
-      type: string;
       title: string;
-      start: string;
-      end?: string | null;
-      lead: string;
-      topics?: {
-        main?: string[] | null;
-        secondary?: string[] | null;
+      description: string;
+
+      // All following fields are ignored for non-main pages:
+      buttons: ButtonFragment[] | null;
+      type: string | null;
+      start: string | null;
+      end: string | null;
+      lead: string | null;
+      topics: {
+        main: string[] | null;
+        secondary: string[] | null;
       } | null;
-      buttons?: ButtonFragment[] | null;
     };
   };
 };
@@ -62,18 +64,19 @@ export const pageQuery = graphql`
   query ($id: String!) {
     mdx(id: { eq: $id }) {
       frontmatter {
-        shortTitle
-        type
         title
+        description
+
+        buttons {
+          ...Buttons
+        }
+        type
         start
         end
         lead
         topics {
           main
           secondary
-        }
-        buttons {
-          ...Buttons
         }
       }
     }
@@ -102,32 +105,51 @@ export default function ProjectPageTemplate({
   children,
 }: ProjectPageTemplateProps): React.ReactElement {
   const { isAuxillary } = pageContext;
-  const { type, title, start, end, lead, topics, buttons } =
+  const { title, buttons, type, start, end, lead, topics } =
     data.mdx.frontmatter;
 
-  return (
-    <Layout>
-      {!isAuxillary && <ProjectBackground />}
-      <Styled.PageLayout>
-        {!isAuxillary && (
+  if (!isAuxillary) {
+    // Main project page:
+    // Check for required frontmatter fields
+    if (type === null || start === null || lead === null) {
+      throw new Error(
+        `Missing required frontmatter fields for project page "${title}": type, start, lead`
+      );
+    }
+
+    return (
+      <Layout overlayChildren={<ProjectBackground />}>
+        <Styled.PageLayout>
           <Styled.ProjectOverview
             type={type}
             title={title}
             start={start}
-            end={end ?? null}
+            end={end}
             lead={lead}
             mainTopics={topics?.main ?? []}
             secondaryTopics={topics?.secondary ?? []}
             buttons={buttons ?? []}
           />
-        )}
-        <Styled.ProjectContent>
-          <Mdx>{children}</Mdx>
-        </Styled.ProjectContent>
-        <Styled.ProjectEndRule />
-      </Styled.PageLayout>
-    </Layout>
-  );
+          <Styled.ProjectContent>
+            <Mdx>{children}</Mdx>
+          </Styled.ProjectContent>
+          <Styled.ProjectEndRule />
+        </Styled.PageLayout>
+      </Layout>
+    );
+  } else {
+    // Auxillary page:
+    return (
+      <Layout>
+        <Styled.PageLayout>
+          <Styled.ProjectContent>
+            <Mdx>{children}</Mdx>
+          </Styled.ProjectContent>
+          <Styled.ProjectEndRule />
+        </Styled.PageLayout>
+      </Layout>
+    );
+  }
 }
 
 export type ProjectHeadProps = HeadProps<PageQueryResult>;
@@ -135,5 +157,6 @@ export type ProjectHeadProps = HeadProps<PageQueryResult>;
 // Gatsby Head component:
 // https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
 export function Head({ data }: ProjectHeadProps): React.ReactElement {
-  return <Meta title={data.mdx.frontmatter.shortTitle} />;
+  const { title, description } = data.mdx.frontmatter;
+  return <Meta title={title} description={description} />;
 }

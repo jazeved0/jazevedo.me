@@ -204,8 +204,11 @@ export type HomepageLayoutProps = {
  */
 function HomepageLayout({ children }: HomepageLayoutProps): React.ReactElement {
   return (
-    <Layout headerProps={{ spacing: "sparse" }} style={{ overflowX: "hidden" }}>
-      <HeroBackground />
+    <Layout
+      headerProps={{ spacing: "sparse" }}
+      style={{ overflowX: "hidden" }}
+      overlayChildren={<HeroBackground />}
+    >
       <Styled.PageLayout>
         <Mdx>{children}</Mdx>
       </Styled.PageLayout>
