@@ -79,20 +79,11 @@ export default function EmailSpoiler({
             Tap
           </span>{" "}
           to show email
-          <noscript
-            // HACK: prevent a React hydration mismatch by directly setting
-            // the inner HTML (and bypassing React's text sanitization).
-            // This is most likely a bug in React:
-            // > react_devtools_backend.js:4012
-            // >   Warning: Text content did not match.
-            // >   Server: " (this won&#x27;t work without JavaScript)"
-            // >   Client: " (this won't work without JavaScript)"
-            // TODO(jazeved0): report this to React.
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{
-              __html: " (this won&apos;t work without JavaScript)",
-            }}
-          />
+          <noscript>
+            {/* Use an inner <span> element to work around bug in React:
+                https://github.com/facebook/react/issues/25969 */}
+            <span> (this won&apos;t work without JavaScript)</span>
+          </noscript>
         </Styled.SpoilerLabel>
       )}
       {mouseOver && <Styled.SpoilerText>{email}</Styled.SpoilerText>}
