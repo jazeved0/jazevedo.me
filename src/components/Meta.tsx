@@ -1,8 +1,7 @@
 import { useStaticQuery, graphql } from "gatsby";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { useInitialRender } from "../hooks";
-import { maskIconColor, ColorMode, defaultMode } from "../theme/color";
+import { maskIconColor } from "../theme/color";
 
 // Must stay synchronized with below staticQuery
 type StaticQueryResult = {
@@ -59,49 +58,9 @@ export default function Meta({
   // If the page title is given, add it to the site title
   const derivedTitle = title != null ? `${title} | ${siteTitle}` : siteTitle;
 
-  // Always re-render once upon first mounting,
-  // to ensure that the server-side theme
-  // is consistent with the user-selected theme.
-  const initialRender = useInitialRender();
-  // const currentColorMode = useColorMode();
-  // TODO(jazeved0): This currently does not work due to the color mode provider
-  //   being rendered in the Layout component, which is rendered separately from
-  //   this Gatsby Head component. However, even if the color mode provider was
-  //   moved to the `wrapPageElement` API (as it probably should be), this would
-  //   still not work, since React Context's are currently not propagated
-  //   correctly to the Gatsby Head component:
-  //   https://github.com/gatsbyjs/gatsby/discussions/35841#discussioncomment-3256204
-  // HACK: workaround for the above issue, by manually binding to the CSS class
-  //   of the body element, which will be set by the color mode provider.
-  const getColorModeFromBodyClass = (): ColorMode => {
-    if (typeof document === "undefined") {
-      return defaultMode;
-    }
-    return document.body.classList.contains("light")
-      ? ColorMode.Light
-      : ColorMode.Dark;
-  };
-  const [currentColorMode, setCurrentColorMode] = useState(() =>
-    getColorModeFromBodyClass()
-  );
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setCurrentColorMode(getColorModeFromBodyClass());
-    });
-    observer.observe(document.body, { attributes: true });
-    return () => {
-      observer.disconnect();
-    };
-  }, [setCurrentColorMode]);
-
-  const colorMode = initialRender ? defaultMode : currentColorMode;
   return (
     <>
       <meta charSet="utf-8" />
-      <meta
-        name="color-scheme"
-        content={colorMode === ColorMode.Light ? "light" : "dark"}
-      />
       <meta httpEquiv="x-ua-compatible" content="ie=edge" />
       <meta
         httpEquiv="viewport"

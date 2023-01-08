@@ -1,7 +1,8 @@
-import React, { useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import { ThemeToggler } from "gatsby-plugin-dark-mode";
+import { Helmet } from "react-helmet";
 
-import { useMediaQuery } from "../hooks";
+import { useInitialRender, useMediaQuery } from "../hooks";
 import { ColorModeContext, ColorMode, defaultMode } from "../theme/color";
 
 export type ColorModeProviderProps = {
@@ -23,6 +24,7 @@ export default function ColorModeProvider({
           mode={(theme as ColorMode | null | undefined) ?? defaultMode}
           setMode={toggleTheme}
         >
+          <ThemeMetaInjector />
           {children}
         </MemoizedContextProvider>
       )}
@@ -70,5 +72,26 @@ function MemoizedContextProvider({
     >
       {children}
     </ColorModeContext.Provider>
+  );
+}
+
+/**
+ * Uses `react-helmet` to inject the theme color meta tag into the page.
+ *
+ * Needs to be in a separate component to always re-render after the initial
+ * client render (to prevent hydration mismatch).
+ */
+function ThemeMetaInjector(): React.ReactElement | null {
+  const { mode } = useContext(ColorModeContext);
+  const initialRender = useInitialRender();
+  const derivedMode: ColorMode = initialRender ? defaultMode : mode;
+
+  return (
+    <Helmet>
+      <meta
+        name="color-scheme"
+        content={derivedMode === ColorMode.Light ? "light" : "dark"}
+      />
+    </Helmet>
   );
 }
