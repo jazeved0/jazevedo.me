@@ -24,6 +24,11 @@ const Styled = {
     z-index: -1;
     user-select: none;
 
+    .dark-fallback,
+    .light-fallback {
+      max-height: 100vh;
+    }
+
     ${mode(ColorMode.Light)} {
       .dark-fallback {
         display: none;
