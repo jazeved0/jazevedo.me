@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 
 import Figure from "../../../../../src/components/Figure";
 import { color, riskOceanColor } from "../../../../../src/theme/color";
+import { useInitialRender } from "../../../../../src/hooks";
 
 const Styled = {
   Figure: styled(Figure)`
@@ -80,23 +81,11 @@ export default function Demo({
 }: DemoProps): React.ReactElement {
   const { previewBase64 } = getImageData();
 
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  // Don't render the iframe until the component has mounted.
+  // This prevents the iframe from loading before the app has finished
+  // hydrating, which will cause the `onLoad` event to not fire.
+  const initialRender = useInitialRender();
   const [isLoaded, setIsLoaded] = useState(false);
-  useEffect((): void | (() => void) => {
-    const iframe = iframeRef.current;
-    if (iframe == null) {
-      return;
-    }
-
-    const onLoad = (): void => {
-      setIsLoaded(true);
-    };
-
-    iframe.addEventListener("load", onLoad);
-    return (): void => {
-      iframe.removeEventListener("load", onLoad);
-    };
-  }, [iframeRef]);
 
   return (
     <Styled.Figure
@@ -104,7 +93,14 @@ export default function Demo({
       className={className}
     >
       <Styled.Wrapper style={{ height: `${height}px` }}>
-        <Styled.Embed src={embedSrc} ref={iframeRef} />
+        {initialRender ? null : (
+          <Styled.Embed
+            src={embedSrc}
+            onLoad={(): void => {
+              setIsLoaded(true);
+            }}
+          />
+        )}
         <Styled.Fallback
           data-loaded={isLoaded}
           style={{
