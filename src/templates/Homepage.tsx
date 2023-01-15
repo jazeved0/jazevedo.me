@@ -1,7 +1,8 @@
-import React, { useState, useLayoutEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import styled from "@emotion/styled";
+import classNames from "classnames";
 
 import HeroBackground from "../components/HeroBackground";
 import Layout from "../components/Layout";
@@ -41,7 +42,7 @@ const Styled = {
     grid-template-areas:
       ". . profile name . ."
       ". . profile content . ."
-      "carousel carousel carousel carousel carousel carousel";
+      "carouselBleed carouselBleed carouselBleed carousel carousel carousel";
 
     padding-top: ${gap.milli};
     padding-bottom: ${gap.milli};
@@ -62,7 +63,7 @@ const Styled = {
         ". . profile . ."
         ". . name    . ."
         ". . content . ."
-        "carousel carousel carousel carousel carousel";
+        "carouselBleed carouselBleed carousel carousel carousel";
 
       padding-top: ${gap.femto};
     }
@@ -139,8 +140,25 @@ const Styled = {
     margin-top: ${gap.micro};
   `,
   Carousel: styled(BaseProjectCarousel)`
+    // Initially, the carousel is placed in the "carousel" area, which
+    // will cause it to cut off the left side of the carousel when it is
+    // scrolled (and the scrolled elements go into the "carouselBleed" area).
+    // To fix this, we move the carousel to span both the "carouselBleed" and
+    // "carousel" areas on the second render, while at the same time applying
+    // a positive padding-left to the inner scrolling area to place the
+    // carousel back in the correct position.
+    // This is a compromise between preventing very visible layout shifts
+    // and keeping the site usable without JavaScript.
     grid-area: carousel;
     width: 100%;
+
+    &.place-in-bleed-area {
+      // Span the "carouselBleed" and "carousel" areas
+      grid-column-start: carouselBleed;
+      grid-column-end: carousel;
+      grid-row-start: carousel;
+      grid-row-end: carousel;
+    }
   `,
   CarouselPositioner: styled.div`
     margin-left: var(--content-padding);
@@ -283,17 +301,18 @@ function ProjectCarousel(): React.ReactElement {
   );
 
   const positionerRef = useRef() as React.RefObject<HTMLDivElement>;
-  // Default to the page padding for the padding.
-  // Most users won't see this/will see it for a split second
-  // before the padding is measured from the positioner
-  // and the component is re-rendered.
-  // However, it serves as a nicer fallback in case JS is disabled.
-  const [padding, setPadding] = useState<string | number>(sitePadding);
-  useLayoutEffect(() => {
+  // See comment in CSS for the approach to this element.
+  // This state will be updated to trigger the second render
+  // of the component, which will use the measured padding and span both
+  // grid areas.
+  const [measuredPadding, setMeasuredPadding] = useState<number | null>(null);
+  /* No point in using useLayoutEffect, since the page will have painted
+  already due to the SSR HTML rendering initially. */
+  useEffect(() => {
     const handleResize = (): void => {
       if (positionerRef.current == null) return;
       const { x } = positionerRef.current.getBoundingClientRect();
-      setPadding(x);
+      setMeasuredPadding(x);
     };
 
     // Upon mounting, configure the size of the carousel
@@ -306,7 +325,17 @@ function ProjectCarousel(): React.ReactElement {
   return (
     <>
       <Styled.CarouselPositioner ref={positionerRef} />
-      <Styled.Carousel projects={projects} leftPadding={padding} />
+      <Styled.Carousel
+        projects={projects}
+        // If we have not yet measured the padding, then use the CSS variable
+        // "content-padding" as the padding. This will align the left of the
+        // carousel when it is placed outside the bleed area with the
+        // left of the content.
+        leftPadding={measuredPadding ?? "var(--content-padding)"}
+        className={classNames({
+          "place-in-bleed-area": measuredPadding !== null,
+        })}
+      />
     </>
   );
 }
