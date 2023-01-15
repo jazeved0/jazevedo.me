@@ -47,10 +47,14 @@ export default function GlobalCss(): React.ReactElement {
           margin: 0;
         }
 
+        html,
+        body {
+          height: 100%;
+          margin: 0;
+        }
+
         /* Set core body defaults */
         body {
-          margin: 0;
-          min-height: 100vh;
           scroll-behavior: smooth;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
@@ -59,6 +63,13 @@ export default function GlobalCss(): React.ReactElement {
           line-height: 1.5;
           color: ${color("text")};
           background-color: ${color("bg")};
+        }
+
+        /* Make the elements that appear above the layout in the DOM
+        stretch to full-height */
+        #___gatsby,
+        #gatsby-focus-wrapper {
+          height: 100%;
         }
 
         /* Remove list styles on ul, ol elements with a class attribute */
