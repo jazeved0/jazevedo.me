@@ -70,12 +70,19 @@ export default function StripeGradient({
     gradientRef.current = gradient;
 
     // Make the gradient initialization (can be heavy) low-priority:
-    window.requestIdleCallback(
-      () => {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(
+        () => {
+          gradient.initGradient(`#${canvasId}`);
+        },
+        { timeout: 1000 }
+      );
+    } else {
+      // On Safari, requestIdleCallback is not supported:
+      (window as Window).setTimeout(() => {
         gradient.initGradient(`#${canvasId}`);
-      },
-      { timeout: 1000 }
-    );
+      }, 200);
+    }
 
     // This hook should only run once upon mounting:
     // eslint-disable-next-line react-hooks/exhaustive-deps
