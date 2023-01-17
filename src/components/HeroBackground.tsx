@@ -7,7 +7,7 @@ import {
   hybridColor,
   ColorMode,
   mode,
-  heroGradientColors,
+  HeroBackgroundColors,
 } from "../theme/color";
 import StripeGradient from "./StripeGradient";
 import { useColorMode, useMediaQuery } from "../hooks";
@@ -49,7 +49,7 @@ const Styled = {
       }
     }
   `,
-  HeroGradient: styled(StripeGradient)`
+  HeroBackground: styled(StripeGradient)`
     opacity: 0;
     transition: opacity 2.5s linear;
     &.hero-gradient-loaded {
@@ -197,8 +197,8 @@ export default function HeroBackground({
         draggable={false}
       />
       {renderGradientCanvas && (
-        <Styled.HeroGradient
-          colors={heroGradientColors[colorMode]}
+        <Styled.HeroBackground
+          colors={HeroBackgroundColors[colorMode]}
           className={isLoaded ? "hero-gradient-loaded" : ""}
           onLoad={onLoad}
           style={{

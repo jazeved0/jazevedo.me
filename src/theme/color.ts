@@ -1,5 +1,7 @@
 import { parseToRgb } from "polished";
+import { RgbColor } from "polished/lib/types/color";
 import React from "react";
+import { NonEmptyArray } from "../ts-utils";
 
 /**
  * Page-wide color mode (light/dark)
@@ -101,10 +103,10 @@ export const riskOceanColor = "#1d2951";
 // Whenever changing these, make sure to re-generate the fallbacks
 // in `src/images/hero` by taking 1080p screenshots of:
 // https://codepen.io/jazeved0/pen/xxXpBEX
-export const heroGradientColors = {
-  [ColorMode.Light]: ["#c9a5eb", "#afc0f7", "#8ed3ee", "#5ea1ee"],
-  [ColorMode.Dark]: ["#122557", "#452f61", "#1a3063", "#011542"],
-};
+export const HeroBackgroundColors = {
+  [ColorMode.Light]: ["#afc0f7", "#8ed3ee", "#5ea1ee", "#c9a5eb"],
+  [ColorMode.Dark]: ["#122557", "#1a3063", "#011542", "#452f61"],
+} as const;
 
 /**
  * Bootstrap-like variant, using colors injected from the theme.

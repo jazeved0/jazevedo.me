@@ -15,19 +15,6 @@ const Styled = {
     padding-top: ${gap.milli};
     padding-bottom: ${gap.milli};
   `,
-  Content: styled.div`
-    max-width: 360px;
-    position: relative;
-    z-index: 1;
-
-    padding-top: ${gap.milli};
-    padding-bottom: ${gap.milli};
-
-    ${down("md")} {
-      padding-top: ${gap.micro};
-      padding-bottom: ${gap.micro};
-    }
-  `,
   PageTitle: styled.h2`
     color: ${color("text-strong")};
     font-size: 7rem;

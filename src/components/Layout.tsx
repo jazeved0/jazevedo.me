@@ -11,7 +11,7 @@ const Styled = {
     /* Create a grid that stacks all elements on top of each other */
     display: grid;
     grid-template-columns: 1fr;
-    min-height: 100%;
+    height: 100%;
 
     & > * {
       grid-row-start: 1;
