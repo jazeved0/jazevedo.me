@@ -22,7 +22,15 @@ export type WaveCanvasProps = {
    * Color that will be used as the "clear color" for the canvas.
    */
   fallbackColor: RgbColor;
+  /**
+   * Called after the canvas has been initialized, before the first frame
+   * is rendered.
+   */
   onLoad?: () => void;
+  /**
+   * Called at the end of each frame.
+   */
+  onRender?: () => void;
   /**
    * The initial time for the wave animation. This can be used to control
    * the initial frame so that it is reproducible.
@@ -98,6 +106,11 @@ export type WaveCanvasProps = {
   style?: React.CSSProperties;
 };
 
+export type WaveCanvasRef = {
+  canvasRef: React.MutableRefObject<HTMLCanvasElement | null>;
+  rendererRef: React.MutableRefObject<WaveRenderer | null>;
+};
+
 /**
  * Displays an animated wavy background, using a Canvas element to render the
  * background with Three.js/WebGL.
@@ -105,12 +118,13 @@ export type WaveCanvasProps = {
  * All props other than `className` and `style` are safe to change between SSR
  * and client render, since their values are only used in effects.
  */
-const WaveCanvas = forwardRef<HTMLCanvasElement, WaveCanvasProps>(
+const WaveCanvas = forwardRef<WaveCanvasRef, WaveCanvasProps>(
   (
     {
       colors,
       fallbackColor,
       onLoad,
+      onRender,
       initialTime,
       subdivision,
       isPaused,
@@ -131,15 +145,7 @@ const WaveCanvas = forwardRef<HTMLCanvasElement, WaveCanvasProps>(
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const rendererRef = useRef<WaveRenderer | null>(null);
 
-    useImperativeHandle(selfRef, () => {
-      if (canvasRef.current != null) {
-        return canvasRef.current;
-      } else {
-        logWarn("WaveCanvas", "canvas ref is null. This should not happen.");
-        // HACK:
-        return {} as HTMLCanvasElement;
-      }
-    });
+    useImperativeHandle(selfRef, () => ({ canvasRef, rendererRef }));
 
     const skipEffectBeforeInit = (
       effect: React.EffectCallback
@@ -172,6 +178,13 @@ const WaveCanvas = forwardRef<HTMLCanvasElement, WaveCanvasProps>(
           rendererRef.current?.setOnLoad(onLoad ?? null)
         ),
       [onLoad]
+    );
+    useEffect(
+      () =>
+        skipEffectBeforeInit(() =>
+          rendererRef.current?.setOnRender(onRender ?? null)
+        ),
+      [onRender]
     );
     useEffect(
       () =>
@@ -279,10 +292,12 @@ const WaveCanvas = forwardRef<HTMLCanvasElement, WaveCanvasProps>(
 
       const renderer = new WaveRenderer();
       renderer.setOnLoad(onLoad ?? null);
+      renderer.setOnRender(onRender ?? null);
       renderer.setColors(colors);
       renderer.setFallbackColor(fallbackColor);
       renderer.setInitialTime(initialTime ?? null);
       renderer.setSubdivision(subdivision ?? null);
+      renderer.setIsPaused(isPaused ?? null);
       renderer.setDeformNoiseFrequency(deformNoiseFrequency ?? null);
       renderer.setDeformNoiseSpeed(deformNoiseSpeed ?? null);
       renderer.setDeformNoiseStrength(deformNoiseStrength ?? null);

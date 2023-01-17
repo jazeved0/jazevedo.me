@@ -32,6 +32,7 @@ export type MetaProps = {
   title?: string;
   description?: string;
   noIndex?: boolean;
+  noSiteTitle?: boolean;
 };
 
 /**
@@ -44,6 +45,7 @@ export default function Meta({
   title,
   description,
   noIndex = false,
+  noSiteTitle = false,
 }: MetaProps): React.ReactElement {
   const data = useData();
   const { description: siteDescription, title: siteTitle } = data.site.meta;
@@ -55,8 +57,14 @@ export default function Meta({
     derivedDescription = description;
   }
 
-  // If the page title is given, add it to the site title
-  const derivedTitle = title != null ? `${title} | ${siteTitle}` : siteTitle;
+  let derivedTitle: string;
+  if (title == null) {
+    derivedTitle = siteTitle;
+  } else if (noSiteTitle) {
+    derivedTitle = title;
+  } else {
+    derivedTitle = `${title} | ${siteTitle}`;
+  }
 
   return (
     <>

@@ -32,35 +32,38 @@ const Styled = {
 };
 
 export default function GradientTestPage(): React.ReactElement {
+  return (
+    <Layout hideFooter headerProps={{ spacing: "compact" }}>
+      <Styled.PageLayout>
+        <Styled.PageTitle>Gradient test page</Styled.PageTitle>
+        <Wrapper />
+      </Styled.PageLayout>
+    </Layout>
+  );
+}
+
+function Wrapper(): React.ReactElement {
   const [isPaused, setIsPaused] = React.useState(false);
   const [initialTime, setInitialTime] = React.useState(0);
   return (
-    <Layout
-      overlayChildren={
-        <Background isPaused={isPaused} initialTime={initialTime} />
-      }
-      hideFooter
-      headerProps={{ spacing: "compact" }}
-    >
-      <Styled.PageLayout>
-        <Styled.PageTitle>Gradient test page</Styled.PageTitle>
-        <button
-          type="button"
-          onClick={(): void => {
-            setIsPaused((prev) => !prev);
-          }}
-        >
-          {isPaused ? "Resume" : "Pause"}
-        </button>
-        <input
-          type="number"
-          value={initialTime}
-          onChange={(e): void => {
-            setInitialTime(Number(e.target.value));
-          }}
-        />
-      </Styled.PageLayout>
-    </Layout>
+    <div>
+      <Background isPaused={isPaused} initialTime={initialTime} />
+      <button
+        type="button"
+        onClick={(): void => {
+          setIsPaused((prev) => !prev);
+        }}
+      >
+        {isPaused ? "Resume" : "Pause"}
+      </button>
+      <input
+        type="number"
+        value={initialTime}
+        onChange={(e): void => {
+          setInitialTime(Number(e.target.value));
+        }}
+      />
+    </div>
   );
 }
 

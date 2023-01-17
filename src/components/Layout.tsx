@@ -38,6 +38,7 @@ export type LayoutProps = {
   className?: string;
   style?: React.CSSProperties;
   hideFooter?: boolean;
+  hideHeader?: boolean;
 };
 
 /**
@@ -51,6 +52,7 @@ export default function Layout({
   className,
   style,
   hideFooter = false,
+  hideHeader = false,
 }: LayoutProps): React.ReactElement {
   return (
     <ColorModeProvider>
@@ -59,7 +61,7 @@ export default function Layout({
         <Styled.Layout>
           <GlobalCss />
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Header {...headerProps} />
+          {!hideHeader && <Header {...headerProps} />}
           <div style={{ flexGrow: 1, ...style }} className={className}>
             {children}
           </div>

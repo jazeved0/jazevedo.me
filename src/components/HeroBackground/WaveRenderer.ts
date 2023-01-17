@@ -109,6 +109,7 @@ export default class WaveRenderer {
   public static DEFAULT_PER_LIGHT_NOISE_OFFSET = 8;
 
   private onLoadCallback: (() => void) | null = null;
+  private onRenderCallback: (() => void) | null = null;
   private colors: NonEmptyArray<RgbColor> = [WaveRenderer.DEFAULT_WAVE_COLOR];
   private fallbackColor: RgbColor = WaveRenderer.DEFAULT_WAVE_COLOR;
   private initialTime: number = WaveRenderer.DEFAULT_INITIAL_TIME;
@@ -142,6 +143,13 @@ export default class WaveRenderer {
    */
   public setOnLoad(callback: (() => void) | null): void {
     this.onLoadCallback = callback;
+  }
+
+  /**
+   * Sets the callback to invoke at the end of each frame.
+   */
+  public setOnRender(callback: (() => void) | null): void {
+    this.onRenderCallback = callback;
   }
 
   /**
@@ -451,6 +459,31 @@ export default class WaveRenderer {
   }
 
   /**
+   * Restarts the animation to `t = this.initialTime`.
+   */
+  public restartAnimation(): void {
+    if (this.state.type === "unmounted") {
+      logError("WaveRenderer", "Cannot restart animation when unmounted");
+      return;
+    }
+
+    if (this.state.playbackState.type === "playing") {
+      const startTimestamp = performance.now();
+      this.state.playbackState = {
+        type: "playing",
+        startTimestamp,
+        frameCount: 1,
+      };
+    } else {
+      this.state.playbackState = {
+        type: "paused",
+        pauseTime: 0,
+        forceRerenderNextFrame: true,
+      };
+    }
+  }
+
+  /**
    * Sets up the Three.js scene for the waves.
    */
   private setupScene({ scene }: { scene: Scene }): {
@@ -544,6 +577,10 @@ export default class WaveRenderer {
         this.state.material.uniforms.inTime.value =
           playbackState.pauseTime + this.initialTime;
         this.state.renderer.render(this.state.scene, this.state.camera);
+
+        if (this.onRenderCallback !== null) {
+          this.onRenderCallback();
+        }
       }
     } else if (playbackState.type === "playing") {
       if (playbackState.frameCount % 2 !== 1) {
@@ -553,6 +590,10 @@ export default class WaveRenderer {
         this.state.material.uniforms.inTime.value =
           elapsed / 1000 + this.initialTime;
         this.state.renderer.render(this.state.scene, this.state.camera);
+
+        if (this.onRenderCallback !== null) {
+          this.onRenderCallback();
+        }
       }
 
       playbackState.frameCount += 1;
