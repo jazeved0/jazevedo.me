@@ -10,6 +10,7 @@ import {
   ShaderMaterial,
   Color as ThreeColor,
   Vector2,
+  IUniform,
 } from "three";
 
 import { logError, logWarn } from "./log";
@@ -20,8 +21,10 @@ import {
   updateOrthoCamera,
 } from "./OrthoViewport";
 import type { OrthoViewport } from "./OrthoViewport";
-import { vertexShader, fragmentShader, MAX_LIGHTS } from "./shaders";
+import { MAX_LIGHTS, makeVertexShader, makeFragmentShader } from "./shaders";
 import type { LightStruct } from "./shaders";
+import defaultNoise from "./shaders/noise/default.glsl";
+import defaultBlend from "./shaders/blend/default.glsl";
 
 // The aspect ratio is designed to create a square area ((-1,-1) to (1,1)) that
 // will always have the deformed, tilted plane covering it. The adaptive zoom
@@ -96,6 +99,8 @@ export default class WaveRenderer {
 
   public static DEFAULT_INITIAL_TIME = 0;
   public static DEFAULT_SUBDIVISION: Vector2Like = 64;
+  public static DEFAULT_BLEND_SOURCE = defaultBlend;
+  public static DEFAULT_NOISE_SOURCE = defaultNoise;
 
   public static DEFAULT_DEFORM_NOISE_FREQUENCY: Vector2Like = 2;
   public static DEFAULT_DEFORM_NOISE_SPEED = 0.06;
@@ -115,6 +120,9 @@ export default class WaveRenderer {
   private initialTime: number = WaveRenderer.DEFAULT_INITIAL_TIME;
   private subdivision: Vector2Like = WaveRenderer.DEFAULT_SUBDIVISION;
   private startPaused = false;
+  private blendSource: string = WaveRenderer.DEFAULT_BLEND_SOURCE;
+  private noiseSource: string = WaveRenderer.DEFAULT_NOISE_SOURCE;
+  private extraUniforms: Record<string, IUniform> = {};
 
   private deformNoiseFrequency: Vector2Like =
     WaveRenderer.DEFAULT_DEFORM_NOISE_FREQUENCY;
@@ -239,6 +247,76 @@ export default class WaveRenderer {
           forceRerenderNextFrame: true,
         };
       }
+    }
+  }
+
+  /**
+   * Sets a custom noise function for the wave deformation and colors. This is a
+   * GLSL snippet that should contain an implementation for the following
+   * interface:
+   *
+   * ```glsl
+   * float noiseFunc(vec3 v);
+   * ```
+   */
+  public setNoiseSource(noiseSource: string | null): void {
+    this.noiseSource = noiseSource ?? WaveRenderer.DEFAULT_NOISE_SOURCE;
+
+    if (this.state.type === "mounted") {
+      this.state.material.vertexShader = makeVertexShader({
+        noiseSource: this.noiseSource,
+        blendSource: this.blendSource,
+      });
+      this.state.material.needsUpdate = true;
+      this.invalidateIfPaused();
+    }
+  }
+
+  /**
+   * Sets a custom blend function for the light colors. This is a GLSL snippet
+   * that should contain an implementation for the following interface:
+   *
+   * ```glsl
+   * vec3 blendFunc(vec3 bg, vec3 fg, float alpha);
+   * ```
+   */
+  public setBlendSource(blendSource: string | null): void {
+    this.blendSource = blendSource ?? WaveRenderer.DEFAULT_BLEND_SOURCE;
+
+    if (this.state.type === "mounted") {
+      this.state.material.vertexShader = makeVertexShader({
+        noiseSource: this.noiseSource,
+        blendSource: this.blendSource,
+      });
+      this.state.material.needsUpdate = true;
+      this.invalidateIfPaused();
+    }
+  }
+
+  /**
+   * Sets custom uniforms for the wave shaders.
+   */
+  public setExtraUniforms(newUniforms: Record<string, IUniform> | null): void {
+    const uniformKeysBefore = new Set(Object.keys(this.extraUniforms));
+    this.extraUniforms = newUniforms ?? {};
+
+    if (this.state.type === "mounted") {
+      const uniformKeysAfter = new Set(Object.keys(this.extraUniforms));
+      // From https://stackoverflow.com/a/31129384:
+      const setEquality = <T>(xs: Set<T>, ys: Set<T>): boolean =>
+        xs.size === ys.size && [...xs].every((x) => ys.has(x));
+      if (setEquality(uniformKeysBefore, uniformKeysAfter)) {
+        // If the uniforms are the same, then we can just update the values.
+        const { material } = this.state;
+        Object.entries(this.extraUniforms).forEach(([key, value]) => {
+          (material.uniforms[key] as IUniform<unknown>).value = value.value;
+        });
+      } else {
+        // Otherwise, we need to recreate the material.
+        Object.assign(this.state.material.uniforms, this.extraUniforms);
+        this.state.material.needsUpdate = true;
+      }
+      this.invalidateIfPaused();
     }
   }
 
@@ -398,7 +476,9 @@ export default class WaveRenderer {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setClearColor(rgbColorToThreeColor(this.fallbackColor));
 
-    const { plane, material } = this.setupScene({ scene });
+    const { plane, material } = this.setupScene({
+      scene,
+    });
 
     const boundOnResizeWindow = this.onResizeWindow.bind(this);
     window.addEventListener("resize", boundOnResizeWindow);
@@ -483,15 +563,19 @@ export default class WaveRenderer {
     }
   }
 
-  /**
-   * Sets up the Three.js scene for the waves.
-   */
-  private setupScene({ scene }: { scene: Scene }): {
-    plane: Mesh;
-    material: ShaderMaterial;
-  } {
-    const geometry = this.createPlaneGeometry();
-    const material = new ShaderMaterial({
+  public exportImage(mimeType: string): string {
+    if (this.state.type === "unmounted") {
+      logError("WaveRenderer", "Cannot export image when unmounted");
+      return "";
+    }
+
+    this.state.renderer.render(this.state.scene, this.state.camera);
+    const dataUrl = this.state.canvas.toDataURL(mimeType);
+    return dataUrl;
+  }
+
+  private createMaterial(): ShaderMaterial {
+    return new ShaderMaterial({
       uniforms: {
         inTime: { value: /* This value is ignored */ 0 },
         inDeformNoiseFrequency: { value: this.getDeformNoiseFrequency() },
@@ -504,10 +588,22 @@ export default class WaveRenderer {
         inLightNoiseScrollSpeed: { value: this.getLightNoiseScrollSpeed() },
         inLightBlendStrength: { value: this.lightBlendStrength },
         inPerLightNoiseOffset: { value: this.perLightNoiseOffset },
+        ...this.extraUniforms,
       },
-      vertexShader,
-      fragmentShader,
+      vertexShader: makeVertexShader({
+        noiseSource: this.noiseSource,
+        blendSource: this.blendSource,
+      }),
+      fragmentShader: makeFragmentShader(),
     });
+  }
+
+  private setupScene({ scene }: { scene: Scene }): {
+    plane: Mesh;
+    material: ShaderMaterial;
+  } {
+    const geometry = this.createPlaneGeometry();
+    const material = this.createMaterial();
     const plane = new Mesh(geometry, material);
     plane.rotation.x = (Math.PI / 2) * PLANE_TILT;
     scene.add(plane);

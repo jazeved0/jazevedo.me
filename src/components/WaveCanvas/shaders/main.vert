@@ -1,5 +1,4 @@
-// Includes are performed in ./index.ts:
-// #include ./vendor/webgl-noise/noise3D.glsl
+// blendFunc and noiseFunc are linked when constructing the shader
 
 // Struct must stay in sync with `LightStruct` in ./index.ts
 struct LightStruct {
@@ -28,7 +27,7 @@ void main() {
       (uv * inDeformNoiseFrequency) + (inTime * inDeformNoiseScrollSpeed);
   float noiseTimeCoord = inTime * inDeformNoiseSpeed;
   vec3 noiseCoord = vec3(noiseSpaceCoord, noiseTimeCoord);
-  float zOffset = snoise(noiseCoord) * inDeformNoiseStrength;
+  float zOffset = noiseFunc(noiseCoord) * inDeformNoiseStrength;
   vec3 deformedPosition = vec3(position.x, position.y, position.z + zOffset);
 
   // Compute the blended color from the lights. Each light is applied using
@@ -43,9 +42,10 @@ void main() {
     float noiseTimeCoordOffset = float(i) * inPerLightNoiseOffset;
     float noiseTimeCoord = (inTime * inLightNoiseSpeed) + noiseTimeCoordOffset;
     vec3 noiseCoord = vec3(noiseSpaceCoord, noiseTimeCoord);
-    float mask = snoise(noiseCoord);
+    float mask = noiseFunc(noiseCoord);
     vec3 lightColor = inLights.colors[i];
-    blendedColor = mix(blendedColor, lightColor, mask * inLightBlendStrength);
+    blendedColor =
+        blendFunc(blendedColor, lightColor, mask * inLightBlendStrength);
   }
 
   gl_Position =

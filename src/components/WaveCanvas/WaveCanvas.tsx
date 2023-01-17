@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import type { RgbColor } from "polished/lib/types/color";
 import isDeepEqual from "fast-deep-equal";
+import type { IUniform } from "three";
 
 import WaveRenderer from "./WaveRenderer";
 import type { Vector2Like } from "./WaveRenderer";
@@ -48,6 +49,29 @@ export type WaveCanvasProps = {
    * Whether the animation is paused.
    */
   isPaused?: boolean;
+  /**
+   * Sets a custom noise function for the wave deformation and colors. This is a
+   * GLSL snippet that should contain an implementation for the following
+   * interface:
+   *
+   * ```glsl
+   * float noiseFunc(vec3 v);
+   * ```
+   */
+  customNoiseSource?: string;
+  /**
+   * Sets a custom blend function for the light colors. This is a GLSL snippet
+   * that should contain an implementation for the following interface:
+   *
+   * ```glsl
+   * vec3 blendFunc(vec3 bg, vec3 fg, float alpha);
+   * ```
+   */
+  customBlendSource?: string;
+  /**
+   * Custom uniforms available in the shaders.
+   */
+  customUniforms?: Record<string, IUniform>;
 
   /**
    * The frequency of the deform noise texture. Higher values increase the
@@ -128,6 +152,9 @@ const WaveCanvas = forwardRef<WaveCanvasRef, WaveCanvasProps>(
       initialTime,
       subdivision,
       isPaused,
+      customNoiseSource,
+      customBlendSource,
+      customUniforms,
       deformNoiseFrequency,
       deformNoiseSpeed,
       deformNoiseStrength,
@@ -206,6 +233,27 @@ const WaveCanvas = forwardRef<WaveCanvasRef, WaveCanvasProps>(
           rendererRef.current?.setIsPaused(isPaused ?? null)
         ),
       [isPaused]
+    );
+    useEffect(
+      () =>
+        skipEffectBeforeInit(() =>
+          rendererRef.current?.setNoiseSource(customNoiseSource ?? null)
+        ),
+      [customNoiseSource]
+    );
+    useEffect(
+      () =>
+        skipEffectBeforeInit(() =>
+          rendererRef.current?.setBlendSource(customBlendSource ?? null)
+        ),
+      [customBlendSource]
+    );
+    useEffectOnDeepUpdate(
+      () =>
+        skipEffectBeforeInit(() =>
+          rendererRef.current?.setExtraUniforms(customUniforms ?? null)
+        ),
+      [customUniforms]
     );
     useEffectOnDeepUpdate(
       () =>
@@ -298,6 +346,9 @@ const WaveCanvas = forwardRef<WaveCanvasRef, WaveCanvasProps>(
       renderer.setInitialTime(initialTime ?? null);
       renderer.setSubdivision(subdivision ?? null);
       renderer.setIsPaused(isPaused ?? null);
+      renderer.setNoiseSource(customNoiseSource ?? null);
+      renderer.setBlendSource(customBlendSource ?? null);
+      renderer.setExtraUniforms(customUniforms ?? null);
       renderer.setDeformNoiseFrequency(deformNoiseFrequency ?? null);
       renderer.setDeformNoiseSpeed(deformNoiseSpeed ?? null);
       renderer.setDeformNoiseStrength(deformNoiseStrength ?? null);

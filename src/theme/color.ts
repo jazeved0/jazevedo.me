@@ -1,7 +1,5 @@
 import { parseToRgb } from "polished";
-import { RgbColor } from "polished/lib/types/color";
 import React from "react";
-import { NonEmptyArray } from "../ts-utils";
 
 /**
  * Page-wide color mode (light/dark)
@@ -10,6 +8,15 @@ import { NonEmptyArray } from "../ts-utils";
 export enum ColorMode {
   Dark = "dark",
   Light = "light",
+}
+const allColorModeKeys = Object.keys(ColorMode).filter(
+  (x) => !(parseInt(x, 10) >= 0)
+) as Array<keyof typeof ColorMode>;
+export function getColorModeKey(
+  toConvertMode: ColorMode
+): keyof typeof ColorMode {
+  // Reverse lookup into the ColorMode enum
+  return allColorModeKeys.find((k) => ColorMode[k] === toConvertMode) ?? "Dark";
 }
 
 export const defaultMode: ColorMode = ColorMode.Dark;

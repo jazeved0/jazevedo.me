@@ -108,6 +108,7 @@ const plugins: PluginDefs[] = [
   "gatsby-plugin-emotion",
   "@skagami/gatsby-plugin-dark-mode",
   "gatsby-plugin-react-helmet",
+  "gatsby-plugin-glslify",
   {
     resolve: "gatsby-plugin-react-svg",
     options: {
