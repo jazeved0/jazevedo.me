@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 import type { RgbColor } from "polished/lib/types/color";
 import {
   OrthographicCamera,
@@ -62,6 +64,7 @@ type RendererState =
       material: ShaderMaterial;
       startTimestamp: DOMHighResTimeStamp;
       frameCount: number;
+      renderStopWrapper: RenderStopWrapper;
     };
 
 export type Vector2Like = [x: number, y: number] | number;
@@ -341,6 +344,7 @@ export default class WaveRenderer {
     window.addEventListener("resize", boundOnResizeWindow);
 
     const startTimestamp = performance.now();
+    const renderStopWrapper = new RenderStopWrapper(this.render.bind(this));
     this.state = {
       type: "mounted",
       canvas,
@@ -352,13 +356,14 @@ export default class WaveRenderer {
       material,
       startTimestamp,
       frameCount: 1,
+      renderStopWrapper,
     };
 
     if (this.onLoadCallback != null) {
       this.onLoadCallback();
     }
 
-    requestAnimationFrame(this.renderAndScheduleNext.bind(this));
+    renderStopWrapper.start();
   }
 
   /**
@@ -374,6 +379,7 @@ export default class WaveRenderer {
     window.removeEventListener("resize", this.state.boundOnResizeWindow);
     this.state.material.dispose();
     this.state.renderer.dispose();
+    this.state.renderStopWrapper.stop();
     this.state = { type: "unmounted" };
   }
 
@@ -457,11 +463,10 @@ export default class WaveRenderer {
   }
 
   /**
-   * Callback passed to `requestAnimationFrame` to render the scene.
+   * Called from `requestAnimationFrame` to render the scene.
    */
-  private renderAndScheduleNext(time: DOMHighResTimeStamp): void {
+  private render(time: DOMHighResTimeStamp): void {
     if (this.state.type === "unmounted") {
-      // Stop rendering
       return;
     }
 
@@ -476,7 +481,6 @@ export default class WaveRenderer {
     }
 
     this.state.frameCount = frameCount + 1;
-    window.requestAnimationFrame(this.renderAndScheduleNext.bind(this));
   }
 
   /**
@@ -508,5 +512,34 @@ function vector2LikeToThreeVector2(vector: Vector2Like): Vector2 {
     return new Vector2(vector, vector);
   } else {
     return new Vector2(vector[0], vector[1]);
+  }
+}
+
+/**
+ * Class to ensure that the render loop is stopped when the renderer becomes
+ * unmounted, without introducing data races.
+ */
+class RenderStopWrapper {
+  private rendering = false;
+  private readonly renderCallback: (time: DOMHighResTimeStamp) => void;
+
+  constructor(renderCallback: (time: DOMHighResTimeStamp) => void) {
+    this.renderCallback = renderCallback;
+  }
+
+  public start(): void {
+    this.rendering = true;
+    window.requestAnimationFrame(this.renderAndScheduleNext.bind(this));
+  }
+
+  public stop(): void {
+    this.rendering = false;
+  }
+
+  private renderAndScheduleNext(timestamp: DOMHighResTimeStamp): void {
+    if (this.rendering) {
+      this.renderCallback(timestamp);
+      window.requestAnimationFrame(this.renderAndScheduleNext.bind(this));
+    }
   }
 }

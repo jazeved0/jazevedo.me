@@ -93,6 +93,7 @@ rules:
     - warn
     - typedefs: false
       functions: false
+      classes: false
 
   # Add all accessibility rules from the base Gatsby eslint config:
   # https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby/src/utils/eslint-config.ts
