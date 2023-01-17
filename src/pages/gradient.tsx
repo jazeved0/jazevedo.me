@@ -32,14 +32,33 @@ const Styled = {
 };
 
 export default function GradientTestPage(): React.ReactElement {
+  const [isPaused, setIsPaused] = React.useState(false);
+  const [initialTime, setInitialTime] = React.useState(0);
   return (
     <Layout
-      overlayChildren={<Background />}
+      overlayChildren={
+        <Background isPaused={isPaused} initialTime={initialTime} />
+      }
       hideFooter
       headerProps={{ spacing: "compact" }}
     >
       <Styled.PageLayout>
         <Styled.PageTitle>Gradient test page</Styled.PageTitle>
+        <button
+          type="button"
+          onClick={(): void => {
+            setIsPaused((prev) => !prev);
+          }}
+        >
+          {isPaused ? "Resume" : "Pause"}
+        </button>
+        <input
+          type="number"
+          value={initialTime}
+          onChange={(e): void => {
+            setInitialTime(Number(e.target.value));
+          }}
+        />
       </Styled.PageLayout>
     </Layout>
   );
@@ -62,7 +81,15 @@ const GRADIENT_COLORS: { [k in ColorMode]: NonEmptyArray<RgbColor> } =
     ).map(([k, v]) => [k, v.map((c) => parseToRgb(c))])
   ) as { [k in ColorMode]: NonEmptyArray<RgbColor> };
 
-function Background(): React.ReactElement {
+type BackgroundProps = {
+  initialTime: number;
+  isPaused: boolean;
+};
+
+function Background({
+  initialTime,
+  isPaused,
+}: BackgroundProps): React.ReactElement {
   // This only gets used in the WaveCanvas component in effects. As a result,
   // it's safe to use this value without gating it on the initial render.
   const colorMode = useColorMode();
@@ -74,7 +101,9 @@ function Background(): React.ReactElement {
       onLoad={(): void => {
         window.console.log("[GradientTestPage] Wave canvas loaded");
       }}
-      initialTime={33}
+      // initialTime={33}
+      initialTime={initialTime}
+      isPaused={isPaused}
       subdivision={72}
       deformNoiseFrequency={2}
       deformNoiseSpeed={0.06}

@@ -49,6 +49,18 @@ function computeCameraViewport(
   });
 }
 
+type PlaybackState =
+  | {
+      type: "playing";
+      startTimestamp: DOMHighResTimeStamp;
+      frameCount: number;
+    }
+  | {
+      type: "paused";
+      pauseTime: number;
+      forceRerenderNextFrame: boolean;
+    };
+
 type RendererState =
   | {
       type: "unmounted";
@@ -62,8 +74,8 @@ type RendererState =
       scene: Scene;
       plane: Mesh;
       material: ShaderMaterial;
-      startTimestamp: DOMHighResTimeStamp;
       frameCount: number;
+      playbackState: PlaybackState;
       renderStopWrapper: RenderStopWrapper;
     };
 
@@ -101,6 +113,7 @@ export default class WaveRenderer {
   private fallbackColor: RgbColor = WaveRenderer.DEFAULT_WAVE_COLOR;
   private initialTime: number = WaveRenderer.DEFAULT_INITIAL_TIME;
   private subdivision: Vector2Like = WaveRenderer.DEFAULT_SUBDIVISION;
+  private startPaused = false;
 
   private deformNoiseFrequency: Vector2Like =
     WaveRenderer.DEFAULT_DEFORM_NOISE_FREQUENCY;
@@ -149,6 +162,7 @@ export default class WaveRenderer {
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inLights.value =
         this.getLightsUniformValue();
+      this.invalidateIfPaused();
     }
   }
 
@@ -164,6 +178,7 @@ export default class WaveRenderer {
       this.state.renderer.setClearColor(
         rgbColorToThreeColor(this.fallbackColor)
       );
+      this.invalidateIfPaused();
     }
   }
 
@@ -173,6 +188,7 @@ export default class WaveRenderer {
    */
   public setInitialTime(time: number | null): void {
     this.initialTime = time ?? WaveRenderer.DEFAULT_INITIAL_TIME;
+    this.invalidateIfPaused();
   }
 
   /**
@@ -188,6 +204,33 @@ export default class WaveRenderer {
     if (this.state.type === "mounted") {
       this.state.plane.geometry.dispose();
       this.state.plane.geometry = this.createPlaneGeometry();
+      this.invalidateIfPaused();
+    }
+  }
+
+  /**
+   * Sets whether the animation is paused.
+   */
+  public setIsPaused(isPaused: boolean | null): void {
+    this.startPaused = isPaused ?? false;
+
+    if (this.state.type === "mounted") {
+      if (this.state.playbackState.type === "paused" && !isPaused) {
+        const newStartTimestamp = performance.now();
+        this.state.playbackState = {
+          type: "playing",
+          startTimestamp:
+            newStartTimestamp - this.state.playbackState.pauseTime * 1000,
+          frameCount: 1,
+        };
+      } else if (this.state.playbackState.type === "playing" && isPaused) {
+        const now = performance.now();
+        this.state.playbackState = {
+          type: "paused",
+          pauseTime: (now - this.state.playbackState.startTimestamp) / 1000,
+          forceRerenderNextFrame: true,
+        };
+      }
     }
   }
 
@@ -204,6 +247,7 @@ export default class WaveRenderer {
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inDeformNoiseFrequency.value =
         this.getDeformNoiseFrequency();
+      this.invalidateIfPaused();
     }
   }
 
@@ -217,6 +261,7 @@ export default class WaveRenderer {
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inDeformNoiseSpeed.value =
         this.deformNoiseSpeed;
+      this.invalidateIfPaused();
     }
   }
 
@@ -231,6 +276,7 @@ export default class WaveRenderer {
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inDeformNoiseStrength.value =
         this.deformNoiseStrength;
+      this.invalidateIfPaused();
     }
   }
 
@@ -246,6 +292,7 @@ export default class WaveRenderer {
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inDeformNoiseScrollSpeed.value =
         this.getDeformNoiseScrollSpeed();
+      this.invalidateIfPaused();
     }
   }
 
@@ -262,6 +309,7 @@ export default class WaveRenderer {
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inLightNoiseFrequency.value =
         this.getLightNoiseFrequency();
+      this.invalidateIfPaused();
     }
   }
 
@@ -275,6 +323,7 @@ export default class WaveRenderer {
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inLightNoiseSpeed.value =
         this.lightNoiseSpeed;
+      this.invalidateIfPaused();
     }
   }
 
@@ -290,6 +339,7 @@ export default class WaveRenderer {
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inLightNoiseScrollSpeed.value =
         this.getLightNoiseScrollSpeed();
+      this.invalidateIfPaused();
     }
   }
 
@@ -305,6 +355,7 @@ export default class WaveRenderer {
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inLightBlendStrength.value =
         this.lightBlendStrength;
+      this.invalidateIfPaused();
     }
   }
 
@@ -318,6 +369,7 @@ export default class WaveRenderer {
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inPerLightNoiseOffset.value =
         this.perLightNoiseOffset;
+      this.invalidateIfPaused();
     }
   }
 
@@ -343,7 +395,22 @@ export default class WaveRenderer {
     const boundOnResizeWindow = this.onResizeWindow.bind(this);
     window.addEventListener("resize", boundOnResizeWindow);
 
-    const startTimestamp = performance.now();
+    let playbackState: PlaybackState;
+    if (this.startPaused) {
+      playbackState = {
+        type: "paused",
+        pauseTime: 0,
+        forceRerenderNextFrame: true,
+      };
+    } else {
+      const startTimestamp = performance.now();
+      playbackState = {
+        type: "playing",
+        startTimestamp,
+        frameCount: 1,
+      };
+    }
+
     const renderStopWrapper = new RenderStopWrapper(this.render.bind(this));
     this.state = {
       type: "mounted",
@@ -354,7 +421,7 @@ export default class WaveRenderer {
       scene,
       plane,
       material,
-      startTimestamp,
+      playbackState,
       frameCount: 1,
       renderStopWrapper,
     };
@@ -470,17 +537,40 @@ export default class WaveRenderer {
       return;
     }
 
-    const { frameCount } = this.state;
-    if (frameCount % 2 !== 1) {
-      // Skip this frame to reduce load.
-    } else {
-      const elapsed = time - this.state.startTimestamp;
-      this.state.material.uniforms.inTime.value =
-        elapsed / 1000 + this.initialTime;
-      this.state.renderer.render(this.state.scene, this.state.camera);
+    const { playbackState } = this.state;
+    if (playbackState.type === "paused") {
+      if (playbackState.forceRerenderNextFrame) {
+        playbackState.forceRerenderNextFrame = false;
+        this.state.material.uniforms.inTime.value =
+          playbackState.pauseTime + this.initialTime;
+        this.state.renderer.render(this.state.scene, this.state.camera);
+      }
+    } else if (playbackState.type === "playing") {
+      if (playbackState.frameCount % 2 !== 1) {
+        // Skip this frame to reduce load.
+      } else {
+        const elapsed = time - playbackState.startTimestamp;
+        this.state.material.uniforms.inTime.value =
+          elapsed / 1000 + this.initialTime;
+        this.state.renderer.render(this.state.scene, this.state.camera);
+      }
+
+      playbackState.frameCount += 1;
+    }
+  }
+
+  /**
+   * Forces a re-render of the scene if the playback state is paused.
+   */
+  private invalidateIfPaused(): void {
+    if (this.state.type === "unmounted") {
+      return;
     }
 
-    this.state.frameCount = frameCount + 1;
+    const { playbackState } = this.state;
+    if (playbackState.type === "paused") {
+      playbackState.forceRerenderNextFrame = true;
+    }
   }
 
   /**
@@ -500,6 +590,7 @@ export default class WaveRenderer {
       clientHeight,
       /* updateStyle */ false
     );
+    this.invalidateIfPaused();
   }
 }
 

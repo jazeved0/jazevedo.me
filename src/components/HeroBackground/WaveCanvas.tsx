@@ -36,6 +36,10 @@ export type WaveCanvasProps = {
    * ratio, might may not be square.
    */
   subdivision?: Vector2Like;
+  /**
+   * Whether the animation is paused.
+   */
+  isPaused?: boolean;
 
   /**
    * The frequency of the deform noise texture. Higher values increase the
@@ -109,6 +113,7 @@ const WaveCanvas = forwardRef<HTMLCanvasElement, WaveCanvasProps>(
       onLoad,
       initialTime,
       subdivision,
+      isPaused,
       deformNoiseFrequency,
       deformNoiseSpeed,
       deformNoiseStrength,
@@ -181,6 +186,13 @@ const WaveCanvas = forwardRef<HTMLCanvasElement, WaveCanvasProps>(
           rendererRef.current?.setSubdivision(subdivision ?? null)
         ),
       [subdivision]
+    );
+    useEffect(
+      () =>
+        skipEffectBeforeInit(() =>
+          rendererRef.current?.setIsPaused(isPaused ?? null)
+        ),
+      [isPaused]
     );
     useEffectOnDeepUpdate(
       () =>
