@@ -36,9 +36,9 @@ export type WaveCanvasProps = {
    * The initial time for the wave animation. This can be used to control
    * the initial frame so that it is reproducible.
    */
-  initialTime?: number;
+  timeOffset?: number;
   /**
-   * Sets The subdivision of the plane geometry. This is a vector so that the
+   * The subdivision of the plane geometry. This is a vector so that the
    * plane can be subdivided differently in the x and y directions.
    *
    * Note that the vector passed in is implicitly scaled by the plane's aspect
@@ -50,7 +50,7 @@ export type WaveCanvasProps = {
    */
   isPaused?: boolean;
   /**
-   * Sets a custom noise function for the wave deformation and colors. This is a
+   * A custom noise function for the wave deformation and colors. This is a
    * GLSL snippet that should contain an implementation for the following
    * interface:
    *
@@ -60,7 +60,7 @@ export type WaveCanvasProps = {
    */
   customNoiseSource?: string;
   /**
-   * Sets a custom blend function for the light colors. This is a GLSL snippet
+   * A custom blend function for the light colors. This is a GLSL snippet
    * that should contain an implementation for the following interface:
    *
    * ```glsl
@@ -149,7 +149,7 @@ const WaveCanvas = forwardRef<WaveCanvasRef, WaveCanvasProps>(
       fallbackColor,
       onLoad,
       onRender,
-      initialTime,
+      timeOffset,
       subdivision,
       isPaused,
       customNoiseSource,
@@ -216,9 +216,9 @@ const WaveCanvas = forwardRef<WaveCanvasRef, WaveCanvasProps>(
     useEffect(
       () =>
         skipEffectBeforeInit(() =>
-          rendererRef.current?.setInitialTime(initialTime ?? null)
+          rendererRef.current?.setTimeOffset(timeOffset ?? null)
         ),
-      [initialTime]
+      [timeOffset]
     );
     useEffectOnDeepUpdate(
       () =>
@@ -343,7 +343,7 @@ const WaveCanvas = forwardRef<WaveCanvasRef, WaveCanvasProps>(
       renderer.setOnRender(onRender ?? null);
       renderer.setColors(colors);
       renderer.setFallbackColor(fallbackColor);
-      renderer.setInitialTime(initialTime ?? null);
+      renderer.setTimeOffset(timeOffset ?? null);
       renderer.setSubdivision(subdivision ?? null);
       renderer.setIsPaused(isPaused ?? null);
       renderer.setNoiseSource(customNoiseSource ?? null);

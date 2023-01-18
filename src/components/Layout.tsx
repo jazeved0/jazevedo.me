@@ -34,7 +34,7 @@ const Styled = {
 export type LayoutProps = {
   headerProps?: React.ComponentProps<typeof Header>;
   overlayChildren?: React.ReactNode;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
   hideFooter?: boolean;

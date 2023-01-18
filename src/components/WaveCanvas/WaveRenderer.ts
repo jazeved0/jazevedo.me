@@ -82,7 +82,7 @@ type RendererState =
       renderStopWrapper: RenderStopWrapper;
     };
 
-export type Vector2Like = [x: number, y: number] | number;
+export type Vector2Like = readonly [x: number, y: number] | number;
 
 /**
  * A renderer for the waves in the hero background.
@@ -117,9 +117,10 @@ export default class WaveRenderer {
   private onRenderCallback: (() => void) | null = null;
   private colors: NonEmptyArray<RgbColor> = [WaveRenderer.DEFAULT_WAVE_COLOR];
   private fallbackColor: RgbColor = WaveRenderer.DEFAULT_WAVE_COLOR;
-  private initialTime: number = WaveRenderer.DEFAULT_INITIAL_TIME;
+  private timeOffset: number = WaveRenderer.DEFAULT_INITIAL_TIME;
   private subdivision: Vector2Like = WaveRenderer.DEFAULT_SUBDIVISION;
   private startPaused = false;
+  private startAtTime: number | null = null;
   private blendSource: string = WaveRenderer.DEFAULT_BLEND_SOURCE;
   private noiseSource: string = WaveRenderer.DEFAULT_NOISE_SOURCE;
   private extraUniforms: Record<string, IUniform> = {};
@@ -202,8 +203,8 @@ export default class WaveRenderer {
    * Sets the initial time for the wave animation. This can be used to control
    * the initial frame so that it is reproducible.
    */
-  public setInitialTime(time: number | null): void {
-    this.initialTime = time ?? WaveRenderer.DEFAULT_INITIAL_TIME;
+  public setTimeOffset(time: number | null): void {
+    this.timeOffset = time ?? WaveRenderer.DEFAULT_INITIAL_TIME;
     this.invalidateIfPaused();
   }
 
@@ -487,14 +488,14 @@ export default class WaveRenderer {
     if (this.startPaused) {
       playbackState = {
         type: "paused",
-        pauseTime: 0,
+        pauseTime: this.startAtTime ?? 0,
         forceRerenderNextFrame: true,
       };
     } else {
       const startTimestamp = performance.now();
       playbackState = {
         type: "playing",
-        startTimestamp,
+        startTimestamp: startTimestamp - (this.startAtTime ?? 0) * 1000,
         frameCount: 1,
       };
     }
@@ -539,7 +540,7 @@ export default class WaveRenderer {
   }
 
   /**
-   * Restarts the animation to `t = this.initialTime`.
+   * Restarts the animation to `t = this.timeOffset`.
    */
   public restartAnimation(): void {
     if (this.state.type === "unmounted") {
@@ -569,6 +570,7 @@ export default class WaveRenderer {
       return "";
     }
 
+    // Re-render the scene to ensure that the pixel data is in the buffer.
     this.state.renderer.render(this.state.scene, this.state.camera);
     const dataUrl = this.state.canvas.toDataURL(mimeType);
     return dataUrl;
@@ -661,19 +663,22 @@ export default class WaveRenderer {
   /**
    * Called from `requestAnimationFrame` to render the scene.
    */
-  private render(time: DOMHighResTimeStamp): void {
+  private render(timestamp: DOMHighResTimeStamp): void {
     if (this.state.type === "unmounted") {
       return;
     }
 
     const { playbackState } = this.state;
+    const time = this.getTime(timestamp);
+    if (time === null) {
+      throw new Error("Time should not be null");
+    }
     if (playbackState.type === "paused") {
       if (playbackState.forceRerenderNextFrame) {
         playbackState.forceRerenderNextFrame = false;
-        this.state.material.uniforms.inTime.value =
-          playbackState.pauseTime + this.initialTime;
-        this.state.renderer.render(this.state.scene, this.state.camera);
 
+        this.state.material.uniforms.inTime.value = time + this.timeOffset;
+        this.state.renderer.render(this.state.scene, this.state.camera);
         if (this.onRenderCallback !== null) {
           this.onRenderCallback();
         }
@@ -682,17 +687,51 @@ export default class WaveRenderer {
       if (playbackState.frameCount % 2 !== 1) {
         // Skip this frame to reduce load.
       } else {
-        const elapsed = time - playbackState.startTimestamp;
-        this.state.material.uniforms.inTime.value =
-          elapsed / 1000 + this.initialTime;
+        this.state.material.uniforms.inTime.value = time + this.timeOffset;
         this.state.renderer.render(this.state.scene, this.state.camera);
-
         if (this.onRenderCallback !== null) {
           this.onRenderCallback();
         }
       }
 
       playbackState.frameCount += 1;
+    }
+  }
+
+  /**
+   * Returns the second offset of the animation, relative to the initial time.
+   */
+  public getTime(atTimestamp?: DOMHighResTimeStamp): number {
+    if (this.state.type === "unmounted") {
+      return this.startAtTime ?? 0;
+    }
+
+    const { playbackState } = this.state;
+    if (playbackState.type === "paused") {
+      return playbackState.pauseTime;
+    } else if (playbackState.type === "playing") {
+      const resolvedTimestamp = atTimestamp ?? performance.now();
+      const elapsed = resolvedTimestamp - playbackState.startTimestamp;
+      return elapsed / 1000;
+    } else {
+      throw new Error("Unexpected playback state");
+    }
+  }
+
+  /**
+   * Seeks to a specific time in the animation, relative to the initial time.
+   */
+  public seekToTime(time: number): void {
+    if (this.state.type === "unmounted") {
+      this.startAtTime = time;
+      return;
+    }
+
+    const { playbackState } = this.state;
+    if (playbackState.type === "playing") {
+      playbackState.startTimestamp = performance.now() - time * 1000;
+    } else if (playbackState.type === "paused") {
+      playbackState.pauseTime = time;
     }
   }
 
