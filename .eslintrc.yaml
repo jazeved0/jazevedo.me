@@ -94,6 +94,10 @@ rules:
     - typedefs: false
       functions: false
       classes: false
+  # Disable the normal `no-shadow` in favor of the one in `@typescript-eslint`.
+  # From https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-shadow.md#how-to-use
+  "no-shadow": off
+  "@typescript-eslint/no-shadow": [error]
 
   # Add all accessibility rules from the base Gatsby eslint config:
   # https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby/src/utils/eslint-config.ts

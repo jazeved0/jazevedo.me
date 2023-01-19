@@ -18,7 +18,12 @@ import {
   mode,
   HeroBackgroundColors as HeroBackgroundColorStrings,
 } from "../theme/color";
-import { useColorMode, useGlobalDebugHandle, useMediaQuery } from "../hooks";
+import {
+  useColorMode,
+  useGlobalDebugHandle,
+  useInitialRender,
+  useMediaQuery,
+} from "../hooks";
 import type { NonEmptyArray, TupleVector2 } from "../ts-utils";
 // Must only `import type` from WaveCanvas, since it should be bundle-split:
 import type { WaveCanvasRef } from "./WaveCanvas/WaveCanvas";
@@ -181,12 +186,13 @@ export default function HeroBackground({
 }: HeroBackgroundProps): React.ReactElement {
   // Disable the animated gradient if the agent prefers reduced motion,
   // or if a forced color/high contrast mode is enabled.
-  // The lazy-loader always renders nothing on its first render, so it's safe
-  // to render the component on the first render without worrying about
-  // hydration inconsistencies.
+  //
+  // Additionally, only render the canvas on the client.
+  const initialRender = useInitialRender();
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const usingForcedColor = useMediaQuery("(forced-colors: active)");
-  const renderWaveCanvas = !usingForcedColor && !reducedMotion;
+  const renderWaveCanvas =
+    !initialRender && !usingForcedColor && !reducedMotion;
 
   return (
     <Styled.HeroLayout className={className} style={style}>
