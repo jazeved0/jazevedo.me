@@ -534,10 +534,12 @@ export default class WaveRenderer {
    */
   public mount({ canvas }: { canvas: HTMLCanvasElement }): void {
     const scene = new Scene();
+    scene.matrixWorldAutoUpdate = false;
     const { clientWidth, clientHeight } = canvas;
     const initialViewport = computeCameraViewport(clientWidth, clientHeight);
     const camera = createOrthoCamera(initialViewport);
     camera.name = "main-camera";
+    camera.matrixWorldAutoUpdate = false;
     scene.add(camera);
 
     const renderer = new WebGLRenderer({ canvas, antialias: true });
@@ -682,6 +684,8 @@ export default class WaveRenderer {
     const material = this.createMaterial();
     const plane = new Mesh(geometry, material);
     plane.rotation.x = (Math.PI / 2) * PLANE_TILT;
+    plane.updateMatrixWorld();
+    plane.matrixWorldAutoUpdate = false;
     scene.add(plane);
 
     return { plane, material };
