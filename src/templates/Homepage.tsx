@@ -17,8 +17,29 @@ import { ProjectCardFragment } from "../components/ProjectCard/types";
 import BaseProjectCarousel from "../components/ProjectCarousel";
 import Mdx from "../components/Mdx";
 
+const ContentWrapperCommon = styled.div`
+  padding-left: var(--content-padding);
+
+  & p {
+    font-size: 1.2rem;
+    margin-bottom: ${gap.nano};
+    font-weight: 400;
+  }
+
+  & p a {
+    ${highlightLinks}
+  }
+
+  & h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: ${gap.centi};
+    margin-bottom: ${gap.micro};
+  }
+`;
+
 const Styled = {
-  PageLayout: styled.div`
+  PageLayout: styled.article`
     position: relative;
     z-index: 0;
     --image-size: 256px;
@@ -42,7 +63,8 @@ const Styled = {
     grid-template-areas:
       ". . profile name . ."
       ". . profile content . ."
-      "carouselBleed carouselBleed carouselBleed carousel carousel carousel";
+      "carouselBleed carouselBleed carouselBleed carousel carousel carousel"
+      ". . . postCarouselContent . .";
 
     padding-top: ${gap.milli};
     padding-bottom: ${gap.milli};
@@ -63,7 +85,8 @@ const Styled = {
         ". . profile . ."
         ". . name    . ."
         ". . content . ."
-        "carouselBleed carouselBleed carousel carousel carousel";
+        "carouselBleed carouselBleed carousel carousel carousel"
+        ". . postCarouselContent . .";
 
       padding-top: ${gap.femto};
     }
@@ -114,26 +137,11 @@ const Styled = {
     font-size: 1.5rem;
     font-weight: 400;
   `,
-  ContentWrapper: styled.article`
+  Content: styled(ContentWrapperCommon)`
     grid-area: content;
-    padding-left: var(--content-padding);
-
-    & p {
-      font-size: 1.2rem;
-      margin-bottom: ${gap.nano};
-      font-weight: 400;
-    }
-
-    & p a {
-      ${highlightLinks}
-    }
-
-    & h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-top: ${gap.centi};
-      margin-bottom: ${gap.micro};
-    }
+  `,
+  PostCarouselContent: styled(ContentWrapperCommon)`
+    grid-area: postCarouselContent;
   `,
   EmailSpoilerHeading: styled.h4`
     font-size: 1.05rem;
@@ -238,15 +246,17 @@ function HomepageLayout({ children }: HomepageLayoutProps): React.ReactElement {
 type HomepageLayoutAggregateType = typeof HomepageLayout & {
   ProfilePicture: typeof ProfilePicture;
   Name: typeof Name;
-  Content: typeof Styled.ContentWrapper;
+  Content: typeof Styled.Content;
   ProjectCarousel: typeof ProjectCarousel;
+  PostCarouselContent: typeof Styled.PostCarouselContent;
 };
 const HomepageLayoutAggregate: HomepageLayoutAggregateType =
   HomepageLayout as HomepageLayoutAggregateType;
 HomepageLayoutAggregate.ProfilePicture = ProfilePicture;
 HomepageLayoutAggregate.Name = Name;
-HomepageLayoutAggregate.Content = Styled.ContentWrapper;
+HomepageLayoutAggregate.Content = Styled.Content;
 HomepageLayoutAggregate.ProjectCarousel = ProjectCarousel;
+HomepageLayoutAggregate.PostCarouselContent = Styled.PostCarouselContent;
 export default HomepageLayoutAggregate;
 
 // ? --------------

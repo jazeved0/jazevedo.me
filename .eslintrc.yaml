@@ -72,6 +72,15 @@ rules:
   # I disagree with this rule, for the aesthetics & readability of code
   # that follows diverging paths in if/else statements:
   no-else-return: off
+  # I dislike this rule, since it makes class fields too verbose/spaced out.
+  # I would enable it for methods, but it doesn't appear to support that config.
+  lines-between-class-members: off
+
+  # Allow parameter reassign when the parameter is prefixed with `mut`:
+  no-param-reassign:
+    - error
+    - ignorePropertyModificationsForRegex:
+        - "^mut[A-Z]"
 
   # Disable the normal `dot-notation` in favor of the one in `@typescript-eslint`.
   # From https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/dot-notation.md
@@ -84,6 +93,11 @@ rules:
     - warn
     - typedefs: false
       functions: false
+      classes: false
+  # Disable the normal `no-shadow` in favor of the one in `@typescript-eslint`.
+  # From https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-shadow.md#how-to-use
+  "no-shadow": off
+  "@typescript-eslint/no-shadow": [error]
 
   # Add all accessibility rules from the base Gatsby eslint config:
   # https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby/src/utils/eslint-config.ts

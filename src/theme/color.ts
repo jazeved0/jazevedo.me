@@ -9,6 +9,15 @@ export enum ColorMode {
   Dark = "dark",
   Light = "light",
 }
+const allColorModeKeys = Object.keys(ColorMode).filter(
+  (x) => !(parseInt(x, 10) >= 0)
+) as Array<keyof typeof ColorMode>;
+export function getColorModeKey(
+  toConvertMode: ColorMode
+): keyof typeof ColorMode {
+  // Reverse lookup into the ColorMode enum
+  return allColorModeKeys.find((k) => ColorMode[k] === toConvertMode) ?? "Dark";
+}
 
 export const defaultMode: ColorMode = ColorMode.Dark;
 const nonDefaultModes = Object.values(ColorMode).filter(
@@ -99,12 +108,11 @@ export const chromePdfBackground = "#525659";
 export const riskOceanColor = "#1d2951";
 
 // Whenever changing these, make sure to re-generate the fallbacks
-// in `src/images/hero` by taking 1080p screenshots of:
-// https://codepen.io/jazeved0/pen/xxXpBEX
-export const heroGradientColors = {
-  [ColorMode.Light]: ["#c9a5eb", "#afc0f7", "#8ed3ee", "#5ea1ee"],
-  [ColorMode.Dark]: ["#122557", "#452f61", "#1a3063", "#011542"],
-};
+// in `src/images/hero` by following the steps in `HeroBackground.tsx`.
+export const HeroBackgroundColors = {
+  [ColorMode.Light]: ["#afc0f7", "#8ed3ee", "#5ea1ee", "#c9a5eb"],
+  [ColorMode.Dark]: ["#122557", "#1a3063", "#011542", "#452f61"],
+} as const;
 
 /**
  * Bootstrap-like variant, using colors injected from the theme.

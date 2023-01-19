@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from "react";
-import { ThemeToggler } from "gatsby-plugin-dark-mode";
 import { Helmet } from "react-helmet";
+import { useTheme } from "@skagami/gatsby-plugin-dark-mode";
 
 import { useInitialRender, useMediaQuery } from "../hooks";
 import { ColorModeContext, ColorMode, defaultMode } from "../theme/color";
@@ -16,19 +16,16 @@ export type ColorModeProviderProps = {
 export default function ColorModeProvider({
   children,
 }: ColorModeProviderProps): React.ReactElement {
+  const [theme, toggleTheme] = useTheme();
   return (
-    <ThemeToggler>
-      {({ theme, toggleTheme }): React.ReactNode => (
-        <MemoizedContextProvider
-          // This relies on "dark" and "light" both being valid `ColorMode`s
-          mode={(theme as ColorMode | null | undefined) ?? defaultMode}
-          setMode={toggleTheme}
-        >
-          <ThemeMetaInjector />
-          {children}
-        </MemoizedContextProvider>
-      )}
-    </ThemeToggler>
+    <MemoizedContextProvider
+      // This relies on "dark" and "light" both being valid `ColorMode`s
+      mode={(theme as ColorMode | null) ?? defaultMode}
+      setMode={toggleTheme}
+    >
+      <ThemeMetaInjector />
+      {children}
+    </MemoizedContextProvider>
   );
 }
 

@@ -11,7 +11,7 @@ const Styled = {
     /* Create a grid that stacks all elements on top of each other */
     display: grid;
     grid-template-columns: 1fr;
-    min-height: 100%;
+    height: 100%;
 
     & > * {
       grid-row-start: 1;
@@ -34,10 +34,11 @@ const Styled = {
 export type LayoutProps = {
   headerProps?: React.ComponentProps<typeof Header>;
   overlayChildren?: React.ReactNode;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
   hideFooter?: boolean;
+  hideHeader?: boolean;
 };
 
 /**
@@ -51,6 +52,7 @@ export default function Layout({
   className,
   style,
   hideFooter = false,
+  hideHeader = false,
 }: LayoutProps): React.ReactElement {
   return (
     <ColorModeProvider>
@@ -59,7 +61,7 @@ export default function Layout({
         <Styled.Layout>
           <GlobalCss />
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Header {...headerProps} />
+          {!hideHeader && <Header {...headerProps} />}
           <div style={{ flexGrow: 1, ...style }} className={className}>
             {children}
           </div>
