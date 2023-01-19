@@ -159,6 +159,7 @@ jobs:
             echo "The placeholder resume PDF is out of date. Please recompile the PDF from source (/src/resume/placeholder.tex)."
             exit 1
           fi
+        if: env.src_changed == 'true'
 
   # Uses "paths-filter" to only run the job when the risk-game demo source changes:
   # https://github.com/dorny/paths-filter
