@@ -103,13 +103,17 @@ export default class WaveRenderer {
   public static DEFAULT_NOISE_SOURCE = defaultNoise;
 
   public static DEFAULT_DEFORM_NOISE_FREQUENCY: Vector2Like = 2;
-  public static DEFAULT_DEFORM_NOISE_SPEED = 0.06;
-  public static DEFAULT_DEFORM_NOISE_STRENGTH = 0.2;
-  public static DEFAULT_DEFORM_NOISE_SCROLL_SPEED: Vector2Like = [0.025, 0.01];
+  public static DEFAULT_DEFORM_NOISE_SPEED = 6;
+  public static DEFAULT_DEFORM_NOISE_STRENGTH = 2;
+  public static DEFAULT_DEFORM_NOISE_SCROLL_SPEED: Vector2Like = [2.5, 1];
+  public static DEFAULT_DEFORM_NOISE_CLAMP_LOW = -1;
+  public static DEFAULT_DEFORM_NOISE_CLAMP_HIGH = 1;
 
   public static DEFAULT_LIGHT_NOISE_FREQUENCY: Vector2Like = 1;
-  public static DEFAULT_LIGHT_NOISE_SPEED = 0.03;
-  public static DEFAULT_LIGHT_NOISE_SCROLL_SPEED: Vector2Like = [0.025, 0.01];
+  public static DEFAULT_LIGHT_NOISE_SPEED = 3;
+  public static DEFAULT_LIGHT_NOISE_SCROLL_SPEED: Vector2Like = [2.5, 1];
+  public static DEFAULT_LIGHT_NOISE_CLAMP_LOW = -0.5;
+  public static DEFAULT_LIGHT_NOISE_CLAMP_HIGH = 1;
   public static DEFAULT_LIGHT_BLEND_STRENGTH = 1;
   public static DEFAULT_PER_LIGHT_NOISE_OFFSET = 8;
 
@@ -132,12 +136,20 @@ export default class WaveRenderer {
     WaveRenderer.DEFAULT_DEFORM_NOISE_STRENGTH;
   private deformNoiseScrollSpeed: Vector2Like =
     WaveRenderer.DEFAULT_DEFORM_NOISE_SCROLL_SPEED;
+  private deformNoiseClampLow: number =
+    WaveRenderer.DEFAULT_DEFORM_NOISE_CLAMP_LOW;
+  private deformNoiseClampHigh: number =
+    WaveRenderer.DEFAULT_DEFORM_NOISE_CLAMP_HIGH;
 
   private lightNoiseFrequency: Vector2Like =
     WaveRenderer.DEFAULT_LIGHT_NOISE_FREQUENCY;
   private lightNoiseSpeed: number = WaveRenderer.DEFAULT_LIGHT_NOISE_SPEED;
   private lightNoiseScrollSpeed: Vector2Like =
     WaveRenderer.DEFAULT_LIGHT_NOISE_SCROLL_SPEED;
+  private lightNoiseClampLow: number =
+    WaveRenderer.DEFAULT_LIGHT_NOISE_CLAMP_LOW;
+  private lightNoiseClampHigh: number =
+    WaveRenderer.DEFAULT_LIGHT_NOISE_CLAMP_HIGH;
   private lightBlendStrength: number =
     WaveRenderer.DEFAULT_LIGHT_BLEND_STRENGTH;
   private perLightNoiseOffset: number =
@@ -164,7 +176,7 @@ export default class WaveRenderer {
   /**
    * Sets the colors to use for the waves. The array must be non-empty.
    */
-  public setColors(colors: NonEmptyArray<RgbColor>): void {
+  public setColors(colors: Readonly<NonEmptyArray<RgbColor>>): void {
     let colorsCopy = colors.slice() as NonEmptyArray<RgbColor>;
     if (colorsCopy.length > MAX_LIGHTS) {
       logWarn(
@@ -347,7 +359,7 @@ export default class WaveRenderer {
 
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inDeformNoiseSpeed.value =
-        this.deformNoiseSpeed;
+        this.getDeformNoiseSpeed();
       this.invalidateIfPaused();
     }
   }
@@ -362,7 +374,7 @@ export default class WaveRenderer {
 
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inDeformNoiseStrength.value =
-        this.deformNoiseStrength;
+        this.getDeformNoiseStrength();
       this.invalidateIfPaused();
     }
   }
@@ -379,6 +391,34 @@ export default class WaveRenderer {
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inDeformNoiseScrollSpeed.value =
         this.getDeformNoiseScrollSpeed();
+      this.invalidateIfPaused();
+    }
+  }
+
+  /**
+   * Sets the minimum value of the deform noise texture.
+   */
+  public setDeformNoiseClampLow(clampLow: number | null): void {
+    this.deformNoiseClampLow =
+      clampLow ?? WaveRenderer.DEFAULT_DEFORM_NOISE_CLAMP_LOW;
+
+    if (this.state.type === "mounted") {
+      this.state.material.uniforms.inDeformNoiseClampLow.value =
+        this.deformNoiseClampLow;
+      this.invalidateIfPaused();
+    }
+  }
+
+  /**
+   * Sets the maximum value of the deform noise texture.
+   */
+  public setDeformNoiseClampHigh(clampHigh: number | null): void {
+    this.deformNoiseClampHigh =
+      clampHigh ?? WaveRenderer.DEFAULT_DEFORM_NOISE_CLAMP_HIGH;
+
+    if (this.state.type === "mounted") {
+      this.state.material.uniforms.inDeformNoiseClampHigh.value =
+        this.deformNoiseClampHigh;
       this.invalidateIfPaused();
     }
   }
@@ -409,7 +449,7 @@ export default class WaveRenderer {
 
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inLightNoiseSpeed.value =
-        this.lightNoiseSpeed;
+        this.getLightNoiseSpeed();
       this.invalidateIfPaused();
     }
   }
@@ -426,6 +466,34 @@ export default class WaveRenderer {
     if (this.state.type === "mounted") {
       this.state.material.uniforms.inLightNoiseScrollSpeed.value =
         this.getLightNoiseScrollSpeed();
+      this.invalidateIfPaused();
+    }
+  }
+
+  /**
+   * Sets the minimum value of the light noise texture.
+   */
+  public setLightNoiseClampLow(clampLow: number | null): void {
+    this.lightNoiseClampLow =
+      clampLow ?? WaveRenderer.DEFAULT_LIGHT_NOISE_CLAMP_LOW;
+
+    if (this.state.type === "mounted") {
+      this.state.material.uniforms.inLightNoiseClampLow.value =
+        this.lightNoiseClampLow;
+      this.invalidateIfPaused();
+    }
+  }
+
+  /**
+   * Sets the maximum value of the light noise texture.
+   */
+  public setLightNoiseClampHigh(clampHigh: number | null): void {
+    this.lightNoiseClampHigh =
+      clampHigh ?? WaveRenderer.DEFAULT_LIGHT_NOISE_CLAMP_HIGH;
+
+    if (this.state.type === "mounted") {
+      this.state.material.uniforms.inLightNoiseClampHigh.value =
+        this.lightNoiseClampHigh;
       this.invalidateIfPaused();
     }
   }
@@ -571,6 +639,8 @@ export default class WaveRenderer {
     }
 
     // Re-render the scene to ensure that the pixel data is in the buffer.
+    this.state.material.uniforms.inTime.value =
+      this.getTime() + this.timeOffset;
     this.state.renderer.render(this.state.scene, this.state.camera);
     const dataUrl = this.state.canvas.toDataURL(mimeType);
     return dataUrl;
@@ -581,13 +651,17 @@ export default class WaveRenderer {
       uniforms: {
         inTime: { value: /* This value is ignored */ 0 },
         inDeformNoiseFrequency: { value: this.getDeformNoiseFrequency() },
-        inDeformNoiseSpeed: { value: this.deformNoiseSpeed },
-        inDeformNoiseStrength: { value: this.deformNoiseStrength },
+        inDeformNoiseSpeed: { value: this.getDeformNoiseSpeed() },
+        inDeformNoiseStrength: { value: this.getDeformNoiseStrength() },
         inDeformNoiseScrollSpeed: { value: this.getDeformNoiseScrollSpeed() },
+        inDeformNoiseClampLow: { value: this.deformNoiseClampLow },
+        inDeformNoiseClampHigh: { value: this.deformNoiseClampHigh },
         inLights: { value: this.getLightsUniformValue() },
         inLightNoiseFrequency: { value: this.getLightNoiseFrequency() },
-        inLightNoiseSpeed: { value: this.lightNoiseSpeed },
+        inLightNoiseSpeed: { value: this.getLightNoiseSpeed() },
         inLightNoiseScrollSpeed: { value: this.getLightNoiseScrollSpeed() },
+        inLightNoiseClampLow: { value: this.lightNoiseClampLow },
+        inLightNoiseClampHigh: { value: this.lightNoiseClampHigh },
         inLightBlendStrength: { value: this.lightBlendStrength },
         inPerLightNoiseOffset: { value: this.perLightNoiseOffset },
         ...this.extraUniforms,
@@ -645,8 +719,21 @@ export default class WaveRenderer {
     return new Vector2(vec.x * PLANE_ASPECT.x, vec.y * PLANE_ASPECT.y);
   }
 
+  private getDeformNoiseSpeed(): number {
+    // Implicitly scale by 100 to make default value more reasonable:
+    return this.deformNoiseSpeed / 100;
+  }
+
+  private getDeformNoiseStrength(): number {
+    // Implicitly scale by 10 to make default value more reasonable:
+    return this.deformNoiseStrength / 10;
+  }
+
   private getDeformNoiseScrollSpeed(): Vector2 {
-    const vec = vector2LikeToThreeVector2(this.deformNoiseScrollSpeed);
+    // Implicitly scale by 100 to make default value more reasonable:
+    const vec = vector2LikeToThreeVector2(
+      this.deformNoiseScrollSpeed
+    ).multiplyScalar(1 / 100);
     return new Vector2(vec.x * PLANE_ASPECT.x, vec.y * PLANE_ASPECT.y);
   }
 
@@ -655,8 +742,16 @@ export default class WaveRenderer {
     return new Vector2(vec.x * PLANE_ASPECT.x, vec.y * PLANE_ASPECT.y);
   }
 
+  private getLightNoiseSpeed(): number {
+    // Implicitly scale by 100 to make default value more reasonable:
+    return this.lightNoiseSpeed / 100;
+  }
+
   private getLightNoiseScrollSpeed(): Vector2 {
-    const vec = vector2LikeToThreeVector2(this.lightNoiseScrollSpeed);
+    // Implicitly scale by 100 to make default value more reasonable:
+    const vec = vector2LikeToThreeVector2(
+      this.lightNoiseScrollSpeed
+    ).multiplyScalar(1 / 100);
     return new Vector2(vec.x * PLANE_ASPECT.x, vec.y * PLANE_ASPECT.y);
   }
 

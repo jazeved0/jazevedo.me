@@ -108,8 +108,7 @@ export const chromePdfBackground = "#525659";
 export const riskOceanColor = "#1d2951";
 
 // Whenever changing these, make sure to re-generate the fallbacks
-// in `src/images/hero` by taking 1080p screenshots of:
-// https://codepen.io/jazeved0/pen/xxXpBEX
+// in `src/images/hero` by following the steps in `HeroBackground.tsx`.
 export const HeroBackgroundColors = {
   [ColorMode.Light]: ["#afc0f7", "#8ed3ee", "#5ea1ee", "#c9a5eb"],
   [ColorMode.Dark]: ["#122557", "#1a3063", "#011542", "#452f61"],

@@ -257,3 +257,62 @@ export function useHorizontalScroll<T extends HTMLElement>(
     return (): void => undefined;
   }, [ref]);
 }
+
+type AugmentedWindow = {
+  debug: Record<string, (...args: never[]) => unknown>;
+  __global_debug_handles: Record<string, ((...args: never[]) => unknown)[]>;
+};
+
+type MaybeAugmentedWindow = Partial<AugmentedWindow>;
+
+/**
+ * Augments the global `window` object with a `debug` object that includes
+ * the given callback functions.
+ *
+ * If multiple callbacks are registered for the same name, they will each
+ * be called in the order they were registered.
+ */
+export function useGlobalDebugHandle<
+  T extends Record<string, (...args: never[]) => unknown>
+>(handles: T, dependencies: unknown[]): void {
+  /* eslint-disable no-underscore-dangle */
+  useEffect(() => {
+    const globalWindow = window as unknown as MaybeAugmentedWindow;
+    if (!globalWindow.debug) {
+      globalWindow.debug = {};
+    }
+    if (!globalWindow.__global_debug_handles) {
+      globalWindow.__global_debug_handles = {};
+    }
+
+    const augmentedGlobalWindow = globalWindow as AugmentedWindow;
+    Object.entries(handles).forEach(([name, handle]) => {
+      if (!augmentedGlobalWindow.__global_debug_handles[name]) {
+        augmentedGlobalWindow.__global_debug_handles[name] = [];
+      }
+      augmentedGlobalWindow.__global_debug_handles[name].push(handle);
+      augmentedGlobalWindow.debug[name] = (...args: never[]): void => {
+        augmentedGlobalWindow.__global_debug_handles[name].forEach((h) =>
+          h(...args)
+        );
+      };
+    });
+
+    return (): void => {
+      Object.entries(handles).forEach(([name, handle]) => {
+        // Remove the specific handle that was previously registered.
+        augmentedGlobalWindow.__global_debug_handles[name] =
+          augmentedGlobalWindow.__global_debug_handles[name].filter(
+            (h) => h !== handle
+          );
+
+        // If there are no more handles for this name, remove the name from the debug object.
+        if (augmentedGlobalWindow.__global_debug_handles[name].length === 0) {
+          delete augmentedGlobalWindow.debug[name];
+        }
+      });
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, dependencies);
+  /* eslint-enable no-underscore-dangle */
+}

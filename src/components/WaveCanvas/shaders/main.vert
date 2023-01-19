@@ -12,10 +12,14 @@ uniform vec2 inDeformNoiseFrequency;
 uniform float inDeformNoiseSpeed;
 uniform vec2 inDeformNoiseScrollSpeed;
 uniform float inDeformNoiseStrength;
+uniform float inDeformNoiseClampLow;
+uniform float inDeformNoiseClampHigh;
 uniform LightStruct inLights;
 uniform vec2 inLightNoiseFrequency;
 uniform float inLightNoiseSpeed;
 uniform vec2 inLightNoiseScrollSpeed;
+uniform float inLightNoiseClampLow;
+uniform float inLightNoiseClampHigh;
 uniform float inLightBlendStrength;
 uniform float inPerLightNoiseOffset;
 
@@ -27,7 +31,9 @@ void main() {
       (uv * inDeformNoiseFrequency) + (inTime * inDeformNoiseScrollSpeed);
   float noiseTimeCoord = inTime * inDeformNoiseSpeed;
   vec3 noiseCoord = vec3(noiseSpaceCoord, noiseTimeCoord);
-  float zOffset = noiseFunc(noiseCoord) * inDeformNoiseStrength;
+  float clampedNoise = clamp(noiseFunc(noiseCoord), inDeformNoiseClampLow,
+                             inDeformNoiseClampHigh);
+  float zOffset = clampedNoise * inDeformNoiseStrength;
   vec3 deformedPosition = vec3(position.x, position.y, position.z + zOffset);
 
   // Compute the blended color from the lights. Each light is applied using
@@ -42,10 +48,11 @@ void main() {
     float noiseTimeCoordOffset = float(i) * inPerLightNoiseOffset;
     float noiseTimeCoord = (inTime * inLightNoiseSpeed) + noiseTimeCoordOffset;
     vec3 noiseCoord = vec3(noiseSpaceCoord, noiseTimeCoord);
-    float mask = noiseFunc(noiseCoord);
+    float clampedNoise = clamp(noiseFunc(noiseCoord), inLightNoiseClampLow,
+                               inLightNoiseClampHigh);
     vec3 lightColor = inLights.colors[i];
-    blendedColor =
-        blendFunc(blendedColor, lightColor, mask * inLightBlendStrength);
+    blendedColor = blendFunc(blendedColor, lightColor,
+                             clampedNoise * inLightBlendStrength);
   }
 
   gl_Position =

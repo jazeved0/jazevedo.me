@@ -10,7 +10,7 @@ import Layout from "../../components/Layout";
 import Meta from "../../components/Meta";
 import WaveCanvas from "../../components/WaveCanvas";
 import type { WaveCanvasRef } from "../../components/WaveCanvas/WaveCanvas";
-import type { NonEmptyArray } from "../../ts-utils";
+import type { NonEmptyArray, TupleVector2 } from "../../ts-utils";
 import {
   ColorMode,
   HeroBackgroundColors as WaveColorStrings,
@@ -64,7 +64,6 @@ export function Head(): React.ReactElement {
   return <Meta title="Waves playground 🌊" noIndex noSiteTitle />;
 }
 
-type TupleVector2 = readonly [x: number, y: number];
 type PlaygroundControls = {
   showStats: boolean;
   timeOffset: number;
@@ -76,9 +75,13 @@ type PlaygroundControls = {
   deformNoiseSpeed: number;
   deformNoiseStrength: number;
   deformNoiseScrollSpeed: TupleVector2;
+  deformNoiseClampLow: number;
+  deformNoiseClampHigh: number;
   lightNoiseFrequency: TupleVector2;
   lightNoiseSpeed: number;
   lightNoiseScrollSpeed: TupleVector2;
+  lightNoiseClampLow: number;
+  lightNoiseClampHigh: number;
   lightBlendFunction: BlendType;
   lightBlendStrength: number;
   perLightNoiseOffset: number;
@@ -93,12 +96,16 @@ const defaultControls = {
   subdivision: 72,
   noiseFunction: NoiseType.Simplex,
   deformNoiseFrequency: [2, 2],
-  deformNoiseSpeed: 0.06,
-  deformNoiseStrength: 0.2,
-  deformNoiseScrollSpeed: [0.025, 0.01],
+  deformNoiseSpeed: 6,
+  deformNoiseStrength: 2,
+  deformNoiseScrollSpeed: [2.5, 1],
+  deformNoiseClampLow: -1,
+  deformNoiseClampHigh: 1,
   lightNoiseFrequency: [1, 1],
-  lightNoiseSpeed: 0.03,
-  lightNoiseScrollSpeed: [0.025, 0.01],
+  lightNoiseSpeed: 3,
+  lightNoiseScrollSpeed: [2.5, 1],
+  lightNoiseClampLow: -0.5,
+  lightNoiseClampHigh: 1,
   lightBlendFunction: BlendType.Normal,
   lightBlendStrength: 1,
   perLightNoiseOffset: 0.2,
@@ -118,9 +125,13 @@ const serializedKeyMap = {
   deformNoiseSpeed: "defSpeed",
   deformNoiseStrength: "defStrength",
   deformNoiseScrollSpeed: "defScroll",
+  deformNoiseClampLow: "defLow",
+  deformNoiseClampHigh: "defHigh",
   lightNoiseFrequency: "lightFreq",
   lightNoiseSpeed: "lightSpeed",
   lightNoiseScrollSpeed: "lightScroll",
+  lightNoiseClampLow: "lightLow",
+  lightNoiseClampHigh: "lightHigh",
   lightBlendFunction: "blendFn",
   lightBlendStrength: "blendStrength",
   perLightNoiseOffset: "lightOffset",
@@ -297,9 +308,13 @@ function Playground(): React.ReactElement {
     deformNoiseSpeed,
     deformNoiseStrength,
     deformNoiseScrollSpeed,
+    deformNoiseClampLow,
+    deformNoiseClampHigh,
     lightNoiseFrequency,
     lightNoiseSpeed,
     lightNoiseScrollSpeed,
+    lightNoiseClampLow,
+    lightNoiseClampHigh,
     lightBlendFunction,
     lightBlendStrength,
     perLightNoiseOffset,
@@ -347,9 +362,17 @@ function Playground(): React.ReactElement {
         deformNoiseSpeed: defaultControls.deformNoiseSpeed,
         deformNoiseStrength: defaultControls.deformNoiseStrength,
         deformNoiseScrollSpeed: defaultControls.deformNoiseScrollSpeed,
+        deformNoiseClamp: [
+          defaultControls.deformNoiseClampLow,
+          defaultControls.deformNoiseClampHigh,
+        ],
         lightNoiseFrequency: defaultControls.lightNoiseFrequency,
         lightNoiseSpeed: defaultControls.lightNoiseSpeed,
         lightNoiseScrollSpeed: defaultControls.lightNoiseScrollSpeed,
+        lightNoiseClamp: [
+          defaultControls.lightNoiseClampLow,
+          defaultControls.lightNoiseClampHigh,
+        ],
         perLightNoiseOffset: defaultControls.perLightNoiseOffset,
         lightBlendFunction: BlendType[defaultControls.lightBlendFunction],
         lightBlendStrength: defaultControls.lightBlendStrength,
@@ -420,8 +443,8 @@ function Playground(): React.ReactElement {
         label: "Frequency",
         hint: "The frequency of the deform noise texture. Higher values increase the number of peaks and valleys that appear on the plane, and decrease their x-y size. This is a vector so that the noise can be scaled differently in the x and y directions.",
         lock: true,
-        x: { min: 0 },
-        y: { min: 0 },
+        x: { min: 0, step: 0.01 },
+        y: { min: 0, step: 0.01 },
         value: deformNoiseFrequency as [number, number],
         onChange: (newDeformNoiseFrequency: TupleVector2) =>
           patchControls({ deformNoiseFrequency: newDeformNoiseFrequency }),
@@ -429,6 +452,7 @@ function Playground(): React.ReactElement {
       deformNoiseSpeed: {
         label: "Speed",
         hint: "The speed of the animation of the deform noise texture. Higher values result in faster animation.",
+        step: 0.01,
         value: deformNoiseSpeed,
         onChange: (newDeformNoiseSpeed: number) =>
           patchControls({ deformNoiseSpeed: newDeformNoiseSpeed }),
@@ -436,6 +460,7 @@ function Playground(): React.ReactElement {
       deformNoiseStrength: {
         label: "Strength",
         hint: "The strength of the deform noise texture. Higher values result in sharper valleys and peaks.",
+        step: 0.01,
         value: deformNoiseStrength,
         onChange: (newDeformNoiseStrength: number) =>
           patchControls({ deformNoiseStrength: newDeformNoiseStrength }),
@@ -444,9 +469,24 @@ function Playground(): React.ReactElement {
         label: "Scroll speed",
         hint: "The speed of the passive scrolling of the deform noise texture. Higher values result in faster scrolling. This is a vector so that the noise can be scrolled at different speeds in the x and y directions.",
         lock: true,
+        x: { step: 0.01 },
+        y: { step: 0.01 },
         value: deformNoiseScrollSpeed as [number, number],
         onChange: (newDeformNoiseScrollSpeed: TupleVector2) =>
           patchControls({ deformNoiseScrollSpeed: newDeformNoiseScrollSpeed }),
+      },
+      deformNoiseClamp: {
+        label: "Clamp",
+        hint: "The lower and upper bounds of the deform noise texture.",
+        min: -1,
+        max: 1,
+        step: 0.01,
+        value: [deformNoiseClampLow, deformNoiseClampHigh],
+        onChange: (newDeformNoiseClamp: [number, number]) =>
+          patchControls({
+            deformNoiseClampLow: newDeformNoiseClamp[0],
+            deformNoiseClampHigh: newDeformNoiseClamp[1],
+          }),
       },
     }),
     "Lights noise": folder({
@@ -454,8 +494,8 @@ function Playground(): React.ReactElement {
         label: "Frequency",
         hint: "The frequency of the light noise texture. Higher values increase the number of bright areas that appear on the plane and decrease their size. This is a vector so that the noise can be scaled differently in the x and y directions.",
         lock: true,
-        x: { min: 0 },
-        y: { min: 0 },
+        x: { min: 0, step: 0.01 },
+        y: { min: 0, step: 0.01 },
         value: lightNoiseFrequency as [number, number],
         onChange: (newLightNoiseFrequency: TupleVector2) =>
           patchControls({ lightNoiseFrequency: newLightNoiseFrequency }),
@@ -463,6 +503,7 @@ function Playground(): React.ReactElement {
       lightNoiseSpeed: {
         label: "Speed",
         hint: "The speed of the animation of the light noise texture. Higher values result in faster animation.",
+        step: 0.01,
         value: lightNoiseSpeed,
         onChange: (newLightNoiseSpeed: number) =>
           patchControls({ lightNoiseSpeed: newLightNoiseSpeed }),
@@ -471,13 +512,29 @@ function Playground(): React.ReactElement {
         label: "Scroll speed",
         hint: "The speed of the passive scrolling of the light noise texture. Higher values result in faster scrolling. This is a vector so that the noise can be scrolled at different speeds in the x and y directions.",
         lock: true,
+        x: { step: 0.01 },
+        y: { step: 0.01 },
         value: lightNoiseScrollSpeed as [number, number],
         onChange: (newLightNoiseScrollSpeed: TupleVector2) =>
           patchControls({ lightNoiseScrollSpeed: newLightNoiseScrollSpeed }),
       },
+      lightNoiseClamp: {
+        label: "Clamp",
+        hint: "The lower and upper bounds of the light noise texture.",
+        min: -1,
+        max: 1,
+        step: 0.01,
+        value: [lightNoiseClampLow, lightNoiseClampHigh],
+        onChange: (newLightNoiseClamp: [number, number]) =>
+          patchControls({
+            lightNoiseClampLow: newLightNoiseClamp[0],
+            lightNoiseClampHigh: newLightNoiseClamp[1],
+          }),
+      },
       perLightNoiseOffset: {
         label: "Offset per light",
         hint: "The offset that each successive light will have on the noise texture.",
+        step: 0.01,
         value: perLightNoiseOffset,
         onChange: (newPerLightNoiseOffset: number) =>
           patchControls({ perLightNoiseOffset: newPerLightNoiseOffset }),
@@ -489,6 +546,7 @@ function Playground(): React.ReactElement {
         hint: 'The opacity that each light will have when blended together. The last light will inherently be the strongest, since it is applied last (when using the "Normal" blend function).',
         min: 0,
         max: 1,
+        step: 0.01,
         value: lightBlendStrength,
         onChange: (newLightBlendStrength: number) =>
           patchControls({ lightBlendStrength: newLightBlendStrength }),
@@ -668,9 +726,13 @@ function Playground(): React.ReactElement {
         deformNoiseSpeed={deformNoiseSpeed}
         deformNoiseStrength={deformNoiseStrength}
         deformNoiseScrollSpeed={deformNoiseScrollSpeed}
+        deformNoiseClampLow={deformNoiseClampLow}
+        deformNoiseClampHigh={deformNoiseClampHigh}
         lightNoiseFrequency={lightNoiseFrequency}
         lightNoiseSpeed={lightNoiseSpeed}
         lightNoiseScrollSpeed={lightNoiseScrollSpeed}
+        lightNoiseClampLow={lightNoiseClampLow}
+        lightNoiseClampHigh={lightNoiseClampHigh}
         lightBlendStrength={lightBlendStrength}
         perLightNoiseOffset={perLightNoiseOffset}
         onRender={postRender}

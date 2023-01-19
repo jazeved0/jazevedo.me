@@ -18,7 +18,7 @@ export type WaveCanvasProps = {
    * An array of colors that will appear as scrolling "lights" on the wave.
    * There must be at least one color.
    */
-  colors: NonEmptyArray<RgbColor>;
+  colors: Readonly<NonEmptyArray<RgbColor>>;
   /**
    * Color that will be used as the "clear color" for the canvas.
    */
@@ -96,6 +96,14 @@ export type WaveCanvasProps = {
    * be scrolled at different speeds in the x and y directions.
    */
   deformNoiseScrollSpeed?: Vector2Like;
+  /**
+   * The minimum value of the deform noise texture.
+   */
+  deformNoiseClampLow?: number;
+  /**
+   * The maximum value of the deform noise texture.
+   */
+  deformNoiseClampHigh?: number;
 
   /**
    * The frequency of the light noise texture. Higher values increase the
@@ -115,6 +123,14 @@ export type WaveCanvasProps = {
    * be scrolled at different speeds in the x and y directions.
    */
   lightNoiseScrollSpeed?: Vector2Like;
+  /**
+   * The minimum value of the light noise texture.
+   */
+  lightNoiseClampLow?: number;
+  /**
+   * The maximum value of the light noise texture.
+   */
+  lightNoiseClampHigh?: number;
   /**
    * The opacity that each light will have when blended together. The last
    * light will inherently be the strongest, since it is applied last (using a
@@ -159,9 +175,13 @@ const WaveCanvas = forwardRef<WaveCanvasRef, WaveCanvasProps>(
       deformNoiseSpeed,
       deformNoiseStrength,
       deformNoiseScrollSpeed,
+      deformNoiseClampLow,
+      deformNoiseClampHigh,
       lightNoiseFrequency,
       lightNoiseSpeed,
       lightNoiseScrollSpeed,
+      lightNoiseClampLow,
+      lightNoiseClampHigh,
       lightBlendStrength,
       perLightNoiseOffset,
       className,
@@ -289,6 +309,24 @@ const WaveCanvas = forwardRef<WaveCanvasRef, WaveCanvasProps>(
         ),
       [deformNoiseScrollSpeed]
     );
+    useEffect(
+      () =>
+        skipEffectBeforeInit(() =>
+          rendererRef.current?.setDeformNoiseClampLow(
+            deformNoiseClampLow ?? null
+          )
+        ),
+      [deformNoiseClampLow]
+    );
+    useEffect(
+      () =>
+        skipEffectBeforeInit(() =>
+          rendererRef.current?.setDeformNoiseClampHigh(
+            deformNoiseClampHigh ?? null
+          )
+        ),
+      [deformNoiseClampHigh]
+    );
     useEffectOnDeepUpdate(
       () =>
         skipEffectBeforeInit(() =>
@@ -313,6 +351,22 @@ const WaveCanvas = forwardRef<WaveCanvasRef, WaveCanvasProps>(
           )
         ),
       [lightNoiseScrollSpeed]
+    );
+    useEffect(
+      () =>
+        skipEffectBeforeInit(() =>
+          rendererRef.current?.setLightNoiseClampLow(lightNoiseClampLow ?? null)
+        ),
+      [lightNoiseClampLow]
+    );
+    useEffect(
+      () =>
+        skipEffectBeforeInit(() =>
+          rendererRef.current?.setLightNoiseClampHigh(
+            lightNoiseClampHigh ?? null
+          )
+        ),
+      [lightNoiseClampHigh]
     );
     useEffect(
       () =>
@@ -353,9 +407,13 @@ const WaveCanvas = forwardRef<WaveCanvasRef, WaveCanvasProps>(
       renderer.setDeformNoiseSpeed(deformNoiseSpeed ?? null);
       renderer.setDeformNoiseStrength(deformNoiseStrength ?? null);
       renderer.setDeformNoiseScrollSpeed(deformNoiseScrollSpeed ?? null);
+      renderer.setDeformNoiseClampLow(deformNoiseClampLow ?? null);
+      renderer.setDeformNoiseClampHigh(deformNoiseClampHigh ?? null);
       renderer.setLightNoiseFrequency(lightNoiseFrequency ?? null);
       renderer.setLightNoiseSpeed(lightNoiseSpeed ?? null);
       renderer.setLightNoiseScrollSpeed(lightNoiseScrollSpeed ?? null);
+      renderer.setLightNoiseClampLow(lightNoiseClampLow ?? null);
+      renderer.setLightNoiseClampHigh(lightNoiseClampHigh ?? null);
       renderer.setLightBlendStrength(lightBlendStrength ?? null);
       renderer.setPerLightNoiseOffset(perLightNoiseOffset ?? null);
       rendererRef.current = renderer;

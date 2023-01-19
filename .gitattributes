@@ -7,6 +7,3 @@ content/projects/risk-game/demo/** linguist-generated=true
 content/projects/college-explorer/**/*.css linguist-vendored=true
 content/projects/college-explorer/**/*.html linguist-vendored=true
 content/projects/college-explorer/**/*.js linguist-vendored=true
-
-# Mark everything in src/vendor directory as vendored
-src/vendor/** linguist-vendored=true

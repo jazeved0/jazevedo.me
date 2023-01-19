@@ -43,8 +43,6 @@ export function adaptiveZoomOrthoViewport({
     newViewport.bottom = -height / aspectRatio / 2;
   }
 
-  // TODO zoom in more if the screen is a square
-
   return newViewport;
 }
 
