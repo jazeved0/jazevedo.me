@@ -226,7 +226,24 @@ export default function HeroBackground({
   );
 }
 
-const LazyWaveCanvas = React.lazy(() => import("./WaveCanvas"));
+async function requestLowPriority(): Promise<void> {
+  if ("requestIdleCallback" in window) {
+    return new Promise((resolve) => {
+      window.requestIdleCallback(() => resolve(), { timeout: 2000 });
+    });
+  } else {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(), 500);
+    });
+  }
+}
+
+const LazyWaveCanvas = React.lazy(async () => {
+  // Load the WaveCanvas component asynchronously, at a low priority.
+  await requestLowPriority();
+  const WaveCanvas = await import("./WaveCanvas");
+  return WaveCanvas;
+});
 
 /**
  * Client-side only component that loads the WaveCanvas component.
