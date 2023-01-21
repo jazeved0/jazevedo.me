@@ -7,29 +7,45 @@ import Header from "./Header";
 import Footer from "./Footer";
 import HashLocationProvider from "./HashLocationProvider";
 
+const StyledContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  min-height: 100%;
+  grid-area: content;
+
+  & > * {
+    flex-shrink: 0;
+  }
+`;
+
+const StyledHeader = styled(Header)`
+  grid-area: header;
+`;
+
+const StyledFooter = styled(Footer)`
+  grid-area: footer;
+`;
+
 const Styled = {
-  OverlayContainer: styled.div`
-    /* Create a grid that stacks all elements on top of each other */
-    display: grid;
-    grid-template-columns: 1fr;
-    height: 100%;
-
-    & > * {
-      grid-row-start: 1;
-      grid-column-start: 1;
-    }
-  `,
   Layout: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
+    display: grid;
     min-height: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "header"
+      "content"
+      "footer";
 
-    & > * {
-      flex-shrink: 0;
+    & > *:not(${StyledHeader}):not(${StyledFooter}):not(${StyledContent}) {
+      grid-area: 1 / 1 / 4 / 2;
     }
   `,
+  Content: StyledContent,
+  Header: StyledHeader,
+  Footer: StyledFooter,
 };
 
 export type LayoutProps = {
@@ -58,18 +74,16 @@ export default function Layout({
   return (
     <ColorModeProvider>
       <HashLocationProvider>
-        <Styled.OverlayContainer>
+        <GlobalCss />
+        <Styled.Layout>
           {overlayChildren}
-          <Styled.Layout>
-            <GlobalCss />
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            {!hideHeader && <Header {...headerProps} />}
-            <div style={{ flexGrow: 1, ...style }} className={className}>
-              {children}
-            </div>
-            {!hideFooter && <Footer />}
-          </Styled.Layout>
-        </Styled.OverlayContainer>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          {!hideHeader && <Styled.Header {...headerProps} />}
+          <Styled.Content style={style} className={className}>
+            {children}
+          </Styled.Content>
+          {!hideFooter && <Styled.Footer />}
+        </Styled.Layout>
       </HashLocationProvider>
     </ColorModeProvider>
   );
