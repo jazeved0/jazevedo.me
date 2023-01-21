@@ -15,13 +15,14 @@ type HashLocationProviderProps = {
 export default function HashLocationProvider({
   children,
 }: HashLocationProviderProps): React.ReactElement {
-  const [hash, setHash] = useState<string>(() => window.location.hash);
+  const [hash, setHash] = useState<string>("");
 
   useEffect(() => {
     const handleHashChange = (): void => {
       setHash(window.location.hash);
     };
 
+    handleHashChange();
     window.addEventListener("hashchange", handleHashChange);
     return () => {
       window.removeEventListener("hashchange", handleHashChange);
