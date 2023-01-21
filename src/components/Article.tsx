@@ -23,6 +23,11 @@ export const cardImageClass = "article--card-image";
  */
 export const noImageStylesClass = "article--skip-images";
 
+/**
+ * Class name to opt out of anchor styles on a single anchor element.
+ */
+export const noLinkStylesClass = "article--skip-link";
+
 const Styled = {
   Article: styled.article`
     --par-spacing: ${gap.micro};
@@ -253,7 +258,7 @@ const Styled = {
       }
     }
 
-    & a:not(.gatsby-resp-image-link) {
+    & a:not(.gatsby-resp-image-link):not(.${noLinkStylesClass}) {
       ${highlightLinks}
     }
 
@@ -262,7 +267,26 @@ const Styled = {
       max-width: none !important;
       box-shadow: ${shadow("z2")};
       border-radius: var(--img-border-radius);
-      overflow: hidden;
+    }
+
+    a.gatsby-resp-image-link {
+      &::after {
+        border-radius: 2px;
+        box-shadow: 0 0 0 8px ${color("primary+20")};
+        content: "";
+        height: 100%;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        transition: opacity 0.2s ease-in-out;
+        width: 100%;
+        z-index: 10;
+      }
+
+      &:focus-visible::after {
+        opacity: 1;
+      }
     }
 
     .${cardImageClass} {
@@ -286,12 +310,13 @@ const Styled = {
     & img {
       &:not(p img):not(.${noImageStylesClass} img) {
         border-radius: var(--img-border-radius);
-        box-shadow: ${shadow("z2")};
         display: block;
 
-        /* If the image is not a Gatsby responsive image, make it responsive */
+        /* If the image is not a Gatsby responsive image, make it responsive
+        and add the box shadow */
         &:not(.gatsby-resp-image-image) {
           width: 100%;
+          box-shadow: ${shadow("z2")};
         }
       }
     }

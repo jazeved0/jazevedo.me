@@ -55,6 +55,8 @@ const colors = {
     "bg-5": "#CDDEEB",
     "bg-10": "#C4D6E5",
     // Other colors
+    "primary+30": "#afbde9",
+    "primary+20": "#889cdd",
     "primary+10": "#627dd3",
     primary: "#506FCE",
     "primary-10": "#4864b9",
@@ -84,6 +86,8 @@ const colors = {
     "bg-5": "#171E33",
     "bg-10": "#13192a",
     // Other colors
+    "primary+30": "#8597cc",
+    "primary+20": "#6178bd",
     "primary+10": "#4760aa",
     primary: "#324ea1",
     "primary-10": "#2d4691",

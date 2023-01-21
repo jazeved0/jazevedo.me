@@ -131,7 +131,7 @@ export default function ProjectPageTemplate({
             buttons={buttons ?? []}
           />
           <Styled.ProjectContent>
-            <Mdx>{children}</Mdx>
+            <Mdx linkableHeadings>{children}</Mdx>
           </Styled.ProjectContent>
           <Styled.ProjectEndRule />
         </Styled.PageLayout>
@@ -143,7 +143,7 @@ export default function ProjectPageTemplate({
       <Layout>
         <Styled.PageLayout>
           <Styled.ProjectContent>
-            <Mdx>{children}</Mdx>
+            <Mdx linkableHeadings>{children}</Mdx>
           </Styled.ProjectContent>
           <Styled.ProjectEndRule />
         </Styled.PageLayout>

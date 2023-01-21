@@ -5,6 +5,7 @@ import GlobalCss from "./GlobalCss";
 import ColorModeProvider from "./ColorModeProvider";
 import Header from "./Header";
 import Footer from "./Footer";
+import HashLocationProvider from "./HashLocationProvider";
 
 const Styled = {
   OverlayContainer: styled.div`
@@ -56,18 +57,20 @@ export default function Layout({
 }: LayoutProps): React.ReactElement {
   return (
     <ColorModeProvider>
-      <Styled.OverlayContainer>
-        {overlayChildren}
-        <Styled.Layout>
-          <GlobalCss />
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          {!hideHeader && <Header {...headerProps} />}
-          <div style={{ flexGrow: 1, ...style }} className={className}>
-            {children}
-          </div>
-          {!hideFooter && <Footer />}
-        </Styled.Layout>
-      </Styled.OverlayContainer>
+      <HashLocationProvider>
+        <Styled.OverlayContainer>
+          {overlayChildren}
+          <Styled.Layout>
+            <GlobalCss />
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+            {!hideHeader && <Header {...headerProps} />}
+            <div style={{ flexGrow: 1, ...style }} className={className}>
+              {children}
+            </div>
+            {!hideFooter && <Footer />}
+          </Styled.Layout>
+        </Styled.OverlayContainer>
+      </HashLocationProvider>
     </ColorModeProvider>
   );
 }

@@ -60,7 +60,6 @@ const Styled = {
       & img,
       &:is(img) {
         &:not(p img):not(.${noImageStylesClass} img) {
-          overflow: hidden;
           border-top-left-radius: var(--figure-border-radius);
           border-top-right-radius: var(--figure-border-radius);
         }
@@ -72,8 +71,9 @@ const Styled = {
       & a.gatsby-resp-image-link,
       a.gatsby-resp-image-link,
       & .gatsby-resp-image-wrapper,
-      &.gatsby-resp-image-wrapper {
-        overflow: hidden;
+      &.gatsby-resp-image-wrapper,
+      & .gatsby-resp-image-background-image,
+      &.gatsby-resp-image-background-image {
         border-top-left-radius: var(--figure-border-radius);
         border-top-right-radius: var(--figure-border-radius);
       }
@@ -98,7 +98,6 @@ const Styled = {
       /* Apply common styles to the "display-table-caption" part of the figure
       (i.e. the figure, excluding the content).
       This will have a bottom rounded border, but a top square border. */
-      /* overflow: hidden; */
       background-color: var(--figure-background-color);
       border-bottom-left-radius: var(--figure-border-radius);
       border-bottom-right-radius: var(--figure-border-radius);
@@ -134,10 +133,10 @@ const Styled = {
       margin-right: auto;
     }
 
-    & .gatsby-resp-image-wrapper {
+    & .gatsby-resp-image-wrapper:not(#__increase_specificity) {
       /* Remove the default box shadow and border radius */
       box-shadow: none;
-      /* This will get overriden by the first-child selector above */
+      /* This will get overridden by the first-child selector above */
       border-radius: 0;
     }
   `,

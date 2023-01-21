@@ -4,6 +4,7 @@ import type { PluginOptions as MdxPluginOptions } from "gatsby-plugin-mdx";
 import type { PluginOptions as ReactSvgPluginOptions } from "gatsby-plugin-react-svg";
 import type { FileSystemConfig } from "gatsby-source-filesystem";
 import RemarkGFM from "remark-gfm";
+import RehypeSlug from "rehype-slug";
 
 import type { GitHubMetadata } from "./src/build/resume-metadata";
 
@@ -76,6 +77,10 @@ const plugins: PluginDefs[] = [
     options: {
       extensions: [".mdx"],
       mdxOptions: {
+        rehypePlugins: [
+          // Add automatic slugified IDs to headings, used in <LinkableHeading>
+          RehypeSlug,
+        ],
         remarkPlugins: [
           // Add support for GitHub-flavored Markdown (GFM), including tables
           RemarkGFM,
