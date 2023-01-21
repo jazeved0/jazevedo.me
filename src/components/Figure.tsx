@@ -61,6 +61,17 @@ const Styled = {
       }
     }
 
+    /* Make any direct children that are images or images in links. If needed an
+    escape hatch can be added if this is too zealous and also applies to inline
+    images (but those should be in <p>'s) */
+    & > img,
+    & > a > img {
+      /* If the image is not a Gatsby responsive image, make it responsive */
+      &:not(.gatsby-resp-image-image) {
+        width: 100%;
+      }
+    }
+
     /* Style the caption */
     figcaption {
       display: table-caption;

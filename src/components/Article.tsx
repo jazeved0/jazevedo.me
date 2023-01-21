@@ -280,6 +280,11 @@ const Styled = {
       border-radius: var(--img-border-radius);
       box-shadow: ${shadow("z2")};
       display: block;
+
+      /* If the image is not a Gatsby responsive image, make it responsive */
+      &:not(.gatsby-resp-image-image) {
+        width: 100%;
+      }
     }
 
     .${iframeClass} {
