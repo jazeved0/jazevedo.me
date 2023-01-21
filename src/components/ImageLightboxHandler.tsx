@@ -24,7 +24,9 @@ async function requestLowPriority(): Promise<void> {
 
 const LazyLightbox = React.lazy(async () => {
   // Load the Lightbox component asynchronously, at a low priority.
-  await requestLowPriority();
+  if (typeof window !== "undefined") {
+    await requestLowPriority();
+  }
   const Lightbox = await import("./Lightbox");
   return Lightbox;
 });
