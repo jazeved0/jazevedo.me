@@ -63,6 +63,7 @@ const colors = {
     shadowBold: "rgba(0, 0, 0, 0.09)",
     shadowHeavy: "rgba(0, 0, 0, 0.3)",
     shadowContrast: "rgba(255, 255, 255, 0.3)",
+    modalOverlay: "rgba(255, 255, 255, 0.7)",
   },
   [ColorMode.Dark]: {
     // Foreground colors
@@ -91,6 +92,7 @@ const colors = {
     shadowBold: "rgba(0, 0, 0, 0.18)",
     shadowHeavy: "rgba(0, 0, 0, 0.5)",
     shadowContrast: "rgba(0, 0, 0, 0.2)",
+    modalOverlay: "rgba(0, 0, 0, 0.7)",
   },
 };
 

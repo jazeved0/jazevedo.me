@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "@emotion/styled";
 import { rgba } from "polished";
 
@@ -8,12 +8,20 @@ import { down } from "../theme/media";
 import { shadow } from "../theme/shadows";
 import { highlightLinks } from "../theme/mixins";
 import { iframeClass } from "./Iframe";
+import ImageLightboxHandler from "./ImageLightboxHandler";
 
 /**
  * Class name for wrapping an image in a "card" (i.e. have a background color
  * and padding outside the image).
  */
-export const cardImageClass = "article-card-image";
+export const cardImageClass = "article--card-image";
+
+/**
+ * Class name to signal that all ancestor images should be skipped when adding
+ * styles related to adding border radius, box shadow, responsive sizing, etc.
+ * This also disables the "lightbox" functionality from applying.
+ */
+export const noImageStylesClass = "article--skip-images";
 
 const Styled = {
   Article: styled.article`
@@ -272,18 +280,19 @@ const Styled = {
       }
     }
 
-    /* Add a border radius and box shadow to direct children that are
-    images or images in links. If needed an escape hatch can be added if this
-    is too zealous and also applies to inline images (but those should be in <p>'s) */
-    & > img,
-    & > a > img {
-      border-radius: var(--img-border-radius);
-      box-shadow: ${shadow("z2")};
-      display: block;
+    /* Add a border radius and box shadow to children that are not inside a
+    paragraph. To opt out, wrap the image with a 'noImageStylesClass' ancestor
+    div. */
+    & img {
+      &:not(p img):not(.${noImageStylesClass} img) {
+        border-radius: var(--img-border-radius);
+        box-shadow: ${shadow("z2")};
+        display: block;
 
-      /* If the image is not a Gatsby responsive image, make it responsive */
-      &:not(.gatsby-resp-image-image) {
-        width: 100%;
+        /* If the image is not a Gatsby responsive image, make it responsive */
+        &:not(.gatsby-resp-image-image) {
+          width: 100%;
+        }
       }
     }
 
@@ -311,9 +320,11 @@ export default function Article({
   className,
   style,
 }: ArticleProps): React.ReactElement {
+  const ref = useRef<HTMLDivElement>(null);
   return (
-    <Styled.Article className={className} style={style}>
+    <Styled.Article className={className} style={style} ref={ref}>
       {children}
+      <ImageLightboxHandler parentRef={ref} />
     </Styled.Article>
   );
 }

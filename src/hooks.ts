@@ -316,3 +316,25 @@ export function useGlobalDebugHandle<
   }, dependencies);
   /* eslint-enable no-underscore-dangle */
 }
+
+export type PreviousValueOption<T> =
+  | {
+      render: "first";
+    }
+  | {
+      render: "other";
+      value: T;
+    };
+
+/**
+ * Gets the previous value of some parameter.
+ * Taken from https://usehooks.com/usePrevious/.
+ */
+export function usePreviousValue<T>(val: T): PreviousValueOption<T> {
+  const ref = useRef<PreviousValueOption<T>>({ render: "first" });
+  useEffect(() => {
+    ref.current = { render: "other", value: val };
+  }, [val]);
+
+  return ref.current;
+}

@@ -21,7 +21,7 @@ const Styled = {
 /**
  * CSS Class to target iframe wrapper elements in `<Article />` components.
  */
-export const iframeClass = "iframe-article-block";
+export const iframeClass = "iframe--article-block";
 
 export type IframeProps = {
   src: string;
@@ -51,7 +51,7 @@ export default function Iframe({
         paddingBottom: `${(height / width) * 100}%`,
         ...style,
       }}
-      className={classNames("iframe-article-block", className)}
+      className={classNames(iframeClass, className)}
     >
       <Styled.Iframe
         src={src}
