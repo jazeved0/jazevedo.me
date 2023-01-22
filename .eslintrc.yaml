@@ -82,6 +82,13 @@ rules:
     - ignorePropertyModificationsForRegex:
         - "^mut[A-Z]"
 
+  # Force `type` imports:
+  "@typescript-eslint/consistent-type-imports":
+    - error
+    - prefer: type-imports
+      fixStyle: separate-type-imports
+      disallowTypeAnnotations: true
+
   # Disable the normal `dot-notation` in favor of the one in `@typescript-eslint`.
   # From https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/dot-notation.md
   "dot-notation": off

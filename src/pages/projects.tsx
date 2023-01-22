@@ -6,7 +6,7 @@ import type { PageProps } from "gatsby";
 import Layout from "../components/Layout";
 import { gap } from "../theme/spacing";
 import { container } from "../theme/layout";
-import { ProjectCardFragment } from "../components/ProjectCard/types";
+import type { ProjectCardFragment } from "../components/ProjectCard/types";
 import ProjectCard from "../components/ProjectCard";
 import Meta from "../components/Meta";
 

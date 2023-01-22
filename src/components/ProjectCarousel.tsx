@@ -1,14 +1,16 @@
-import React, { MouseEvent, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import type { MouseEvent } from "react";
 import styled from "@emotion/styled";
-import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
+import type { VisibilityContext } from "react-horizontal-scrolling-menu";
+import { ScrollMenu } from "react-horizontal-scrolling-menu";
 
-import { ProjectCardFragment } from "./ProjectCard/types";
+import type { ProjectCardFragment } from "./ProjectCard/types";
 import ProjectCard from "./ProjectCard";
 import { gap } from "../theme/spacing";
 import { useDrag, useHorizontalScroll } from "../hooks";
 import { hiddenScrollbar } from "../theme/mixins";
 import { sitePadding } from "../theme/layout";
-import { ProjectCardProps } from "./ProjectCard/ProjectCard";
+import type { ProjectCardProps } from "./ProjectCard/ProjectCard";
 
 type ScrollVisibilityApiType = React.ContextType<typeof VisibilityContext>;
 

@@ -1,22 +1,19 @@
-import React, {
+import type React from "react";
+import {
   useCallback,
   useContext,
   useEffect,
   useMemo,
   useRef,
   useState,
-  MouseEvent,
 } from "react";
+import type { MouseEvent } from "react";
 import shallowEqual from "shallow-equals";
 
-import { ColorMode, ColorModeContext } from "./theme/color";
-import {
-  BreakpointKey,
-  breakpoint,
-  maxWidth,
-  minWidth,
-  betweenWidth,
-} from "./theme/media";
+import type { ColorMode } from "./theme/color";
+import { ColorModeContext } from "./theme/color";
+import type { BreakpointKey } from "./theme/media";
+import { breakpoint, maxWidth, minWidth, betweenWidth } from "./theme/media";
 
 /**
  * Gets the current active color mode.

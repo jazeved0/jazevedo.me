@@ -1,4 +1,5 @@
-import { down, BreakpointKey } from "./media";
+import type { BreakpointKey } from "./media";
+import { down } from "./media";
 import { gap } from "./spacing";
 
 export const sitePaddingVariable = `--site-padding`;

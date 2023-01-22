@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
 
 import type { RgbColor } from "polished/lib/types/color";
+import type { OrthographicCamera, IUniform } from "three";
 import {
-  OrthographicCamera,
   WebGLRenderer,
   Scene,
   Mesh,
@@ -10,7 +10,6 @@ import {
   ShaderMaterial,
   Color as ThreeColor,
   Vector2,
-  IUniform,
 } from "three";
 
 import { logError, logWarn } from "./log";

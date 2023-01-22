@@ -1,4 +1,4 @@
-import { ButtonProps } from "../Button";
+import type { ButtonProps } from "../Button";
 
 export const schema = `
   type Button @dontInfer {

@@ -1,4 +1,4 @@
-import { Color } from "three";
+import type { Color } from "three";
 
 import vertexShader from "./main.vert";
 import fragmentShader from "./main.frag";

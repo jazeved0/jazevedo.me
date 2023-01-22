@@ -1,4 +1,4 @@
-import { Actions } from "gatsby";
+import type { Actions } from "gatsby";
 
 import { schema as buttonSchema } from "../components/LinkButton/schema";
 

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { useStaticQuery, graphql } from "gatsby";
 
-import { ButtonFragment } from "./LinkButton/schema";
+import type { ButtonFragment } from "./LinkButton/schema";
 import LinkButton from "./LinkButton/LinkButton";
 import { container } from "../theme/layout";
 import { gap } from "../theme/spacing";

@@ -1,4 +1,4 @@
-import { Node, Reporter } from "gatsby";
+import type { Node, Reporter } from "gatsby";
 import * as pathLib from "path";
 import * as fsExtra from "fs-extra";
 

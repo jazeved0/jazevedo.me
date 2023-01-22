@@ -1,8 +1,9 @@
-import React, { MouseEvent } from "react";
+import React from "react";
+import type { MouseEvent } from "react";
 import styled from "@emotion/styled";
 import { GatsbyImage } from "gatsby-plugin-image";
 
-import { ProjectCardFragment } from "./types";
+import type { ProjectCardFragment } from "./types";
 import { shadow } from "../../theme/shadows";
 import { gap } from "../../theme/spacing";
 import { color, ColorMode, mode } from "../../theme/color";

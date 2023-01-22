@@ -5,7 +5,7 @@ import type { PageProps, HeadProps } from "gatsby";
 
 import Layout from "../components/Layout";
 import Mdx from "../components/Mdx";
-import { ButtonFragment } from "../components/LinkButton/schema";
+import type { ButtonFragment } from "../components/LinkButton/schema";
 import ProjectOverview from "../components/ProjectOverview";
 import ProjectBackground from "../components/ProjectBackground";
 import { gap } from "../theme/spacing";

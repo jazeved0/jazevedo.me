@@ -13,7 +13,7 @@ import { shadow } from "../theme/shadows";
 import Icon from "../components/Icon";
 import { highlightLinks } from "../theme/mixins";
 import { down } from "../theme/media";
-import { ProjectCardFragment } from "../components/ProjectCard/types";
+import type { ProjectCardFragment } from "../components/ProjectCard/types";
 import BaseProjectCarousel from "../components/ProjectCarousel";
 import Mdx from "../components/Mdx";
 

@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
-import {
+import type {
   IconDefinition,
   IconName,
   IconPrefix,
-  library,
 } from "@fortawesome/fontawesome-svg-core";
+import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGithub,

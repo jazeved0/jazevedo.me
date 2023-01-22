@@ -1,4 +1,4 @@
-import {
+import type {
   IconDefinition,
   IconName,
   // eslint-disable-next-line import/no-unresolved

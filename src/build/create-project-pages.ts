@@ -1,7 +1,7 @@
-import { Actions, CreatePagesArgs, Reporter } from "gatsby";
+import type { Actions, CreatePagesArgs, Reporter } from "gatsby";
 import * as pathLib from "path";
 
-import { ProjectPageContext } from "../templates/Project";
+import type { ProjectPageContext } from "../templates/Project";
 
 const ProjectPageTemplate = pathLib.resolve(
   pathLib.join(__dirname, "../templates/Project.tsx")

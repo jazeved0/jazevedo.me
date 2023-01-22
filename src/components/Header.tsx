@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { useStaticQuery, graphql, Link } from "gatsby";
 import { darken, lighten } from "polished";
 
-import { ButtonFragment } from "./LinkButton/schema";
+import type { ButtonFragment } from "./LinkButton/schema";
 import LinkButton from "./LinkButton/LinkButton";
 import {
   color,

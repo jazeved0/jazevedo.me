@@ -1,5 +1,5 @@
 import { graphql } from "gatsby";
-import { IGatsbyImageData } from "gatsby-plugin-image";
+import type { IGatsbyImageData } from "gatsby-plugin-image";
 
 export const fragment = graphql`
   fragment ProjectCard on Mdx {

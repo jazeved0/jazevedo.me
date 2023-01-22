@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { ButtonFragment } from "./LinkButton/schema";
+import type { ButtonFragment } from "./LinkButton/schema";
 import Button from "./Button";
 import Article from "./Article";
 import ProjectFields from "./ProjectFields";

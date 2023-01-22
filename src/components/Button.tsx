@@ -6,7 +6,7 @@ import classNames from "classnames";
 import { color } from "../theme/color";
 import { shadow } from "../theme/shadows";
 import LinkButton from "./LinkButton";
-import { LinkButtonProps } from "./LinkButton/LinkButton";
+import type { LinkButtonProps } from "./LinkButton/LinkButton";
 
 const Styled = {
   Button: styled(LinkButton)`

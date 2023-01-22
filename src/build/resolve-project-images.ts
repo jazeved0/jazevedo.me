@@ -1,4 +1,4 @@
-import { Node, CreateResolversArgs } from "gatsby";
+import type { Node, CreateResolversArgs } from "gatsby";
 
 // Note: these types are in-exact since there aren't official TypeScript types
 type ResolverContext = {
