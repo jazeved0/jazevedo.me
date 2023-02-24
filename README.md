@@ -1,6 +1,6 @@
 # Personal website ([jazevedo.me](https://jazevedo.me))
 
-This is personal website, where I have a short 'about' section, my current resume, and descriptions/demos of past projects I worked on. It is built using [React](https://reactjs.org), [Gatsby.js](https://www.gatsbyjs.org/) (using full ahead-of-time static generation), and [MDX](https://mdxjs.com/).
+This is my personal website, where I have a short 'about' section, a copy of my current resume, and descriptions/demos of past projects I worked on. It is built using [React](https://reactjs.org), [Gatsby.js](https://www.gatsbyjs.org/) (using full ahead-of-time static generation), and [MDX](https://mdxjs.com/).
 
 - [Home page](https://jazevedo.me/)
 - [Resume](https://jazevedo.me/resume) ([LaTeX source code](https://github.com/jazeved0/jazevedo.me/blob/main/src/resume/main.tex))
