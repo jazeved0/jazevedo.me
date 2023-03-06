@@ -232,15 +232,23 @@ export default function HeroBackground({
   );
 }
 
+async function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), ms);
+  });
+}
+
 async function requestLowPriority(): Promise<void> {
+  // Always sleep at least 1 second to let the rest of the app
+  // hydrate and render.
+  await sleep(1000);
+
   if ("requestIdleCallback" in window) {
-    return new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       window.requestIdleCallback(() => resolve(), { timeout: 2000 });
     });
   } else {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(), 500);
-    });
+    await sleep(2000);
   }
 }
 
@@ -315,7 +323,7 @@ function WaveCanvasLazyLoader(): React.ReactElement {
   const baseLightNoiseScrollSpeed = [2.5, 1] as const;
 
   const speedRamp = [0.001, 0.2, 0.4, 0.6, 0.8, 1] as const;
-  const rampDelayMs = 1000;
+  const rampDelayMs = 500;
   const [speedRampIndex, setSpeedRampIndex] = useState<number>(0);
 
   const getTimeOffset = (index: number): number =>
