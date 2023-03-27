@@ -70,7 +70,6 @@ jobs:
         with:
           root_file: |
             ./src/resume/main.tex
-          latexmk_use_xelatex: true
       - name: Add compiled PDF to artifacts
         uses: actions/upload-artifact@v3
         with:

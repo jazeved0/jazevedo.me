@@ -33,7 +33,6 @@ jobs:
         with:
           root_file: |
             ./src/resume/main.tex
-          latexmk_use_xelatex: true
 
       # The paths here must remain synchronized with the paths in
       # content/data/resume.yaml:
